@@ -1,38 +1,121 @@
-import styled,{css} from 'styled-components'
-import React,{ useState } from 'react';
+import styled, { css, DefaultTheme } from 'styled-components'
+import React, { useState,useRef } from 'react';
+import { tuple } from '../utils/type';
 
 interface BaseButtonProps {
-    size?: 'small' | 'middle' | 'large'
-    type?: 'text' | 'link' | 'dashed' | 'primary' |'danger' |'ghost'
-    className?:string,
-    disabled?:boolean
-    shape?:'circle' | 'round'
-    loading?:boolean
-    block?:boolean
-   
+    size?: 'small'  | 'large'
+    mode?: 'link' | 'dashed' | 'primary' | 'ghost' | 'text'
+    type?:ButtonType
+    className?: string
+    disabled?: boolean
+    shape?: 'circle' | 'round'
+    loading?: boolean
+    block?: boolean
 }
+const ButtonTypes = tuple('success', 'info', 'danger', 'warning');
+type ButtonType = typeof ButtonTypes[number];
 export type NativeButtonProps = {
-    htmlType?:'submit'|'button'|'reset',
+    htmlType?: 'submit' | 'button' | 'reset',
     onClick?: React.MouseEventHandler<HTMLElement>;
-  } & BaseButtonProps &
-    Omit<React.ButtonHTMLAttributes<any>, 'type' | 'onClick'>;
+} & Omit<React.ButtonHTMLAttributes<any>, 'type'| 'onClick'> & BaseButtonProps ;
 
-    const complexMixin = css`
-  
-  `
-const BaseButton=styled.button<NativeButtonProps>`
+const dashedMixin = css`
+    border: 1px dashed #d9d9d9 ;
+    color:black ;
+    &:hover,&:active,&:focus {
+        border-color:${(props) => props.theme.colors.primary};
+        color:${(props) => props.theme.colors.primary};
+    }
+`
+const disabledMixin = css` 
+    border:1px solid rgba(0,0,0,0.25) ;
+    background: #BFBFBF ;
+    color: rgba(0,0,0,0.25) ;
+    &:hover,&:focus, &:active,& {
+        cursor:not-allowed;
+    }
+`
+const normalMixin = css`
+      border: 1px solid #f0f0f0 ;
+      color: black;
+      background: white;
+      &:hover,&:active,&:focus {
+        border-color:${(props) => props.theme.colors.primary};
+        color:${(props) => props.theme.colors.primary};
+    }
 
+`
+const textMixin = css`
+    color:black ;
+    &,&:active,&:hover {
+        background:#fafafa;
+    }
+`
+const linkMixin = css`
+    color:${props => props.theme.colors.primary};
+`
+
+
+const primaryMixin = css`
+    color:white;
+    background: ${props => props.theme.colors.primary};
+    border: 1px solid transparent;
+    &:hover,&:active,&:focus {
+            opacity: 0.8;
+    }
+`
+
+const Switcher = (mode?: 'link' | 'dashed' | 'primary' | 'ghost' | 'text') => {
+    switch (mode) {
+        case 'link':
+            return linkMixin
+        case 'primary':
+            return primaryMixin
+        case 'text':
+            return textMixin
+        case 'dashed':
+            return dashedMixin
+        default:
+            return normalMixin
+    }
+}
+
+const sizeSwicher = (size?: 'small' | 'large') => {
+    switch (size) {
+        case 'small':
+            return css`font-size:11px;padding:2px 3px;`
+        case 'large':
+            return css`font-size: 18px; padding:3px 4px`
+        default:
+            return css`font-size:14px;padding:4px 5px;`
+    }
+}
+
+const shapeSwitcher=(shape?:'round'|'circle')=>{
+    switch(shape){
+        case 'round':
+        return css`border-radius:2px`
+        case 'circle':
+        return css`border-radius:50%;`
+        default:
+        return css``
+    }
+}
+
+const BaseButton = styled.button.attrs((props:NativeButtonProps)=>({type:props.htmlType,className:props.className}))`
+${props => (Switcher(props.mode))}
 position: relative;
 display: inline-block;
 font-weight: 300;
+${props => props.disabled ? disabledMixin : ''}
+${props=>sizeSwicher(props.size)}
+${props=>shapeSwitcher(props.shape)}
 white-space: nowrap;
 text-align: center;
 background-image: none;
-border: 1px solid transparent;
-
-box-shadow: @btn-shadow;
+overflow: hidden;
 cursor: pointer;
-transition: all 0.3s @ease-in-out;
+transition: background-color 200ms ease 0ms, box-shadow 200ms ease 0ms,border 200ms ease 0ms, color 200ms ease 0ms;
 user-select: none;
 touch-action: manipulation;
 &,&:active, &:focus {
@@ -40,24 +123,34 @@ touch-action: manipulation;
   }
 
 `
-const InnerButton:React.ForwardRefRenderFunction<unknown, Partial<NativeButtonProps>>=(props,ref)=>{
-    let {loading,type="",size,disabled=false,shape="",block=false,className="",children}=props
+const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonProps>> = (props, ref) => {
+    let { loading,type, mode, size, disabled = false, shape, block = false, className = "", children,htmlType="button",...rest } = props
     const [innerLoading, setinnerLoading] = useState(!!loading)
+    const buttonRef=(ref as any)||useRef<HTMLButtonElement>()
     const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
         const { onClick } = props;
         if (innerLoading) {
-          return;
+            return;
         }
         if (onClick) {
-          (onClick as React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>)(e);
+            (onClick as React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>)(e);
         }
-      };
+    };
 
-    return (<BaseButton className={className}>{children}</BaseButton>)
+    return (<BaseButton
+        {...rest}
+        type={type}
+        ref={buttonRef}
+        onClick={handleClick}
+        mode={mode}
+        block={block}
+        size={size}
+        disabled={disabled}
+        shape={shape} className={className}>{children||" "}</BaseButton>)
 }
 
 
-const Button =React.forwardRef<unknown,NativeButtonProps>(InnerButton)
-Button.displayName='Button'
+const Button = React.forwardRef<unknown, NativeButtonProps>(InnerButton)
+Button.displayName = 'Button'
 
 export default Button
