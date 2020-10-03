@@ -3,19 +3,22 @@ const srcRoot = path.resolve(__dirname, "../components");
 
 module.exports = {
   mode: "development",
+  
   entry: {
-    path: path.resolve(__dirname, "../example/src/index.js")
+    path: path.resolve(__dirname, "../src/index.tsx")
   },
   output: {
-    path: path.resolve(__dirname, "../example/src"),
+    path: path.resolve(__dirname, "../src/"),
+    publicPath: '../src',
     filename: "bundle.js"
   },
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [ '.tsx', '.ts', '.js' ],
   },
   devServer: {
-    contentBase: path.join(__dirname, "../example/src"),
+    contentBase: path.join(__dirname, "../src"),
     compress: true,
+    writeToDisk: true,
     port: 3001, // 启动端口为 3001 的服务
     open: true // 自动打开浏览器
   },
@@ -30,8 +33,15 @@ module.exports = {
           }
         ]
       },
+  
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+
       {
-        test: /\.s?css$/,
+        test: /\.css$/,
         use: [
           "style-loader",
           "cache-loader",
@@ -41,37 +51,7 @@ module.exports = {
               importLoaders: 1
             }
           },
-          {
-            loader: "postcss-loader"
-          },
-          {
-            loader: "sass-loader"
-          }
-        ]
-      },
-      {
-        test: /\.less$/,
-        use: [
-          "style-loader",
-          "cache-loader",
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 2,
-            }
-          },
-          {
-            loader: "postcss-loader",
-          },
-          {
-            loader: "less-loader",
-          },
-          // {
-          //   loader: 'sass-resources-loader',
-          //   options: {
-          //     resources: [`${srcRoot}/components/styles/normalize.less`]
-          //   }
-          // },
+       
         ]
       },
       {

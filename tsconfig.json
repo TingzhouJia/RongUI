@@ -16,10 +16,10 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react"
   },
   "include": [
-    "example/src", "../setupTests.ts"
+    "src",
+    "../setupTests.ts"
   ]
 }

@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled,{css} from 'styled-components'
+import React,{ useState } from 'react';
 
 interface BaseButtonProps {
     size?: 'small' | 'middle' | 'large'
@@ -16,10 +17,10 @@ export type NativeButtonProps = {
   } & BaseButtonProps &
     Omit<React.ButtonHTMLAttributes<any>, 'type' | 'onClick'>;
 
-const BaseButton=styled.button.attrs((props:NativeButtonProps)=>({
-    className:props.className
-
-}))`
+    const complexMixin = css`
+  
+  `
+const BaseButton=styled.button<NativeButtonProps>`
 
 position: relative;
 display: inline-block;
@@ -27,7 +28,8 @@ font-weight: 300;
 white-space: nowrap;
 text-align: center;
 background-image: none;
-border: 1px @btn-border-style transparent;
+border: 1px solid transparent;
+
 box-shadow: @btn-shadow;
 cursor: pointer;
 transition: all 0.3s @ease-in-out;
@@ -39,9 +41,23 @@ touch-action: manipulation;
 
 `
 const InnerButton:React.ForwardRefRenderFunction<unknown, Partial<NativeButtonProps>>=(props,ref)=>{
-    let {loading,type="",size,disabled=false,shape="",block=false,className="",}=props
-    return (<BaseButton></BaseButton>)
+    let {loading,type="",size,disabled=false,shape="",block=false,className="",children}=props
+    const [innerLoading, setinnerLoading] = useState(!!loading)
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
+        const { onClick } = props;
+        if (innerLoading) {
+          return;
+        }
+        if (onClick) {
+          (onClick as React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>)(e);
+        }
+      };
+
+    return (<BaseButton className={className}>{children}</BaseButton>)
 }
 
 
+const Button =React.forwardRef<unknown,NativeButtonProps>(InnerButton)
+Button.displayName='Button'
 
+export default Button
