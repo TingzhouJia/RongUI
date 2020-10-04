@@ -9,6 +9,7 @@ export const filterPropsWithGroup = (
     return {
       ...props,
       shape:undefined,
+      block:false,
       size: config.size || props.size,
     }
   }

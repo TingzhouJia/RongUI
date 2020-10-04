@@ -1,14 +1,15 @@
 import styled, { css, DefaultTheme } from 'styled-components'
 import React, { useState, useRef } from 'react';
-import { ButtonTypes, ButtonModes, NormalSizes } from '../utils';
+import { StatusTypes, ButtonModes, NormalSizes } from '../utils';
 import { filterPropsWithGroup } from './utils';
 import { useButtonGroupContext } from './btn-group-context';
+import ButtonGroup from './button-group';
 
 
 export interface BaseButtonProps {
     size?: NormalSizes
     mode?: ButtonModes
-    type?: ButtonTypes
+    type?: StatusTypes
     className?: string
     disabled?: boolean
     shape?: 'circle' | 'round'
@@ -20,6 +21,12 @@ export type NativeButtonProps = {
     htmlType?: 'submit' | 'button' | 'reset',
     onClick?: React.MouseEventHandler<HTMLElement>;
 } & Omit<React.ButtonHTMLAttributes<any>, 'type' | 'onClick'> & BaseButtonProps;
+
+interface CompoundedComponent
+  extends React.ForwardRefExoticComponent<Partial<NativeButtonProps> & React.RefAttributes<HTMLElement>> {
+  Group: typeof ButtonGroup;
+
+}
 
 const dashedMixin = css`
     border: 1px dashed #d9d9d9 ;
@@ -132,7 +139,7 @@ const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonP
     const buttonRef = (ref as any) || useRef<HTMLButtonElement>()
     const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
         const { onClick } = props;
-        if (innerLoading) {
+        if (innerLoading||disabled) {
             return;
         }
         if (onClick) {
@@ -153,7 +160,9 @@ const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonP
 }
 
 
-const Button = React.forwardRef<unknown, NativeButtonProps>(InnerButton)
+const Button = React.forwardRef<unknown, NativeButtonProps>(InnerButton) as CompoundedComponent
 Button.displayName = 'Button'
-
+Button.Group=ButtonGroup
 export default Button
+
+

@@ -11,7 +11,7 @@ import { tuple } from "./type"
 //   'warning-light',
 //   'error-light',
 // )
-const buttonTypes = tuple('success', 'info', 'danger', 'warning');
+const statusTypes = tuple('success', 'info', 'danger', 'warning');
 const buttomMode = tuple('link', 'dashed', 'primary', 'ghost', 'text', 'default')
 
 const normalSizes = tuple('small', 'medium', 'large')
@@ -57,7 +57,7 @@ const placement = tuple(
 
 const dividerAlign = tuple('start', 'center', 'end', 'left', 'right')
 
-export type ButtonTypes = typeof buttonTypes[number]
+export type StatusTypes = typeof statusTypes[number]
 
 export type ButtonModes = typeof buttomMode[number]
 export type NormalSizes = typeof normalSizes[number]
