@@ -1,5 +1,5 @@
 import React from 'react'
-import { NormalSizes, ButtonTypes } from '../utils'
+import { NormalSizes} from '../utils'
 import { ButtonGroupContext } from './btn-group-context'
 import styled from 'styled-components'
 interface Props {
