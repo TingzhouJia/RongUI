@@ -1,23 +1,25 @@
 import styled, { css, DefaultTheme } from 'styled-components'
-import React, { useState,useRef } from 'react';
-import { tuple } from '../utils/type';
+import React, { useState, useRef } from 'react';
+import { ButtonTypes, ButtonModes, NormalSizes } from '../utils';
+import { filterPropsWithGroup } from './utils';
+import { useButtonGroupContext } from './btn-group-context';
 
-interface BaseButtonProps {
-    size?: 'small'  | 'large'
-    mode?: 'link' | 'dashed' | 'primary' | 'ghost' | 'text'
-    type?:ButtonType
+
+export interface BaseButtonProps {
+    size?: NormalSizes
+    mode?: ButtonModes
+    type?: ButtonTypes
     className?: string
     disabled?: boolean
     shape?: 'circle' | 'round'
     loading?: boolean
     block?: boolean
 }
-const ButtonTypes = tuple('success', 'info', 'danger', 'warning');
-type ButtonType = typeof ButtonTypes[number];
+
 export type NativeButtonProps = {
     htmlType?: 'submit' | 'button' | 'reset',
     onClick?: React.MouseEventHandler<HTMLElement>;
-} & Omit<React.ButtonHTMLAttributes<any>, 'type'| 'onClick'> & BaseButtonProps ;
+} & Omit<React.ButtonHTMLAttributes<any>, 'type' | 'onClick'> & BaseButtonProps;
 
 const dashedMixin = css`
     border: 1px dashed #d9d9d9 ;
@@ -51,21 +53,22 @@ const textMixin = css`
         background:#fafafa;
     }
 `
-const linkMixin = css`
-    color:${props => props.theme.colors.primary};
-`
+
 
 
 const primaryMixin = css`
-    color:white;
-    background: ${props => props.theme.colors.primary};
-    border: 1px solid transparent;
+color:white;
+background: ${props => props.theme.colors.primary};
+border: 1px solid transparent;
     &:hover,&:active,&:focus {
             opacity: 0.8;
     }
 `
+const linkMixin = css`
+    color:${props => props.theme.colors.primary};
+`
 
-const Switcher = (mode?: 'link' | 'dashed' | 'primary' | 'ghost' | 'text') => {
+const Switcher = (mode?: ButtonModes) => {
     switch (mode) {
         case 'link':
             return linkMixin
@@ -80,7 +83,7 @@ const Switcher = (mode?: 'link' | 'dashed' | 'primary' | 'ghost' | 'text') => {
     }
 }
 
-const sizeSwicher = (size?: 'small' | 'large') => {
+const sizeSwicher = (size?: NormalSizes) => {
     switch (size) {
         case 'small':
             return css`font-size:11px;padding:2px 3px;`
@@ -91,25 +94,25 @@ const sizeSwicher = (size?: 'small' | 'large') => {
     }
 }
 
-const shapeSwitcher=(shape?:'round'|'circle')=>{
-    switch(shape){
+const shapeSwitcher = (shape?: 'round' | 'circle') => {
+    switch (shape) {
         case 'round':
-        return css`border-radius:2px`
+            return css`border-radius:2px`
         case 'circle':
-        return css`border-radius:50%;`
+            return css`border-radius:50%; `
         default:
-        return css``
+            return css``
     }
 }
 
-const BaseButton = styled.button.attrs((props:NativeButtonProps)=>({type:props.htmlType,className:props.className}))`
+const BaseButton = styled.button.attrs((props: NativeButtonProps) => ({ type: props.htmlType, className: props.className }))`
 ${props => (Switcher(props.mode))}
 position: relative;
 display: inline-block;
 font-weight: 300;
 ${props => props.disabled ? disabledMixin : ''}
-${props=>sizeSwicher(props.size)}
-${props=>shapeSwitcher(props.shape)}
+${props => sizeSwicher(props.size)}
+${props => shapeSwitcher(props.shape)}
 white-space: nowrap;
 text-align: center;
 background-image: none;
@@ -121,12 +124,12 @@ touch-action: manipulation;
 &,&:active, &:focus {
     outline: 0;
   }
-
 `
 const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonProps>> = (props, ref) => {
-    let { loading,type, mode, size, disabled = false, shape, block = false, className = "", children,htmlType="button",...rest } = props
+    const groupConfig = useButtonGroupContext()
+    let { loading, type, mode, size, disabled = false, shape, block = false, className = "", children, htmlType = "button", ...rest } =filterPropsWithGroup(props,groupConfig)
     const [innerLoading, setinnerLoading] = useState(!!loading)
-    const buttonRef=(ref as any)||useRef<HTMLButtonElement>()
+    const buttonRef = (ref as any) || useRef<HTMLButtonElement>()
     const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
         const { onClick } = props;
         if (innerLoading) {
@@ -146,7 +149,7 @@ const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonP
         block={block}
         size={size}
         disabled={disabled}
-        shape={shape} className={className}>{children||" "}</BaseButton>)
+        shape={shape} className={className}>{children || " "}</BaseButton>)
 }
 
 
