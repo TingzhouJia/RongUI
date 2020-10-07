@@ -70,7 +70,7 @@ interface BreadcrumbInterface extends React.FC<BreadcrumbProps> {
     Separator: typeof BreadSeperator;
   }
 
-const Breadscrumb: BreadcrumbInterface = ({ separator = "/", className, children,routes,params,itemRender=defaultItemRender}) => {
+const Breadcrumb: BreadcrumbInterface = ({ separator = "/", className, children,routes,params,itemRender=defaultItemRender}) => {
     const childrenArray = React.Children.toArray(children)
 
     const withSeparatorChildren = childrenArray.map((item, index) => {
@@ -126,8 +126,8 @@ const Breadscrumb: BreadcrumbInterface = ({ separator = "/", className, children
       </Nav>)
 
 }
-Breadscrumb.Item=BreadcrumbItem
-Breadscrumb.Separator=BreadSeperator
-export default Breadscrumb
+Breadcrumb.Item=BreadcrumbItem
+Breadcrumb.Separator=BreadSeperator
+export default Breadcrumb
 
 
