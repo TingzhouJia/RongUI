@@ -1,51 +1,40 @@
 import React from 'react'
 import { DesItem, DesItemContainer, DesItemLabel, DesItemContent } from './wrapper';
 export interface CellProps {
-    span: number;
+    size?:'small'|'default'|'large';
     className?: string;
-    component: string;
     style?: React.CSSProperties;
+    column:number;
     bordered?: boolean;
     label?: React.ReactNode;
     content?: React.ReactNode;
     colon?: boolean;
+    direction?:'vertical'|'horizontal'
 }
 
-const Cell: React.FC<CellProps> = ({ component,
-    span,
+const Cell: React.FC<CellProps> = ({ 
     className,
     style,
+    column,
     bordered,
+    direction,
+    size,
     label,
     content,
     colon, }) => {
     
-    const Component = component as any;
-    if (bordered) {
-        return (
-            <Component style={style} colSpan={span} className={className}>
-                <DesItemLabel colon={colon} label={label?true:false}>
-                    <DesItemContent >
-                        {label ? label : content}
-                    </DesItemContent>
-                </DesItemLabel>
-            </Component>
-        )
-    }
     return (
-        <Component style={style} colSpan={span}>
-            <DesItem className={className}>
-                <DesItemContainer>
+                <DesItemContainer style={style} className={className} direction={direction}  bordered={bordered} column={column}>
                     {label && (
                         <DesItemLabel
+                        size={size}
+                        bordered={bordered}
                         colon={colon} label={label?true:false}
                         >
                             {label}
                         </DesItemLabel>)}
-                    {content && <DesItemContent>{content}</DesItemContent>}
+                    {content && <DesItemContent size={size}>{content}</DesItemContent>}
                 </DesItemContainer>
-            </DesItem>
-        </Component>
     )
 }
 
