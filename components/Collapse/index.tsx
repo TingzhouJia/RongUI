@@ -19,12 +19,10 @@ export interface CollapseProps {
     defaultActiveKey?: Array<string | number> | string | number;
     /** 手风琴效果 */
     accordion?: boolean;
-    destroyInactivePanel?: boolean;
     onChange?: (key: string | string[]) => void;
     style?: React.CSSProperties;
     className?: string;
     bordered?: boolean;
-    prefixCls?: string;
     expandIcon?: (panelProps: PanelProps) => React.ReactNode;
     expandIconPosition?: ExpandIconPosition;
     ghost?: boolean;
