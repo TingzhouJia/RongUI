@@ -1,0 +1,1 @@
+export {default,DescriptionProps,DescriptionsItemProps} from './description'

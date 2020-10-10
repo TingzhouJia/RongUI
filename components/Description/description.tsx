@@ -3,19 +3,7 @@ import toArray from '../utils/toArray';
 import { DescBase, DesHeader, DesTitle, DesExtra, DescView } from './wrapper';
 import DescriptionsItem, { DescriptionsItemProps } from './items';
 import Cell from './cell';
-const getFilledItem=(
-    node: React.ReactElement,
-    size:string
-): React.ReactElement =>{
-    let clone = node;
-
-
-        clone = React.cloneElement(node, {
-           size
-            
-        });
-        return clone;
-    }
+export {DescriptionsItemProps}
 
 
   export interface BasicDescriptionsProps {
@@ -71,6 +59,8 @@ export interface DescriptionProps extends React.FC<BasicDescriptionsProps> {
 
 
 Description.Item=DescriptionsItem
+
+export default Description
 
   
 
