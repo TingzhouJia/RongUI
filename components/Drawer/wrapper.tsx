@@ -81,3 +81,16 @@ const shadowright="6px 0 16px -8px rgba(0, 0, 0, 0.08), 9px 0 28px 0 rgba(0, 0, 
 const shadow = "0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),0 9px 28px 8px rgba(0, 0, 0, 0.05)";
 
 const ps= {"top":shadowup,"right":shadowright,"bottom":shadowdown,"left":shadowleft,}
+
+
+export const DrawerHeader=styled.div``
+
+export const DrawerFooter=styled.div``
+
+export const DrawerBody=styled.div``
+
+export const DrawerHeaderTitle=styled.div``
+
+export const DrawerCloseBtn=styled.button``
+
+export const DrawerBodyWrapper=styled.div``

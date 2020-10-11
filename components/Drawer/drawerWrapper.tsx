@@ -122,4 +122,5 @@ const DrawerWrapper: React.FC<IDrawerProps> = (props) => {
     )
 }
 
+export default DrawerWrapper
 
