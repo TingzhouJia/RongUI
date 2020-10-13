@@ -97,12 +97,14 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
 
         return (
             <AffixWrapper
+                className={className}
+                disabled={disabled}
                 borderless={!bordered}
                 readonly={readOnly}
                 withClear={suffix && allowClear && value}
                 focused={focused}
                 ref={containerRef}
-                size={props.size || 'large' }
+                size={size || 'large' }
                 style={style}
                 onMouseUp={onInputMouseUp}
             >

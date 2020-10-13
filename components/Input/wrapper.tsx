@@ -193,3 +193,5 @@ export const TextAreaWrapper=styled.span<{borderless?:boolean}>`
 export const OuterInputWrapper=styled.input`
 
 `
+
+export const SearchIconWrapper=styled.div``

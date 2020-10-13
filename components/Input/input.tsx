@@ -98,7 +98,7 @@ const Input:InputProps=(props)=>{
     const  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         clearPasswordValueAttribute()
         setCurvale(e.target.value)
-        resolveOnChange(this.input, e, props.onChange);
+       // resolveOnChange(this.input, e, props.onChange);
       };
     
     const  handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -121,7 +121,7 @@ const Input:InputProps=(props)=>{
         }
       };
     
-      const onBlur: React.FocusEventHandler<HTMLInputElement> = e => {
+    const onBlur: React.FocusEventHandler<HTMLInputElement> = e => {
         const { onBlur } = props;
         setfocused(false)
         clearPasswordValueAttribute()
@@ -129,12 +129,18 @@ const Input:InputProps=(props)=>{
           onBlur(e);
         }
       };
-    const renderInput = (
-        prefixCls: string,
-        size: typeof SizeType[number] | undefined,
-        bordered: boolean,
-       
-      ) => {
+    const focus=()=>{
+        ref.current?.focus()
+    }
+    const blur=()=>{
+        ref.current?.blur()
+    }
+    const handleReset = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        setCurvale('')
+        focus()
+       // resolveOnChange(this.input, e, this.props.onChange);
+      };
+    const renderInput = () => {
     const { className, addonBefore, addonAfter, size: customizeSize, disabled,onPressEnter,prefix,suffix,allowClear,type,bordered:curBorder,...other } = props;
 
         return (
@@ -150,30 +156,27 @@ const Input:InputProps=(props)=>{
           />
         );
       };
+      
      const renderComponent = () => {
        
         const { bordered = true,size } = props;
 
     
         return (
-         
               <ClearableLabeledInput
                 size={size}
                 {...props}
-
                 inputType="input"
                 value={curvale}
-                element={renderInput( size, bordered, input)}
+                element={renderInput()}
                 handleReset={handleReset}
-                ref={this.saveClearableInput}
-      
                 focused={focused}
                 triggerFocus={focus}
                 bordered={bordered}
               />
-           
         );
       };
+    return (<>{renderComponent()}</>)
 }
 
 export default Input
