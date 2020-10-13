@@ -1,7 +1,9 @@
 import React from 'react'
 import { SearchOutlined, LoadingOutlined } from '@ant-design/icons';
-import { InputBasicProps } from './input';
+import Input, { InputBasicProps } from './input';
+import { composeRef } from 'rc-util/lib/ref';
 import Button from '../Button';
+import { SearchIconWrapper } from './wrapper';
 
 export interface SearchProps extends InputBasicProps {
 
@@ -19,7 +21,7 @@ export interface SearchProps extends InputBasicProps {
 
 const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
 
-    const inputRef = React.useRef<Input>(null);
+
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { onChange: customOnChange, onSearch: customOnSearch } = props;
@@ -32,9 +34,9 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
     };
 
     const onMouseDown: React.MouseEventHandler<HTMLElement> = e => {
-        if (document.activeElement === inputRef.current?.input) {
+       
             e.preventDefault();
-        }
+        
     };
 
     const onSearch = (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLInputElement>) => {
@@ -43,7 +45,7 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
             return;
         }
         if (customOnSearch) {
-            customOnSearch(inputRef.current?.input.value!, e);
+           // customOnSearch(ref.current?.input.value, e);
         }
     };
     const renderLoading = () => {
@@ -59,7 +61,7 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
         return <LoadingOutlined  key="loadingIcon" />;
       };
     
-      const renderSuffix = (prefixCls: string) => {
+      const renderSuffix = () => {
         const { suffix, enterButton, loading } = props;
     
         if (loading && !enterButton) {
@@ -69,7 +71,9 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
         if (enterButton) return suffix;
     
         const icon = (
-          <SearchOutlined className={`${prefixCls}-icon`} key="searchIcon" onClick={onSearch} />
+          <SearchIconWrapper>
+              <SearchOutlined key="searchIcon" onClick={onSearch} />
+          </SearchIconWrapper>
         );
     
         if (suffix) {
@@ -125,5 +129,38 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
     
         return button;
       };
+      const renderSearch = () => {
+        const {
     
+          enterButton,
+          className,
+          size: customizeSize,
+          ...restProps
+        } = props;
+    
+        delete (restProps as any).onSearch;
+        delete (restProps as any).loading;
+    
+    
+        
+        return (
+        
+              <Input
+               
+                onPressEnter={onSearch}
+                {...restProps}
+                size={customizeSize }
+    
+                addonAfter={renderAddonAfter( customizeSize ||'medium' )}
+                suffix={renderSuffix()}
+                onChange={onChange}
+                className={className}
+              />
+ 
+        );
+      };
+    return (<>{renderSearch()}</>)
 })
+
+
+export default Search
