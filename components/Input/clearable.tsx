@@ -1,9 +1,9 @@
 import { tuple } from "../utils";
 import React, { useRef, cloneElement } from 'react'
 import { CloseCircleFilled } from "@ant-design/icons";
-import { CloseBtn, Suffix, Preffix, AffixWrapper } from "./wrapper";
+import { CloseBtn, Suffix, Preffix, AffixWrapper, AddOnWrapper, GroupWrapper, WithAddOnWrapper, TextAreaWrapper } from "./wrapper";
 export const ClearableInputType = tuple('text', 'input');
-const SizeType = tuple('default', 'large', 'small')
+export const SizeType = tuple('medium', 'large', 'small')
 interface BasicProps {
     inputType: typeof ClearableInputType[number];
     value?: any;
@@ -17,9 +17,9 @@ interface BasicProps {
     readOnly?: boolean;
     bordered: boolean;
 }
-export function hasPrefixSuffix(props:  ClearableInputProps) {
+export function hasPrefixSuffix(props: ClearableInputProps) {
     return !!(props.prefix || props.suffix || props.allowClear);
-  }
+}
 /**
  * This props only for input.
  */
@@ -70,46 +70,99 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
         }
         return null;
     }
-    const   renderLabeledIcon=( element: React.ReactElement)=> {
+
+    const renderLabeledIcon = (element: React.ReactElement) => {
         const {
-          focused,
-          value,
-          prefix,
-          className,
-          size,
-          suffix,
-          disabled,
-          allowClear,
-          style,
-          readOnly,
-          bordered,
+            focused,
+            value,
+            prefix,
+            className,
+            size,
+            suffix,
+            disabled,
+            allowClear,
+            style,
+            readOnly,
+            bordered,
         } = props;
         const suffixNode = renderSuffix();
         if (!hasPrefixSuffix(props)) {
-          return cloneElement(element, {
-            value,
-          });
+            return cloneElement(element, {
+                value,
+            });
         }
-    
+
         const prefixNode = prefix ? <Preffix >{prefix}</Preffix> : null;
-    
-       
+
+
         return (
-          <AffixWrapper
-            ref={containerRef}
-            size={props.size||'default'}
-            style={style}
-            onMouseUp={onInputMouseUp}
-          >
-            {prefixNode}
-            {/* {cloneElement(element, {
+            <AffixWrapper
+                borderless={!bordered}
+                readonly={readOnly}
+                withClear={suffix && allowClear && value}
+                focused={focused}
+                ref={containerRef}
+                size={props.size || 'large' }
+                style={style}
+                onMouseUp={onInputMouseUp}
+            >
+                {prefixNode}
+                {/* {cloneElement(element, {
               style: null,
               value,
               className: getInputClassName( bordered, size, disabled),
             })} */}
-            {suffixNode}
-          </AffixWrapper>
+                {suffixNode}
+            </AffixWrapper>
+        );
+    }
+
+    const renderInputWithLabel=(labeledElement: React.ReactElement)=> {
+        const { addonBefore, addonAfter, style, size="large", className } = props;
+        // Not wrap when there is not addons
+        if (!addonBefore && !addonAfter) {
+          return labeledElement;
+        }
+    
+    
+        const addonBeforeNode = addonBefore ? (
+          <AddOnWrapper>{addonBefore}</AddOnWrapper>
+        ) : null;
+        const addonAfterNode = addonAfter ? <AddOnWrapper>{addonAfter}</AddOnWrapper> : null;
+
+        return (
+          <GroupWrapper className={className} size={size} style={style}>
+            <WithAddOnWrapper addon={!!addonBefore|| !!addonAfter}>
+              {addonBeforeNode}
+              {labeledElement}
+              {addonAfterNode}
+            </WithAddOnWrapper>
+          </GroupWrapper>
         );
       }
-      return (<div></div>)
+     const renderTextAreaWithClearIcon=(element: React.ReactElement) =>{
+        const { value, allowClear, className, style, bordered } = props;
+        if (!allowClear) {
+          return cloneElement(element, {
+            value,
+          });
+        }
+
+        return (
+          <TextAreaWrapper borderless={!bordered} className={className} style={style}>
+            {cloneElement(element, {
+              style: null,
+              value,
+            })}
+            {renderClearIcon()}
+          </TextAreaWrapper>
+        );
+      }
+      const { inputType, element } =props;
+      if (inputType === ClearableInputType[0]){
+        return renderTextAreaWithClearIcon( element);
+      }
+      return renderInputWithLabel(renderLabeledIcon(element));
 }
+
+export default ClearableTextField
