@@ -10,8 +10,8 @@ declare module 'styled-components' {
       primary:string
     }
     type:'light'|'dark',
-    palette,
-    expressiveness,
+    palette:ThemePalette,
+    expressiveness:ThemesExpressiveness,
     breakpoints:defaultBreakpoints,
     font:defaultFont,
     size:defaultFontSize
