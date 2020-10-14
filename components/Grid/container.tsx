@@ -3,14 +3,14 @@ import {GridBasicItemProps} from './items'
 import { Wrap } from './types';
 import { GridContainerWrap } from './wrapper';
 interface Props {
-    gap: number
-    wrap: Wrap
-    className: string
+    gap?: number
+    wrap?: Wrap
+    className?: string
   }
 
 export type GridContainerProps = Props & GridBasicItemProps
 
-const GridContainer:React.FC<GridContainerProps>=(props)=>{
+const GridContainer:React.FC<React.PropsWithChildren<GridContainerProps>>=(props)=>{
     const {gap=0,
         wrap='wrap',
         children,
