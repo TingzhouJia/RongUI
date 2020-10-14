@@ -1,7 +1,7 @@
 import React from "react";
 import { ItemMetaContent, ItemMetaTitle, ItemMetaDescription, ItemMetaAvatar, ItemMeta, ItemAction, ItemEachAction, ItemActionSplit, ItemMain, ItemExtra, ItemLi, ItemWrap } from "./wrapper";
 import Grid from "../Grid";
-const {Container}=Grid
+import { ListContext } from ".";
 export interface ListItemProps extends React.HTMLAttributes<HTMLDivElement> {
     className?: string;
     children?: React.ReactNode;
@@ -52,7 +52,7 @@ export const Meta: React.FC<ListItemMetaProps> = ({
     className,
     ...others
   }) => {
-    const { grid, itemLayout } = React.useContext(ListContext);
+    const { grid, itemLayout,bordered,size} = React.useContext(ListContext);
   
     const isItemContainsTextNodeAndNotSingular = () => {
       let result;
@@ -76,7 +76,6 @@ export const Meta: React.FC<ListItemMetaProps> = ({
     const actionsContent = actions && actions.length > 0 && (
       <ItemAction key="actions">
         {actions.map((action: React.ReactNode, i: number) => (
-          // eslint-disable-next-line react/no-array-index-key
           <ItemEachAction key={`item-action-${i}`}>
             {action}
             {i !== actions.length - 1 && <ItemActionSplit />}
@@ -97,18 +96,21 @@ export const Meta: React.FC<ListItemMetaProps> = ({
     : [children, actionsContent, extra?React.cloneElement(extra as React.ReactElement, { key: 'extra' }):<></>]
     const itemChildren = (
       grid?<ItemWrap
+      bordered={bordered}
+      size={size}
         flex={isFlexMode()}
         {...(others as any)} // `li` element `onCopy` prop args is not same as `div`
        
       >
        {Element}
-    </ItemWrap>:<ItemLi  {...(others as any)}>{Element}</ItemLi>
+    </ItemWrap>:<ItemLi   bordered={bordered}
+      size={size}  {...(others as any)}>{Element}</ItemLi>
     );
   
     return grid ? (
-        <Grid.Container >
+        <Grid >
             {itemChildren}
-      </Grid.Container>
+      </Grid>
     ) : (
       itemChildren
     );
