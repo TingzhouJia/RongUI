@@ -33,3 +33,12 @@ export const PaginationItemBtn=styled.button<{active?:boolean,disabled?:boolean}
           opacity:0.6;
         }
 `
+
+export const PaginationNav=styled.nav`
+            margin: 0;
+          padding: 0;
+          font-variant: tabular-nums;
+          font-feature-settings: 'tnum';
+          font-size: 14px;
+         
+`

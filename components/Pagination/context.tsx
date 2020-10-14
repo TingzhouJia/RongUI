@@ -9,6 +9,7 @@ export interface PaginationConfig {
   isFirst?: boolean
   isLast?: boolean
   update?: (type: PaginationUpdateType) => void
+  disabled?:boolean
 }
 
 const defaultContext = {}
