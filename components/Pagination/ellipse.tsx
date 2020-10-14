@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import PaginationItem from './item'
 import { DoubleRightOutlined, EllipsisOutlined, DoubleLeftOutlined } from '@ant-design/icons'
+import { usePaginationContext } from './context'
 interface Props {
     isBefore?: boolean
     onClick?: (e: React.MouseEvent) => void
@@ -8,8 +9,9 @@ interface Props {
 
 const PaginationEllipse:React.FC<Props>=({onClick,isBefore})=>{
     const [showMore, setShowMore] = useState(false)
+    const {disabled}=usePaginationContext()
     return (
-        <PaginationItem   onClick={e => onClick && onClick(e)}
+        <PaginationItem  disabled={disabled} onClick={e => onClick && onClick(e)}
         onMouseEnter={() => setShowMore(true)}
         onMouseLeave={() => setShowMore(false)}>>
             {
