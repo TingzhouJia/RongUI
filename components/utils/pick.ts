@@ -1,5 +1,6 @@
-import { Dispatch, MutableRefObject, SetStateAction, useEffect, useRef, useState,ReactNode } from 'react'
-import React from "react"
+import React, { Dispatch, MutableRefObject, SetStateAction, useEffect, useRef, useState,ReactNode } from 'react'
+
+
 
 export const pickChild = (
     children: ReactNode | undefined,
@@ -22,7 +23,7 @@ export const pickChild = (
   
 
 
-  export type CurrentStateType<S> = [S, Dispatch<SetStateAction<S>>, MutableRefObject<S>]
+export type CurrentStateType<S> = [S, Dispatch<SetStateAction<S>>, MutableRefObject<S>]
   
 export  const useCurrentState = <S>(initialState: S | (() => S)): CurrentStateType<S> => {
     const [state, setState] = useState<S>(() => {
@@ -43,3 +44,34 @@ export  const useCurrentState = <S>(initialState: S | (() => S)): CurrentStateTy
     return [state, setValue, ref]
   }
   
+  export const setChildrenProps = (
+    children: ReactNode | undefined,
+    props: object = {},
+    targetComponents: Array<React.ElementType> = [],
+  ): ReactNode | undefined => {
+    if (React.Children.count(children) === 0) return []
+    const allowAll = targetComponents.length === 0
+    const clone = (child: React.ReactElement, props = {}) => React.cloneElement(child, props)
+  
+    return React.Children.map(children, item => {
+      if (!React.isValidElement(item)) return item
+      if (allowAll) return clone(item, props)
+  
+      const isAllowed = targetComponents.find(child => child === item.type)
+      if (isAllowed) return clone(item, props)
+      return item
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
