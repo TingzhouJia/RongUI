@@ -2,6 +2,7 @@ import { TriggerTypes, SnippetTypes, Placement } from "../utils";
 import { useRef, useState, useEffect } from "react";
 import { TooltipBase } from "./wrapper";
 import React from "react";
+import TooltipContent from "./tooltipContent";
 
 export type TooltipOnVisibleChange = (visible: boolean) => void
 
@@ -107,12 +108,17 @@ const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
       }, [customVisible])
 
       return (
-          <TooltipBase ref={ref}
+          <TooltipBase
+          {...props}
+           ref={ref}
           className={className}
           onClick={clickEventHandler}
           onMouseEnter={() => mouseEventHandler(true)}
           onMouseLeave={() => mouseEventHandler(false)}>
                {children}
+               <TooltipContent {...contentProps}>{text}</TooltipContent>
           </TooltipBase>
       )
 }
+
+export default Tooltip
