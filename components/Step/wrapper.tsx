@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 
-export const StepBase=styled.div<{custom?:boolean,active?:boolean,disabled?:boolean}>`
+export const StepBase = styled.div<{ custom?: boolean, active?: boolean, disabled?: boolean }>`
  position: relative;
   display: inline-block;
   flex: 1;
@@ -12,18 +12,28 @@ export const StepBase=styled.div<{custom?:boolean,active?:boolean,disabled?:bool
   }
 `
 
-export const StepsBase=styled.div<{size?:'default'|'small',direction?:'horizontal'|"vertical",dot?:boolean,nav?:boolean,label?:boolean}>`
+export const StepsBase = styled.div<{ size?: 'default' | 'small', direction?: 'horizontal' | "vertical", dot?: boolean, nav?: boolean, label?: boolean }>`
 display: flex;
   width: 100%;
   font-size: 0;
   text-align: initial;
 
 `
-export const StepItem=styled.div`
+export const StepItem = styled.div<{ nav?: boolean,click?:boolean }>`
+${props=>props.click?css` cursor: pointer;
+        &:hover {
+          opacity: 0.85;
+        }`:null}
 outline: none;
+${props => props.nav ? css` display: inline-block;
+      height: 100%;
+      margin-left: -16px;
+      padding-bottom: 12px;
+      text-align: left;
+      transition: opacity 0.3s;`: null}
 `
 
-export const StepTail=styled.div`
+export const StepTail = styled.div`
 position: absolute;
     top: 12px;
     left: 0;
@@ -41,12 +51,25 @@ position: absolute;
     }
 `
 
-export const StepIcon=styled.div``
+export const StepIcon = styled.div``
 
-export const StepContent=styled.div``
+export const StepContent = styled.div`
+`
 
-export const StepTitle=styled.div`
- position: relative;
+export const StepTitle = styled.div<{ nav?: boolean }>`
+${props => props.nav ? css`
+        max-width: 100%;
+        padding-right: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &::after {
+          display: none;
+        }
+
+`: css`
+    position: relative;
     display: inline-block;
     padding-right: 16px;
     color: rgba(0,0,0,0,85);
@@ -63,9 +86,11 @@ export const StepTitle=styled.div`
       background: rgba(0,0,0,0.25);
       content: '';
     }
+`}
+ 
 `
 
-export const StepSubtitle=styled.div`
+export const StepSubtitle = styled.div`
   display: inline;
     margin-left: 8px;
     color:rgba(0,0,0,0.45);
@@ -73,9 +98,9 @@ export const StepSubtitle=styled.div`
     font-size: 14px;
 `
 
-export const StepDescription=styled.div``
+export const StepDescription = styled.div``
 
-export const StepIconDot=styled.div``
+export const StepIconDot = styled.div``
 
-export const StepItIcon=styled.div``
+export const StepItIcon = styled.div``
 
