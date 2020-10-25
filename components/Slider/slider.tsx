@@ -34,13 +34,14 @@ export interface GenericSliderProps {
 
 
 const Slider: React.FC<GenericSliderProps> = (props) => {
-    const { defaultValue, value, max = 100, min = 0, marks, disabled, style } = props
-    const [defaultVal, setdefaultVal] = useState<number>(defaultValue || value || min || 0)
+    const { defaultValue, max = 100, min = 0, marks, disabled, style } = props
+    const [defaultVal, setdefaultVal] = useState<number>(defaultValue || props.value || min || 0)
     const [curVal, setcurVal] = useState(defaultVal)
     const [dragging, setdragging] = useState(false)
     const handlesRefs = useRef<HTMLDivElement>(null)
     const sliderRef = useRef<HTMLDivElement>(null)
     const [dragOffset, setdragOffset] = useState(0)
+    const [startPos, setstartPos] = useState(0)
     function trimAlignValue(v: number, ) {
         if (v === null) {
             return null;
@@ -71,10 +72,10 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
     }
 
     useEffect(() => {
-        if (!(value || min || max)) {
+        if (!(props.value || min || max)) {
             return;
         }
-        trimAlignValue(value || defaultVal)
+        trimAlignValue(props.value || defaultVal)
         if (isVaild(curVal, { min, max })) {
             onChange(curVal)
         }
@@ -99,19 +100,15 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
         props.onBeforeChange && props.onBeforeChange(curVal);
 
 
-        let startValue = value;
-        let startPosition = position;
+        let value=calcValueByPos(position)
+        setstartPos(position)
 
-        if (curVal === 0) return;
+        if (curVal === value) return;
 
-        let prevMovedHandleIndex = 0;
-
-        onChange(0);
+        onChange(value||0);
     }
 
     const onEnd = (force?: boolean) => {
-
-
         if (dragging || force) {
             props.onAfterChange && props.onAfterChange(curVal);
         }
@@ -119,9 +116,10 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
     };
     function onMove(e: Event, position: number) {
         e.preventDefault()
+        const value=calcValueByPos(position)
         if (value === 0) return;
 
-        onChange(0);
+        onChange(value||0);
     }
 
     function onKeyboard(e: React.KeyboardEvent<Element>) {
@@ -184,6 +182,7 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
             if (onFocus) {
                 onFocus(e);
             }
+            focus()
         }
     };
     function getSliderStart() {
@@ -285,8 +284,7 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
 
     const track = (<Track disabled={props.disabled||false} vertical={props.vertical || false}
         included={props.included || false}
-        offset={0}
-        
+        offset={calcOffset(startPos)||0}
         length={0} />)
 
     return (
@@ -336,3 +334,5 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
         </SliderBodyBase>
     )
 }
+
+export default Slider
