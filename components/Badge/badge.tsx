@@ -1,4 +1,4 @@
-import { LiteralUnion, ResultType } from "../utils";
+import { LiteralUnion, ResultType, NormalSizes } from "../utils";
 import { BadgeBase, BadgeText, BadgeDot, BadgeNumber } from "./components";
 import React from "react";
 import { palette } from "../styles";
@@ -8,7 +8,8 @@ export interface Props {
     count?: React.ReactNode;
     showZero?: boolean;
     /** Max count to show */
-    overflowCount?: number;
+    maxCount?: number;
+
     /** whether to show red dot without number */
     dot?: boolean;
     style?: React.CSSProperties;
@@ -33,7 +34,7 @@ const Badge: React.FC<BadgeProps> = ({ children,
     text,
     color,
     count = null,
-    overflowCount = 99,
+    maxCount = 99,
     dot = false,
     size = 'default',
     style,
@@ -43,7 +44,7 @@ const Badge: React.FC<BadgeProps> = ({ children,
 
     const getNumberedDisplayCount = () => {
         const displayCount =
-            (count as number) > (overflowCount as number) ? `${overflowCount}+` : count;
+            (count as number) > (maxCount as number) ? `${maxCount}+` : count;
         return displayCount as string | number | null;
     };
 
@@ -82,7 +83,7 @@ const Badge: React.FC<BadgeProps> = ({ children,
     }
     const renderStatusText = () => {
         const hidden = isHidden();
-        return hidden || !text ? null : <BadgeText>
+        return hidden || !text ? null : <BadgeText id="badge-text">
             {text}
         </BadgeText>
     };
@@ -91,12 +92,13 @@ const Badge: React.FC<BadgeProps> = ({ children,
 
         return (
             <BadgeBase 
+            id="badge-base"
             status={hasStatus()}
            {...restProps} 
             className={className} 
            >
-                <BadgeDot color={exactColor()}  status={hasStatus()} />
-                <BadgeText >
+                <BadgeDot id="badge-dot" color={exactColor()}  status={hasStatus()} />
+                <BadgeText id="badge-text" >
                     {text}
                 </BadgeText>
             </BadgeBase>
@@ -104,13 +106,15 @@ const Badge: React.FC<BadgeProps> = ({ children,
     }
     return (
         <BadgeBase 
+        id="badge-base"
         status={hasStatus()}
+        style={style}
         className={className} 
        >
            {children}
-        <BadgeNumber dot={isDot()} status={!!status} multi={(!bdot && count && count.toString && count.toString().length > 1) as boolean} 
+        <BadgeNumber id="badge-number" dot={isDot()} status={!!status} multi={(!bdot && count && count.toString().length > 1) as boolean} 
         small={size==='small'} {...restProps} >
-            {getDisplayCount()}
+           {getDisplayCount()}
         </BadgeNumber>
         {renderStatusText()}
         </BadgeBase>

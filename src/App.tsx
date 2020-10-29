@@ -1,12 +1,18 @@
 import React from 'react';
-import Button from '../components/Button/button'
-import Alert from '../components/Alert'
+import Badge from '../components/Badge'
+
 import './App.css';
+import Avatar from '../components/Avatar';
 
 function App() {
   return (
     <div className="App">
-      <Alert message="aaaaaa" showIcon type="success" description="aaaa aa aa  a a a a a  a a a a" closable/>
+    
+     <Badge style={{marginTop:"20px"}} size="small" count={20} dot >
+      <Avatar/>
+     </Badge>
+    
+
     </div>
   );
 }

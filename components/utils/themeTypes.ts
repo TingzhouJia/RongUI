@@ -15,7 +15,7 @@ const statusTypes = tuple('success', 'info', 'danger', 'warning');
 const resultTypes = tuple('success','error','info','warning')
 const buttomMode = tuple('link', 'dashed', 'primary', 'ghost', 'text', 'default')
 
-const normalSizes = tuple('small', 'medium', 'large')
+const normalSizes = tuple('small', 'large',"default")
 
 const normalTypes = tuple('default', 'secondary', 'success', 'warning', 'error')
 
