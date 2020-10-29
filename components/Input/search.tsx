@@ -4,6 +4,7 @@ import Input, { InputBasicProps } from './input';
 import { composeRef } from 'rc-util/lib/ref';
 import Button from '../Button';
 import { SearchIconWrapper } from './wrapper';
+import { NormalTypes, NormalSizes } from '../utils';
 
 export interface SearchProps extends InputBasicProps {
 
@@ -49,7 +50,7 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
         }
     };
     const renderLoading = () => {
-        const { enterButton, size } = props;
+        const { enterButton, size="default" } = props;
     
         if (enterButton) {
           return (
@@ -85,7 +86,7 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
     
         return icon;
       };
-      const renderAddonAfter = ( size: 'small'|'large'|'medium') => {
+      const renderAddonAfter = ( size: NormalSizes) => {
         const { enterButton, disabled, addonAfter, loading } = props;
     
     
@@ -151,7 +152,7 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
                 {...restProps}
                 size={customizeSize }
     
-                addonAfter={renderAddonAfter( customizeSize ||'medium' )}
+                addonAfter={renderAddonAfter( customizeSize ||'default' )}
                 suffix={renderSuffix()}
                 onChange={onChange}
                 className={className}

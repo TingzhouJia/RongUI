@@ -1,13 +1,12 @@
 import styled, { keyframes, css } from "styled-components";
-import { BadgeProps } from "./badge";
+
 
 export const BadgeBase = styled.span<{status?:boolean}>`
-      position: relative;
+  position: relative;
   display: inline-block;
+  border: 1px solid white;
   color: unset;
-  line-height: 1;
   ${props=>props.status?css`
-  line-height: inherit;
     vertical-align: baseline;
   `:''}
 `
@@ -23,12 +22,19 @@ const badgeAnim=keyframes`
 `
 
 export const BadgeNumber=styled.span<{dot?:boolean,multi?:boolean,small?:boolean,status?:boolean}>`
-padding: ${(props)=>props.small?"0":props.multi?'0px 8px':"0 6px"};
+
 position: absolute;
 top: 0;
+display:flex;
+justify-content:center;
+align-items:center;
 right: 0;
 transform: translate(50%, -50%);
 transform-origin: 100% 0%;
+font-size: ${props=>props.small?"8px":"14px"};
+span {
+  font-size: ${props=>props.small?"8px":"14px"};
+}
 ${props=>props.dot?css`
    z-index: auto;
     width: 6px;
@@ -39,18 +45,19 @@ ${props=>props.dot?css`
 `:`
 z-index: auto;
 color: white;
+padding: ${props.small?props.multi?"0px 6px":"0px":props.multi?'0px 8px':"5px"};
 height:${props.small?'14px':'20px'};
-width:${props.small?'14px':'20px'}
+line-height:${props.small?'14px':'20px'};
+min-width:${props.small?'14px':'20px'};
 font-weight: 300;
-font-size: ${props.small?"12px":"14px"};
-line-height: 22px;
 white-space: nowrap;
+
 text-align: center;
 background: #ff4d4f ;
-border-radius: 10px;
+border-radius: ${props.multi?"10px":"50%"};
 box-shadow: 0 0 0 1px #fff ;
-a,
-a:hover {
+cursor:pointer;
+& :hover {
   color: #fff ;
 }
 `}

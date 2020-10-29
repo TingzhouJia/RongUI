@@ -20,7 +20,7 @@ const ButtonGroupDiv = styled.div.attrs(props => ({ className: props.className }
             border:1px solid #d9d9d9;
 `
 const ButtonGroup: React.FC<React.PropsWithChildren<ButtonGroupProps>> = (groupProps) => {
-    const { children, size = "medium", className, } = groupProps
+    const { children, size = "default", className, } = groupProps
     return (
         <ButtonGroupContext.Provider value={{ size, isButtonGroup: true, }}>
             <ButtonGroupDiv className={className}>

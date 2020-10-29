@@ -1,12 +1,12 @@
-import { LiteralUnion } from "../utils";
+import { LiteralUnion, NormalSizes } from "../utils";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
-import ClearableLabeledInput, { SizeType } from './clearable'
+import ClearableLabeledInput from './clearable'
 import { OuterInputWrapper } from "./wrapper";
 export interface InputBasicProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix' | 'type'> {
   prefixCls?: string;
-  size?: 'small'|'large'|'medium';
+  size?: NormalSizes;
   // ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#%3Cinput%3E_types
   type?: LiteralUnion<
     | 'button'

@@ -1,9 +1,9 @@
-import { tuple } from "../utils";
+import { tuple, NormalTypes, NormalSizes } from "../utils";
 import React, { useRef, cloneElement } from 'react'
 import { CloseCircleFilled } from "@ant-design/icons";
 import { CloseBtn, Suffix, Preffix, AffixWrapper, AddOnWrapper, GroupWrapper, WithAddOnWrapper, TextAreaWrapper } from "./wrapper";
 export const ClearableInputType = tuple('text', 'input');
-export const SizeType = tuple('medium', 'large', 'small')
+
 interface BasicProps {
     inputType: typeof ClearableInputType[number];
     value?: any;
@@ -24,7 +24,7 @@ export function hasPrefixSuffix(props: ClearableInputProps) {
  * This props only for input.
  */
 interface ClearableInputProps extends BasicProps {
-    size?: typeof SizeType[number];
+    size?: NormalSizes;
     suffix?: React.ReactNode;
     prefix?: React.ReactNode;
     addonBefore?: React.ReactNode;

@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { ClearableInputType,SizeType } from "./clearable";
+import { ClearableInputType } from "./clearable";
+import { NormalSizes } from "../utils";
 
 
 export const CloseBtn = styled.div<{ type?: typeof ClearableInputType[number], hidden?: boolean }>`
@@ -96,7 +97,7 @@ position: relative;
 
 export const AffixWrapper = styled(BasicInput) <{
     focused?: boolean,
-    disabled?: boolean, size: typeof SizeType[number], withClear?: boolean, readonly?: boolean, borderless?: boolean
+    disabled?: boolean, size: NormalSizes, withClear?: boolean, readonly?: boolean, borderless?: boolean
 }>`
     ${props => props.withClear ? css`padding: 0 !important;
   border: 0 !important;`: null}
@@ -136,7 +137,7 @@ ${props => props.borderless ? css`
 padding: ${props => props.size === 'small' ? "2px 7px" : "3px 11px"};
 `
 
-export const GroupWrapper = styled.span<{ size?: typeof SizeType[number] }>`
+export const GroupWrapper = styled.span<{ size?: NormalSizes }>`
 position: relative;
   display: table;
   width: 100%;

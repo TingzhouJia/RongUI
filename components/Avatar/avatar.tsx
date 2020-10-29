@@ -19,9 +19,6 @@ export interface AvatarProps {
     children?: React.ReactNode;
     text?: string;
     alt?: string;
-    /* callback when img load error */
-    /* return false to prevent Avatar show default fallback behavior, then you can do fallback by your self */
-    onError?: () => boolean;
 }
 type NativeAttrs = Omit<
     Partial<React.ImgHTMLAttributes<any> & React.HTMLAttributes<any>>,
@@ -30,16 +27,16 @@ type NativeAttrs = Omit<
 
 const getSize = (size: NormalSizes | number): string => {
     const sizes: { [key in NormalSizes]: string } = {
-        small: '1.875rem',
-        medium: '3.75rem',
-        large: '5.625rem',
+        small: '30px',
+        default:'40px',
+        large: '65px',
     }
     if (typeof size === 'number') return `${size}px`
     return sizes[size]
 }
 const safeText = (text: string): string => {
     if (text.length <= 4) return text
-    return text.slice(0, 3)
+    return text.slice(0, 4)
 }
 
 const AvatarContainer = styled.span<{ width: string, radius: string }>`
@@ -48,6 +45,7 @@ const AvatarContainer = styled.span<{ width: string, radius: string }>`
     border-radius:${props => props.radius};
     display: inline-block;
     cursor:pointer;
+    
     position: relative;
     overflow: hidden;
     vertical-align: top;
@@ -61,6 +59,7 @@ const AvatarText=styled.span`
  top: 50%;
  font-size: 1em;
  text-align: center;
+ text-overflow:ellipsis;
  transform: translate(-50%, -50%) scale(0.65);
  white-space: nowrap;
  user-select: none;
@@ -73,14 +72,14 @@ border-radius: ${props=>props.radius};
 `
 
 const InnerAvatar: React.ForwardRefRenderFunction<unknown, NativeAttrs> = (props, ref) => {
-    const { shape = "circle", size = "medium", src, text="", alt, className, style,srcSet,...rest } = props
+    const { shape = "circle", size = "default", src, text="", alt, className, style,srcSet,icon,...rest } = props
     const [showText, setShowText] = useState(!src)
     const radius = shape === 'square' ? "2px" : '50%'
   
 
     const width = getSize(size)
-    return (<AvatarContainer width={width} radius={radius} className={className} style={style}>
-        {!showText?<AvatarImg srcSet={srcSet} src={src}  alt={alt} radius={radius} {...rest} />:<AvatarText {...rest}>{safeText(text)}</AvatarText>}
+    return (<AvatarContainer id="avatar-container" width={width} radius={radius} className={className} style={style}>
+        {!showText?<AvatarImg id="avatar-img" srcSet={srcSet} src={src}  alt={alt} radius={radius} {...rest} />:<AvatarText id="avatar-text" {...rest}>{text?safeText(text):icon}</AvatarText>}
     </AvatarContainer>)
 }
 
