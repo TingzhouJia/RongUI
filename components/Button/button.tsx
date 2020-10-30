@@ -1,9 +1,10 @@
 import styled, { css, DefaultTheme } from 'styled-components'
 import React, { useState, useRef } from 'react';
-import { StatusTypes, ButtonModes, NormalSizes } from '../utils';
+import { StatusTypes, ButtonModes, NormalSizes, ResultType } from '../utils';
 import { filterPropsWithGroup } from './utils';
 import { useButtonGroupContext } from './btn-group-context';
 import ButtonGroup from './button-group';
+import { palette } from '../styles';
 
 
 export interface BaseButtonProps {
@@ -39,7 +40,7 @@ const dashedMixin = css`
 `
 const disabledMixin = css` 
     border:1px solid rgba(0,0,0,0.25) ;
-    background: #BFBFBF ;
+    background: #f0f0f0 ;
     color: rgba(0,0,0,0.25) ;
     &:hover,&:focus, &:active,& {
         cursor:not-allowed;
@@ -96,6 +97,14 @@ const Switcher = (mode?: ButtonModes) => {
     }
 }
 
+const TypeBd={
+    success:palette.success,
+    error:palette.error,
+    info:palette.info,
+    warning:palette.warning,
+
+}
+
 const sizeSwicher = (size?: NormalSizes) => {
     switch (size) {
         case 'small':
@@ -119,12 +128,15 @@ const shapeSwitcher = (shape?: 'round' | 'circle',size?: NormalSizes) => {
     }
 }
 
-const BaseButton = styled.button.attrs((props: NativeButtonProps) => ({ type: props.htmlType, className: props.className }))`
+const BaseButton = styled.button.attrs((props: NativeButtonProps) => ({ type: props.htmlType, className: props.className,ctype:props.type }))`
+
 ${props => (Switcher(props.mode))}
+
 position: relative;
 display: inline-block;
 font-weight: 300;
 ${props => props.disabled ? disabledMixin : ''}
+
 ${props => sizeSwicher(props.size)}
 ${props => shapeSwitcher(props.shape)}
 white-space: nowrap;
@@ -139,6 +151,11 @@ cursor: pointer;
 transition: background-color 200ms ease 0ms, box-shadow 200ms ease 0ms,border 200ms ease 0ms, color 200ms ease 0ms;
 user-select: none;
 touch-action: manipulation;
+${props=>props.ctype?css`color:white;border:none;background:${TypeBd[props.ctype as ResultType]};&:hover,&:focus, &:active{
+    border:none;
+    color:white;
+    opacity:0.85;
+}`:null}
 ${
     props=>props.block?css`width:100%;`:null
 }
@@ -148,7 +165,7 @@ ${
 `
 const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonProps>> = (props, ref) => {
     const groupConfig = useButtonGroupContext()
-    let { loading, type, mode, size, disabled = false, shape, block = false, className = "", children, htmlType = "button", ...rest } =filterPropsWithGroup(props,groupConfig)
+    let { loading, type, mode, size, disabled = false, shape="round", block = false, className = "", children, htmlType = "button", ...rest } =filterPropsWithGroup(props,groupConfig)
     const [innerLoading, setinnerLoading] = useState(!!loading)
     const buttonRef = (ref as any) || useRef<HTMLButtonElement>()
     const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {

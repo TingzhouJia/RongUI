@@ -10,6 +10,7 @@ export interface ButtonGroupConfig {
 
 const defaultContext = {
     isButtonGroup: false,
+    size:'default' as NormalSizes,
     disabled: false,
 }
 

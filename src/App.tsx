@@ -10,7 +10,10 @@ function App() {
   return (
    <ThemeProvider theme={ThemeStore}>
       <div className="App" style={{width:"10vw"}}>
-      <Button size="small" mode="primary" block>add</Button>
+      <Button.Group>
+        <Button  mode="dashed" size="large">aaaa</Button>
+        <Button  type="success" >aaaa</Button>
+      </Button.Group>
     
 
     </div>
