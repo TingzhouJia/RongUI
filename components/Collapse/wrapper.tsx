@@ -26,8 +26,7 @@ export const CollapseArrow = styled.div<{ disabled?: boolean, right?: boolean }>
 
 export const CollapseBase = styled.div<{ border?: boolean, ghost?: boolean }>`
   background-color: ${props => props.ghost ? "transparent" : "#fff"} ;
-  border: ${props => props.border ? '1px solid #d9d9d9' : 0};
-  border-bottom: 0;
+  border: ${props => props.border ? '1px solid #d9d9d9' : 'none'};
   border-radius:2px;
   ${clearfix}
   &:hover,&:focus,&:active,& {
@@ -40,8 +39,8 @@ export const CollapseHeader = styled.div<{ arrow?: boolean, right?: boolean }>`
       position: relative;
       padding-top:12px;
       padding-bottom:12px;
-      padding-left: ${props => props.arrow ? "50px" : '20px'};
-      padding-right:${props => props.right ? '20px' : '50px'};
+      padding-left: ${props => props.arrow ?props.right?"16px": '40px':'16px'};
+      padding-right:${props => props.arrow?props.right? '40px' : '16px':"16px"};
       color:rgba(0,0,0,0.85);
       background:#f5f5f5;
       line-height: 22px;
@@ -68,6 +67,7 @@ export const PanelBase = styled.div<{ active?: boolean, disable?: boolean, ghost
 
 export const PanelExtra = styled.div`
  float: right;
+
  &:hover,&:focus,&:active,& {
     outline:none;
   }
@@ -86,11 +86,11 @@ export const PanelContentWrap = styled.div<{ isActive: boolean, border?: boolean
 `
 
 export const PanelContentBox = styled.div<{ border?: boolean, ghost?: boolean }>`
-${props => props.border ? null : css`padding-top: 4px;`}
-padding:16px;
+${props => props.border ? null : css`padding-top: 4px;`};
+padding:0px 16px;
 ${props => props.ghost ? css` padding-top: 12px;
           padding-bottom: 12px;`: null}
           &:hover,&:focus,&:active,& {
     outline:none;
-  }
+  };
 `

@@ -55,12 +55,12 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
 
     }
     return (
-        <PanelBase disable={disabled} active={isActive} tabIndex={disabled ? -1 : 0}
-            aria-expanded={isActive} id={id} className={className} onClick={handleItemClick} onKeyPress={handleKeyPress} >
+        <PanelBase key={id} disable={disabled} active={isActive} tabIndex={disabled ? -1 : 0}
+            aria-expanded={isActive} id={'collapse-panel'} className={className} onClick={handleItemClick} onKeyPress={handleKeyPress} >
             <CollapseHeader id="collapse-panel-header" arrow={showArrow} right={position === 'right'}>
                 {showArrow && icon()}
                 {header}
-                {extra && <PanelExtra id="collapse-panel-header-extra">{extra}</PanelExtra>}
+                {extra && <PanelExtra  id="collapse-panel-header-extra">{extra}</PanelExtra>}
             </CollapseHeader>
             <PanelContent ghost={ghost} border={bordered} isActive={isActive}>{children}</PanelContent>
         </PanelBase>

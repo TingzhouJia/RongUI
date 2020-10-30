@@ -41,7 +41,7 @@ const Collapse:CollapseInterface=(props)=>{
     ) : (
       <RightOutlined rotate={panelProps.isActive ? 90 : undefined} />
     )) as React.ReactNode;
-    return <CollapseArrow disabled={panelProps.disabled} right={panelProps.position==='right'}>{icon}</CollapseArrow>
+    return <CollapseArrow id="collapse-arrow" disabled={panelProps.disabled} right={panelProps.position==='right'}>{icon}</CollapseArrow>
   };
 
   const getNewChild = (child: React.ReactElement, index: number) => {
@@ -106,7 +106,7 @@ const Collapse:CollapseInterface=(props)=>{
     });
   };
 
-return (<CollapseBase style={props.style} className={props.className} ghost={ghost} border={bordered}>{getItems()}</CollapseBase>)
+return (<CollapseBase id="collapse-base" style={props.style} className={props.className} ghost={ghost} border={bordered}>{getItems()}</CollapseBase>)
 }
 Collapse.Panel=CollapsePanel
 export default Collapse

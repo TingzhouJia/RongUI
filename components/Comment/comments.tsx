@@ -22,30 +22,30 @@ export interface CommentProps {
 const Comment: React.FC<CommentProps> = (props) => {
   const { actions, author, avatar, content, children, style, className, datetime } = props
 
-  const actionDom = actions && actions.length > 0 ? <CommentActions>
+  const actionDom = actions && actions.length > 0 ? <CommentActions id="comment-actions">
     {actions.map((action, index) => (
       <li key={`action-${index}`}>{action}</li> // eslint-disable-line react/no-array-index-key
     ))}
   </CommentActions> : null
 
-  const authorDom = (author || datetime) && <ContentAuthor>
-    {author && <AuthorName>{author}</AuthorName>}
-    {datetime && <AuthorDate>{datetime}</AuthorDate>}
+  const authorDom = (author || datetime) && <ContentAuthor id="comment-author-bar">
+    {author && <AuthorName id="comment-autor-name">{author}</AuthorName>}
+    {datetime && <AuthorDate id="comment-author-date">{datetime}</AuthorDate>}
   </ContentAuthor>
 
-    const avatarDom=avatar?<CommentAvatar><CommentImg>{avatar}</CommentImg></CommentAvatar>:null
-  const contentDom = <Content>
+    const avatarDom=avatar?<CommentAvatar id='comment-avatar'>{avatar}</CommentAvatar>:null
+  const contentDom = <Content id="comment-body">
     {authorDom}
-    <ContentDetail>{content}</ContentDetail>
+    <ContentDetail id="comment-detail" >{content}</ContentDetail>
     {actionDom}
   </Content>
 
 const renderNested = ( nestedChildren: any) => {
-  return <NestedChildren>{nestedChildren}</NestedChildren>;
+  return <NestedChildren id="nested-comment">{nestedChildren}</NestedChildren>;
 };
 
-  return (<CommentsBase className={className}>
-    <CommentInner>
+  return (<CommentsBase id='comment-base' style={style} className={className}>
+    <CommentInner id="comment-inner">
       {avatarDom}
       {contentDom}
     </CommentInner>
