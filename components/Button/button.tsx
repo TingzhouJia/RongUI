@@ -31,6 +31,7 @@ interface CompoundedComponent
 const dashedMixin = css`
     border: 1px dashed #d9d9d9 ;
     color:black ;
+    background:transparent;
     &:hover,&:active,&:focus {
         border-color:${(props) => props.theme.colors.primary};
         color:${(props) => props.theme.colors.primary};
@@ -56,6 +57,9 @@ const normalMixin = css`
 `
 const textMixin = css`
     color:black ;
+    border:none;
+    background:transparent;
+
     &,&:active,&:hover {
         background:#fafafa;
     }
@@ -72,6 +76,8 @@ border: 1px solid transparent;
     }
 `
 const linkMixin = css`
+    border:none;
+    background:transparent;
     color:${props => props.theme.colors.primary};
 `
 
@@ -93,22 +99,23 @@ const Switcher = (mode?: ButtonModes) => {
 const sizeSwicher = (size?: NormalSizes) => {
     switch (size) {
         case 'small':
-            return css`font-size:11px;padding:2px 3px;`
+            return css`font-size:11px;padding:2px 8px;`
         case 'large':
-            return css`font-size: 18px; padding:3px 4px`
+            return css`font-size: 18px; padding:8px 22px`
         default:
-            return css`font-size:14px;padding:4px 5px;`
+            return css`font-size:14px;padding:5px 17px;`
     }
 }
 
-const shapeSwitcher = (shape?: 'round' | 'circle') => {
+const shapeSwitcher = (shape?: 'round' | 'circle',size?: NormalSizes) => {
     switch (shape) {
         case 'round':
-            return css`border-radius:2px`
+            return css`border-radius:2px;`
         case 'circle':
-            return css`border-radius:50%; `
+            return css`border-radius:50%;
+            ${size==='small'?'width:25px;height:25px;padding:3px;':size==='large'?'width:45px;height:45px;padding:10px;':'width:35px;height:35px;padding:7px;'};`
         default:
-            return css``
+            return css`border-radius:2px;`
     }
 }
 
@@ -122,12 +129,19 @@ ${props => sizeSwicher(props.size)}
 ${props => shapeSwitcher(props.shape)}
 white-space: nowrap;
 text-align: center;
+display:flex;
+justify-content:center;
+
+align-items:center;
 background-image: none;
 overflow: hidden;
 cursor: pointer;
 transition: background-color 200ms ease 0ms, box-shadow 200ms ease 0ms,border 200ms ease 0ms, color 200ms ease 0ms;
 user-select: none;
 touch-action: manipulation;
+${
+    props=>props.block?css`width:100%;`:null
+}
 &,&:active, &:focus {
     outline: 0;
   }
@@ -148,6 +162,7 @@ const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonP
     };
 
     return (<BaseButton
+        id="base-button"
         {...rest}
         type={type}
         ref={buttonRef}

@@ -1,19 +1,20 @@
 import React from 'react';
-import Badge from '../components/Badge'
+import {ThemeProvider,DefaultTheme} from 'styled-components'
 
 import './App.css';
-import Avatar from '../components/Avatar';
+import { ThemeStore } from '../components/styles';
+import Button from '../components/Button';
+
 
 function App() {
   return (
-    <div className="App">
-    
-     <Badge style={{marginTop:"20px"}} size="small" count={20} dot >
-      <Avatar/>
-     </Badge>
+   <ThemeProvider theme={ThemeStore}>
+      <div className="App" style={{width:"10vw"}}>
+      <Button size="small" mode="primary" block>add</Button>
     
 
     </div>
+   </ThemeProvider>
   );
 }
 
