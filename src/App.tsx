@@ -12,7 +12,7 @@ function App() {
       <div className="App" style={{width:"10vw"}}>
       <Button.Group>
         <Button  mode="dashed" size="large">aaaa</Button>
-        <Button  type="success" >aaaa</Button>
+        <Button mode="dashed" type="success" >aaaa</Button>
       </Button.Group>
     
 
