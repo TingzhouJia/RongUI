@@ -8,20 +8,20 @@ export interface CardMetaProps {
 }
 const Meta:React.FC<CardMetaProps>=(props)=>{
     const {className,avatar,title,description}=props
-    const avatarDom = avatar ? <CardMetaAvatar >{avatar}</CardMetaAvatar> : null;
-    const titleDom = title ? <CardMetaTitle >{title}</CardMetaTitle> : null;
+    const avatarDom = avatar ? <CardMetaAvatar id="card-meta-avatar">{avatar}</CardMetaAvatar> : null;
+    const titleDom = title ? <CardMetaTitle id="card-meta-title" >{title}</CardMetaTitle> : null;
     const descriptionDom = description ? (
-      <CardMetaDescription>{description}</CardMetaDescription>
+      <CardMetaDescription id="card-meta-desc">{description}</CardMetaDescription>
     ) : null;
     const MetaDetail =
         titleDom || descriptionDom ? (
-          <CardMetaDetail>
+          <CardMetaDetail id="card-meta-detail">
             {titleDom}
             {descriptionDom}
           </CardMetaDetail>
         ) : null;
       return (
-        <CardMetaBase className={className}>
+        <CardMetaBase id="card-meta" className={className}>
           {avatarDom}
           {MetaDetail}
         </CardMetaBase>

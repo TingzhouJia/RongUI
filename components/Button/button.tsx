@@ -9,8 +9,8 @@ import { palette } from '../styles';
 
 export interface BaseButtonProps {
     size?: NormalSizes
-    mode?: ButtonModes
-    type?: StatusTypes
+    type?: ButtonModes
+    mode?: StatusTypes
     className?: string
     disabled?: boolean
     shape?: 'circle' | 'round'
@@ -83,50 +83,57 @@ const linkMixin = css`
     }
 `
 
-const Switcher = (mode?: ButtonModes, type?: ResultType) => {
-    if (type) {
-        switch (mode) {
+const Switcher = (mode?: StatusTypes, type?: ButtonModes) => {
+    if (mode) {
+        switch (type) {
             case 'link':
                 return css`
                 ${linkMixin}
-                color:${TypeBd[type]}
+                color:${TypeBd[mode]}
+                &:hover,&:active,&:focus {
+                        opacity:0.75;
+                    }
                 `
             case 'primary':
                 return css`
                     ${primaryMixin}
-                    background:${TypeBd[type]}
+                    background:${TypeBd[mode]}
+                    &:hover,&:active,&:focus {
+                        opacity:0.75;
+                    }
                 `
             case 'text':
                   return css`
                 ${textMixin}
-                color:${TypeBd[type]}
+                color:${TypeBd[mode]}
+
                 `
             case 'dashed':
                   return css`
                 ${dashedMixin}
-                color:${TypeBd[type]};
-                border-color:${TypeBd[type]};
+                color:${TypeBd[mode]};
+                border-color:${TypeBd[mode]};
                 &:hover,&:active,&:focus {
-                color:${TypeBd[type]};
-                border-color:${TypeBd[type]};
-                opacity:0.85;
+                color:${TypeBd[mode]};
+                border-color:${TypeBd[mode]};
+                opacity:0.75;
                 }
                 `
             default:
                   return css`
                 ${normalMixin}
-                color:${TypeBd[type]};
-                border-color:${TypeBd[type]};
+                color:${TypeBd[mode]};
+                border-color:${TypeBd[mode]};
                 &:hover,&:active,&:focus {
-                color:${TypeBd[type]};
-                border-color:${TypeBd[type]};
-                opacity:0.85;
+                color:${TypeBd[mode]};
+                border-color:${TypeBd[mode]};
+                opacity:0.75;
                 }
                 `
         }
     }
    else{ 
-       switch (mode) {
+       switch (type) {
         case 'link':
             return linkMixin
         case 'primary':
@@ -143,7 +150,7 @@ const Switcher = (mode?: ButtonModes, type?: ResultType) => {
 
 const TypeBd = {
     success: palette.success,
-    error: palette.error,
+    danger: palette.error,
     info: palette.info,
     warning: palette.warning,
 
@@ -205,7 +212,7 @@ ${
 `
 const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonProps>> = (props, ref) => {
     const groupConfig = useButtonGroupContext()
-    let { loading, type, mode, size, disabled = false, shape = "round", block = false, className = "", children, htmlType = "button", ...rest } = filterPropsWithGroup(props, groupConfig)
+    let { loading, type="default", mode, size, disabled = false, shape = "round", block = false, className = "", children, htmlType = "button", ...rest } = filterPropsWithGroup(props, groupConfig)
     const [innerLoading, setinnerLoading] = useState(!!loading)
     const buttonRef = (ref as any) || useRef<HTMLButtonElement>()
     const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {

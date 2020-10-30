@@ -29,8 +29,8 @@ export interface CardInterface extends React.FC<CardProps> {
 function getAction(actions: React.ReactNode[]) {
   const actionList = actions.map((action, index) => (
     // eslint-disable-next-line react/no-array-index-key
-    <li style={{ width: `${100 / actions.length}%` }} key={`action-${index}`}>
-      <span>{action}</span>
+    <li key={`action-${index}`}>
+     {action}
     </li>
   ));
   return actionList;
@@ -40,37 +40,37 @@ const Card: CardInterface = (props) => {
     hoverable,
     className,
     extra,
+    style,
     headStyle = {},
     bodyStyle = {},
     title,
     loading,
     bordered = true,
     size = 'default',
-    type,
     cover,
     actions,
     children,
   } = props;
   let head
-  if (title || title) {
+  if (title ||extra) {
     head = (
       <CardHeader id="card-header" size={size} style={headStyle}>
-        {title && <CardHeaderTitle id="card-header-title">{title}</CardHeaderTitle>}
+        {title && <CardHeaderTitle small={size==='small'} id="card-header-title">{title}</CardHeaderTitle>}
         {extra && <CardExtra id="card-header-extra" size={size}>{extra}</CardExtra>}
       </CardHeader>
     );
   }
-  const coverDom = cover ? <CardCover>{cover}</CardCover> : null
+  const coverDom = cover ? <CardCover id="card-cover">{cover}</CardCover> : null
   const body = (
-    <CardBody size={size} style={bodyStyle}>
+    <CardBody id="card-body" size={size} style={bodyStyle}>
       {children}
     </CardBody>
   );
   const actionDom =
     actions && actions.length ? (
-      <CardActions >{getAction(actions)}</CardActions>
+      <CardActions size={size} id="card-actions" >{getAction(actions)}</CardActions>
     ) : null;
-  return (<CardContain size={size} hoverable={hoverable} bordered={bordered} className={className}>
+  return (<CardContain style={style} id="basic-card" size={size} hoverable={hoverable} bordered={bordered} className={className}>
     {head}
     {coverDom}
     {body}
