@@ -7,32 +7,14 @@ import Button from '../components/Button';
 import Card from '../components/Card';
 import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 import Avatar from '../components/Avatar';
+import Checkbox from '../components/Checkbox';
 
 
 function App() {
   return (
    <ThemeProvider theme={ThemeStore}>
       <div className="App" >
-     <Card
-     cover={
-      <img
-        alt="example"
-        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-      />
-    }
-      actions={[
-            <SettingOutlined key="setting" />,
-            <EditOutlined key="edit" />,
-            <EllipsisOutlined key="ellipsis" />,
-          ]} title="card title"  extra={<Button type="link">extra</Button>} style={{width:'300px'}}>
-    <Card.Meta avatar={
-                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-              }
-              title="Card title"
-              description="This is the description">
-
-    </Card.Meta>
-     </Card>
+     <Checkbox checked value="1" onChange={e=>console.log(e)}>aaaa</Checkbox>
     
 
     </div>

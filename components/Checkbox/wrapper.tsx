@@ -13,8 +13,7 @@ const checkanimation = keyframes`
 `
 
 export const CheckBoxBase = styled.span<{ checked?: boolean, disabled?: boolean }>`
-position: relative;
-    top: -0.09em;
+    position: relative;
     display: inline-block;
     line-height: 1;
     white-space: nowrap;
@@ -42,17 +41,18 @@ position: relative;
     
 `
 export const CheckBoxInput = styled.input<{disabled?:boolean}>`
-position: absolute;
+      position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
-      z-index: 1;
+      z-index: -1;
+      outline:none;
       width: 100%;
       height: 100%;
       cursor: ${props=>props.disabled?"not-allowed":"pointer"};
       opacity: 0;
-    &:hover,&:focus {
+      &:hover,&:focus {
         border-color: ${props=>props.disabled?'rgba(0,0,0,0.25)':palette.primary};
     }
 `
@@ -64,7 +64,7 @@ position: absolute;
       left: 0;
       width: 100%;
       height: 100%;
-      border: 1px solid ${palette.primary};
+      /* border: 1px solid ${palette.primary}; */
       border-radius: 2px;
       visibility: hidden;
       animation: ${checkanimation} 0.36s ease-in-out;
@@ -87,37 +87,38 @@ display: inline-block;
     & + & {
       margin-left: 8px;
     }
+
 `
 
 export const CheckboxInner = styled.span<{ checked?: boolean,disabled?:boolean }>`
-   position: relative;
-      top: 0;
-      left: 0;
+      position: relative;
       display: block;
 
       width:16px;
       height: 16px;
-      direction: ltr;
-    
-      background-color: ${props=>props.checked?palette.primary:props.disabled?'rgba(0,0,0,0.25)':'#fff'} ;
+    /* z-index:1; */
+      background-color: ${props=>props.checked?props.theme.colors.primary:props.disabled?'rgba(0,0,0,0.25)':'#fff'} ;
       border: 1px solid ${props=>props.checked?palette.primary:props.disabled?'rgba(0,0,0,0.25)':'rgba(0,0,0,0.45)'};
       border-radius: 2px;
       border-collapse: separate;
       transition: all 0.3s;
-
+  
       ${props => props.checked ? css`
         &::after {
             position: absolute;
-    display: table;
-    border: 2px solid ${props.disabled?'rgba(0,0,0,0.25)':'#fff'};
-    border-top: 0;
-    border-left: 0;
-    transform: rotate(45deg) scale(1) translate(-50%, -50%);
+            left:2px;
+        
+
+    /* border: 2px solid ${props.disabled?'rgba(0,0,0,0.25)':'#fff'};
+ 
+    /* transform: rotate(45deg) scale(1) translate(-50%, -50%); */
     opacity: 1;
     transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
-    content: ' ';
+    text-align:center;
+        content:'✓';
+        color:white;
         }
-    `: css`
+    `: css` 
     &::after {
         position: absolute;
         top: 50%;
