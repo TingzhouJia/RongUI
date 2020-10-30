@@ -1,5 +1,5 @@
 import React from 'react';
-import {ThemeProvider,DefaultTheme} from 'styled-components'
+import { ThemeProvider, DefaultTheme } from 'styled-components'
 
 import './App.css';
 import { ThemeStore } from '../components/styles';
@@ -8,17 +8,27 @@ import Card from '../components/Card';
 import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 import Avatar from '../components/Avatar';
 import Checkbox from '../components/Checkbox';
+import Collapse from '../components/Collapse';
 
 
 function App() {
   return (
-   <ThemeProvider theme={ThemeStore}>
+    <ThemeProvider theme={ThemeStore}>
       <div className="App" >
-     <Checkbox checked value="1" onChange={e=>console.log(e)}>aaaa</Checkbox>
-    
+        <Collapse style={{width:"300px",marginTop:"20px",marginLeft:'20px'}}>
+          <Collapse.Panel  header="aaaaa " position="right">
+            <p>aa</p>
+            <p>aa</p>
+          </Collapse.Panel>
+          <Collapse.Panel header="bbb">
+            <p>aa</p>
+            <p>aa</p>
+          </Collapse.Panel>
+        </Collapse>
 
-    </div>
-   </ThemeProvider>
+
+      </div>
+    </ThemeProvider>
   );
 }
 

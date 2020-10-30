@@ -1,19 +1,9 @@
 import React, { useState, ReactText } from 'react'
 import { RightOutlined } from '@ant-design/icons';
 import { CollapseArrow, CollapseBase } from './wrapper';
-import toArray from '../utils/toArray';
-import CollapsePanel from './Panel';
+import CollapsePanel,{CollapsePanelProps} from './Panel';
 export type ExpandIconPosition = 'left' | 'right' | undefined;
-interface PanelProps {
-    isActive?: boolean;
-    header?: React.ReactNode;
-    className?: string;
-    style?: React.CSSProperties;
-    showArrow?: boolean;
-    forceRender?: boolean;
-    disabled?: boolean;
-    extra?: React.ReactNode;
-  }
+
 export interface CollapseProps {
     activeKey?: Array<string | number> | string | number;
     defaultActiveKey?: Array<string | number> | string | number;
@@ -23,7 +13,7 @@ export interface CollapseProps {
     style?: React.CSSProperties;
     className?: string;
     bordered?: boolean;
-    expandIcon?: (panelProps: PanelProps) => React.ReactNode;
+    expandIcon?: (panelProps: CollapseProps) => React.ReactNode;
     expandIconPosition?: ExpandIconPosition;
     ghost?: boolean;
   }
@@ -32,24 +22,26 @@ export interface CollapseProps {
     Panel: typeof CollapsePanel;
   }
 const Collapse:CollapseInterface=(props)=>{
-  const {accordion=false,expandIcon,bordered=false,ghost=false}=props
+  const {accordion=false,expandIcon,bordered=true,ghost=false}=props
   const [activeKey, setactiveKey] = useState<ReactText[]>([])
-  const getIconPosition = () => {
+  const getIconPosition = (childP?:'left'|'right') => {
     const { expandIconPosition } = props;
     if (expandIconPosition !== undefined) {
       return expandIconPosition;
+    }else if (childP){
+      return childP
     }
-    return  'right';
+    return  'left';
   };
 
-  const renderExpandIcon = (panelProps: PanelProps = {}) => {
+  const renderExpandIcon = (panelProps: CollapsePanelProps = {}) => {
     const { expandIcon } = props;
     const icon = (expandIcon ? (
       expandIcon(panelProps)
     ) : (
       <RightOutlined rotate={panelProps.isActive ? 90 : undefined} />
     )) as React.ReactNode;
-    return <CollapseArrow>{icon}</CollapseArrow>
+    return <CollapseArrow disabled={panelProps.disabled} right={panelProps.position==='right'}>{icon}</CollapseArrow>
   };
 
   const getNewChild = (child: React.ReactElement, index: number) => {
@@ -57,7 +49,7 @@ const Collapse:CollapseInterface=(props)=>{
     if (!child) return null;
     // If there is no key provide, use the panel order as default key
     const key = child.key || String(index);
-    const { header, headerClass, disabled } = child.props;
+    const { header, headerClass, disabled } = child?.props;
     let isActive = false;
     if (accordion) {
       isActive = activeKey[0] === key;
@@ -81,19 +73,20 @@ const Collapse:CollapseInterface=(props)=>{
       }
       setactiveKey(ActiveKey);
     };
-    const renderedIcon=renderExpandIcon()
-    const props = {
+   
+    const props= {
+      ...child.props,
       key,
       panelKey: key,
       header,
       headerClass,
       isActive,
       ghost,
-      position:getIconPosition(),
+      position:getIconPosition(child.props.position),
       bordered,
       children: child.props.children,
-      onItemClick: disabled ? null : onClickItem,
-      expandIcon:renderedIcon
+      onItemClick: disabled ? undefined : onClickItem,
+      expandIcon:renderExpandIcon
     };
 
 
@@ -106,10 +99,14 @@ const Collapse:CollapseInterface=(props)=>{
 
   const  getItems = () => {
     const { children } = props
-    return toArray(children).map(getNewChild);
+    return React.Children.map(children,(item,index)=>{
+      if(item!==undefined){
+       return getNewChild(item as React.ReactElement,index)
+      }
+    });
   };
 
-return (<CollapseBase ghost={ghost} border={bordered}>{getItems()}</CollapseBase>)
+return (<CollapseBase style={props.style} className={props.className} ghost={ghost} border={bordered}>{getItems()}</CollapseBase>)
 }
 Collapse.Panel=CollapsePanel
 export default Collapse
