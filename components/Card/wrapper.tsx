@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { expressiveness, palette } from "../styles";
+import { NormalSizes } from "../utils";
 
 export const clearfix = css`
 &::before {
@@ -23,14 +24,14 @@ position: relative;
 `
 
 export const CardHeader = styled.div<{ size?: string }>`
- min-height: ${props => props.size === 'small' ? '36px' : '48px'};
+    min-height: ${props => props.size === 'small' ? '36px' : '48px'};
     margin-bottom: -1px; 
-    padding: 0 ${props => props.size === 'small' ? '12px' : '24px'};
+    padding: ${props => props.size === 'small' ? '5px' : '8px'} ${props => props.size === 'small' ? '10px' : '16px'};
     color: rgba(0,0,0,0.85);
     font-weight: 500;
     font-size: ${props => props.size === 'small' ? '14px' : '16px'};
     background: #fff ;
-    border-bottom: 1px solid rgba(0,0,0,0.45);
+    border-bottom: 1px solid #d9d9d9;
     border-radius: 2px 2px 0 0;
     display: flex;
       align-items: center;
@@ -49,38 +50,41 @@ export const CardCover = styled.div`
 `
 
 export const CardBody = styled.div<{ size?: string }>`
-padding:${props => props.size === 'small' ? '12px' : '24px'};
+padding:${props => props.size === 'small' ? '10px' : '18px'};
 
 `
 
 export const CardExtra = styled.div<{ size?: string }>`
     float: right;
     margin-left: auto;
-    padding:${props => props.size === 'small' ? '8px' : '16px'};
+    /* padding:${props => props.size === 'small' ? '8px' : '16px'}; */
     color: rgba(0,0,0,0.85);
     font-weight: normal;
-    font-size: ${props => props.size === 'small' ? '14px' : '16px'};
+    font-size: ${props => props.size === 'small' ? '12px' : '14px'};
 `
 
-export const CardActions = styled.ul`
-margin: 0;
+export const CardActions = styled.ul<{size?:string}>`
+    margin: 0;
     padding: 0;
     list-style: none;
     background: #fff ;
-    border-top: 1px solid rgba(0,0,0,0.45);
+    border-top: 1px solid #d9d9d9;
     ${clearfix}
-
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
     & > li {
-      float: left;
-      margin: 12px 0;
+      flex:1;
+      margin: ${props=>props.size==='small'?'6px':'12px'} 0;
       color: rgba(0,0,0,0.7);
       text-align: center;
-      > span {
-        position: relative;
-        display: block;
+      display: flex;
+      justify-content:center;
+      align-items:center;
         min-width: 32px;
-        font-size: 16px;
-        line-height: 24px;
+        font-size: ${props=>props.size==='small'?'14px':'16px'};
+        line-height: ${props=>props.size==='small'?'22px':'24px'};
         cursor: pointer;
         &:hover {
           color: ${palette.primary};
@@ -103,19 +107,18 @@ margin: 0;
           font-size: 14px;
           line-height: 22px;
         }
-      }
 
       &:not(:last-child) {
-        border-right: 1px solid rgba(0,0,0,0.45);
+        border-right: 1px solid #d9d9d9;
       }
     }
 
 `
 
-export const CardHeaderTitle = styled.div`
-display: inline-block;
+export const CardHeaderTitle = styled.h3<{small?:boolean}>`
       flex: 1;
-      padding: 16px 0;
+      font-size:${props=>props.small?"18px":"22px"};
+      margin:0;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -132,6 +135,7 @@ export const CardMetaTitle = styled.div`
 overflow: hidden;
       color: rgba(0,0,0,0.85);
       font-weight: 500;
+      
       font-size: 16px;
       white-space: nowrap;
       text-overflow: ellipsis;
