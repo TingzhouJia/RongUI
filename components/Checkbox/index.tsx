@@ -40,7 +40,7 @@ const Checkbox:CheckboxProps=(props)=>{
     const groupData=useCheckboxGroupContext()
     let restData={...rest}
     const renderCheckBox=()=>{
-        if(groupData){
+        if(Object.keys(groupData).length>0){
             restData.onChange=(...args)=>{
                 if (rest.onChange) {
                     rest.onChange(...args);
@@ -53,9 +53,9 @@ const Checkbox:CheckboxProps=(props)=>{
             restData.disabled=props.disabled||groupData.disabled||false
             restData.checked=groupData.value.indexOf(props.value) !== -1
         }
-     return (<CheckBoxLabel checked={restData.checked} disabled={restData.disabled ||false} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <CheckBoxItem  {...restData} />
-            {children !== undefined && <span>{children}</span>}
+     return (<CheckBoxLabel id="checkbox-base" checked={restData.checked} disabled={restData.disabled ||false} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            <CheckBoxItem id="rong-checkbox" {...restData} />
+            {children && <span>{children}</span>}
         </CheckBoxLabel>)
     }
 return (<>{renderCheckBox()}</>)

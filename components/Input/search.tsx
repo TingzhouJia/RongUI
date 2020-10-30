@@ -54,7 +54,7 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
     
         if (enterButton) {
           return (
-                <Button  mode="primary" size={size}>
+                <Button  type="primary" size={size}>
                   <LoadingOutlined />
                 </Button>
           );
@@ -109,7 +109,7 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
         } else {
           button = (
             <Button
-              mode="primary"
+              type="primary"
               size={size}
               disabled={disabled}
               key="enterButton"

@@ -30,18 +30,31 @@ const CheckBoxItem:React.FC<Props>=(props)=>{
         if (disabled) {
           return;
         }
-        if (!checked) {
+ 
          setCheck(e.target.checked)
-        }
+        
         if (onChange) {
           onChange(e);
         }
       };
 
 
-      return (<CheckBoxBase checked={!!curCheck} disabled={disabled}>
-          <CheckBoxInput type='checkbox' checked={!!curCheck} onFocus={onFocus} onClick={onClick} readOnly={readOnly} value={value} autoFocus={autoFocus} onBlur={onBlur} required={required} name={name} onChange={handleChange} id={id} tabIndex={tabIndex} >
+      return (<CheckBoxBase id="checkbox-item" checked={!!curCheck} disabled={disabled}>
+          <CheckBoxInput type='checkbox' 
+          checked={!!curCheck} 
+          onFocus={onFocus} 
+          onClick={onClick} 
+          readOnly={readOnly} 
+          value={value} 
+          autoFocus={autoFocus} 
+          onBlur={onBlur} 
+          required={required} 
+          name={name} 
+          onChange={handleChange} 
+          id={id} 
+          tabIndex={tabIndex} >
           </CheckBoxInput>
+        
           <CheckboxInner disabled={disabled} checked={!!curCheck}/>
       </CheckBoxBase>)
 }
