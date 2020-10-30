@@ -14,7 +14,7 @@ const SeperatorWrapper=styled.span`
           align-items: center;
 `
 const BreadSeperator:React.FC<BreadSeperator>=({children,className})=>{
-    return <SeperatorWrapper className={className}>{children||'/'}</SeperatorWrapper>
+    return <SeperatorWrapper id="bread-seperator" className={className}>{children||'/'}</SeperatorWrapper>
 }
 
 export default BreadSeperator

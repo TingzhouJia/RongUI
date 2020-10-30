@@ -10,6 +10,7 @@ export interface BreadcrumbItemProps {
 const LinkWrapper = styled.a`
  color: rgba(0,0,0,0.85);
     transition: color 0.3s;
+    cursor:pointer;
     &:hover {
       color: #ff7a45 ;
     };
@@ -42,9 +43,9 @@ const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({  href, children, ...res
     const [withoutSepChildren] = pickChild(children, BreadSeperator)
     let link;
     if (href) {
-        link = (<LinkWrapper {...rest} >{withoutSepChildren}</LinkWrapper>)
+        link = (<LinkWrapper id="bread-item-link" {...rest} >{withoutSepChildren}</LinkWrapper>)
     } else {
-        link = (<SpanWrapper  {...rest}>{withoutSepChildren}</SpanWrapper>)
+        link = (<SpanWrapper id="bread-item-span"  {...rest}>{withoutSepChildren}</SpanWrapper>)
     }
     if (children) {
         return (

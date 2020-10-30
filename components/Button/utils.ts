@@ -8,7 +8,7 @@ export const filterPropsWithGroup = (
     if (!config.isButtonGroup) return props
     return {
       ...props,
-      shape:undefined,
+      shape:"round",
       block:false,
       size: config.size || props.size,
     }
