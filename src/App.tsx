@@ -15,8 +15,8 @@ function App() {
   return (
     <ThemeProvider theme={ThemeStore}>
       <div className="App" >
-        <Collapse style={{width:"300px",marginTop:"20px",marginLeft:'20px'}}>
-          <Collapse.Panel  header="aaaaa " position="right">
+        <Collapse accordion style={{width:"300px",marginTop:"20px",marginLeft:'20px'}}>
+          <Collapse.Panel  extra={<SettingOutlined/>} header="aaaaa " position="right">
             <p>aa</p>
             <p>aa</p>
           </Collapse.Panel>
