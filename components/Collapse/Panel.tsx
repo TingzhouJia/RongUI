@@ -1,6 +1,7 @@
 import React from 'react'
-import { PanelBase, PanelExtra, CollapseHeader } from './wrapper';
+import { PanelBase, PanelExtra, CollapseHeader, CollapseArrow } from './wrapper';
 import PanelContent from './content';
+import CollapseIcon from './icon';
 export interface CollapsePanelProps {
     id?: string;
     header?: string | React.ReactNode;
@@ -11,13 +12,13 @@ export interface CollapsePanelProps {
     isActive?: boolean;
     disabled?: boolean;
     destroyInactivePanel?: boolean;
-    bordered?:boolean,
-    position:'left'|'right'
+    bordered?: boolean,
+    position?: 'left' | 'right'
     extra?: string | React.ReactNode;
     onItemClick?: (panelKey: string | number) => void;
-    expandIcon?: (props: object) => React.ReactNode;
+    expandIcon?: (props: any) => React.ReactNode;
     panelKey?: string | number;
-    ghost?:boolean
+    ghost?: boolean
     role?: string;
 }
 
@@ -27,16 +28,16 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
         className,
         id,
         header,
-        bordered=false,
+        bordered = false,
         children,
-        ghost=false,
-        isActive=false,
-        showArrow,
+        ghost = false,
+        isActive = false,
+        showArrow=true,
         position,
         disabled,
         expandIcon,
         extra,
-      } = props;
+    } = props;
     const handleItemClick = () => {
         const { onItemClick, panelKey } = props;
 
@@ -49,16 +50,19 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
             handleItemClick();
         }
     };
-    const icon:React.ReactNode=expandIcon?expandIcon(props):<i className="arrow" />
+    const icon= ()=>{
+       return expandIcon&&expandIcon(props)
+
+    }
     return (
-        <PanelBase disable={disabled} active={isActive}  tabIndex={disabled ? -1 : 0}
-        aria-expanded={isActive} id={id} className={className} onClick={handleItemClick} onKeyPress={handleKeyPress} >
-           <CollapseHeader arrow={showArrow} right={position==='right'}>
-           {showArrow&&icon}
-            {header}
-            {extra&&<PanelExtra>{extra}</PanelExtra>}
-           </CollapseHeader>
-            <PanelContent ghost={ghost} border={bordered } isActive={isActive}>{children}</PanelContent>
+        <PanelBase disable={disabled} active={isActive} tabIndex={disabled ? -1 : 0}
+            aria-expanded={isActive} id={id} className={className} onClick={handleItemClick} onKeyPress={handleKeyPress} >
+            <CollapseHeader id="collapse-panel-header" arrow={showArrow} right={position === 'right'}>
+                {showArrow && icon()}
+                {header}
+                {extra && <PanelExtra id="collapse-panel-header-extra">{extra}</PanelExtra>}
+            </CollapseHeader>
+            <PanelContent ghost={ghost} border={bordered} isActive={isActive}>{children}</PanelContent>
         </PanelBase>
     )
 }
