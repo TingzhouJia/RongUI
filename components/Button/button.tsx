@@ -24,8 +24,8 @@ export type NativeButtonProps = {
 } & Omit<React.ButtonHTMLAttributes<any>, 'type' | 'onClick'> & BaseButtonProps;
 
 interface CompoundedComponent
-  extends React.ForwardRefExoticComponent<Partial<NativeButtonProps> & React.RefAttributes<HTMLElement>> {
-  Group: typeof ButtonGroup;
+    extends React.ForwardRefExoticComponent<Partial<NativeButtonProps> & React.RefAttributes<HTMLElement>> {
+    Group: typeof ButtonGroup;
 
 }
 
@@ -65,25 +65,68 @@ const textMixin = css`
         background:#fafafa;
     }
 `
-
-
-
 const primaryMixin = css`
 color:white;
 background: ${props => props.theme.colors.primary};
 border: 1px solid transparent;
     &:hover,&:active,&:focus {
-            opacity: 0.8;
+            opacity: 0.85;
     }
 `
+
 const linkMixin = css`
     border:none;
     background:transparent;
     color:${props => props.theme.colors.primary};
+    &:hover,&:active,&:focus {
+            opacity: 0.85;
+    }
 `
 
-const Switcher = (mode?: ButtonModes) => {
-    switch (mode) {
+const Switcher = (mode?: ButtonModes, type?: ResultType) => {
+    if (type) {
+        switch (mode) {
+            case 'link':
+                return css`
+                ${linkMixin}
+                color:${TypeBd[type]}
+                `
+            case 'primary':
+                return css`
+                    ${primaryMixin}
+                    background:${TypeBd[type]}
+                `
+            case 'text':
+                  return css`
+                ${textMixin}
+                color:${TypeBd[type]}
+                `
+            case 'dashed':
+                  return css`
+                ${dashedMixin}
+                color:${TypeBd[type]};
+                border-color:${TypeBd[type]};
+                &:hover,&:active,&:focus {
+                color:${TypeBd[type]};
+                border-color:${TypeBd[type]};
+                opacity:0.85;
+                }
+                `
+            default:
+                  return css`
+                ${normalMixin}
+                color:${TypeBd[type]};
+                border-color:${TypeBd[type]};
+                &:hover,&:active,&:focus {
+                color:${TypeBd[type]};
+                border-color:${TypeBd[type]};
+                opacity:0.85;
+                }
+                `
+        }
+    }
+   else{ 
+       switch (mode) {
         case 'link':
             return linkMixin
         case 'primary':
@@ -95,13 +138,14 @@ const Switcher = (mode?: ButtonModes) => {
         default:
             return normalMixin
     }
+   }
 }
 
-const TypeBd={
-    success:palette.success,
-    error:palette.error,
-    info:palette.info,
-    warning:palette.warning,
+const TypeBd = {
+    success: palette.success,
+    error: palette.error,
+    info: palette.info,
+    warning: palette.warning,
 
 }
 
@@ -116,21 +160,21 @@ const sizeSwicher = (size?: NormalSizes) => {
     }
 }
 
-const shapeSwitcher = (shape?: 'round' | 'circle',size?: NormalSizes) => {
+const shapeSwitcher = (shape?: 'round' | 'circle', size?: NormalSizes) => {
     switch (shape) {
         case 'round':
             return css`border-radius:2px;`
         case 'circle':
             return css`border-radius:50%;
-            ${size==='small'?'width:25px;height:25px;padding:3px;':size==='large'?'width:45px;height:45px;padding:10px;':'width:35px;height:35px;padding:7px;'};`
+            ${size === 'small' ? 'width:25px;height:25px;padding:3px;' : size === 'large' ? 'width:45px;height:45px;padding:10px;' : 'width:35px;height:35px;padding:7px;'};`
         default:
             return css`border-radius:2px;`
     }
 }
 
-const BaseButton = styled.button.attrs((props: NativeButtonProps) => ({ type: props.htmlType, className: props.className,ctype:props.type }))`
+const BaseButton = styled.button.attrs((props: NativeButtonProps) => ({ type: props.htmlType, className: props.className, ctype: props.type }))`
 
-${props => (Switcher(props.mode))}
+${props => (Switcher(props.mode,props.ctype))}
 
 position: relative;
 display: inline-block;
@@ -151,26 +195,22 @@ cursor: pointer;
 transition: background-color 200ms ease 0ms, box-shadow 200ms ease 0ms,border 200ms ease 0ms, color 200ms ease 0ms;
 user-select: none;
 touch-action: manipulation;
-${props=>props.ctype?css`color:white;border:none;background:${TypeBd[props.ctype as ResultType]};&:hover,&:focus, &:active{
-    border:none;
-    color:white;
-    opacity:0.85;
-}`:null}
+
 ${
-    props=>props.block?css`width:100%;`:null
-}
+    props => props.block ? css`width:100%;` : null
+    }
 &,&:active, &:focus {
     outline: 0;
   }
 `
 const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonProps>> = (props, ref) => {
     const groupConfig = useButtonGroupContext()
-    let { loading, type, mode, size, disabled = false, shape="round", block = false, className = "", children, htmlType = "button", ...rest } =filterPropsWithGroup(props,groupConfig)
+    let { loading, type, mode, size, disabled = false, shape = "round", block = false, className = "", children, htmlType = "button", ...rest } = filterPropsWithGroup(props, groupConfig)
     const [innerLoading, setinnerLoading] = useState(!!loading)
     const buttonRef = (ref as any) || useRef<HTMLButtonElement>()
     const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
         const { onClick } = props;
-        if (innerLoading||disabled) {
+        if (innerLoading || disabled) {
             return;
         }
         if (onClick) {
@@ -194,7 +234,7 @@ const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonP
 
 const Button = React.forwardRef<unknown, NativeButtonProps>(InnerButton) as CompoundedComponent
 Button.displayName = 'Button'
-Button.Group=ButtonGroup
+Button.Group = ButtonGroup
 export default Button
 
 

@@ -32,6 +32,8 @@ export const CardHeader = styled.div<{ size?: string }>`
     background: #fff ;
     border-bottom: 1px solid rgba(0,0,0,0.45);
     border-radius: 2px 2px 0 0;
+    display: flex;
+      align-items: center;
     ${clearfix}
 `
 
@@ -119,10 +121,7 @@ display: inline-block;
       text-overflow: ellipsis;
 `
 
-export const CardHeaderWrap = styled.div`
-   display: flex;
-      align-items: center;
-`
+
 
 export const CardMetaAvatar = styled.div`
  float: left;
