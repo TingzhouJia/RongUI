@@ -7,12 +7,12 @@ import { FolderWrapper, FileNameWrap, TreeFileWrapper, FolderStatus, FileIcon, F
 import React from "react"
 import TreeIndents from "./treeIndent"
 import { PlusSquareOutlined, MinusSquareOutlined, FolderOpenOutlined, FolderOutlined } from "@ant-design/icons"
-import {Expand} from '../utils'
+import { Expand } from '../utils'
 interface Props {
     name: string
     extra?: string
     parentPath?: string
-    disabled?:boolean
+    disabled?: boolean
     level?: number
     className?: string
     icon?: (select: boolean) => React.ReactNode
@@ -29,7 +29,7 @@ const TreeFolder: React.FC<TreeFolderProps> = (props) => {
         icon,
         extra,
         ...rest } = props
-    const { initialExpand, isImperative,disabled:contextDisable } = useTreeContext()
+    const { initialExpand, isImperative, disabled: contextDisable } = useTreeContext()
     const [expanded, setExpanded] = useState<boolean>(initialExpand)
     useEffect(() => setExpanded(initialExpand), [])
     const currentPath = useMemo(() => makeChildPath(name, parentPath), [])
@@ -39,7 +39,7 @@ const TreeFolder: React.FC<TreeFolderProps> = (props) => {
         {
             parentPath: currentPath,
             level: parentLevel + 1,
-           
+
         },
         [TreeFolder, TreeFile],
     )
@@ -48,23 +48,26 @@ const TreeFolder: React.FC<TreeFolderProps> = (props) => {
 
     return (<FolderWrapper onClick={clickHandler} {...rest}>
         <TreeFileWrapper level={parentLevel}>
-            <TreeIndents count={parentLevel} />
-            <FolderStatus>
-                {expanded ? <PlusSquareOutlined /> : <MinusSquareOutlined />}
+            <TreeIndents  count={parentLevel} />
+            <FolderStatus id="folder-status">
+                {!expanded ? <PlusSquareOutlined style={{fontSize:"12px"}} /> : <MinusSquareOutlined style={{fontSize:"12px"}}/>}
             </FolderStatus>
-            <FileIcon>
-                {icon ? icon(expanded) : expanded ? <FolderOpenOutlined /> : <FolderOutlined />}
+            <FileIcon id="folder-icon">
+                {icon ? icon(expanded) : expanded ? <FolderOpenOutlined  /> : <FolderOutlined />}
             </FileIcon>
-            <FileNameWrap>
+            <FileNameWrap id="file-name">
                 {name}
                 {extra && <FileNameExtra>{extra}</FileNameExtra>}
             </FileNameWrap>
         </TreeFileWrapper>
-        <Expand isExpanded={expanded}>
-        <FolderContent className="content" onClick={stopPropagation}>
-          {sortedChildren}
-        </FolderContent>
-      </Expand>
+        {/* <Expand isExpanded={expanded}>
+           
+        </Expand> */}
+        {
+            expanded? <FolderContent className="content" onClick={stopPropagation}>
+            {sortedChildren}
+        </FolderContent>:null
+        }
     </FolderWrapper>)
 }
 

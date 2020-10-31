@@ -55,6 +55,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
         closable = true,
         placement = 'right' as placementType,
         maskClosable = true,
+       
         mask = true,
         keyboard = true,
         push = defaultPushState, } = props
@@ -73,15 +74,15 @@ const Drawer: React.FC<DrawerProps> = (props) => {
         }
     }
 
-    useEffect(() => {
-        const {visible}=props
-        if(visible&&parentDrawer){
-            if(visible){
+    // useEffect(() => {
+    //     const {visible}=props
+    //     if(visible&&parentDrawer){
+    //         if(visible){
             
-            }
-        }
+    //         }
+    //     }
         
-    }, [])
+    // }, [props.visible])
     const renderHeader=()=> {
         const { title,  closable, headerStyle } = props;
         if (!title && !closable) {
@@ -145,7 +146,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
         if (typeof push === 'boolean') {
           distance = push ? defaultPushState.distance : 0;
         } else {
-          distance = push!.distance;
+          distance = push?push.distance:0;
         }
         return parseFloat(String(distance || 0));
       };

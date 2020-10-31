@@ -38,9 +38,6 @@ const Expand: React.FC<React.PropsWithChildren<ExpandProps>> = ({
 
   useEffect(() => setHeight(`${state.height}px`), [state.height])
   useEffect(() => {
-    // show element or reset height.
-    // force an update once manually, even if the element does not change.
-    // (the height of the element might be "auto")
     if (isExpanded) {
       setVisible(isExpanded)
     } else {
