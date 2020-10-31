@@ -1,7 +1,8 @@
 import React from 'react'
 import { DesItem, DesItemContainer, DesItemLabel, DesItemContent } from './wrapper';
+import { NormalSizes } from '../utils';
 export interface CellProps {
-    size?:'small'|'default'|'large';
+    size?:NormalSizes;
     className?: string;
     style?: React.CSSProperties;
     column:number;
@@ -18,22 +19,25 @@ const Cell: React.FC<CellProps> = ({
     column,
     bordered,
     direction,
+    
     size,
     label,
     content,
     colon, }) => {
     
     return (
-                <DesItemContainer style={style} className={className} direction={direction}  bordered={bordered} column={column}>
+                <DesItemContainer id="item-container" size={size} style={style} className={className} direction={direction}  bordered={bordered} column={column}>
                     {label && (
                         <DesItemLabel
+                        id="item-label"
                         size={size}
                         bordered={bordered}
-                        colon={colon} label={label?true:false}
+                        layout={direction}
+                        colon={colon} labelExist={label?true:false}
                         >
                             {label}
                         </DesItemLabel>)}
-                    {content && <DesItemContent size={size}>{content}</DesItemContent>}
+                    {content && <DesItemContent size={size} vertical={direction==='vertical'} id="item-content">{content}</DesItemContent>}
                 </DesItemContainer>
     )
 }
