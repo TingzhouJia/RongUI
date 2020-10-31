@@ -17,7 +17,7 @@ function App() {
        
 
          <Description colon bordered layout="vertical" style={{width:"300px"}} title="Description ">
-            <Description.Item label="title 1">
+            <Description.Item >
                 content 1
             </Description.Item>
             <Description.Item label="title 2">

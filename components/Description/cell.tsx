@@ -26,10 +26,10 @@ const Cell: React.FC<CellProps> = ({
     colon, }) => {
     
     return (
-                <DesItemContainer id="item-container" size={size} style={style} className={className} direction={direction}  bordered={bordered} column={column}>
+                <DesItemContainer id="description-item-container" size={size} style={style} className={className} direction={direction}  bordered={bordered} column={column}>
                     {label && (
                         <DesItemLabel
-                        id="item-label"
+                        id="description-item-label"
                         size={size}
                         bordered={bordered}
                         layout={direction}
@@ -37,7 +37,7 @@ const Cell: React.FC<CellProps> = ({
                         >
                             {label}
                         </DesItemLabel>)}
-                    {content && <DesItemContent size={size} vertical={direction==='vertical'} id="item-content">{content}</DesItemContent>}
+                    {content && <DesItemContent size={size} vertical={direction==='vertical'} id="description-item-content">{content}</DesItemContent>}
                 </DesItemContainer>
     )
 }

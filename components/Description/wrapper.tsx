@@ -15,6 +15,8 @@ export const DesItemContainer=styled.div<{direction?:'vertical'|'horizontal',bor
  flex:auto;
  flex-direction:${props=>props.direction==='vertical'?'column':'row'};
  justify-content:flex-start;
+ align-self:stretch;
+    justify-self:stretch;
  align-items:${props=>props.direction==='vertical'?'flex-start':'flex-start'};
  border-left:${props=>props.bordered?'1px solid rgba(0,0,0,0.45)':'none'};
  border-top:${props=>props.bordered?'1px solid rgba(0,0,0,0.45)':'none'};
@@ -61,6 +63,8 @@ export const DesItemContent=styled.span<{vertical?:boolean,size?:NormalSizes}>`
     color: rgba(0,0,0,0.85);
     font-size: 14px;
     line-height: 22px;
+    align-self:stretch;
+    justify-self:stretch;
     overflow-wrap: break-word;
     ${props=>props.vertical?css`padding:${props.size==='small'?'8px 12px':props.size==='default'?'8px 16px':'8px 24px'};;`:null}
    

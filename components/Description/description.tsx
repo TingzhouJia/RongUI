@@ -57,7 +57,7 @@ export interface DescriptionProps extends React.FC<BasicDescriptionsProps> {
                    {extra&&<DesExtra id="description-extra">{extra}</DesExtra>}
                </DesHeader>)
                }
-               <DescView bordered={bordered}>
+               <DescView id="description-view" bordered={bordered}>
                 {mapChildren()}
                </DescView>
             </DescBase>
