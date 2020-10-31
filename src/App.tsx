@@ -7,6 +7,7 @@ import { ThemeStore } from '../components/styles';
 import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 import Avatar from '../components/Avatar';
 import Description from '../components/Description';
+import Divider from '../components/Divider';
 
 
 
@@ -15,18 +16,11 @@ function App() {
     <ThemeProvider theme={ThemeStore}>
       <div className="App" >
        
-
-         <Description colon bordered layout="vertical" style={{width:"300px"}} title="Description ">
-            <Description.Item >
-                content 1
-            </Description.Item>
-            <Description.Item label="title 2">
-                content 1
-            </Description.Item>
-            <Description.Item label="title 3">
-                content 1
-            </Description.Item>
-         </Description>
+      <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
+      probare, quae sunt a te dicta? Refert tamen, quo modo.
+    </p>
+    <Divider dashed ></Divider>
 
       </div>
     </ThemeProvider>
