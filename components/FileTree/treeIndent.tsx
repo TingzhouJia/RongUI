@@ -11,7 +11,7 @@ const TreeIndents: React.FC<Props> = ({ count }) => {
     /* eslint-disable react/jsx-no-useless-fragment */
     <>
       {[...new Array(count)].map((_, index) => (
-        <TreeIndentSpan index={index}></TreeIndentSpan>
+        <TreeIndentSpan id="tree-indent" index={index}></TreeIndentSpan>
       ))}
     </>
     /* eslint-enable */

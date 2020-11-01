@@ -33,15 +33,15 @@ const TreeFile: React.FC<TreeFileProps> = (props) => {
     }
 
     return (
-        <TreeFileWrapper  {...rest} onClick={clickHandler} level={level} disabled={contextDisabled||disabled}>
-            <TreeFileName>
-                <TreeIndents count={level} />
-                <FileIcon>
+        <TreeFileWrapper id="tree-file-wrap" {...rest} onClick={clickHandler} level={level} disabled={contextDisabled||disabled}>
+            <TreeFileName id="tree-file-content">
+                <TreeIndents  count={level} />
+                <FileIcon id="file-icon">
                     {icon || <FileOutlined />}
                 </FileIcon>
-                <FileNameWrap  disabled={contextDisabled||disabled}>
+                <FileNameWrap id="file-name"  disabled={contextDisabled||disabled}>
                     {name}
-                    {extra && <FileNameExtra>{extra}</FileNameExtra>}
+                    {extra && <FileNameExtra id="file-name-extra">{extra}</FileNameExtra>}
                 </FileNameWrap>
             </TreeFileName>
         </TreeFileWrapper>
