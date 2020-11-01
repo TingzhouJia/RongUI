@@ -6,6 +6,10 @@ const habs=css`
   left: 0;
   right: 0;
   bottom: 0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
 `
 
 export const ImgBase=styled.div`
@@ -15,7 +19,8 @@ export const ImgBase=styled.div`
 `
 
 export const ImgPlaceholder=styled.div`
-    ${habs}
+    ${habs};
+    background:#f0f0f0;
     `
 
 export const ImgWrap=styled.img<{place?:boolean}>`

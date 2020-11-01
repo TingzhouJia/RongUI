@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ImgBase, ImgPlaceholder, ImgWrap } from './wrapper';
+import { PictureOutlined, LoadingOutlined } from '@ant-design/icons';
 export interface ImageProps
   extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'placeholder' | 'onClick'> {
   // Original
@@ -23,8 +24,8 @@ const Image:React.FC<ImageProps>=({
 
   placeholder,
   fallback,
-  width,
-  height,
+  width="120px",
+  height="120px",
   style,
 //   preview = true,
   className: originalClassName,
@@ -42,7 +43,8 @@ const Image:React.FC<ImageProps>=({
 })=>{
     const isCustomPlaceholder = placeholder && placeholder !== true;
 
-    const [status, setStatus] = useState<ImageStatus>(isCustomPlaceholder ? 'loading' : 'normal');
+    const [status, setStatus] = useState<ImageStatus>( 'loading');
+    const [url, seturl] = useState(src)
     const isError = status === 'error';
     const imgCommonProps = {
         crossOrigin,
@@ -63,26 +65,35 @@ const Image:React.FC<ImageProps>=({
       const onError = () => {
         setStatus('error');
       };
+    
+      const reload=()=>{
+        setStatus('normal')
+        seturl(prev=>prev+`?time=${Math.random()}`)
+      }
     return (
         <>
           <ImgBase
             {...otherProps}
-           
+            id='rong-image'
             style={{
               ...style,
               width,
               height,
             }}
           >
-            {isError && fallback ? (
-              <ImgWrap  place={placeholder?true:false} {...imgCommonProps} src={fallback} />
+            {isError ? (fallback ? (
+              <ImgWrap id="fallback-img" place={placeholder?true:false}  onLoad={onLoad} onError={onError} {...imgCommonProps} src={fallback} />
             ) : (
-              <ImgWrap  place={placeholder?true:false} {...imgCommonProps} onLoad={onLoad} onError={onError} src={src} />
-            )}
-    
+              <ImgPlaceholder id="default-fallback" onClick={reload}>
+                <PictureOutlined />
+                Reload
+              </ImgPlaceholder>
+            )):<ImgWrap id="image-base"  place={placeholder?true:false} {...imgCommonProps} onLoad={onLoad} onError={onError} src={url} />
+            }
+
             {status === 'loading' && (
-              <ImgPlaceholder aria-hidden="true">
-                {placeholder}
+              <ImgPlaceholder id="loading-image" aria-hidden="true">
+                {placeholder||<LoadingOutlined />}
               </ImgPlaceholder>
             )}
           </ImgBase>

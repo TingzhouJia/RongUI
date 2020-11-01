@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image Test should have snapshot 1`] = `
+.c0 {
+  display: inline-block;
+  position: relative;
+}
+
+.c2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: #f0f0f0;
+}
+
+.c1 {
+  width: 100%;
+  height: auto;
+}
+
+<div
+  className="c0"
+  id="rong-image"
+  style={
+    Object {
+      "height": "120px",
+      "width": "120px",
+    }
+  }
+>
+  <img
+    className="c1"
+    id="image-base"
+    onError={[Function]}
+    onLoad={[Function]}
+    src="https://images.unsplash.com/photo-1602524206684-fdf6393c7d89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=8"
+    style={
+      Object {
+        "height": "120px",
+      }
+    }
+  />
+  <div
+    aria-hidden="true"
+    className="c2"
+    id="loading-image"
+  >
+    <span
+      aria-label="loading"
+      className="anticon anticon-loading"
+      role="img"
+    >
+      <svg
+        aria-hidden="true"
+        className="anticon-spin"
+        data-icon="loading"
+        fill="currentColor"
+        focusable="false"
+        height="1em"
+        viewBox="0 0 1024 1024"
+        width="1em"
+      >
+        <path
+          d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+        />
+      </svg>
+    </span>
+  </div>
+</div>
+`;
