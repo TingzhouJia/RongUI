@@ -46,25 +46,25 @@ const TreeFolder: React.FC<TreeFolderProps> = (props) => {
 
     const sortedChildren = isImperative ? nextChildren : sortChildren(nextChildren, TreeFolder)
 
-    return (<FolderWrapper onClick={clickHandler} {...rest}>
-        <TreeFileWrapper level={parentLevel}>
-            <TreeIndents  count={parentLevel} />
+    return (<FolderWrapper id="folder-base" onClick={clickHandler} {...rest}>
+        <TreeFileWrapper id="folder-wrapper" level={parentLevel}>
+            <TreeIndents   count={parentLevel} />
             <FolderStatus id="folder-status">
                 {!expanded ? <PlusSquareOutlined style={{fontSize:"12px"}} /> : <MinusSquareOutlined style={{fontSize:"12px"}}/>}
             </FolderStatus>
             <FileIcon id="folder-icon">
                 {icon ? icon(expanded) : expanded ? <FolderOpenOutlined  /> : <FolderOutlined />}
             </FileIcon>
-            <FileNameWrap id="file-name">
+            <FileNameWrap id="folder-name">
                 {name}
-                {extra && <FileNameExtra>{extra}</FileNameExtra>}
+                {extra && <FileNameExtra id="folder-extra">{extra}</FileNameExtra>}
             </FileNameWrap>
         </TreeFileWrapper>
         {/* <Expand isExpanded={expanded}>
            
         </Expand> */}
         {
-            expanded? <FolderContent className="content" onClick={stopPropagation}>
+            expanded? <FolderContent id="folder-sub-content"  onClick={stopPropagation}>
             {sortedChildren}
         </FolderContent>:null
         }

@@ -69,7 +69,7 @@ const Tree: TreeProps = ({ children,
     initialExpand,
     isImperative,
   }}>
-    <TreeBase {...props}>
+    <TreeBase id="tree-base" {...props}>
       {customChildren}
     </TreeBase>
 

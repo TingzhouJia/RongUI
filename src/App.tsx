@@ -16,18 +16,12 @@ function App() {
     <ThemeProvider theme={ThemeStore}>
 
 
-      <Tree>
-        <Tree.Folder name="b">
+    
           <Tree.File name="aaaa">
 
           </Tree.File>
-         <Tree.Folder name="c">
-         <Tree.File name="aaaa">
 
-</Tree.File>
-         </Tree.Folder>
-        </Tree.Folder>
-      </Tree>
+
 
     </ThemeProvider>
   );
