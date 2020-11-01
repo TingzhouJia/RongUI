@@ -21,23 +21,24 @@ export const CloseBtn = styled.div<{ type?: typeof ClearableInputType[number], h
 
   margin-right:10px;
 `
-export const Pwd=styled.span<{disabled?:boolean}>`
+export const Pwd = styled.span<{ disabled?: boolean }>`
 color:rgba(0,0,0,0.45);
   &:hover {
     color:rgba(0,0,0,0.85);
   }
 `
 export const Suffix = styled.span`
-    margin-left: 6px;
-    margin-right:6px;
+    position:relative;
+    padding-left: 10px;
+    padding-right:10px;
     display: flex;
     flex: none;
     align-items: center;
 `
 
 export const Preffix = styled.span`
-    margin-right: 6px;
-
+    padding-right: 10px;
+    padding-left: 10px;
     display: flex;
     flex: none;
     align-items: center;
@@ -75,10 +76,10 @@ justify-content:space-between;
 align-items:stretch;
 outline:none;
 ${
-  props=>!props.disabled?props.focused?css`border:1px solid ${props.theme.colors.primary};`:null:null
-}
+  props => !props.disabled ? props.focused ? css`border:1px solid ${props.theme.colors.primary};` : null : null
+  }
 &:hover,&:active {
-    border:1px solid ${props=>props.theme.colors.primary}; 
+    border:1px solid ${props => props.theme.colors.primary}; 
 };
 
   display: inline-flex;
@@ -106,7 +107,7 @@ ${props => props.borderless ? css`
       box-shadow: none;
     }
 `: null};
-padding: ${props => props.size === 'small' ? "2px 7px" : "3px 11px"};
+
 `
 
 export const GroupWrapper = styled.div<{ size?: NormalSizes }>`
@@ -127,7 +128,7 @@ export const AddOnWrapper = styled.div<{ size?: 'small' | 'large' | 'default' }>
     cursor:pointer;
     font-size: 14px;
     text-align: center;
-    min-height:${props => props.size === 'small' ? "20px;" : props.size === "default" ? "26px;" : "28px"};
+   
     background-color: #f0f0f0 ;
     opacity:0.7;
     display:flex;
@@ -136,12 +137,12 @@ export const AddOnWrapper = styled.div<{ size?: 'small' | 'large' | 'default' }>
     transition: all 0.3s;
 `
 
-export const WithAddOnWrapper = styled.span<{ addon?: boolean,borderless?: boolean }>`
+export const WithAddOnWrapper = styled.span<{ addon?: boolean, borderless?: boolean }>`
   display:flex;
   flex-direction:row;
   justify-content:flex-start;
   align-items:stretch;
-  border:${props=>props.borderless?"none":"1px solid #d9d9d9"};
+  border:${props => props.borderless ? "none" : "1px solid #d9d9d9"};
   border-radius:2px;
   width:100%;
 `
@@ -155,17 +156,20 @@ export const TextAreaWrapper = styled.span<{ borderless?: boolean }>`
     transition: all 0.3s, height 0s;
 `
 
-export const OuterInputWrapper = styled.input<{disabled?:boolean,sizes:"small"|"default"|'large',}>`
-font-size:${props=>props.sizes==="small"?"14px":props.sizes==="default"?"16px":"18px"};
+export const OuterInputWrapper = styled.input<{ disabled?: boolean, sizes: "small" | "default" | 'large', }>`
+font-size:${props => props.sizes === "small" ? "14px" : props.sizes === "default" ? "16px" : "18px"};
 border:none;
-padding:0 5px;
+margin:0 10px;
 display:flex;
+align-items:center;
 flex:1;
 outline:none;
 background:transparent;
+height:${props => props.sizes === 'small' ? "22px;" : props.sizes === "default" ? "26px" : "32px"};
+
 ${
-  props=>props.disabled?css`cursor:not-allowed`:null
-}
+  props => props.disabled ? css`cursor:not-allowed` : null
+  }
 &:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 32px #fff inset !important; /**通过边框阴影遮挡住背景*/
     -webkit-text-fill-color: #333; /*自动填充内容的文本颜色*/
@@ -173,4 +177,13 @@ ${
 
 `
 
-export const SearchIconWrapper = styled.div``
+export const SearchIconWrapper = styled.div`
+border-left:1px solid #d9d9d9;
+padding-left:10px;
+margin-left:10px;
+display:flex;
+height:100%;
+justify-content:stretch;
+align-items:center;
+`
+
