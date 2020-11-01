@@ -4,10 +4,10 @@ import { NormalSizes } from "../utils";
 
 
 export const CloseBtn = styled.div<{ type?: typeof ClearableInputType[number], hidden?: boolean }>`
-color: rgba(0,0,0,0.25);
+  color: rgba(0,0,0,0.25);
   font-size: 12px;
-
   cursor: pointer;
+
   transition: color 0.3s;
 
   &:hover {
@@ -18,91 +18,71 @@ color: rgba(0,0,0,0.25);
     color: rgba(0,0,0,0.85);
   }
 
-  + i {
-    margin-left: 6px;
-  }
-  ${props => props.type === 'input' ? css` margin: 0 4px;
-  vertical-align: -1px;
 
-  &:last-child {
-    margin-right: 0;
-  }`: css`position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  margin: 8px 8px 0 0;`}
+  margin-right:10px;
 `
-
+export const Pwd=styled.span<{disabled?:boolean}>`
+color:rgba(0,0,0,0.45);
+  &:hover {
+    color:rgba(0,0,0,0.85);
+  }
+`
 export const Suffix = styled.span`
-margin-left: 4px;
-display: flex;
+    margin-left: 6px;
+    margin-right:6px;
+    display: flex;
     flex: none;
     align-items: center;
 `
 
 export const Preffix = styled.span`
-margin-right: 4px;
-display: flex;
+    margin-right: 6px;
+
+    display: flex;
     flex: none;
     align-items: center;
 `
 
 const getHover = (color: string) => {
-    return css`
+  return css`
     border-color: ${color};
   border-right-width: 1px !important;
     `
 }
-const getActive = (color: string, ) => {
-    return css`
-    border-color:${props => props.theme.type === 'light' ? color : "white"};
-    border-right-width: 1px !important;
-    outline: 0;
-    `
-}
+
 const getDisabled = () => {
-    return css`
+  return css`
     color: rgba(0,0,0,0.25);
-  background-color: rgba(232, 232, 232, 1);
+  background-color: #d9d9d9 ;
   cursor: not-allowed;
   opacity: 1;
-
-  &:hover {
-    ${props => getHover(props.theme.colors.primary)}
+  outline:none;
+  &:hover,&:active,&:focus {
+      border:none;
   }  
     `
 }
-const BasicInput = styled.div`
 
-position: relative;
-  display: inline-block;
-  width: 100%;
-  min-width: 0;
- 
-  color: rgba(0,0,0,0.85);
-  font-size: 14px;
-  line-height: 22px;
-  background-color: #fff ;
-  background-image: none;
-  border: 1px solid rgba(0,0,0,0.45);
-  border-radius: 2px;
-  transition: all 0.3s;
-  &:hover {
-      ${props => getHover(props.theme.colors.primary)}
-  };
-  &:focus {
-      ${props => getActive(props.theme.colors.primary)}
-  }
-`
 
-export const AffixWrapper = styled(BasicInput) <{
-    focused?: boolean,
-    disabled?: boolean, size: NormalSizes, withClear?: boolean, readonly?: boolean, borderless?: boolean
+export const AffixWrapper = styled.div<{
+  focused?: boolean,
+  disabled?: boolean, size: NormalSizes, withClear?: boolean, readonly?: boolean, borderless?: boolean
 }>`
-    ${props => props.withClear ? css`padding: 0 !important;
-  border: 0 !important;`: null}
+display:flex;
+flex-direction:row;
+flex:1;
+justify-content:space-between;
+align-items:stretch;
+outline:none;
+${
+  props=>!props.disabled?props.focused?css`border:1px solid ${props.theme.colors.primary};`:null:null
+}
+&:hover,&:active {
+    border:1px solid ${props=>props.theme.colors.primary}; 
+};
+
   display: inline-flex;
-  ${props => props.disabled || props.readonly ? getDisabled(): null}
+  ${props => props.disabled || props.readonly ? getDisabled() : null}
   > input {
       padding: 0;
       border: none;
@@ -116,15 +96,7 @@ export const AffixWrapper = styled(BasicInput) <{
       visibility: hidden;
       content: '\a0';
     };
-    &:not(:first-child) {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
 
-    &:not(:last-child) {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
 ${props => props.borderless ? css`
     &,
     &:hover,
@@ -137,52 +109,44 @@ ${props => props.borderless ? css`
 padding: ${props => props.size === 'small' ? "2px 7px" : "3px 11px"};
 `
 
-export const GroupWrapper = styled.span<{ size?: NormalSizes }>`
-position: relative;
-  display: table;
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-
+export const GroupWrapper = styled.div<{ size?: NormalSizes }>`
+  position: relative;
+  display: flex;
+  justify-content:flex-start;
+  flex-direction:row;
+  align-items:center;
+  align-self: stretch;
+  width:100%;
 `
 
-export const AddOnWrapper = styled.span<{size?:'small'|'large'|'default'}>`
+export const AddOnWrapper = styled.div<{ size?: 'small' | 'large' | 'default' }>`
     position: relative;
-    padding: 0 7px;
+    padding: 2px 15px;
     color: rgba(0,0,0,0.85);
     font-weight: normal;
+    cursor:pointer;
     font-size: 14px;
     text-align: center;
-    background-color: ${props => props.theme.colors.primary} ;
+    min-height:${props => props.size === 'small' ? "20px;" : props.size === "default" ? "26px;" : "28px"};
+    background-color: #f0f0f0 ;
     opacity:0.7;
-    border:1px solid rgba(0,0,0,0.45);
-    border-radius: 2px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     transition: all 0.3s;
-    > i:only-child::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      content: '';
-    }
-    &:first-child {
-        border-right: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    }
-
-     &:last-child {
-    border-left: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  padding: ${props => props.size === 'small' ? "2px 7px" : "3px 11px"};
 `
 
-export const WithAddOnWrapper = styled.span<{ addon?: boolean }>``
+export const WithAddOnWrapper = styled.span<{ addon?: boolean,borderless?: boolean }>`
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:stretch;
+  border:${props=>props.borderless?"none":"1px solid #d9d9d9"};
+  border-radius:2px;
+  width:100%;
+`
 
-export const TextAreaWrapper=styled.span<{borderless?:boolean}>`
+export const TextAreaWrapper = styled.span<{ borderless?: boolean }>`
     max-width: 100%;
     height: auto;
     min-height: 32px;
@@ -191,8 +155,22 @@ export const TextAreaWrapper=styled.span<{borderless?:boolean}>`
     transition: all 0.3s, height 0s;
 `
 
-export const OuterInputWrapper=styled.input`
+export const OuterInputWrapper = styled.input<{disabled?:boolean,sizes:"small"|"default"|'large',}>`
+font-size:${props=>props.sizes==="small"?"14px":props.sizes==="default"?"16px":"18px"};
+border:none;
+padding:0 5px;
+display:flex;
+flex:1;
+outline:none;
+background:transparent;
+${
+  props=>props.disabled?css`cursor:not-allowed`:null
+}
+&:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 32px #fff inset !important; /**通过边框阴影遮挡住背景*/
+    -webkit-text-fill-color: #333; /*自动填充内容的文本颜色*/
+}
 
 `
 
-export const SearchIconWrapper=styled.div``
+export const SearchIconWrapper = styled.div``

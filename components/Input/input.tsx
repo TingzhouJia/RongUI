@@ -3,11 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import ClearableLabeledInput from './clearable'
 import { OuterInputWrapper } from "./wrapper";
+import Password from "./password";
 export interface InputBasicProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix' | 'type'> {
-  prefixCls?: string;
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement|HTMLTextAreaElement>, 'size' | 'prefix' | 'type'> {
   size?: NormalSizes;
-  // ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#%3Cinput%3E_types
   type?: LiteralUnion<
     | 'button'
     | 'checkbox'
@@ -69,14 +68,14 @@ export function resolveOnChange(
   }
 
 export interface InputProps extends React.FC<InputBasicProps> {
-
+  Password:typeof Password
 }
 
 const Input:InputProps=(props)=>{
     const [removePasswordTimeout, setremovePasswordTimeout] = useState<number>()
-    const [input, setinput] = useState<HTMLInputElement>()
+  
     const [focused, setfocused] = useState(false)
-    const [curvale, setCurvale] = useState(props.value||props.defaultValue)
+    const [curvale, setCurvale] = useState(props.value||props.defaultValue||"")
     const ref = useRef<HTMLInputElement>(null)
     useEffect(() => {
         clearPasswordValueAttribute()
@@ -86,11 +85,11 @@ const Input:InputProps=(props)=>{
     
         let a=setTimeout(() => {
             if (
-              input &&
-              input?.getAttribute('type') === 'password' &&
-              input?.hasAttribute('value')
+              ref &&
+              ref.current?.getAttribute('type') === 'password' &&
+              ref.current?.hasAttribute('value')
             ) {
-              input?.removeAttribute('value');
+              ref.current?.removeAttribute('value');
             }
           })
         setremovePasswordTimeout(a)
@@ -98,7 +97,7 @@ const Input:InputProps=(props)=>{
     const  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         clearPasswordValueAttribute()
         setCurvale(e.target.value)
-       // resolveOnChange(this.input, e, props.onChange);
+        resolveOnChange(ref.current as HTMLInputElement, e, props.onChange);
       };
     
     const  handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -114,7 +113,11 @@ const Input:InputProps=(props)=>{
     
     const onFocus: React.FocusEventHandler<HTMLInputElement> = e => {
         const { onFocus } = props;
+        if(props.disabled){
+          return
+        }
         setfocused(true)
+        focus()
         clearPasswordValueAttribute()
         if (onFocus) {
           onFocus(e);
@@ -125,6 +128,7 @@ const Input:InputProps=(props)=>{
         const { onBlur } = props;
         setfocused(false)
         clearPasswordValueAttribute()
+        blur()
         if (onBlur) {
           onBlur(e);
         }
@@ -135,24 +139,28 @@ const Input:InputProps=(props)=>{
     const blur=()=>{
         ref.current?.blur()
     }
+
     const handleReset = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         setCurvale('')
         focus()
-       // resolveOnChange(this.input, e, this.props.onChange);
+        resolveOnChange((ref.current as HTMLInputElement), e, props.onChange);
       };
     const renderInput = () => {
-    const { className, addonBefore, addonAfter, size: customizeSize, disabled,onPressEnter,prefix,suffix,allowClear,type,bordered:curBorder,...other } = props;
+    const { className, addonBefore, addonAfter, size: customizeSize="default", disabled,onPressEnter,prefix,suffix,allowClear,type,bordered:curBorder=true,style,...other } = props;
 
         return (
           <OuterInputWrapper
-          
+            id="outer-input"
             {...other}
+            type={type}
+            sizes={customizeSize as NormalSizes}
             onChange={handleChange}
             onFocus={onFocus}
             onBlur={onBlur}
             onKeyDown={handleKeyDown}
-           
             ref={ref}
+            disabled={disabled}
+           
           />
         );
       };
@@ -161,7 +169,6 @@ const Input:InputProps=(props)=>{
        
         const { bordered = true,size } = props;
 
-    
         return (
               <ClearableLabeledInput
                 size={size}
@@ -178,5 +185,5 @@ const Input:InputProps=(props)=>{
       };
     return (<>{renderComponent()}</>)
 }
-
+Input.Password=Password
 export default Input
