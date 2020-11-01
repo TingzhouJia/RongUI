@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components'
-import Comment from '../components/Comment'
+
 import './App.css';
 import { ThemeStore } from '../components/styles';
 
 import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 
-import Grid from '../components/Grid';
+import Image from '../components/Image'
 
 
 
@@ -19,11 +19,7 @@ function App() {
 
 
 
-      <Grid.Container gap={2} justify="center">
-        <Grid xs={6}><div style={{width:"60px",height:"60px",background:"red"}}></div></Grid>
-        <Grid xs={6}><div style={{width:"60px",height:"60px",background:"red"}}></div></Grid>
-        <Grid xs={6}><div style={{width:"60px",height:"60px",background:"red"}}></div></Grid>
-      </Grid.Container>
+     <Image  src="https://images.unsplash.com/photo-1602524206684-fdf6393c7d89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"/>
 
 
 

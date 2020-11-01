@@ -1,3 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Grid Test render grid 1`] = `ShallowWrapper {}`;
+exports[`Grid Test render grid 1`] = `
+<div
+  className="sc-gtssRu fIohBj"
+  id="grid-container"
+  wrap="wrap"
+>
+  <div
+    className="sc-bdnylx jbPHiN"
+    id="grid-item"
+    type="xs"
+  >
+    <div
+      style={
+        Object {
+          "background": "red",
+          "height": "60px",
+          "width": "60px",
+        }
+      }
+    />
+  </div>
+  <div
+    className="sc-bdnylx jbPHiN"
+    id="grid-item"
+    type="xs"
+  >
+    <div
+      style={
+        Object {
+          "background": "red",
+          "height": "60px",
+          "width": "60px",
+        }
+      }
+    />
+  </div>
+  <div
+    className="sc-bdnylx jbPHiN"
+    id="grid-item"
+    type="xs"
+  >
+    <div
+      style={
+        Object {
+          "background": "red",
+          "height": "60px",
+          "width": "60px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
