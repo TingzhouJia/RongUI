@@ -73,7 +73,7 @@ const getType=():'xs'|'sm'|'md'|'lg'|'xl'=>{
     lg: getItemLayout(lg),
     xl: getItemLayout(xl),
   })
-  return (<GridItemWrap type={getType()} layout={layout()} justify={justify} direction={direction} alignContent={alignContent} alignItems={alignItems}>
+  return (<GridItemWrap id="grid-item" type={getType()} layout={layout()} justify={justify} direction={direction} alignContent={alignContent} alignItems={alignItems}>
     {children}
   </GridItemWrap>)
 }
