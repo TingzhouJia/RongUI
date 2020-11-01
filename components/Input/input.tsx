@@ -4,6 +4,7 @@ import React from "react";
 import ClearableLabeledInput from './clearable'
 import { OuterInputWrapper } from "./wrapper";
 import Password from "./password";
+import Search from "./search";
 export interface InputBasicProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement|HTMLTextAreaElement>, 'size' | 'prefix' | 'type'> {
   size?: NormalSizes;
@@ -69,6 +70,7 @@ export function resolveOnChange(
 
 export interface InputProps extends React.FC<InputBasicProps> {
   Password:typeof Password
+  Search:typeof Search
 }
 
 const Input:InputProps=(props)=>{
@@ -186,4 +188,5 @@ const Input:InputProps=(props)=>{
     return (<>{renderComponent()}</>)
 }
 Input.Password=Password
+Input.Search=Search
 export default Input

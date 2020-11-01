@@ -2,6 +2,7 @@ import { tuple, NormalTypes, NormalSizes } from "../utils";
 import React, { useRef, cloneElement } from 'react'
 import { CloseCircleFilled } from "@ant-design/icons";
 import { CloseBtn, Suffix, Preffix, AffixWrapper, AddOnWrapper, GroupWrapper, WithAddOnWrapper, TextAreaWrapper } from "./wrapper";
+import Button from "../Button";
 export const ClearableInputType = tuple('text', 'input');
 
 interface BasicProps {
@@ -62,7 +63,7 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
     const { suffix, allowClear } = props;
     if (suffix || allowClear) {
       return (
-        <Suffix >
+        <Suffix id="suffix">
           {renderClearIcon()}
           {suffix}
         </Suffix>
@@ -70,24 +71,23 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
     }
     return null;
   }
+  
 
   const renderLabeledIcon = (element: React.ReactElement) => {
     const {
       focused,
       value,
       prefix,
-      className,
       size,
       suffix,
       disabled,
       allowClear,
-      style,
       readOnly,
       bordered,
     } = props;
     const suffixNode = renderSuffix();
 
-    const prefixNode = prefix ? <Preffix >{prefix}</Preffix> : null;
+    const prefixNode = prefix ? <Preffix id="prefix" >{prefix}</Preffix> : null;
     return (
       <AffixWrapper
         id="affix-input-wrapper"
@@ -110,13 +110,13 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
   }
 
   const renderInputWithLabel = (labeledElement: React.ReactElement) => {
-    const { addonBefore, addonAfter, style, size = "large", className,bordered } = props;
+    const { addonBefore, addonAfter, style, size , className,bordered } = props;
     // Not wrap when there is not addons
  
     const addonBeforeNode = addonBefore ? (
-      <AddOnWrapper id="add-before">{addonBefore}</AddOnWrapper>
+      <AddOnWrapper size={size} id="add-before">{addonBefore}</AddOnWrapper>
     ) : null;
-    const addonAfterNode = addonAfter ? <AddOnWrapper id="id-after">{addonAfter}</AddOnWrapper> : null;
+    const addonAfterNode = addonAfter ? <AddOnWrapper size={size} id="add-after">{addonAfter}</AddOnWrapper> : null;
 
     return (
       <GroupWrapper id="input-group-wrapper" className={className} size={size} style={style}>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SearchOutlined, LoadingOutlined } from '@ant-design/icons';
 import Input, { InputBasicProps } from './input';
 import { composeRef } from 'rc-util/lib/ref';
@@ -22,10 +22,11 @@ export interface SearchProps extends InputBasicProps {
 
 const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
 
-
+    const [curVla, setcurVla] = useState('')
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { onChange: customOnChange, onSearch: customOnSearch } = props;
+        setcurVla(e.target.value)
         if (e && e.target && e.type === 'click' && customOnSearch) {
             customOnSearch((e as React.ChangeEvent<HTMLInputElement>).target.value, e);
         }
@@ -46,116 +47,82 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
             return;
         }
         if (customOnSearch) {
-           // customOnSearch(ref.current?.input.value, e);
+            customOnSearch(curVla, e);
         }
     };
     const renderLoading = () => {
-        const { enterButton, size="default" } = props;
+        const {loading,  size="default" } = props;
     
-        if (enterButton) {
-          return (
-                <Button  type="primary" size={size}>
-                  <LoadingOutlined />
-                </Button>
-          );
-        }
-        return <LoadingOutlined  key="loadingIcon" />;
+
+        return loading?<Button type="primary"><LoadingOutlined  key="loadingIcon" /></Button>:null;
       };
     
       const renderSuffix = () => {
-        const { suffix, enterButton, loading } = props;
-    
+        const { suffix, enterButton, loading,size,disabled } = props;
+        let icon
         if (loading && !enterButton) {
           return [suffix, renderLoading()];
         }
-    
-        if (enterButton) return suffix;
-    
-        const icon = (
-          <SearchIconWrapper>
+        const enterButtonAsElement = enterButton as React.ReactElement;
+        icon= (
+          <SearchIconWrapper id="search-icon">
               <SearchOutlined key="searchIcon" onClick={onSearch} />
           </SearchIconWrapper>
         );
-    
+        if (enterButton) {
+          if (enterButtonAsElement.type === 'button') {
+            icon = React.cloneElement(enterButtonAsElement, {
+              onMouseDown,
+              onClick: onSearch,
+              key: 'enterButton',
+              id:''
+            });
+          } else {
+            icon = (
+              <Button
+                type="primary"
+                size={size}
+                disabled={disabled}
+                key="enterButton"
+                onMouseDown={onMouseDown}
+                onClick={onSearch}
+                style={{marginRight:'5px'}}
+              >
+                {enterButton === true ? <SearchOutlined /> : enterButton}
+              </Button>
+            );
+          }
+        }
         if (suffix) {
           return [
-            React.cloneElement(suffix as React.ReactElement,{key:'suffix'}),
             icon,
+            React.cloneElement(suffix as React.ReactElement,{key:'suffix'}),
+           
           ];
         }
     
         return icon;
       };
-      const renderAddonAfter = ( size: NormalSizes) => {
-        const { enterButton, disabled, addonAfter, loading } = props;
     
-    
-        if (loading && enterButton) {
-          return [renderLoading(), addonAfter];
-        }
-    
-        if (!enterButton) return addonAfter;
-    
-        let button: React.ReactNode;
-        const enterButtonAsElement = enterButton as React.ReactElement;
- 
-        if (enterButtonAsElement.type === 'button') {
-          button = React.cloneElement(enterButtonAsElement, {
-            onMouseDown,
-            onClick: onSearch,
-            key: 'enterButton',
-            
-          });
-        } else {
-          button = (
-            <Button
-              type="primary"
-              size={size}
-              disabled={disabled}
-              key="enterButton"
-              onMouseDown={onMouseDown}
-              onClick={onSearch}
-            >
-              {enterButton === true ? <SearchOutlined /> : enterButton}
-            </Button>
-          );
-        }
-    
-        if (addonAfter) {
-          return [
-            button,
-            React.cloneElement(addonAfter as React.ReactElement)
-          ];
-        }
-    
-        return button;
-      };
       const renderSearch = () => {
         const {
-    
+          loading,
+          onSearch:CustomSearch,
           enterButton,
-          className,
+        
           size: customizeSize,
           ...restProps
         } = props;
-    
-        delete (restProps as any).onSearch;
-        delete (restProps as any).loading;
-    
-    
         
         return (
-        
               <Input
-               
+                {...restProps}
                 onPressEnter={onSearch}
                 {...restProps}
                 size={customizeSize }
-    
-                addonAfter={renderAddonAfter( customizeSize ||'default' )}
                 suffix={renderSuffix()}
                 onChange={onChange}
-                className={className}
+           
               />
  
         );

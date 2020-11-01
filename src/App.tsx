@@ -17,10 +17,10 @@ function App() {
   return (
     <ThemeProvider theme={ThemeStore}>
 
-  <Input  allowClear addonBefore={<SettingOutlined/>} prefix={<EllipsisOutlined/>} suffix={<EditOutlined/>} size="large" addonAfter={<SettingOutlined/>}/>
+  <Input   allowClear addonBefore={<SettingOutlined/>} prefix={<EllipsisOutlined/>} suffix={<EditOutlined/>}  addonAfter={<SettingOutlined/>}/>
 
      <Input.Password style={{marginTop:"50px"}} ></Input.Password>
-
+  <Input.Search enterButton suffix={<EditOutlined/>}  allowClear style={{marginTop:"50px"}} addonAfter={<SettingOutlined/>}></Input.Search>
     </ThemeProvider>
   );
 }
