@@ -7,7 +7,7 @@ import { ThemeStore } from '../components/styles';
 import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 
-import Image from '../components/Image'
+import Input from '../components/Input/input'
 
 
 
@@ -17,11 +17,9 @@ function App() {
   return (
     <ThemeProvider theme={ThemeStore}>
 
+  <Input  allowClear addonBefore={<SettingOutlined/>} prefix={<EllipsisOutlined/>} suffix={<EditOutlined/>} size="large" addonAfter={<SettingOutlined/>}/>
 
-
-     <Image  src="https://images.unsplash.com/photo-1602524206684-fdf6393c7d89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"/>
-
-
+     <Input.Password style={{marginTop:"50px"}} ></Input.Password>
 
     </ThemeProvider>
   );
