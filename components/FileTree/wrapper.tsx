@@ -20,7 +20,7 @@ export const TreeFileWrapper=styled.div<{level:number,disabled?:boolean}>`
           position:relative;
           user-select: none;
 
-          margin-left: calc(1.875rem * ${props=>props.level});
+          margin-left: calc(1.875rem * ${props=>props.level+1});
           ${props=>props.disabled?css`
           & > * {
             color:rgba(0,0,0,0.25);

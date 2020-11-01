@@ -33,7 +33,12 @@ const TreeFolder: React.FC<TreeFolderProps> = (props) => {
     const [expanded, setExpanded] = useState<boolean>(initialExpand)
     useEffect(() => setExpanded(initialExpand), [])
     const currentPath = useMemo(() => makeChildPath(name, parentPath), [])
-    const clickHandler = () => setExpanded(!expanded)
+    const clickHandler = () => {
+        if(children){
+            setExpanded(!expanded)
+        }
+        
+    }
     const nextChildren = setChildrenProps(
         children,
         {
@@ -49,9 +54,11 @@ const TreeFolder: React.FC<TreeFolderProps> = (props) => {
     return (<FolderWrapper id="folder-base" onClick={clickHandler} {...rest}>
         <TreeFileWrapper id="folder-wrapper" level={parentLevel}>
             <TreeIndents   count={parentLevel} />
-            <FolderStatus id="folder-status">
+            {
+                children &&(<FolderStatus id="folder-status">
                 {!expanded ? <PlusSquareOutlined style={{fontSize:"12px"}} /> : <MinusSquareOutlined style={{fontSize:"12px"}}/>}
-            </FolderStatus>
+            </FolderStatus>)
+            }
             <FileIcon id="folder-icon">
                 {icon ? icon(expanded) : expanded ? <FolderOpenOutlined  /> : <FolderOutlined />}
             </FileIcon>

@@ -5,12 +5,10 @@ import TreeFile from './file'
 import { sortChildren } from "./utils"
 import { TreeContext } from "./treeContext"
 import { TreeBase } from "./wrapper"
-const FileTreeValueType = tuple('directory', 'file')
 
-const directoryType = FileTreeValueType[0]
 
 export type FileTreeValue = {
-  type: typeof FileTreeValueType[number]
+  type: 'directory'| 'file' 
   name: string
   extra?: string
   files?: Array<FileTreeValue>
@@ -35,13 +33,13 @@ const makeChildren = (value: Array<FileTreeValue> = [], sort?: boolean) => {
   if (!value || !value.length) return null
   const newval = sort ? value
     .sort((a, b) => {
-      if (a.type !== b.type) return a.type !== directoryType ? 1 : -1
+      if (a.type !== b.type) return a.type !== 'directory' ? 1 : -1
       return `${a.name}`.charCodeAt(0) - `${b.name}`.charCodeAt(0)
     }) : value
   return (newval.map((item, index) => {
-    if (item.type === directoryType)
+    if (item.type === 'directory')
       return (
-        <TreeFolder icon={item.icon} disabled={item.disabled} name={item.name} extra={item.extra} key={`folder-${item.name}-${index}`}>
+        <TreeFolder  icon={item.icon} disabled={item.disabled} name={item.name} extra={item.extra} key={`folder-${item.name}-${index}`}>
           {makeChildren(item.files)}
         </TreeFolder>
       )
