@@ -44,12 +44,7 @@ export const Preffix = styled.span`
     align-items: center;
 `
 
-const getHover = (color: string) => {
-  return css`
-    border-color: ${color};
-  border-right-width: 1px !important;
-    `
-}
+
 
 const getDisabled = () => {
   return css`
@@ -147,10 +142,10 @@ export const WithAddOnWrapper = styled.span<{ addon?: boolean, borderless?: bool
   width:100%;
 `
 
-export const TextAreaWrapper = styled.span<{ borderless?: boolean }>`
-    max-width: 100%;
+export const TextAreaWrapper = styled.div<{ borderless?: boolean }>`
     height: auto;
     min-height: 32px;
+    max-width:100%;
     line-height: 22px;
     vertical-align: bottom;
     transition: all 0.3s, height 0s;
@@ -171,6 +166,7 @@ ${
   props => props.disabled ? css`cursor:not-allowed` : null
   }
 &:-webkit-autofill {
+    box-shadow:0 0 0px 32px #fff inset !important;
     -webkit-box-shadow: 0 0 0px 32px #fff inset !important; /**通过边框阴影遮挡住背景*/
     -webkit-text-fill-color: #333; /*自动填充内容的文本颜色*/
 }
@@ -185,5 +181,19 @@ display:flex;
 height:100%;
 justify-content:stretch;
 align-items:center;
+`
+
+export const TextAreaBase=styled.textarea<{disabled?:boolean,bordered?:boolean}>`
+    max-width: 100%; // prevent textearea resize from coming out of its container
+    height: auto;
+    min-height: 32px;
+    line-height: 32px;
+    vertical-align: bottom;
+    transition: all 0.3s, height 0s;
+    border:${props=>props.bordered?"1px solid #d9d9d9":null};
+    outline:none;
+    &:hover,&:active,&:focus {
+      border-color:${props=>props.disabled?"none":props.theme.colors.primary};
+    }
 `
 

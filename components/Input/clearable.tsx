@@ -131,23 +131,29 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
   const renderTextAreaWithClearIcon = (element: React.ReactElement) => {
     const { value, allowClear, className, style, bordered } = props;
     if (!allowClear) {
-      return cloneElement(element, {
-        value,
-      });
-    }
+      
+      return  <TextAreaWrapper id="textarea-base" borderless={!bordered} className={className} style={style}>
+          {
+            cloneElement(element, {
+              value,
+            })
+          }
+      </TextAreaWrapper>
+    } 
 
     return (
-      <TextAreaWrapper borderless={!bordered} className={className} style={style}>
-        {cloneElement(element, {
+      <TextAreaWrapper id="textarea-base" borderless={!bordered} className={className} style={style}>
+        {(cloneElement(element, {
           style: null,
           value,
-        })}
+        }))}
         {renderClearIcon()}
       </TextAreaWrapper>
     );
   }
   const { inputType, element } = props;
-  if (inputType === ClearableInputType[0]) {
+  if (inputType === 'text') {
+     
     return renderTextAreaWithClearIcon(element);
   }
   return renderInputWithLabel(renderLabeledIcon(element));
