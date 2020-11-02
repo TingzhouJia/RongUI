@@ -24,8 +24,7 @@ const Password: React.FC<PasswordProps> = (props) => {
         setVisible(!visible);
     };
     const getIcon = () => {
-        const { action, iconRender = (visible:boolean) => visible?<EyeOutlined />:<EyeInvisibleOutlined /> } = props;
-        const iconTrigger = ActionMap[action!] || '';
+        const { action, iconRender = (visible:boolean) => visible?<EyeOutlined id="open-eye"/>:<EyeInvisibleOutlined id="close-eye" /> } = props;
         const icon = iconRender(visible);
         const iconProps = {
             onClick: onVisibleChange,
@@ -37,7 +36,7 @@ const Password: React.FC<PasswordProps> = (props) => {
                 e.preventDefault();
             },
         };
-    return <Pwd>{React.cloneElement(React.isValidElement(icon) ? icon : <></>, iconProps)}</Pwd>;
+    return <Pwd id="pwd-icon">{React.cloneElement(React.isValidElement(icon) ? icon : <></>, iconProps)}</Pwd>;
     };
     const renderPassword = () => {
         const {
@@ -49,10 +48,10 @@ const Password: React.FC<PasswordProps> = (props) => {
         } = props;
 
 
-
+        const { suffix, iconRender, ...rest } = props
         const suffixIcon = visibilityToggle && getIcon();
 
-        const { suffix, iconRender, ...rest } = props
+      
         const omittedProps = {
             ...rest,
             
@@ -65,7 +64,7 @@ const Password: React.FC<PasswordProps> = (props) => {
             omittedProps.size = size;
         }
 
-        return <Input  {...omittedProps} />;
+        return <Input id="rong-password" {...omittedProps} />;
     };
     return (<>{renderPassword()}</>)
 }
