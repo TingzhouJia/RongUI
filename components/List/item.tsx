@@ -28,15 +28,15 @@ export const Meta: React.FC<ListItemMetaProps> = ({
   }) => {
 
     const content = (
-      <ItemMetaContent>
-        {title && <ItemMetaTitle>{title}</ItemMetaTitle>}
-        {description && <ItemMetaDescription>{description}</ItemMetaDescription>}
+      <ItemMetaContent id="list-item-meta-content">
+        {title && <ItemMetaTitle id="list-item-meta-title">{title}</ItemMetaTitle>}
+        {description && <ItemMetaDescription id="list-item-meta-desciption">{description}</ItemMetaDescription>}
       </ItemMetaContent>
     );
   
     return (
-      <ItemMeta {...others} >
-        {avatar && <ItemMetaAvatar>{avatar}</ItemMetaAvatar>}
+      <ItemMeta id="list-item-meta" {...others} >
+        {avatar && <ItemMetaAvatar id="list-item-meta-avatar">{avatar}</ItemMetaAvatar>}
         {(title || description) && content}
       </ItemMeta>
     );
@@ -74,9 +74,9 @@ export const Meta: React.FC<ListItemMetaProps> = ({
     };
   
     const actionsContent = actions && actions.length > 0 && (
-      <ItemAction key="actions">
+      <ItemAction id="list-item-actions" key="actions">
         {actions.map((action: React.ReactNode, i: number) => (
-          <ItemEachAction key={`item-action-${i}`}>
+          <ItemEachAction id="list-item-action" key={`item-action-${i}`}>
             {action}
             {i !== actions.length - 1 && <ItemActionSplit />}
           </ItemEachAction>
@@ -85,25 +85,25 @@ export const Meta: React.FC<ListItemMetaProps> = ({
     );
     const Element = itemLayout === 'vertical' && extra
     ? [
-        <ItemMain key="content">
+        <ItemMain id="list-item-main" key="content">
           {children}
           {actionsContent}
         </ItemMain>,
-        <ItemExtra key="extra">
+        <ItemExtra id="list-item-extra" key="extra">
           {extra}
         </ItemExtra>,
       ]
-    : [children, actionsContent, extra?React.cloneElement(extra as React.ReactElement, { key: 'extra' }):<></>]
+    : [children,  extra?React.cloneElement(extra as React.ReactElement, { key: 'extra',style:{marginTop:"15px"} }):<></>,actionsContent]
     const itemChildren = (
       grid?<ItemWrap
+      id="list-item"
       bordered={bordered}
       size={size}
         flex={isFlexMode()}
         {...(others as any)} // `li` element `onCopy` prop args is not same as `div`
-       
       >
        {Element}
-    </ItemWrap>:<ItemLi   bordered={bordered}
+    </ItemWrap>:<ItemLi id="list-item-li" flex={isFlexMode()}  bordered={bordered}
       size={size}  {...(others as any)}>{Element}</ItemLi>
     );
   
