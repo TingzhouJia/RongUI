@@ -10,6 +10,7 @@ import message from '../components/Message'
 import notification from '../components/Notification'
 import Button from '../components/Button';
 import Pagination from '../components/Pagination';
+import Progress from '../components/Progress';
 
 function App() {
   const [visible, setvisible] = useState(false)
@@ -35,7 +36,7 @@ function App() {
   return (
     <ThemeProvider theme={ThemeStore}>
       
-      <Pagination disabled defaultCurrent={1} total={50}/>
+      <Progress percentage={50} active/>
     </ThemeProvider>
   );
 }

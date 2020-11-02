@@ -14,27 +14,28 @@ export const ProgressText = styled.span`
     word-break: normal;
 `
 export const OuterLine=styled.div`
-display: inline-block;
+    display: flex;
     width: 100%;
-    margin-right: 0;
-    padding-right: 0;
+    flex-direction:row;
+    align-items:center;
 `
 
-export const InnerLine=styled.div<{bg:string}>`
+export const InnerLine=styled.div<{bg:string,size?:string}>`
 position: relative;
     display: inline-block;
     width: 100%;
     overflow: hidden;
     vertical-align: middle;
-    background-color: ${props=>props.bg};
+    background-color: ${props=>props.bg||"#f0f0f0"};
+    height:${props=>props.size==='small'?6:8}px;
     border-radius: 100px;
 `
 
-export const BgLine=styled.div<{active?:boolean,width?:number,size?:string,bg?:string}>`
-width:${props=>props.width};
+export const BgLine=styled.div<{active?:boolean,width?:number,bg?:string}>`
+width:${props=>props.width}%;
 position: relative;
 transition:all 0.4s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
-height:${props=>props.size==='small'?6:8};
+height:100%;
 border-radius:100px;
 background-color:${props=>props.bg};
 &::before {
@@ -81,4 +82,4 @@ const ProgressAnimi = keyframes`
     opacity: 0;
   }
 `
-const anim=css`animation: ${ ProgressAnimi } 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite`
+const anim=css`animation: ${ ProgressAnimi } 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite;`
