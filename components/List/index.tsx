@@ -10,7 +10,6 @@ export interface BasicListProps {
   style?: React.CSSProperties;
   children?: React.ReactNode;
   dataSource?: any[];
-  extra?: React.ReactNode;
   grid?: { gap?: number, justify?: 'center' };
   pagination?: PaginationProps | boolean
   id?: string;
@@ -20,7 +19,6 @@ export interface BasicListProps {
   rowKey?: ((item: any) => string) | string;
   renderItem?: (item: any, index: number) => React.ReactNode;
   size?: ListSize;
-  split?: boolean;
   header?: React.ReactNode;
   footer?: React.ReactNode;
 }
@@ -39,7 +37,6 @@ export interface ListProps extends React.FC<BasicListProps> {
 const List:ListProps=({
   pagination = false as BasicListProps['pagination'],
   bordered = true,
-  split = true,
   className,
   children,
   itemLayout="vertical",
@@ -63,7 +60,7 @@ const List:ListProps=({
     current: 1,
     total: 0,
   };
-  const keys: { [key: string]: string } = {};
+  let keys: { [key: string]: string } = {};
 
   const triggerPaginationEvent = (eventName: string) => {
     return (page: number, pageSize?: number) => {
@@ -90,9 +87,9 @@ const List:ListProps=({
     if (!key) {
       key = `list-item-${index}`;
     }
-    keys[index] = key;
 
-    return renderItem(item, index);
+
+    return React.cloneElement((renderItem(item, index) as any),{key});
   };
   //
   const isSomethingAfterLastItem = () => {
@@ -131,8 +128,7 @@ const List:ListProps=({
   const renderBySource=()=>{
     if(renderItem){
       return splitDataSource.map((item,index)=>{
-        const element=renderInnerItem(item,index)
-        return React.cloneElement((element as any),{key:keys[index]})
+       return renderInnerItem(item,index)
       })
     }
    
@@ -140,7 +136,7 @@ const List:ListProps=({
 
   return (
     <ListContext.Provider value={{ grid, itemLayout, size, bordered }}>
-      <ListBase layout={itemLayout} bordered={bordered} size={size} after={isSomethingAfterLastItem()} split={split} {...rest}>
+      <ListBase id="list-base" layout={itemLayout} bordered={bordered} size={size} after={isSomethingAfterLastItem()}  {...rest}>
 
         {header && <ListHeader id="list-header" size={size} bordered={bordered}>{header}</ListHeader>}
         {renderBySource()}
