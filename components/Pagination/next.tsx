@@ -10,7 +10,7 @@ const PaginationNext: React.FC<React.PropsWithChildren<PaginationNextProps>> = (
 }) => {
   const { update, isLast,disabled } = usePaginationContext()
   return (
-    <PaginationItem onClick={() => update && update('next')} disabled={isLast||disabled} {...props}>
+    <PaginationItem id="pagination-next" onClick={() => update && update('next')} disabled={isLast||disabled} {...props}>
       {children}
     </PaginationItem>
   )

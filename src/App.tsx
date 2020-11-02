@@ -4,14 +4,12 @@ import { ThemeProvider, DefaultTheme } from 'styled-components'
 import './App.css';
 import { ThemeStore } from '../components/styles';
 
-import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 
-import Layout from '../components/Layout'
-import List from '../components/List';
-import Avatar from '../components/Avatar';
-
-
+import message from '../components/Message'
+import notification from '../components/Notification'
+import Button from '../components/Button';
+import Pagination from '../components/Pagination';
 
 function App() {
   const [visible, setvisible] = useState(false)
@@ -36,26 +34,8 @@ function App() {
   );
   return (
     <ThemeProvider theme={ThemeStore}>
-      <List
-  
-        itemLayout="horizontal"
-        dataSource={listData}
-        renderItem={item => (
-          <List.Item
-          
-          
-          >
-            <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
-              title={<a href={item.href}>{item.title}</a>}
-              description={item.description}
-            />
-            {item.content}
-
-          </List.Item>
-        )}
-      />
-
+      
+      <Pagination disabled defaultCurrent={1} total={50}/>
     </ThemeProvider>
   );
 }
