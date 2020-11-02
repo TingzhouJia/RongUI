@@ -1,10 +1,12 @@
 import styled, { css } from "styled-components";
+import { NormalSizes } from "../utils";
 
 export const ItemMeta = styled.div`
       display: flex;
-      flex: 1;
-      align-items: flex-start;
+
+      flex-direction:row;
       max-width: 100%;
+      margin-bottom:10px;
 `
 
 export const ItemMetaAvatar = styled.div`
@@ -12,13 +14,13 @@ margin-right: 16px;
 `
 
 export const ItemMetaContent = styled.div`
- flex: 1 0;
+        flex: 1 0;
         width: 0;
         color: rgba(0,0,0,0.85);
 `
 
 export const ItemMetaDescription = styled.div`
-        color: rgba(0,0,0.65);
+        color: #bfbfbf;
         font-size: 14px;
         line-height: 22px;
 `
@@ -38,26 +40,29 @@ margin-bottom: 4px;
 `
 
 export const ItemAction = styled.ul`
-flex: 0 0 auto;
-      margin-left: 48px;
+      flex: 0 0 auto;
+  
+      margin-top:15px;
+      margin-bottom:10px;
       padding: 0;
       font-size: 0;
       list-style: none;
 
     
-        &:first-child {
-          padding-left: 0;
-        }
+      
 `
 
 export const ItemEachAction = styled.li`
         position: relative;
         display: inline-block;
-        padding: 0 8px;
+        padding: 0 15px;
         color: rgba(0,0,0.65);
         font-size: 14px;
         line-height: 22px;
         text-align: center;
+        &:first-child {
+          padding-left: 0;
+        }
 `
 
 export const ItemActionSplit = styled.em`
@@ -67,11 +72,14 @@ export const ItemActionSplit = styled.em`
         width: 1px;
         height: 14px;
         margin-top: -7px;
-        background-color: hvs(0,94%);
+        background-color: #bfbfbf;
 `
 
 export const ItemMain = styled.div`
- display: block;
+      display: flex;
+      flex-direction:column;
+      align-self:stretch;
+       justify-content:space-between;
       flex: 1;
 `
 
@@ -80,46 +88,47 @@ export const ItemExtra = styled.div`
 `
 
 export const ItemWrap = styled.div<{ flex?: boolean, bordered?: boolean, size?: 'small' | 'default' | 'large' }>`
+  padding: ${props=>props.size === 'large' ? "16px 24px" : props.size === 'small' ? "8px 16px" : "12px 20px"};
+  ${props=>props.bordered ? css`border-bottom: 1px solid #d9d9d9 ;
+    &:last-child {
+      border-bottom: ${props.bordered ? "1px solid #d9d9d9" : "none"};
+    }`: null}
+  color: rgba(0,0,0,0.85);
     ${props => props.flex ? css`
     display: flex;
     align-items: center;
+    flex-direction:row;
     justify-content: space-between;
-    padding: ${props.size === 'large' ? "16px 24px" : props.size === 'small' ? "8px 16px" : "12px 0"};
-    color: rgba(0,0,0,0.85);
-    ${props.bordered ? css`border-bottom: 1px solid hsv(0,0,94%);
-    &:last-child {
-      border-bottom: ${props.bordered ? "1px solid hsv(0,0,94%)" : "none"};
-    }`: null}
+    
     `: css`
     display: block;
     max-width: 100%;
-    margin-bottom: 16px;
-    padding-top: 0;
-    padding-bottom: 0;
-    border-bottom: none;
     `}
 `
 
+
+
 export const ItemLi = styled.li<{ flex?: boolean, bordered?: boolean, size?: 'small' | 'default' | 'large' }>`
+color: rgba(0,0,0,0.85);
+padding: ${props=>props.size === 'large' ? "16px 24px" : props.size === 'small' ? "8px 16px" : "12px 20px"};
+
 ${props => props.flex ? css`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: ${props.size === 'large' ? "16px 24px" : props.size === 'small' ? "8px 16px" : "12px 0"};
-    color: rgba(0,0,0,0.85);
-    ${props.bordered ? css`border-bottom: 1px solid hsv(0,0,94%);
-    &:last-child {
-      border-bottom: ${props.bordered ? "1px solid hsv(0,0,94%)" : "none"};
-    }`: null}
+   
     `: css`
     display: block;
     max-width: 100%;
-    margin-bottom: 16px;
-    padding-top: 0;
-    padding-bottom: 0;
-    border-bottom: none;
     `}
+    ${props=>props.bordered ? css`border-bottom: 1px solid #d9d9d9 ;
+    &:last-child {
+      border-bottom: ${props.bordered ? "1px solid #d9d9d9" : "none"};
+    }`: null}
+    
 `
+
+
 
 export const ListPagination = styled.div<{bordered?:boolean}>`
     ${props=>props.bordered?css`
@@ -128,35 +137,32 @@ export const ListPagination = styled.div<{bordered?:boolean}>`
 `
 
 export const ListHeader = styled.div<{ bordered?: boolean, size?: 'small' | 'default' | 'large' }>`
-    background: transparent;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    ${props => props.bordered ? css`
-    padding-right: ${props.size === 'large' ? '24px' : props.size === 'small' ? '12px' : 0};
-    padding-left: ${props.size === 'large' ? '24px' : props.size === 'small' ? '12px' : 0};
-    `: null}
+    font-size:${props=>props.size === 'large' ? '24px' : props.size === 'small' ? '18px' : '22px'};
+    padding: ${props=>props.size === 'large' ? '16px 24px' : props.size === 'small' ? '8px 16px' : '12px 20px'};
+    ${
+      props=>props.bordered?css`border-bottom:1px solid #d9d9d9 ;`:null
+    }
 `
 
 export const ListFooter = styled.div<{ bordered?: boolean, size?: 'small' | 'default' | 'large' }>`
     background: transparent;
-    padding-top: 12px;
-    padding-bottom: 12px;
     ${props => props.bordered ? css`
-    padding-right: ${props.size === 'large' ? '24px' : props.size === 'small' ? '12px' : 0};
-    padding-left: ${props.size === 'large' ? '24px' : props.size === 'small' ? '12px' : 0};
+    padding: ${props.size === 'large' ? '16px 24px' : props.size === 'small' ? '8px 16px' : '12px 20px'};
     `: null}
 `
 
+
+
 export const ListBase = styled.div<{
     layout?: 'vertical' | 'horizontal', bordered?: boolean,
-    after?: boolean, size?: string, split?: boolean
+    after?: boolean, size?: NormalSizes, split?: boolean
 }>`
     position: relative;
     ${props => props.bordered ? css`
-        border: 1px solid hsv(0, 0, 85%);
+        border: 1px solid #d9d9d9 ;
         border-radius: 2px;
     `: null}
-* {
+& > * {
   outline: none;
 }
 

@@ -96,7 +96,6 @@ export const LayoutFooter=styled.div`
 `
 
 export const LayoutContent=styled.div<{sider?:boolean}>`
- flex: auto;
-   
-    min-height: 0;
+  flex: auto;
+  min-height: 0;
 `

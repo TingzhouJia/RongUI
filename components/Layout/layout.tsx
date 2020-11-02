@@ -61,7 +61,7 @@ const Layout: LayoutInterface = (props) => {
 }
 
 const Header: React.FC = (props) => {
-    return <LayoutHeader>
+    return <LayoutHeader >
         {props.children}
     </LayoutHeader>
 }
