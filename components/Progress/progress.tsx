@@ -34,7 +34,7 @@ const Progress:React.FC<ProgressProps>=(props)=>{
         );
       }
     const getColor=()=>{
-        if(status==="success"){
+        if(status==="success"||String(percentage)==="100"){
             return palette.success
         }
         if(status==="error"){
@@ -64,17 +64,17 @@ const Progress:React.FC<ProgressProps>=(props)=>{
         if(!showInfo){
             return null
         }
-        if(format||status!=='success'||(status as typeof ProgressStatuses[number] )!=="error"){
+        if(format||status!=='success'||(status as typeof ProgressStatuses[number] )!=="error"||String(percentage)!=="100"){
                text=textFormatter(validProgress(percentage))
         }else if((status as typeof ProgressStatuses[number])==='error'){
             text= <CloseCircleFilled />;
-        }else if((status)==='success'){
+        }else if((status)==='success'||String(percentage)==="100"){
             text=<CheckCircleFilled />;
         }
         return <ProgressText>{text}</ProgressText>
 
     }
-return (<LineProgress className={className} percentage={getPercentNumber()} status={getProgressStatus()} color={getColor()} {...props}>{renderProgressInfo()}</LineProgress>)
+return (<LineProgress className={className} active={active} percentage={getPercentNumber()} status={getProgressStatus()} color={getColor()} {...props}>{renderProgressInfo()}</LineProgress>)
 
 }
 
