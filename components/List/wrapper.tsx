@@ -160,8 +160,9 @@ export const ListBase = styled.div<{
     position: relative;
     ${props => props.bordered ? css`
         border: 1px solid #d9d9d9 ;
-        border-radius: 2px;
-    `: null}
+       
+    `: css`border:none;`}
+    border-radius: 2px;
 & > * {
   outline: none;
 }
