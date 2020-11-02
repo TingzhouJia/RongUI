@@ -225,3 +225,5 @@ export interface MessageApi extends MessageInstance {
   destroy(messageKey?: React.Key): void;
   useMessage(): [MessageInstance, React.ReactElement];
 }
+
+export default api as MessageApi

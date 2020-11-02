@@ -21,8 +21,8 @@ const PaginationItem: React.FC<PaginationItemProps> = ({ active,
         onClick && onClick(event)
     }
     return (
-        <PaginationIemWrap>
-            <PaginationItemBtn onClick={clickHandler} {...props} active={active} disabled={disabled}>{children}</PaginationItemBtn>
+        <PaginationIemWrap id="pagination-item">
+            <PaginationItemBtn id={`pagination-item-btn${active?'-active':''}`} onClick={clickHandler} {...props} active={active} disabled={disabled}>{children}</PaginationItemBtn>
         </PaginationIemWrap>
     )
 }

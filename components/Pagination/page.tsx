@@ -8,8 +8,8 @@ interface Props {
     current: number
     setPage: Dispatch<SetStateAction<number>>
 }
-
-const PaginationPages: React.FC<Props> = ({ limit, count, current, setPage }) => {
+type PageProps = Omit<React.ButtonHTMLAttributes<any>, keyof Props> & Props
+const PaginationPages: React.FC<PageProps> = ({ limit, count, current, setPage }) => {
     const showPage = (limit % 2 === 0 ? limit - 1 : limit) - 2
     const middleNumber = (showPage + 1) / 2
     const {disabled}=usePaginationContext()
@@ -23,7 +23,7 @@ const PaginationPages: React.FC<Props> = ({ limit, count, current, setPage }) =>
     const pagesArray = [...new Array(showPage)]
     const renderItem =
         (value: number, active: number) => (
-            <PaginationItem
+            <PaginationItem 
                 key={`pagination-item-${value}`}
                 disabled={disabled}
                 active={value === active}

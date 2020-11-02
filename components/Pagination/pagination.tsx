@@ -84,9 +84,9 @@ export const keyCodde= {
       }, [current])
       return (
           <PaginationContext.Provider value={values}>
-              <PaginationNav>
+              <PaginationNav id="pagination-nav" {...props}>
               {prevItem}
-        <PaginationPages  count={total} current={page} limit={limit} setPage={setPage} />
+        <PaginationPages id="pagination-container" count={total} current={page} limit={limit} setPage={setPage} />
         {nextItem}
               </PaginationNav>
           </PaginationContext.Provider>

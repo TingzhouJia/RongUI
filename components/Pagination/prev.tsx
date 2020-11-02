@@ -12,7 +12,7 @@ const PaginationPrevious: React.FC<React.PropsWithChildren<PaginationNextProps>>
 }) => {
   const { update, isFirst ,disabled} = usePaginationContext()
   return (
-    <PaginationItem onClick={() => update && update('prev')} disabled={isFirst||disabled} {...props}>
+    <PaginationItem id="pagination-prev" onClick={() => update && update('prev')} disabled={isFirst||disabled} {...props}>
       {children}
     </PaginationItem>
   )

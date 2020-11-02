@@ -13,9 +13,9 @@ const PaginationEllipse:React.FC<Props>=({onClick,isBefore})=>{
     return (
         <PaginationItem  disabled={disabled} onClick={e => onClick && onClick(e)}
         onMouseEnter={() => setShowMore(true)}
-        onMouseLeave={() => setShowMore(false)}>>
+        onMouseLeave={() => setShowMore(false)}>
             {
-                showMore?<EllipsisOutlined />:isBefore?<DoubleLeftOutlined/>:<DoubleRightOutlined />
+                !showMore?<EllipsisOutlined id="more-icon"/>:isBefore?<DoubleLeftOutlined id="left-jump"/>:<DoubleRightOutlined id="right-jump" />
             }
         </PaginationItem>
     )
