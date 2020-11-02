@@ -75,12 +75,13 @@ const Search = React.forwardRef<InputBasicProps, SearchProps>((props, ref) => {
               onMouseDown,
               onClick: onSearch,
               key: 'enterButton',
-              id:''
+              id:'enter-btn'
             });
           } else {
             icon = (
               <Button
                 type="primary"
+                id="enter-btn"
                 size={size}
                 disabled={disabled}
                 key="enterButton"
