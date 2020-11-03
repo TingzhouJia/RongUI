@@ -14,6 +14,7 @@ import Progress from '../components/Progress';
 import Select from '../components/Select/select';
 import { EditOutlined } from '@ant-design/icons';
 import Skeleton from '../components/Skeleton/skeleton';
+import Slider from '../components/Slider';
 
 function App() {
   const [visible, setvisible] = useState(false)
@@ -38,10 +39,8 @@ function App() {
   );
   return (
     <ThemeProvider theme={ThemeStore}>
-        <Skeleton avatar active paragraph={{rows:6}}></Skeleton>
-        <Skeleton.Avatar/>
-        <Skeleton.Button/>
-        <Skeleton.Image/>
+       <Slider />
+       <Slider vertical style={{height:"300px"}}/>
     </ThemeProvider>
   );
 }
