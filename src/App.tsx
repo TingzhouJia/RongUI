@@ -11,6 +11,8 @@ import notification from '../components/Notification'
 import Button from '../components/Button';
 import Pagination from '../components/Pagination';
 import Progress from '../components/Progress';
+import Select from '../components/Select/select';
+import { EditOutlined } from '@ant-design/icons';
 
 function App() {
   const [visible, setvisible] = useState(false)
@@ -36,7 +38,10 @@ function App() {
   return (
     <ThemeProvider theme={ThemeStore}>
       
-      <Progress percentage={50} active/>
+      <Select style={{width:"200px"}}>
+        <Select.Option value="aaaa"><EditOutlined/>aaaa</Select.Option>
+        <Select.Option value="abbbaaa"><EditOutlined/>bb</Select.Option>
+      </Select>
     </ThemeProvider>
   );
 }

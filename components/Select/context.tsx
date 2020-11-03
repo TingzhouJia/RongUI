@@ -4,6 +4,7 @@ import { NormalSizes } from '../utils'
 
 export interface SelectConfig {
   value?: string | string[]
+  multiple?:boolean
   updateValue?: Function
   visible?: boolean
   updateVisible?: Function
