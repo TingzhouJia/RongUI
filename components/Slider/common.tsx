@@ -14,7 +14,6 @@ interface StepProps {
   marks:Record<number, React.ReactNode | { style?: React.CSSProperties; label?: string }>,
   dots:boolean,
   step:number,
-  included:boolean,
   lowerBound:number,
   upperBound:number,
   max:number,
@@ -66,15 +65,14 @@ const calcPoints = (
 
 export const Step:React.FC<StepProps>=(props)=>{
 
-    const {vertical,marks,dots,step,min,max,included,upperBound,lowerBound,dotStyle,activeDotStyle,disabled}=props
+    const {vertical,marks,dots,step=1,min,max,upperBound,lowerBound,dotStyle,activeDotStyle,disabled}=props
     const range = max - min;
     const elements = calcPoints(vertical, marks, dots, step, min, max).map((point:number) => {
         const offset = `${(Math.abs(point - min) / range) * 100}%`;
-    
         const isActived =
-          (!included && point === upperBound) ||
-          (included && point <= upperBound && point >= lowerBound);
-        return <DotBody id="slider-dot" disabled={disabled} style={isActived?activeDotStyle:dotStyle} active={isActived} top={offset} right={offset}  key={point} />;
+         
+          (point <= upperBound && point >= lowerBound);
+        return <DotBody id="slider-dot" disabled={disabled} vertical={vertical} style={isActived?activeDotStyle:dotStyle} active={isActived} top={offset} right={offset}  key={point} />;
       });
     return <StepBody id="slider-step" vertical={vertical}>
             {elements}
@@ -117,7 +115,7 @@ export const Markers:React.FC<MarkerProps>=(props)=>{
 
       return (
         <MarkerLabelWrap
-      
+        id="slider-marker"
         disabled={disabled}
         vertical={vertical}
         active={isActive}
