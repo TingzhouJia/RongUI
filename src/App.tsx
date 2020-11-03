@@ -37,10 +37,21 @@ function App() {
       {text}
     </>
   );
+  const marks = {
+    0: '0°C',
+    26: '26°C',
+    37: '37°C',
+    100: {
+      style: {
+        color: '#f50',
+      },
+      label: <strong>100°C</strong>,
+    },
+  };
   return (
     <ThemeProvider theme={ThemeStore}>
-       <Slider />
-       <Slider vertical style={{height:"300px"}}/>
+       <Slider defaultValue={50} marks={marks} />
+       <Slider  marks={marks} vertical style={{height:"300px"}}/>
     </ThemeProvider>
   );
 }

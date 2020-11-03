@@ -40,7 +40,15 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
     const sliderRef = useRef<HTMLDivElement>(null)
     const [dragOffset, setdragOffset] = useState(0)
     const [startPos, setstartPos] = useState(0)
-
+    function getLowerBound() {
+       
+        return min
+      }
+    
+      function getUpperBound() {
+       
+        return curVal;
+      }
     function trimAlignValue(v: number, ) {
         if (v === null) {
             return null;
@@ -116,7 +124,7 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
     function onMove(e: Event, position: number) {
         e.preventDefault()
         const value=calcValueByPos(position)
-        if (value === 0) return;
+       
 
         onChange(value||0);
     }
@@ -142,7 +150,6 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
         if (e.button !== 0) {
             return;
         }
-       
         const isVertical = props.vertical || false;
         let position = isVertical ? e.clientY : e.pageX;
         if (!isEventFromHandle(e, handlesRefs)) {
@@ -225,7 +232,7 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
             handlesRefs?.current?.clickFocus();
         }
     }
-    
+
     const onTouchMove = (e: TouchEvent) => {
         if (isNotTouchEvent(e as unknown as React.TouchEvent<HTMLDivElement>) || !sliderRef) {
             onEnd();
@@ -330,9 +337,8 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
                 marks={marks || {}}
                 dots={props.dots || false}
                 step={props.step || 1}
-                included={props.included || true}
-                lowerBound={min}
-                upperBound={max}
+                lowerBound={getLowerBound()}
+                upperBound={getUpperBound()}
                 max={max}
                 min={min}
                 activeDotStyle={props.activeDotStyle}

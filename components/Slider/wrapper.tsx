@@ -64,10 +64,10 @@ export const DotBody=styled.span<{disabled?:boolean,vertical?:boolean,active?:bo
    ${props=>props.vertical?css`
     top: auto;
     bottom: ${props.top};
-      left: 2px;
+    
       margin-bottom: -4px;
    `:css`
-   top: -2px;
+   
    left :${props.right};
    margin-left: -4px;
    `}
@@ -75,21 +75,16 @@ export const DotBody=styled.span<{disabled?:boolean,vertical?:boolean,active?:bo
     width: 8px;
     height: 8px;
     background-color: #fff ;
-    border: 2px solid ${props=>props.disabled?"rgba(0,0,0,0.25)":props.active?props.theme.colors.primary:"hsv(0,0,94%)"};
+    border: 2px solid ${props=>props.disabled?"rgba(0,0,0,0.25)":props.active?props.theme.colors.primary:"#d9d9d9"};
     border-radius: 50%;
     cursor: ${props=>props.disabled?"not-allowed":"pointer"};
     box-shadow: none;
-    &:first-child {
-      margin-left: -4px;
-    }
-    &:last-child {
-      margin-left: -4px;
-    }
+
 
 `
 
 export const MarkerLabelWrap=styled.span<{vertical?:boolean,active?:boolean,val?:number,disabled?:boolean}>`
-position: absolute;
+    position: absolute;
     display: inline-block;
     text-align: center;
     word-break: keep-all;
