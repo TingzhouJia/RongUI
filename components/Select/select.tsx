@@ -6,6 +6,7 @@ import { SelectWrap, ValueWrap, IconWrap, CloseBtn, MultiItemContainer } from '.
 import SelectOption from './option'
 import SelectDropDown from './dropdown'
 import { UpOutlined, DownOutlined, CloseCircleFilled } from '@ant-design/icons'
+import OptionGroup from './optGroup'
 interface Props {
     disabled?: boolean
     value?: string | string[]
@@ -37,6 +38,24 @@ export const pickChildByProps = (
     const withoutPropChildren = React.Children.map(children, item => {
         if (!React.isValidElement(item)) return null
         if (!item.props) return item
+        if(item.props.label){
+            if (!React.isValidElement(item)) return null
+            if (!item.props) return item
+            const rest=React.Children.map(item.props.children,it=>{
+                if (isArray) {
+                    if (value.includes(it.props[key])) {
+                        target.push(it)
+                        return null
+                    }
+                    return it
+                }
+                if (it.props[key] === value) {
+                    target.push(it)
+                    return null
+                }
+            })
+            return rest
+        }
         if (isArray) {
             if (value.includes(item.props[key])) {
                 target.push(item)
@@ -138,8 +157,9 @@ const Select: SelectComponent<ComponentProps> = (props) => {
             if (!React.isValidElement(child)) return null
             const el = child.props.children
         if (!multiple) return <div id="selected-item">{el}</div>
+        
             return (
-                <SelectMultipleValue disabled={disabled}>
+                <SelectMultipleValue value={child.props.value} disabled={disabled}>
                     {el}
                 </SelectMultipleValue>
             )
@@ -156,7 +176,7 @@ const Select: SelectComponent<ComponentProps> = (props) => {
                     </ValueWrap>
                 )}
                 {value && !multiple && <ValueWrap id="one-value-selcted">{selectedChild}</ValueWrap>}
-                {value && multiple && <MultiItemContainer>{selectedChild}</MultiItemContainer>}
+                {value && multiple && <MultiItemContainer id="multi-selected-container">{selectedChild}</MultiItemContainer>}
                 <SelectDropDown
                     visible={visible}
                     className={props.dropdownClassName}
@@ -182,6 +202,7 @@ const Select: SelectComponent<ComponentProps> = (props) => {
 
 type SelectComponent<P = {}> = React.FC<P> & {
     Option: typeof SelectOption
+    OptGroup:typeof OptionGroup
   }
   
   type ComponentProps = 
@@ -189,5 +210,6 @@ type SelectComponent<P = {}> = React.FC<P> & {
     NativeAttrs
   
 Select.Option=SelectOption
+Select.OptGroup=OptionGroup
 
 export default Select
