@@ -8,6 +8,7 @@ export interface SkeletonParagraphProps {
   style?: object;
   width?: widthUnit | Array<widthUnit>;
   rows?: number;
+  active?:boolean
 }
 
 const Paragraph = (props: SkeletonParagraphProps) => {
@@ -22,13 +23,13 @@ const Paragraph = (props: SkeletonParagraphProps) => {
     }
     return undefined;
   };
-  const {  className, style, rows } = props;
+  const {  className, style, rows,active } = props;
   const rowList = [...Array(rows)].map((_, index) => (
     // eslint-disable-next-line react/no-array-index-key
     <li key={index} style={{ width: getWidth(index) }}/>
   ));
   return (
-    <ParaWrap className={className} style={style}>
+    <ParaWrap id="skeleton-paragraph" active={active} className={className} style={style}>
       {rowList}
     </ParaWrap>
   );

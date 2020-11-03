@@ -4,21 +4,19 @@ import Title, { SkeletonTitleProps } from './title';
 import SkeletonAvatar, { SkeletonAvatarProps } from './avatar';
 import SkeletonButton from './button';
 import Element from './element'
-import { ElemHeader, ElemContent, SkeletonBase } from './wrapper';
-export interface SkeletonProps {
+import {  ElemContent, SkeletonBase, ElemAvatar } from './wrapper';
+export interface Props {
     active?: boolean;
     loading?: boolean;
     className?: string;
+    style?:React.CSSProperties
     children?: React.ReactNode;
     avatar?: SkeletonAvatarProps | boolean;
     title?: SkeletonTitleProps | boolean;
     paragraph?: SkeletonParagraphProps | boolean;
     round?: boolean;
 }
-// interface Compond extends React.FC<SkeletonProps> {
-//     Button: typeof SkeletonButton
-//     Avatar: typeof SkeletonAvatar
-// }
+
 function getAvatarBasicProps(hasTitle: boolean, hasParagraph: boolean): SkeletonAvatarProps {
     if (hasTitle && !hasParagraph) {
         // Square avatar
@@ -61,18 +59,21 @@ function getParagraphBasicProps(hasAvatar: boolean, hasTitle: boolean): Skeleton
 
     return basicProps;
 }
-
-const Skeleton = (props:SkeletonProps) => {
+export interface SkeletonProps extends React.FC<Props> {
+    Button:typeof SkeletonButton
+    Avatar:typeof SkeletonAvatar
+}
+const Skeleton:SkeletonProps = (props) => {
     const {
 
         loading,
-        className,
         children,
         avatar=false,
         title=true,
         paragraph=true,
         active=false,
         round,
+        ...rest
     } = props;
     if (loading || !('loading' in props)) {
         const hasAvatar = !!avatar;
@@ -89,9 +90,9 @@ const Skeleton = (props:SkeletonProps) => {
             };
             // We direct use SkeletonElement as avatar in skeleton internal.
             avatarNode = (
-                <ElemHeader>
-                    <Element {...avatarProps} />
-                </ElemHeader>
+                    <ElemAvatar id="skeleton-avatar">
+                        <Element {...avatarProps} active={active} size='default'/>
+                    </ElemAvatar>
             );
         }
 
@@ -106,7 +107,7 @@ const Skeleton = (props:SkeletonProps) => {
                     ...getComponentProps(title),
                 };
 
-                title = <Title {...titleProps} />;
+                title = <Title  {...titleProps} active={active} />;
             }
 
             // Paragraph
@@ -118,7 +119,7 @@ const Skeleton = (props:SkeletonProps) => {
                     ...getComponentProps(paragraph),
                 };
 
-                paragraphNode = <Paragraph {...paragraphProps} />;
+                paragraphNode = <Paragraph {...paragraphProps} active={active} />;
             }
 
             contentNode = (
@@ -129,19 +130,19 @@ const Skeleton = (props:SkeletonProps) => {
             );
         }
         return (
-            <SkeletonBase>
+            <SkeletonBase {...rest} >
               {avatarNode}
               {contentNode}
             </SkeletonBase>
           );
     }
     
-    return children
+return <>{children}</>
 }
 
 
 
-Skeleton.Button = SkeletonButton;
-Skeleton.Avatar = SkeletonAvatar;
+Skeleton.Avatar=SkeletonAvatar
+Skeleton.Button=SkeletonButton
 
 export default Skeleton
