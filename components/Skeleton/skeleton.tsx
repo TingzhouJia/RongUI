@@ -4,17 +4,19 @@ import Title, { SkeletonTitleProps } from './title';
 import SkeletonAvatar, { SkeletonAvatarProps } from './avatar';
 import SkeletonButton from './button';
 import Element from './element'
+import SkeletonImage from './image'
 import {  ElemContent, SkeletonBase, ElemAvatar } from './wrapper';
+import { NormalSizes } from '../utils';
 export interface Props {
     active?: boolean;
     loading?: boolean;
+    size?:NormalSizes
     className?: string;
     style?:React.CSSProperties
     children?: React.ReactNode;
     avatar?: SkeletonAvatarProps | boolean;
     title?: SkeletonTitleProps | boolean;
     paragraph?: SkeletonParagraphProps | boolean;
-    round?: boolean;
 }
 
 function getAvatarBasicProps(hasTitle: boolean, hasParagraph: boolean): SkeletonAvatarProps {
@@ -62,6 +64,7 @@ function getParagraphBasicProps(hasAvatar: boolean, hasTitle: boolean): Skeleton
 export interface SkeletonProps extends React.FC<Props> {
     Button:typeof SkeletonButton
     Avatar:typeof SkeletonAvatar
+    Image:typeof SkeletonImage
 }
 const Skeleton:SkeletonProps = (props) => {
     const {
@@ -69,10 +72,10 @@ const Skeleton:SkeletonProps = (props) => {
         loading,
         children,
         avatar=false,
-        title=true,
+        title=false,
         paragraph=true,
         active=false,
-        round,
+        size="default",
         ...rest
     } = props;
     if (loading || !('loading' in props)) {
@@ -90,9 +93,7 @@ const Skeleton:SkeletonProps = (props) => {
             };
             // We direct use SkeletonElement as avatar in skeleton internal.
             avatarNode = (
-                    <ElemAvatar id="skeleton-avatar">
-                        <Element {...avatarProps} active={active} size='default'/>
-                    </ElemAvatar>
+                   <SkeletonAvatar {...avatarProps} active={active} size={size}/>
             );
         }
 
@@ -123,14 +124,14 @@ const Skeleton:SkeletonProps = (props) => {
             }
 
             contentNode = (
-                <ElemContent>
+                <ElemContent id="skeleton-content">
                     {title}
                     {paragraphNode}
                 </ElemContent>
             );
         }
         return (
-            <SkeletonBase {...rest} >
+            <SkeletonBase id="skeleton-base" {...rest} >
               {avatarNode}
               {contentNode}
             </SkeletonBase>
@@ -144,5 +145,5 @@ return <>{children}</>
 
 Skeleton.Avatar=SkeletonAvatar
 Skeleton.Button=SkeletonButton
-
+Skeleton.Image=SkeletonImage
 export default Skeleton
