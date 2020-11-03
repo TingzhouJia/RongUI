@@ -13,3 +13,9 @@ export function shallowWithTheme(child:any) {
         wrappingComponent: ({ children }:{children:any}) => <ThemeProvider theme={ThemeStore}>{children}</ThemeProvider>,
     });
 }
+
+export const mockNativeEvent = (fn: Function = () => {}) => ({
+    nativeEvent: { stopImmediatePropagation: fn },
+  })
+  
+  export const nativeEvent = mockNativeEvent()
