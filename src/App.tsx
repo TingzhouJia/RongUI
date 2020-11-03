@@ -38,8 +38,10 @@ function App() {
   );
   return (
     <ThemeProvider theme={ThemeStore}>
-        <Skeleton avatar active></Skeleton>
+        <Skeleton avatar active paragraph={{rows:6}}></Skeleton>
         <Skeleton.Avatar/>
+        <Skeleton.Button/>
+        <Skeleton.Image/>
     </ThemeProvider>
   );
 }

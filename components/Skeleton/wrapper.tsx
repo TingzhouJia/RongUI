@@ -64,13 +64,25 @@ export const Elem = styled.span<{ size?: 'large' | 'small' | 'default', shape?: 
 
 export const ElemBtn = styled(Elem) <{ active?: boolean }>`
  display: inline-block;
-  vertical-align: top;
+  width:${props=>props.size==="small"?"60":props.size==='large'?"80":"70"}px;
+  height:${props=>props.size==="small"?"30":props.size==='large'?"50":"40"}px;
   ${
   props => props.active ? skeletonAnim : css`
      background:  #f2f2f2 ;
     `
   }
   border-radius: 2px;
+`
+
+export const ElemImage=styled.div<{size?:NormalSizes}>`
+display:flex;
+justify-content:center;
+align-items:center;
+width:${props=>props.size==='large'?"125px":props.size==='small'?"85px":'105px'};
+height:${props=>props.size==='large'?"125px":props.size==='small'?"85px":'105px'};
+font-size:60px;
+color:rgba(0,0,0,0.35);
+background:  #f2f2f2 ;
 `
 
 export const ElemTitle = styled.h3<{ active?: boolean }>`
