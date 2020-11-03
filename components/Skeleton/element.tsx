@@ -10,7 +10,7 @@ export interface SkeletonElementProps {
   }
   
 const Element = (props: SkeletonElementProps) => {
-    const {  className, style, size, shape } = props;
+    const {  className, style, size, shape, } = props;
   
    
   
@@ -25,6 +25,7 @@ const Element = (props: SkeletonElementProps) => {
   
     return (
       <Elem
+       
         size={(typeof size==='string')?size:'default'}
         shape={shape}
         className={className}

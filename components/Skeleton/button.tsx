@@ -4,19 +4,9 @@ export interface SkeletonButtonProps extends Omit<SkeletonElementProps, 'size'> 
     size?: 'large' | 'small' | 'default';
   }
   
-  const SkeletonButton = (props: SkeletonButtonProps) => {
-    const renderSkeletonButton = () => {
-      const {  className, active,...other } = props;
-    
-    
+  const SkeletonButton:React.FC<SkeletonButtonProps> = (props) => {
 
-      return (
-        <div >
-          <Element  {...other} />
-        </div>
-      );
-    };
-    return <>{renderSkeletonButton}</>;
+    return  <Element  {...props} />
   };
   
   SkeletonButton.defaultProps = {
