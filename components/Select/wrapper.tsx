@@ -42,6 +42,18 @@ export const MultiItem=styled.div<{disabled?:boolean}>`
 
 `
 
+export const OptGroupWrap=styled.span`
+color:rgba(0,0,0,0.45);
+padding: 5px 3px;
+display:flex;
+flex-direction:row;
+align-items:center;
+
+font-size:14px;
+font-weight:300;
+
+`
+
 export const OptionWrap=styled.div<{disabled?:boolean,select?:boolean,divider?:boolean,label?:boolean}>`
           display: flex;
           max-width: 100%;
@@ -50,15 +62,15 @@ export const OptionWrap=styled.div<{disabled?:boolean,select?:boolean,divider?:b
           font-weight: ${props=>props.select?"700":"normal"};
           font-size:14px;
           min-height: calc(1.688 * 10px);
-          padding: 4px 6px;
+          padding: 5px 12px;
           opacity:1;
-          background: ${props=>props.select?ToRGBA(props.theme.colors.primary,0.2):props.disabled?"#f2f2f2":"white"};
-          color: ${props=>props.disabled?"#d9d9d9":"rgba(0,0,0,0.85)"};
+          background: ${props=>props.select?ToRGBA(props.theme.colors.primary,0.2):props.disabled?"transparent":"white"};
+          color: ${props=>props.disabled?"rgba(0,0,0,0.35)":"rgba(0,0,0,0.85)"};
           user-select: none;
           border: 0;
           cursor: ${props=>props.disabled ? 'not-allowed' : 'pointer'};
           transition: background 0.2s ease 0s, border-color 0.2s ease 0s;
-         ${props=>!props.select?css` &:hover {
+         ${props=>!props.select&&!props.disabled?css` &:hover {
           background-color:#f5f5f5;
           
         }`:null}
@@ -71,14 +83,6 @@ export const OptionWrap=styled.div<{disabled?:boolean,select?:boolean,divider?:b
           margin: 0.5rem 0;
           width: 100%;`:null
         }
-        ${
-            props=>props.label?css`font-size: 0.875rem;
-          color: rgba(0,0,0,0.65);
-          border-bottom: 1px solid grey;
-          text-transform: capitalize;
-          cursor: default;`:null
-        }
-
 `
 
 export const SelectWrap=styled.div<{multiple?:boolean,disabled?:boolean,size?:NormalSizes,focused?:boolean,bordered?:boolean}>`
@@ -89,11 +93,11 @@ export const SelectWrap=styled.div<{multiple?:boolean,disabled?:boolean,size?:No
             outline:none;
             position: relative;
             cursor: ${props=>props.disabled ? 'not-allowed' : 'pointer'};
-            overflow: hidden;
+            overflow-x: hidden;
             transition: border 0.2s ease 0s, color 0.2s ease-out 0s, box-shadow 0.2s ease 0s;
            
             border-radius: 2px;
-            padding: ${props=>props.size==="large"?"5px 7px":props.size==="small"?"2px 5px":"2px 5px"};
+            padding: ${props=>props.size==="large"?"5px 7px":props.size==="small"?"2px 5px":"3px 5px"};
             min-height: ${props=>props.size==="large"?"35px":props.size==="small"?"24px":"28px"};
             min-width: 60px;
             text-overflow:ellipsis;
@@ -105,8 +109,8 @@ export const SelectWrap=styled.div<{multiple?:boolean,disabled?:boolean,size?:No
               props.focused?css`border-color: ${props.theme.colors.primary}`:null
               }
               &:hover {
-            border-color: ${props.disabled ? "#f2f2f2" : props.theme.colors.primary};
-            }`:css`border:none;`
+            border-color: ${props.disabled ? "#d9d9d9" : props.theme.colors.primary};
+            }`:css` border: 1px solid #d9d9d9 ;`
             }
             &,&:focus,&:active,&:hover {
               outline:none;

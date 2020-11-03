@@ -37,10 +37,16 @@ function App() {
   );
   return (
     <ThemeProvider theme={ThemeStore}>
-      
-      <Select style={{width:"200px"}}>
-        <Select.Option value="aaaa"><EditOutlined/>aaaa</Select.Option>
-        <Select.Option value="abbbaaa"><EditOutlined/>bb</Select.Option>
+
+      <Select  placeholder="pick one" multiple style={{ width: "200px" }}>
+        <Select.OptGroup label="good">
+          <Select.Option disabled value="aaaa"><EditOutlined />aaaa</Select.Option>
+          <Select.Option value="abaaa"><EditOutlined />bb</Select.Option>
+          <Select.Option value="aaava"><EditOutlined />aaaa</Select.Option>
+        </Select.OptGroup>
+        <Select.Option value="abbbsaaa"><EditOutlined />bb</Select.Option>
+        <Select.Option value="aacaa"><EditOutlined />aaaa</Select.Option>
+        <Select.Option value="abbbraaa"><EditOutlined />bb</Select.Option>
       </Select>
     </ThemeProvider>
   );

@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import usePortal from "../utils/usePortal";
 import { AbsDropdown, SelectDropdownWrap } from "./wrapper";
 import { useSelectContext } from "./context";
+import { useDOMObserver } from "../utils/observerDom";
 
 interface Props {
     parent?: MutableRefObject<HTMLElement | null> | undefined
@@ -73,6 +74,7 @@ const AbstractDropdown: React.FC<React.PropsWithChildren<Props>> = React.memo(
             if (!shouldUpdatePosition) return
             updateRect()
         }
+        useDOMObserver(parent,()=>{updateRect()})
         useEffect(() => {
             document.addEventListener('click', cal)
             window.addEventListener('resize', updateRect)
