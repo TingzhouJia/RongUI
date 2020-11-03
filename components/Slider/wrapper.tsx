@@ -1,42 +1,40 @@
-import styled, { css } from "styled-components";
+  import styled, { css } from "styled-components";
+import { ToRGBA } from "../utils/hex_rgb";
 
 
-export const HandleDiv=styled.div`
-     position: absolute;
+export const HandleDiv=styled.div<{focused?:boolean,disabled?:boolean}>`
+    position: absolute;
     width: 14px;
     height: 14px;
-    margin-top: -5px;
     background-color: #fff ;
-    border: solid 2px ${props=>props.theme.colors.primary};
+    border: solid 2px ${props=>ToRGBA(props.theme.colors.primary,0.7)};
     border-radius: 50%;
     box-shadow: 0;
     cursor: pointer;
     transition: border-color 0.3s, box-shadow 0.6s,
-      transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-      &:focus {
-      border-color: ${props=>props.theme.colors.primary};
-      opacity:0.25;
-      outline: none;
-      box-shadow: 0 0 0 5px ${props=>props.theme.colors.primary};
+    transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    outline: none;
+     ${
+      props=>props.focused?css`border-color: ${props.theme.colors.primary};
+   
+      box-shadow: 0px 0px 5px 1px ${props.theme.colors.primary};`:null
+    }
+    ${
+      props=>!props.disabled?css`
+      &:hover {
+        border-color: ${props.theme.colors.primary};
+      }
+      `:null
     }
 `
 
 export const TrackBody=styled.div<{offset?:number,length?:number,vertical?:boolean,disabled?:boolean}>`
-position: absolute;
-    height: 4px;
+    position: absolute;
     background-color: ${props=>props.disabled?"rgba(0,0,0,0.25)":props.theme.colors.primary};
     opacity:0.8;
     border-radius: 2px;
     transition: background-color 0.3s;
-   ${
-       props=>props.vertical?css`
-        bottom: ${props.offset}%;
-        top:auto;
-       `:css`
-       left: ${props.offset}%;
-        right:auto;
-       `
-   }
+   
    &:hover {
        background-color:${props=>props.theme.colors.primary};
        opacity:0.4;
@@ -45,8 +43,8 @@ position: absolute;
 `
 
 export const StepBody=styled.div<{vertical?:boolean}>`
-position: absolute;
-background: transparent;
+    position: absolute;
+    background: transparent;
    ${
        props=>props.vertical?css`
        width: 4px;
@@ -62,7 +60,7 @@ background: transparent;
 `
 
 export const DotBody=styled.span<{disabled?:boolean,vertical?:boolean,active?:boolean,top?:string,right?:string}>`
-position: absolute;
+    position: absolute;
    ${props=>props.vertical?css`
     top: auto;
     bottom: ${props.top};
@@ -130,35 +128,54 @@ position: absolute;
 `
 
 export const SliderBodyBase=styled.div<{disabled?:boolean,vertical?:boolean,withMark?:boolean}>`
+position: relative;
     ${props=>props.vertical?css`
     width: 12px;
     height: 100%;
     margin: 6px 10px;
-    padding: 0 4px;
+ 
     `:css`
     height: 12px;
   margin: 10px 6px 10px;
-    `}
-position: relative;
+    `};
+  
   
   ${props=>props.withMark?css`
   margin-bottom:28px;
   `:null}
+  ${
+    props=>!props.disabled?css`
+    
+    `:null
+  }
 
-  padding: 4px 0;
+  display:block;
   cursor: ${props=>props.disabled?"not-allowed":"pointer"};
   touch-action: none;
 
 `
 
-export const RailBody=styled.div`
+export const RailBody=styled.div<{focused?:boolean,vertical?:boolean}>`
     position: absolute;
+    ${
+      props=>props.vertical?css`
+      height:100%;
+      width:5px;
+      left:50%;
+      transform:translateX(-50%);
+      
+      `:css`
     width: 100%;
-    height: 4px;
-    background-color: rgba(0,0,0,0.25);
+    height: 5px;
+    top:50%;
+    transform:translateY(-50%);
+      
+      `
+    }
+    background-color:${props=>props.focused?"#e1e1e1":"#f5f5f5"} ;
     border-radius: 2px;
     transition: background-color 0.3s;
     &:hover {
-        background-color:#e1e1e1;
-    }
+        background:#e1e1e1;
+      }
 `

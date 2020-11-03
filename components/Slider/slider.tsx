@@ -4,7 +4,7 @@ import { Track, Step, Markers } from "./common"
 import React from "react"
 
 import { RailBody, SliderBodyBase } from "./wrapper"
-import Handle from "./handler"
+import Handle, { HandleRefProps } from "./handler"
 export interface GenericSliderProps {
     min?: number;
     max?: number;
@@ -21,8 +21,6 @@ export interface GenericSliderProps {
     marks?: Record<number, React.ReactNode | { style?: React.CSSProperties; label?: string }>;
     dots?: boolean;
     style?: React.CSSProperties;
-    railStyle?: React.CSSProperties;
-    dotStyle?: React.CSSProperties;
     activeDotStyle?: React.CSSProperties;
     defaultValue?: number
     value?: number
@@ -34,23 +32,23 @@ export interface GenericSliderProps {
 
 
 const Slider: React.FC<GenericSliderProps> = (props) => {
-    const { defaultValue, max = 100, min = 0, marks, disabled, style } = props
-    const [defaultVal, setdefaultVal] = useState<number>(defaultValue || props.value || min || 0)
+    const { defaultValue, max = 100, min = 0, marks, disabled, style,vertical} = props
+    const [defaultVal, _] = useState<number>(defaultValue || props.value || min || 0)
     const [curVal, setcurVal] = useState(defaultVal)
     const [dragging, setdragging] = useState(false)
-    const handlesRefs = useRef<HTMLDivElement>(null)
+    const handlesRefs = useRef<HandleRefProps>(null)
     const sliderRef = useRef<HTMLDivElement>(null)
     const [dragOffset, setdragOffset] = useState(0)
     const [startPos, setstartPos] = useState(0)
+
     function trimAlignValue(v: number, ) {
         if (v === null) {
             return null;
         }
-
-
         const val = ensureValueInRange(v, props);
         return ensureValuePrecision(val, props);
     }
+
     function calcValue(offset: number) {
         const { vertical, min = 0, max = 100 } = props;
         const ratio = Math.abs(Math.max(offset, 0) / getSliderLength());
@@ -96,7 +94,6 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
     function onStart(position: number) {
         setdragging(true)
 
-
         props.onBeforeChange && props.onBeforeChange(curVal);
 
 
@@ -109,11 +106,13 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
     }
 
     const onEnd = (force?: boolean) => {
+        removeDocumentEvents()
         if (dragging || force) {
             props.onAfterChange && props.onAfterChange(curVal);
         }
         setdragging(false)
     };
+
     function onMove(e: Event, position: number) {
         e.preventDefault()
         const value=calcValueByPos(position)
@@ -143,6 +142,7 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
         if (e.button !== 0) {
             return;
         }
+       
         const isVertical = props.vertical || false;
         let position = isVertical ? e.clientY : e.pageX;
         if (!isEventFromHandle(e, handlesRefs)) {
@@ -154,11 +154,12 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
         }
         removeDocumentEvents();
         onStart(position);
+        handlesRefs.current?.clickFocus()
         addDocumentMouseEvents();
     };
     const onTouchStart = (e: any) => {
         if (isNotTouchEvent(e)) return;
-
+        e.preventDefault()
         const isVertical = props.vertical;
         let position = isVertical ? e.touches[0].clientY : e.touches[0].pageX;
         if (isEventFromHandle(e, handlesRefs)) {
@@ -170,8 +171,22 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
         }
         onStart(position);
         addDocumentTouchEvents();
-        e.preventDefault()
+       
     };
+    
+    useEffect(() => {
+        function handleClickOutside(event:any) {
+            if (handlesRefs.current && !(sliderRef.current)?.contains(event.target)) {
+                console.log(1)
+                handlesRefs.current?.blur()
+            }
+        }
+        document.addEventListener('click',handleClickOutside)
+        return () => {
+            document.removeEventListener('click',handleClickOutside)
+        }
+    }, [])
+
     const onFocus = (e: React.FocusEvent<HTMLDivElement>) => {
         const { onFocus, vertical = false } = props;
         if (isEventFromHandle(e, handlesRefs)) {
@@ -204,17 +219,19 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
         const coords = slider.getBoundingClientRect();
         return props.vertical ? coords.height : coords.width;
     }
+
     function focus() {
         if (!props.disabled) {
-            handlesRefs?.current?.focus();
+            handlesRefs?.current?.clickFocus();
         }
     }
+    
     const onTouchMove = (e: TouchEvent) => {
         if (isNotTouchEvent(e as unknown as React.TouchEvent<HTMLDivElement>) || !sliderRef) {
             onEnd();
             return;
         }
-
+        handlesRefs.current?.clickFocus()
         const position = props.vertical ? e.touches[0].clientY : e.touches[0].pageX;
         onMove(e, position - dragOffset);
     };
@@ -226,19 +243,22 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
     };
     const onBlur = (e: React.FocusEvent<HTMLDivElement>) => {
         const { onBlur: Onblur } = props;
+        
         onEnd();
+        blur()
         if (Onblur) {
             Onblur(e);
         }
     };
 
+
     const onMouseUp = () => {
-
-        handlesRefs?.current?.focus();
-
+       
+        sliderRef?.current?.removeEventListener('mousemove', onMouseMove);
     };
 
     const onMouseMove = (e: MouseEvent) => {
+
         if (!sliderRef) {
             onEnd();
             return;
@@ -263,32 +283,37 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
 
     function addDocumentTouchEvents() {
         // just work for Chrome iOS Safari and Android Browser
-        sliderRef && sliderRef.current?.addEventListener('touchmove', onTouchMove);
+       document.addEventListener('touchmove', onTouchMove);
         document.addEventListener('touchend', () => onEnd());
     }
+ 
+
 
     function addDocumentMouseEvents() {
-        sliderRef?.current?.addEventListener('mousemove', onMouseMove);
-        sliderRef?.current?.addEventListener('mouseup', () => onEnd());
+       document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', () => onEnd());
+      
     }
 
     function removeDocumentEvents() {
         /* eslint-disable @typescript-eslint/no-unused-expressions */
-        sliderRef?.current?.removeEventListener("touchmove", onTouchMove)
-        sliderRef?.current?.removeEventListener("touchend", () => onEnd())
-        sliderRef?.current?.removeEventListener('mousemove', onMouseMove);
-        sliderRef?.current?.removeEventListener('mouseup', () => onEnd());
+        document.removeEventListener("touchmove", onTouchMove)
+        document.removeEventListener("touchend", () => onEnd())
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', () => onEnd());
+       
         /* eslint-enable no-unused-expressions */
     }
     const noop = () => { }
 
     const track = (<Track disabled={props.disabled||false} vertical={props.vertical || false}
-        included={props.included || false}
-        offset={calcOffset(startPos)||0}
+        included={props.included || true}
+        offset={calcOffset(curVal)}
         length={0} />)
 
     return (
         <SliderBodyBase 
+        id="slider-base"
             withMark={marks&&true}
             vertical={props.vertical}
             disabled={disabled}
@@ -298,7 +323,7 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
             onKeyDown={disabled ? noop : onKeyDown}
             onFocus={disabled ? noop : onFocus}
             onBlur={disabled ? noop : onBlur} style={style} ref={sliderRef}>
-            <RailBody style={props.railStyle} />
+            <RailBody vertical={vertical} id="rail" focused={!disabled&&dragging}/>
             {track}
             <Step
                 vertical={props.vertical || false}
@@ -310,15 +335,14 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
                 upperBound={max}
                 max={max}
                 min={min}
-                dotStyle={props.dotStyle}
                 activeDotStyle={props.activeDotStyle}
             />
+            {/* handle bar */}
             <Handle
                 vertical={props.vertical}
                 disabled={props.disabled}
                 offset={calcOffset(curVal)}
-                handleRef={handlesRefs}
-                
+                ref={handlesRefs}
             />
             <Markers
                 onClickLabel={disabled ? noop : onClickMarkLabel}

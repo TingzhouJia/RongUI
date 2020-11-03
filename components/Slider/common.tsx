@@ -9,7 +9,7 @@ interface TrackPorps {
     disabled:boolean
 }
 interface StepProps {
-    vertical:boolean,
+  vertical:boolean,
   disabled?:boolean
   marks:Record<number, React.ReactNode | { style?: React.CSSProperties; label?: string }>,
   dots:boolean,
@@ -24,12 +24,22 @@ interface StepProps {
 }
 export const Track:React.FC<TrackPorps>=(props)=>{
     let {length,offset,included,vertical,disabled}=props
-    if (length < 0) {
-     
-        length = Math.abs(length);
-        offset = 100 - offset;
+    const positionStyle = vertical
+    ? {
+        [ 'top']: `${100-offset}%`,
+        ['bottom']: '0',
+        left:"50%",
+        width:'5px',
+        transform: `translateX(-50%)`,
       }
-      return included ? <TrackBody disabled={disabled} length={length} offset={offset}  vertical={vertical}/> : null;
+    : {
+        [ 'right']: `${100-offset}%`,
+        [ 'left']: '0',
+        "top":"50%",
+        height:'5px',
+        transform: `translateY(${'-'}50%)`,
+      };
+      return included ? <TrackBody id="track" disabled={disabled} style={positionStyle}  vertical={vertical}/> : null;
 }
 
 const calcPoints = (
@@ -64,9 +74,9 @@ export const Step:React.FC<StepProps>=(props)=>{
         const isActived =
           (!included && point === upperBound) ||
           (included && point <= upperBound && point >= lowerBound);
-        return <DotBody disabled={disabled} style={isActived?activeDotStyle:dotStyle} active={isActived} top={offset} right={offset}  key={point} />;
+        return <DotBody id="slider-dot" disabled={disabled} style={isActived?activeDotStyle:dotStyle} active={isActived} top={offset} right={offset}  key={point} />;
       });
-    return <StepBody vertical={vertical}>
+    return <StepBody id="slider-step" vertical={vertical}>
             {elements}
     </StepBody>
 }
@@ -82,6 +92,7 @@ interface MarkerProps {
     disabled?:boolean
     onClickLabel:(...args: any)=>void,
 }
+
 export const Markers:React.FC<MarkerProps>=(props)=>{
 
     const {vertical,marks,max,min,upperBound,lowerBound,included,onClickLabel,disabled}=props
@@ -106,6 +117,7 @@ export const Markers:React.FC<MarkerProps>=(props)=>{
 
       return (
         <MarkerLabelWrap
+      
         disabled={disabled}
         vertical={vertical}
         active={isActive}
@@ -119,5 +131,5 @@ export const Markers:React.FC<MarkerProps>=(props)=>{
         </MarkerLabelWrap>
       );
     });
-return (<MarkerDivWrap   vertical={vertical}>{elements}</MarkerDivWrap>)
+return (<MarkerDivWrap    id="slider-marker"  vertical={vertical}>{elements}</MarkerDivWrap>)
 }
