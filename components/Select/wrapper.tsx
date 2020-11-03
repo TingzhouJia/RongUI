@@ -110,7 +110,8 @@ export const SelectWrap=styled.div<{multiple?:boolean,disabled?:boolean,size?:No
               }
               &:hover {
             border-color: ${props.disabled ? "#d9d9d9" : props.theme.colors.primary};
-            }`:css` border: 1px solid #d9d9d9 ;`
+            }`
+            :css`border: none;`
             }
             &,&:focus,&:active,&:hover {
               outline:none;

@@ -5,9 +5,11 @@ import Pagination from '../pagination'
 
 describe('pagination test', () => {
     it("should render pagination",()=>{
-        const wrap=mountWithTheme(<Pagination total={50}/>)
+        const mockFunc=jest.fn()
+        const wrap=mountWithTheme(<Pagination onChange={mockFunc} current={1}  total={50}/>)
         expect(wrap.find("#pagination-container")).toBeTruthy()
-        expect(wrap.find("#pagination-prev").first()).toHaveStyleRule("cursor","not-allowed")
+        wrap.find("#pagination-prev").first().simulate('click')
+        expect(mockFunc).toHaveBeenCalled()
     })
 
     it("should be disabled ",()=>{

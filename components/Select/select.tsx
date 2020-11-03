@@ -17,6 +17,7 @@ interface Props {
     multiple?: boolean
     bordered?:boolean
     className?: string
+    style?:React.CSSProperties
     width?: string
     dropdownClassName?: string
     dropdownStyle?: object
@@ -24,8 +25,7 @@ interface Props {
     getPopupContainer?: () => HTMLElement | null
 }
 
-type NativeAttrs = Omit<React.HTMLAttributes<any>, keyof Props>
-export type SelectProps = Props & NativeAttrs
+export type SelectProps = Props 
 
 
 export const pickChildByProps = (
@@ -81,6 +81,7 @@ const Select: SelectComponent<ComponentProps> = (props) => {
         multiple = false,
         className = '',
         bordered=true,
+        
         onChange,
         initialValue: init,
         value: customValue,
@@ -168,7 +169,7 @@ const Select: SelectComponent<ComponentProps> = (props) => {
 
     return (
         <SelectContext.Provider value={initialValue}>
-            <SelectWrap bordered={bordered} disabled={disabled} focused={visible} ref={ref} onClick={clickHandler} style={props.style} className={className}
+            <SelectWrap id="select-base" bordered={bordered} disabled={disabled} focused={visible} ref={ref} onClick={clickHandler} style={props.style} className={className}
             >
                 {isEmpty && (
                     <ValueWrap id="select-placeholder" style={{ color: "rgba(0,0,0,0.25)" }}>
@@ -206,8 +207,7 @@ type SelectComponent<P = {}> = React.FC<P> & {
   }
   
   type ComponentProps = 
-    Props &
-    NativeAttrs
+    Props 
   
 Select.Option=SelectOption
 Select.OptGroup=OptionGroup
