@@ -1,9 +1,11 @@
 import React, { useMemo } from 'react'
 import { useSelectContext } from './context'
-import { OptionWrap } from './wrapper'
+import { OptionWrap, Checkout } from './wrapper'
+import { CheckOutlined } from '@ant-design/icons'
+import { ThemeConsumer } from 'styled-components'
 
 interface Props {
-    value?: string
+    value: string
     disabled?: boolean
     className?: string
     divider?: boolean
@@ -24,7 +26,7 @@ const SelectOption:React.FC<Props>=(props)=>{
         preventAllEvents= false,
         ...rest
     }=props
-    const { updateValue, value, disableAll } = useSelectContext()
+    const { updateValue, value, disableAll,multiple } = useSelectContext()
     const isDisabled = useMemo(() => disabled || disableAll, [disabled, disableAll])
     const isLabel = useMemo(() => label || divider, [label, divider])
     const selected = useMemo(() => {
@@ -44,8 +46,9 @@ const SelectOption:React.FC<Props>=(props)=>{
       }
 
       return (
-          <OptionWrap onClick={clickHandler} divider={divider} label={label} disabled={disabled} select={selected} >
-              {props.children}
+          <OptionWrap id="rong-select-option" onClick={clickHandler} divider={divider}  disabled={disabled} select={selected} >
+              <div>{props.children}</div>
+              {multiple&&selected&&<Checkout><CheckOutlined /></Checkout>}
           </OptionWrap>
       )
 }

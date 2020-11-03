@@ -2,11 +2,10 @@ import React, { useState, useMemo, useRef, useEffect, ReactNode } from 'react'
 import { useCurrentState } from '../utils'
 import { SelectConfig, SelectContext } from './context'
 import SelectMultipleValue from './mutivalue'
-import { SelectWrap, ValueWrap, IconWrap } from './wrapper'
+import { SelectWrap, ValueWrap, IconWrap, CloseBtn, MultiItemContainer } from './wrapper'
 import SelectOption from './option'
-import Grid from '../Grid'
 import SelectDropDown from './dropdown'
-import { UpOutlined, DownOutlined } from '@ant-design/icons'
+import { UpOutlined, DownOutlined, CloseCircleFilled } from '@ant-design/icons'
 interface Props {
     disabled?: boolean
     value?: string | string[]
@@ -15,6 +14,7 @@ interface Props {
     onChange?: (value: string | string[]) => void
     pure?: boolean
     multiple?: boolean
+    bordered?:boolean
     className?: string
     width?: string
     dropdownClassName?: string
@@ -25,6 +25,8 @@ interface Props {
 
 type NativeAttrs = Omit<React.HTMLAttributes<any>, keyof Props>
 export type SelectProps = Props & NativeAttrs
+
+
 export const pickChildByProps = (
     children: ReactNode | undefined,
     key: string,
@@ -59,6 +61,7 @@ const Select: SelectComponent<ComponentProps> = (props) => {
         pure = false,
         multiple = false,
         className = '',
+        bordered=true,
         onChange,
         initialValue: init,
         value: customValue,
@@ -76,6 +79,7 @@ const Select: SelectComponent<ComponentProps> = (props) => {
         return value.length === 0
     }, [value])
     const updateVisible = (next: boolean) => setVisible(next)
+    const [showClear, setshowClear] = useState(false)
     const updateValue = (next: string) => {
         setValue(last => {
             if (!Array.isArray(last)) return next
@@ -94,7 +98,7 @@ const Select: SelectComponent<ComponentProps> = (props) => {
             visible,
             updateValue,
             updateVisible,
-
+            multiple,
             ref,
             disableAll: disabled,
         }),
@@ -118,12 +122,22 @@ const Select: SelectComponent<ComponentProps> = (props) => {
         setValue(customValue)
     }, [customValue])
 
+    const handleReset=(e:any)=>{
+            e.preventDefault()
+            e.stopPropagation()
+            setValue(prev=>{
+                if (!Array.isArray(prev)) return undefined
+                return []
+            })
+            setshowClear(false)
+    }
+
     const selectedChild = useMemo(() => {
         const [, optionChildren] = pickChildByProps(props.children, 'value', value)
         return React.Children.map(optionChildren, child => {
             if (!React.isValidElement(child)) return null
-            const el = React.cloneElement(child, { preventAllEvents: true })
-            if (!multiple) return el
+            const el = child.props.children
+        if (!multiple) return <div id="selected-item">{el}</div>
             return (
                 <SelectMultipleValue disabled={disabled}>
                     {el}
@@ -134,15 +148,15 @@ const Select: SelectComponent<ComponentProps> = (props) => {
 
     return (
         <SelectContext.Provider value={initialValue}>
-            <SelectWrap ref={ref} onClick={clickHandler} style={props.style} className={className}
+            <SelectWrap bordered={bordered} disabled={disabled} focused={visible} ref={ref} onClick={clickHandler} style={props.style} className={className}
             >
                 {isEmpty && (
-                    <ValueWrap style={{ color: "rgba(0,0,0,0.25)" }}>
+                    <ValueWrap id="select-placeholder" style={{ color: "rgba(0,0,0,0.25)" }}>
                         {props.placeholder}
                     </ValueWrap>
                 )}
-                {value && !multiple && <ValueWrap className="value">{selectedChild}</ValueWrap>}
-                {value && multiple && <Grid.Container gap={0.5}>{selectedChild}</Grid.Container>}
+                {value && !multiple && <ValueWrap id="one-value-selcted">{selectedChild}</ValueWrap>}
+                {value && multiple && <MultiItemContainer>{selectedChild}</MultiItemContainer>}
                 <SelectDropDown
                     visible={visible}
                     className={props.dropdownClassName}
@@ -152,9 +166,12 @@ const Select: SelectComponent<ComponentProps> = (props) => {
                     {props.children}
                 </SelectDropDown>
                 {!pure && (
-                    <IconWrap>
+                    <IconWrap onMouseEnter={()=>!isEmpty?setshowClear(true):null} onMouseLeave={()=>!isEmpty?setshowClear(false):null} id="select-arrow">
                         {
-                            visible?<UpOutlined />:<DownOutlined />
+                            showClear?<CloseBtn id="clear-button" onClick={handleReset}> <CloseCircleFilled
+                           
+                            role="button"
+                          /></CloseBtn>:visible?<UpOutlined />:<DownOutlined />
                         }
                     </IconWrap>
                 )}

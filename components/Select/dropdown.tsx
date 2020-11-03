@@ -98,7 +98,7 @@ const AbstractDropdown: React.FC<React.PropsWithChildren<Props>> = React.memo(
 
             visible && <AbsDropdown
                 disable={disableMatchWidth}
-
+                rect={rect}
                 onClick={clickHandler}>
                 {children}
 
@@ -127,7 +127,6 @@ const SelectDropdown: React.FC<React.PropsWithChildren<SelectDropdownProps>> = (
           getPopupContainer={getPopupContainer}>
           <SelectDropdownWrap className={className} style={dropdownStyle}>
             {children}
-            
           </SelectDropdownWrap>
         </AbstractDropdown>)
 }

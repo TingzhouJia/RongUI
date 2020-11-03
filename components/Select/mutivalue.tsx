@@ -4,7 +4,6 @@ import React from "react"
 
 interface Props {
     disabled: boolean
-  
   }
   
   const SelectMultipleValue: React.FC<React.PropsWithChildren<Props>> = ({
@@ -13,11 +12,8 @@ interface Props {
     children,
   }) => {
 
-  
     return (
-      <Grid>
         <MultiItem  disabled={disabled}> {children}</MultiItem>
-      </Grid>
     )
   }
 
