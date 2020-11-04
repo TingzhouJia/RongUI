@@ -25,7 +25,7 @@ interface Props {
     style?: React.CSSProperties;
     className?: string;
     children?: React.ReactNode;
-    direction?: 'horizontal' | 'vertical';
+   // direction?: 'horizontal' | 'vertical';
     type?: 'default' | 'navigation';
     status?: Status;
     size?: 'default' | 'small';
@@ -52,7 +52,7 @@ export interface StepsProps extends React.FC<Props> {
 const Steps: StepsProps = (props) => {
     const {
         type = 'default',
-        direction = 'horizontal',
+     //   direction = 'horizontal',
         initial=1 ,
         current = 1,
         status = 'process',
@@ -70,11 +70,11 @@ const Steps: StepsProps = (props) => {
     const init=Number(initial)>1?initial:1
     const cur=Number(current)>1?current:1
     const isNav = type === 'navigation';
-    const adjustedLabelPlacement = isNav?'horizontal':direction
+    const adjustedLabelPlacement = 'horizontal'
     
     return (
         <StepContext.Provider value={{ size: 'default',total:React.Children.toArray(children).length ,direction:adjustedLabelPlacement}}>
-            <StepsBase size={size} direction={adjustedLabelPlacement} dot={!progressDot} nav={isNav} >
+            <StepsBase className={props.className} style={props.style} id="steps-base" size={size} direction={adjustedLabelPlacement} dot={!progressDot} nav={isNav} >
                 {
                     React.Children.map((children as React.ReactNode), (item, index) => {
                         if (!React.isValidElement(item)) { return item }

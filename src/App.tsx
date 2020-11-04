@@ -51,7 +51,7 @@ function App() {
   };
   return (
     <ThemeProvider theme={ThemeStore}>
-      <Steps  progressDot current={2}>
+      <Steps style={{height:'500px'}}  current={2}>
         <Steps.Step title="Finished" subTitle="aaaaaaaaa" description="This is a description." >
         
         </Steps.Step>
