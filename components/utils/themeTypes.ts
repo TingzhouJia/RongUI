@@ -100,6 +100,10 @@ export type ThemePalette = {
     warningLighter: string
     warningLight: string
     warningDark: string
+    info: string
+    infoLighter: string
+    infoLight: string
+    infoDark: string
     cyan: string
     cyanLighter: string
     cyanLight: string

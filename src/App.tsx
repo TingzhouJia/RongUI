@@ -15,6 +15,7 @@ import Select from '../components/Select/select';
 import { EditOutlined } from '@ant-design/icons';
 import Skeleton from '../components/Skeleton/skeleton';
 import Slider from '../components/Slider';
+import Steps from '../components/Step';
 
 function App() {
   const [visible, setvisible] = useState(false)
@@ -50,8 +51,14 @@ function App() {
   };
   return (
     <ThemeProvider theme={ThemeStore}>
-       <Slider defaultValue={50} marks={marks} />
-       <Slider  marks={marks} vertical style={{height:"300px"}}/>
+      <Steps  current={1}>
+        <Steps.Step title="Finished" subTitle="aaaaaaaaa" description="This is a description." >
+        
+        </Steps.Step>
+        <Steps.Step  title="Finished" description="This is a description." >
+      
+        </Steps.Step>
+      </Steps>
     </ThemeProvider>
   );
 }
