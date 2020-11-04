@@ -1,5 +1,5 @@
 import React from 'react'
-
+export {default} from './steps'
 export interface StepsProps {
     type?: 'default' | 'navigation';
     className?: string;

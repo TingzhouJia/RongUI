@@ -1,6 +1,5 @@
 import Step, { Status, BasicStepProps } from "./step";
-import toArray from "../utils/toArray";
-import { cloneElement } from "react";
+
 import { StepsBase } from "./wrapper";
 import React from "react";
 
@@ -28,7 +27,6 @@ interface Props {
     children?: React.ReactNode;
     direction?: 'horizontal' | 'vertical';
     type?: 'default' | 'navigation';
-    labelPlacement?: 'horizontal' | 'vertical';
     status?: Status;
     size?: 'default' | 'small';
     current?: number;
@@ -38,20 +36,25 @@ interface Props {
     icons?: {};
     onChange?: (current: number) => void;
 }
+export const StepContext = React.createContext<StepsConfig>({ size: 'default',total:0,direction:'horizontal' })
 
+export const useStepContext = (): StepsConfig => React.useContext<StepsConfig>(StepContext)
 
+interface StepsConfig {
+    size: 'small' | 'default',
+    total:number
+    direction:'vertical'|'horizontal'
+}
 export interface StepsProps extends React.FC<Props> {
-    step: typeof Step
+    Step: typeof Step
 }
 
 const Steps: StepsProps = (props) => {
     const {
         type = 'default',
-
         direction = 'horizontal',
-        labelPlacement = 'horizontal',
-        initial = 0,
-        current = 0,
+        initial=1 ,
+        current = 1,
         status = 'process',
         size = 'default',
         progressDot = false,
@@ -64,42 +67,47 @@ const Steps: StepsProps = (props) => {
             onChange(next);
         }
     };
+    const init=Number(initial)>1?initial:1
+    const cur=Number(current)>1?current:1
     const isNav = type === 'navigation';
-    const adjustedLabelPlacement = progressDot ? 'vertical' : labelPlacement;
-
+    const adjustedLabelPlacement = isNav?'horizontal':direction
+    
     return (
-        <StepsBase size={size} direction={adjustedLabelPlacement} label={direction==="horizontal"} dot={!progressDot} nav={isNav} >
-            {
-                toArray(children).map((item, index) => {
-                    const stepNumber = initial + index;
-                    const childProps = {
-                        stepNumber: `${stepNumber + 1}`,
-                        stepIndex: stepNumber,
-                        key: stepNumber,
-                     
-                        wrapperStyle: props.style,
-                        progressDot,
-        
-                    
-                        onStepClick: props.onChange && onStepClick,
-                        ...item.props,
-                    };
-                    if (!item.props.status) {
-                        if (stepNumber === current) {
-                          childProps.status = status;
-                        } else if (stepNumber < current) {
-                          childProps.status = 'finish';
-                        } else {
-                          childProps.status = 'wait';
+        <StepContext.Provider value={{ size: 'default',total:React.Children.toArray(children).length ,direction:adjustedLabelPlacement}}>
+            <StepsBase size={size} direction={adjustedLabelPlacement} dot={!progressDot} nav={isNav} >
+                {
+                    React.Children.map((children as React.ReactNode), (item, index) => {
+                        if (!React.isValidElement(item)) { return item }
+                        if (item?.props === undefined) { return item }
+                        const stepNumber = init + index;
+                        const childProps: BasicStepProps = {
+                            stepNumber: `${stepNumber }`,
+                            stepIndex: stepNumber,
+                            key: stepNumber,
+
+                            wrapperStyle: props.style,
+                            progressDot,
+                            onStepClick: props.onChange && onStepClick,
+                            ...item?.props,
+                        };
+                        if (!item.props.status) {
+                            if (stepNumber === cur) {
+                                childProps.status = status;
+                            } else if (stepNumber < cur) {
+                                childProps.status = 'finish';
+                            } else {
+                                childProps.status = 'wait';
+                            }
                         }
-                      }
-                      childProps.active = stepNumber === current;
-                      return cloneElement(item,childProps)
-                })
-            }
-        </StepsBase>
+                        childProps.active = stepNumber === current;
+                        return React.cloneElement(item, childProps)
+                    })
+                }
+            </StepsBase>
+
+        </StepContext.Provider>
     )
 }
-Steps.step = Step
+Steps.Step = Step
 
 export default Steps
