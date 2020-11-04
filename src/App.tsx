@@ -51,13 +51,16 @@ function App() {
   };
   return (
     <ThemeProvider theme={ThemeStore}>
-      <Steps  current={1}>
+      <Steps   current={2}>
         <Steps.Step title="Finished" subTitle="aaaaaaaaa" description="This is a description." >
         
         </Steps.Step>
         <Steps.Step  title="Finished" description="This is a description." >
       
         </Steps.Step>
+        <Steps.Step  title="Finished" description="This is a description." >
+      
+      </Steps.Step>
       </Steps>
     </ThemeProvider>
   );

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StepBase, StepContent, StepItem, StepTail, StepIcon, StepTitle, StepSubtitle, StepDescription, StepIconDot, StepItIcon } from './wrapper';
+import { StepBase, StepContent, StepItem, StepTail, StepTitle, StepSubtitle, StepDescription, StepIconDot, StepItIcon, Steptitle } from './wrapper';
 import { ProgressDotRender, useStepContext } from './steps';
 import { NormalSizes } from '../utils';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
@@ -43,9 +43,10 @@ const Step: React.FC<BasicStepProps> = (props) => {
         }
 
     }
+    const isLast=Number(stepNumber)===total
     const renderIcon = () => {
         let iconNode
-        const iconDot = <StepIconDot status={status} />;
+        const iconDot = <StepIconDot status={status} vertical={direction==='vertical'} actived={status==='finish'} islast={Number(stepNumber)===total}/>;
         // `progressDot` enjoy the highest priority
         if (progressDot) {
             if (typeof progressDot === 'function') {
@@ -56,7 +57,7 @@ const Step: React.FC<BasicStepProps> = (props) => {
                     description,
                 });
             } else {
-                iconNode = {iconDot}
+                iconNode = iconDot
             }
         } 
         else if (icon) {
@@ -67,12 +68,13 @@ const Step: React.FC<BasicStepProps> = (props) => {
         return iconNode
     }
     return (
-        <StepBase notFirst={Number(stepNumber)===total} id="step-base" disabled={props.disabled} custom={icon ? true : false} active={props.active} >
-            <StepItem dot={progressDot&&true} id="step-item" onClick={Click}>
+        <StepBase islast={isLast} dot={progressDot&&true} notFirst={Number(stepNumber)!==1} id="step-base" disabled={props.disabled} custom={icon ? true : false} active={props.active} >
+            <StepItem direction={direction} dot={progressDot&&true} id="step-item"  onClick={Click}>
+                {progressDot&&!isLast&&<StepTail id="step-tail"/>}
                 {renderIcon()}
-                <StepContent id="step-content">
-                    <StepTitle vertical={direction==='vertical'} id="step-title" actived={status==='finish'} islast={Number(stepNumber)===total}>
-                        {title}
+                <StepContent dot={progressDot&&true} id="step-content">
+                    <StepTitle dot={progressDot&&true} vertical={direction==='vertical'} id="step-title" actived={status==='finish'} islast={isLast}>
+                        <Steptitle active={status==='process'}>{title}</Steptitle>
                         {subTitle && (
                             <StepSubtitle
                                status={status}
