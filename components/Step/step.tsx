@@ -46,7 +46,7 @@ const Step: React.FC<BasicStepProps> = (props) => {
     const isLast=Number(stepNumber)===total
     const renderIcon = () => {
         let iconNode
-        const iconDot = <StepIconDot status={status} vertical={direction==='vertical'} actived={status==='finish'} islast={Number(stepNumber)===total}/>;
+        const iconDot = <StepIconDot status={status} vertical={direction==='vertical'} actived={status==='process'} islast={Number(stepNumber)===total}/>;
         // `progressDot` enjoy the highest priority
         if (progressDot) {
             if (typeof progressDot === 'function') {
@@ -70,11 +70,11 @@ const Step: React.FC<BasicStepProps> = (props) => {
     return (
         <StepBase islast={isLast} dot={progressDot&&true} notFirst={Number(stepNumber)!==1} id="step-base" disabled={props.disabled} custom={icon ? true : false} active={props.active} >
             <StepItem direction={direction} dot={progressDot&&true} id="step-item"  onClick={Click}>
-                {progressDot&&!isLast&&<StepTail id="step-tail"/>}
+                {progressDot&&!isLast&&<StepTail id="step-tail" status={status}/>}
                 {renderIcon()}
                 <StepContent dot={progressDot&&true} id="step-content">
                     <StepTitle dot={progressDot&&true} vertical={direction==='vertical'} id="step-title" actived={status==='finish'} islast={isLast}>
-                        <Steptitle active={status==='process'}>{title}</Steptitle>
+                        <Steptitle status={status} active={status==='process'}>{title}</Steptitle>
                         {subTitle && (
                             <StepSubtitle
                                status={status}

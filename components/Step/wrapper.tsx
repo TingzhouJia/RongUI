@@ -74,9 +74,9 @@ ${props => props.nav ? css` display: inline-block;
       `}
 `
 
-export const StepTail = styled.div`
+export const StepTail = styled.div<{status?:Status}>`
     position: absolute;
-    top: 2px;
+    top: 3px;
     width: 100%;
     margin: 0 0 0 70px;
     padding: 0;
@@ -90,7 +90,7 @@ export const StepTail = styled.div`
       /* width: 9999px;
     height: 3px; */
     
-      background: rgba(0,0,0,0.35);
+      background: ${props=>props.status==='finish'?props.theme.colors.primary:'rgba(0,0,0,0.35)'};
       border-radius: 1px;
       transition: background 0.3s;
       content: '';
@@ -168,7 +168,7 @@ ${props => props.nav ? css`
 export const Steptitle=styled.h3<{status?:Status,active?:boolean}>`
     margin:0;
     font-weight:${props=>props.active?800:'normal'};
-    color:${props=>props.status==='error'?props.theme.palette.error:'rgba(0,0,0,0.85)'};
+    color:${props=>props.status==='error'?props.theme.palette.error:props=>props.status==='wait'?'rgba(0,0,0,0.35)':'rgba(0,0,0,0.85)'};
 `
 
 export const StepSubtitle = styled.div<{status?:Status}>`
@@ -240,37 +240,15 @@ export const StepIconDot = styled.div<{status?:Status,size?:'default'|'small',ve
   background:red;
   display:inline-block;
   margin-left:64px; */
-  width: 8px;
-    height: 8px;
+  width: ${props=>props.actived?10:8}px;
+    height: ${props=>props.actived?10:8}px;
     margin-left: 67px;
     padding-right: 0;
-    color:red;
-    line-height: 8px;
-    background: rgba(0,0,0,.25);
+    border-radius:50%;
+    line-height: ${props=>props.actived?10:8}px;
+    background: ${props=>props.status==='error'?props.theme.palette.error:props.status==='wait'?'rgba(0,0,0,.25)':props.theme.colors.primary};
     border: 0;
-  /* ${
-    props=>css`
-    &::after {
-      position: absolute;
-     ${
-       props.vertical?css`
-       top:100%;
-       left:50%;
-       width:1px;
-       height:${props.islast?"0px":"9999px"};
-       `:css`
-        margin-top:4px;
-        margin-left:20px;
-      display: block;
-      width: ${props.islast?"0px":"9999px"};
-      height: 1px;
-       `
-     }
-      background: ${props.actived?props.theme.colors.primary:'rgba(0,0,0,0.25)'};
-      content: '';
-    }
-    `
-  } */
+
 `
 
 export const StepItIcon = styled.div<{status?:Status,disabled?:boolean,size?:'small'|'default'}>`
