@@ -46,7 +46,7 @@ const Step: React.FC<BasicStepProps> = (props) => {
     const isLast=Number(stepNumber)===total
     const renderIcon = () => {
         let iconNode
-        const iconDot = <StepIconDot status={status} vertical={direction==='vertical'} actived={status==='finish'} islast={Number(stepNumber)===total}/>;
+        const iconDot = <StepIconDot id={`step-dot-${status}`} status={status} vertical={direction==='vertical'} actived={status==='process'} islast={Number(stepNumber)===total}/>;
         // `progressDot` enjoy the highest priority
         if (progressDot) {
             if (typeof progressDot === 'function') {
@@ -61,20 +61,20 @@ const Step: React.FC<BasicStepProps> = (props) => {
             }
         } 
         else if (icon) {
-            iconNode = <StepItIcon status={status} size={size}>{icon}</StepItIcon>;
+            iconNode = <StepItIcon direction={direction} id="step-custom-icon" status={status} size={size}>{icon}</StepItIcon>;
         } else {
-            iconNode = <StepItIcon status={status} size={size}>{status==='finish'?<CheckOutlined />:status==='error'?<CloseOutlined />:stepNumber}</StepItIcon>;
+            iconNode = <StepItIcon direction={direction} id={`step-${status}-icon`} status={status} size={size}>{status==='finish'?<CheckOutlined />:status==='error'?<CloseOutlined />:stepNumber}</StepItIcon>;
         }
         return iconNode
     }
     return (
-        <StepBase islast={isLast} dot={progressDot&&true} notFirst={Number(stepNumber)!==1} id="step-base" disabled={props.disabled} custom={icon ? true : false} active={props.active} >
+        <StepBase vertical={direction==='vertical'} islast={isLast} dot={progressDot&&true} notFirst={Number(stepNumber)!==1} id="step-base" disabled={props.disabled} custom={icon ? true : false} active={props.active} >
             <StepItem direction={direction} dot={progressDot&&true} id="step-item"  onClick={Click}>
-                {progressDot&&!isLast&&<StepTail id="step-tail"/>}
+                {(progressDot||direction==='vertical')&&!isLast&&<StepTail direction={direction} id="step-tail" status={status}/>}
                 {renderIcon()}
                 <StepContent dot={progressDot&&true} id="step-content">
                     <StepTitle dot={progressDot&&true} vertical={direction==='vertical'} id="step-title" actived={status==='finish'} islast={isLast}>
-                        <Steptitle active={status==='process'}>{title}</Steptitle>
+                        <Steptitle status={status} active={status==='process'}>{title}</Steptitle>
                         {subTitle && (
                             <StepSubtitle
                                status={status}

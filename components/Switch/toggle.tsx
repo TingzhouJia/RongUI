@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import KeyCode from 'rc-util/lib/KeyCode';
-import { SwitchBase, InnerCheck } from "./wrapper";
+import { SwitchBase, InnerCheck, SwitchContent } from "./wrapper";
 export type SwitchChangeEventHandler = (
     checked: boolean,
     event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
@@ -76,6 +76,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
 
 
         return (<SwitchBase
+            id="rong-switch"
             {...restProps}
             type="button"
             small={size === "small"}
@@ -87,9 +88,11 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
             ref={ref}
             onKeyDown={onInternalKeyDown}
             onClick={onInternalClick}>
-            <InnerCheck checked={innerChecked} small={size === "small"}>
-                {innerChecked ? checkedChildren : unCheckedChildren}
+            <InnerCheck id="check-handler" checked={innerChecked} small={size === "small"}>
             </InnerCheck>
+            <SwitchContent id="inner-content" checked={innerChecked} small={size === "small"}>
+            {innerChecked ? checkedChildren : unCheckedChildren}
+            </SwitchContent>
         </SwitchBase>)
     }) 
     Switch.displayName = 'Switch';

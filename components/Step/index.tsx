@@ -4,7 +4,6 @@ export interface StepsProps {
     type?: 'default' | 'navigation';
     className?: string;
     current?: number;
-    direction?: 'horizontal' | 'vertical';
     initial?: number;
     labelPlacement?: 'horizontal' | 'vertical';
     progressDot?: boolean | Function;

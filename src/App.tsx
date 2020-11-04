@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components'
-
+import Switch from '../components/Switch'
 import './App.css';
 import { ThemeStore } from '../components/styles';
 
@@ -51,17 +51,7 @@ function App() {
   };
   return (
     <ThemeProvider theme={ThemeStore}>
-      <Steps   current={2}>
-        <Steps.Step title="Finished" subTitle="aaaaaaaaa" description="This is a description." >
-        
-        </Steps.Step>
-        <Steps.Step  title="Finished" description="This is a description." >
-      
-        </Steps.Step>
-        <Steps.Step  title="Finished" description="This is a description." >
-      
-      </Steps.Step>
-      </Steps>
+      <Switch checkedChildren={1}></Switch>
     </ThemeProvider>
   );
 }

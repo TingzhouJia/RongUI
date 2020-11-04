@@ -3,7 +3,7 @@ import { NormalSizes } from "../utils";
 import { Status } from "./step";
 
 
-export const StepBase = styled.div<{ custom?: boolean, active?: boolean, disabled?: boolean,notFirst?:boolean,dot?:boolean ,islast?:boolean}>`
+export const StepBase = styled.div<{ custom?: boolean, active?: boolean, disabled?: boolean,notFirst?:boolean,dot?:boolean ,islast?:boolean,vertical?:boolean}>`
   position: relative;
   ${
     props=>props.dot?css`
@@ -15,30 +15,34 @@ export const StepBase = styled.div<{ custom?: boolean, active?: boolean, disable
     flex: ${props.islast?'none':1};
     overflow: visible;
     vertical-align: top;
-    `:css`
+    `:
+    !props.vertical?css`
     display: flex;
   
   flex: ${props.islast?'none':1};
   overflow: hidden;
   vertical-align: top;
   ${
-    props.notFirst?css`margin-left:20px;`:null
+    props.notFirst&&!props.vertical?css`margin-left:20px;`:null
   }
 
+    `:css`
+    position:relative;
+    display:block;
+    flex: 1 0 auto;
+    vertical-align: top;
+    padding-left: 0!important;
+    overflow: visible;
     `
   }
 `
 
 export const StepsBase = styled.div<{ size?: 'default' | 'small', direction?: 'horizontal' | "vertical", dot?: boolean, nav?: boolean,islast?:boolean }>`
   
-  
-
-    display: flex;
+  display: flex;
   font-size: 0;
   text-align: initial;
   flex-direction:${props=>props.direction==='horizontal'?'row':'column'};
-    
-
   
 `
 export const StepItem = styled.div<{ nav?: boolean,click?:boolean,dot?:boolean,direction?:'horizontal' | "vertical" }>`
@@ -48,8 +52,9 @@ ${props=>props.click?css` cursor: pointer;
         }`:null}
 outline: none;
 
-position:relative;
+
 ${props => props.nav ? css` display: inline-block;
+position:relative;
       height: 100%;
       margin-left: -16px;
       padding-bottom: 12px;
@@ -58,25 +63,46 @@ ${props => props.nav ? css` display: inline-block;
        
        ${
          props.direction==='horizontal'&&props.dot?css`
+         position:relative;
          display:block;
         flex:none;
          /* flex-direction:column;
          justify-content:center;
          align-items:center; */
-         `:css`
+         `:props.direction==='horizontal'?css`
+         position:relative;
           display:inline-flex;
           flex-direction:row;
           justify-content:flex-start;
           align-items:center;
+         `:css`
+            height:100%;
          `
        }
 
       `}
 `
 
-export const StepTail = styled.div`
-    position: absolute;
-    top: 2px;
+export const StepTail = styled.div<{status?:Status,direction?:'vertical'|'horizontal'}>`
+${
+  props=>props.direction==='vertical'?css`
+  display: block;
+      position: absolute;
+    top: 0;
+    left: 21px;
+    height:100%;
+    padding: 38px 0 6px;
+    &::after {
+      width: 1px;
+    height: 100%;
+    display: inline-block;
+    transition: background .3s;
+    content: "";
+    background-color: #1890ff;
+    }
+  `:css`
+  position: absolute;
+    top: 3px;
     width: 100%;
     margin: 0 0 0 70px;
     padding: 0;
@@ -90,11 +116,14 @@ export const StepTail = styled.div`
       /* width: 9999px;
     height: 3px; */
     
-      background: rgba(0,0,0,0.35);
+      background: ${props.status==='finish'?props.theme.colors.primary:'rgba(0,0,0,0.35)'};
       border-radius: 1px;
       transition: background 0.3s;
       content: '';
     }
+  `
+}
+   
 `
 
 
@@ -143,12 +172,8 @@ ${props => props.nav ? css`
     &::after {
       position: absolute;
      ${
-       props.vertical?css`
-       top:100%;
-       left:50%;
-       width:1px;
-       height:${props.islast?"0px":"9999px"};
-       `:css`
+       props.vertical?null
+       :css`
        top: 50%;
         margin-top:4px;
       left: 100%;
@@ -168,7 +193,7 @@ ${props => props.nav ? css`
 export const Steptitle=styled.h3<{status?:Status,active?:boolean}>`
     margin:0;
     font-weight:${props=>props.active?800:'normal'};
-    color:${props=>props.status==='error'?props.theme.palette.error:'rgba(0,0,0,0.85)'};
+    color:${props=>props.status==='error'?props.theme.palette.error:props=>props.status==='wait'?'rgba(0,0,0,0.35)':'rgba(0,0,0,0.85)'};
 `
 
 export const StepSubtitle = styled.div<{status?:Status}>`
@@ -240,42 +265,23 @@ export const StepIconDot = styled.div<{status?:Status,size?:'default'|'small',ve
   background:red;
   display:inline-block;
   margin-left:64px; */
-  width: 8px;
-    height: 8px;
+  width: ${props=>props.actived?10:8}px;
+    height: ${props=>props.actived?10:8}px;
     margin-left: 67px;
     padding-right: 0;
-    color:red;
-    line-height: 8px;
-    background: rgba(0,0,0,.25);
+    border-radius:50%;
+    line-height: ${props=>props.actived?10:8}px;
+    background: ${props=>props.status==='error'?props.theme.palette.error:props.status==='wait'?'rgba(0,0,0,.25)':props.theme.colors.primary};
     border: 0;
-  /* ${
-    props=>css`
-    &::after {
-      position: absolute;
-     ${
-       props.vertical?css`
-       top:100%;
-       left:50%;
-       width:1px;
-       height:${props.islast?"0px":"9999px"};
-       `:css`
-        margin-top:4px;
-        margin-left:20px;
-      display: block;
-      width: ${props.islast?"0px":"9999px"};
-      height: 1px;
-       `
-     }
-      background: ${props.actived?props.theme.colors.primary:'rgba(0,0,0,0.25)'};
-      content: '';
-    }
-    `
-  } */
+
 `
 
-export const StepItIcon = styled.div<{status?:Status,disabled?:boolean,size?:'small'|'default'}>`
+export const StepItIcon = styled.div<{status?:Status,disabled?:boolean,size?:'small'|'default',direction?:'vertical'|'horizontal'}>`
 ${props=>renderStatus(props.status)};
-
+    ${
+      props=>props.direction==='vertical'?css`float: left;
+    margin-right: 16px;`:null
+    }
     width:${props=>props.size==='default'?"44px":"32px"};
     height:${props=>props.size==='default'?"44px":"32px"};
     font-size:${props=>props.size==='small'?'14px':'18px'};
