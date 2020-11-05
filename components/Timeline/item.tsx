@@ -9,6 +9,7 @@ export interface TimeLineItemProps {
     color?:string
     dot?: React.ReactNode;
     pending?: boolean;
+    last?:boolean
     position?: string;
     style?: React.CSSProperties;
     label?: React.ReactNode;
@@ -21,6 +22,7 @@ export interface TimeLineItemProps {
       className,
       status="default",
       children,
+      last,
       pending=false,
       dot,
       color,
@@ -30,14 +32,16 @@ export interface TimeLineItemProps {
     } = props;
   
 
-  
+    
   
     return (
-      <TimeItemBase {...restProps} className={className}>
-        {label && <Itemlabel right={mode==="right"}>{label}</Itemlabel>}
-        <ItemTail pending={pending} right={mode==="right"}/>
+      <TimeItemBase id="rong-timeline-item" {...restProps} className={className}>
+      {label && <Itemlabel id="timeline-item-label" right={mode==="right"}>{label}</Itemlabel>}
+       {!last&& <ItemTail pending={pending} right={mode==="right"}/>}
         <ItemHead
+        id="timeline-item-dot"
           dot={dot?true:false}
+          position={mode}
           pending={pending}
           color={color||getColor(status)}
         >

@@ -17,6 +17,7 @@ import Skeleton from '../components/Skeleton/skeleton';
 import Slider from '../components/Slider';
 import Steps from '../components/Step';
 import Tabs from '../components/Tabs';
+import Timeline from '../components/Timeline';
 
 function App() {
   const [visible, setvisible] = useState(false)
@@ -52,14 +53,12 @@ function App() {
   };
   return (
     <ThemeProvider theme={ThemeStore}>
-      <Tabs>
-        <Tabs.Pane tab="good" tabKey="1">
-          aaa
-        </Tabs.Pane>
-        <Tabs.Pane tab="bad" tabKey="1">
-          vvv
-        </Tabs.Pane>
-      </Tabs>
+      <Timeline >
+        <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
+        <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
+        <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
+        <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
+      </Timeline>
     </ThemeProvider>
   );
 }
