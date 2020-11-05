@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { ToRGBA } from "../utils/hex_rgb";
 
 export const CheckItem=styled.span<{checked?:boolean}>`
 background-color: ${props=>props.checked?props.theme.colors.primary:"transparent"};
@@ -28,7 +29,7 @@ margin-left: 3px;
 `
 
 
-export const TagBase=styled.span<{visble?:boolean,color?:string}>`
+export const TagBase=styled.span<{visble?:boolean,color?:string,status?:any}>`
 display: inline-block;
   height: auto;
   margin-right: 8px;
@@ -36,8 +37,9 @@ display: inline-block;
   font-size: 12px;
   line-height: 20px;
   white-space: nowrap;
-  background: hsv(0, 0, 98%);
-  border: 1px solid rgba(0,0,0,0.45);
+  background: ${props=>!props.status?props.color:'white'};
+  border: 1px solid ${props=>props.color||'rgba(0,0,0,0.45)'};
+  color:${props=>props.status?props.color:'rgba(0,0,0,0.85)'};
   border-radius: 2px;
   cursor: default;
   opacity: 1;
@@ -49,11 +51,6 @@ display:none;
     opacity: 0.85;
   }
 
-  &,
-  a,
-  a:hover {
-    color: rgba(0,0,0,0.85);
-  }
 
   > a:first-child:last-child {
     display: inline-block;

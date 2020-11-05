@@ -25,8 +25,7 @@ export interface CheckableTagProps {
     const {  className, checked,onChange, ...restProps } = props;
  
   
-   // TypeScript cannot check delete now.
-    return <CheckItem checked={checked} {...(restProps as any)} className={className} onClick={handleClick} />;
+    return <CheckItem id="rong-tag-check-item" checked={checked} {...(restProps as any)} className={className} onClick={handleClick} />;
   };
   
   export default CheckableTag;
