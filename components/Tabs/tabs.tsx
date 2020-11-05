@@ -23,7 +23,22 @@ const Tabs: TabsProps = ({
     className,
     ...props
 }) => {
-    const [selfValue, setSelfValue] = useState<string | undefined>(userCustomInitialValue)
+    const setInitial=(items:React.ReactNode):string|undefined=>{
+        let cur:React.ReactNode=undefined;
+        React.Children.map(items,(item,index)=>{
+            if (!React.isValidElement(item)) return null
+            if (!item.props) return null
+            if(item.props['tabKey']&&!cur){
+                cur=item
+            }
+        })
+        if(cur){
+            return (cur as any).props.tabKey
+        }
+        return cur
+    }
+    const [selfValue, setSelfValue] = useState<string | undefined>(userCustomInitialValue||setInitial(children))
+  
     const [tabs, setTabs] = useState<Array<TabsLabelItem>>([])
     const register = (next: TabsLabelItem) => {
         setTabs(last => {
@@ -64,6 +79,7 @@ const Tabs: TabsProps = ({
             <TabHeader>
                 {tabs.map(item => (
                     <TabItem
+                        id={`tab-header-${item.value}`}
                         active={selfValue === item.value}
                         disabled={item.disabled}
                         role="button"

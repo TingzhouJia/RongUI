@@ -5,13 +5,13 @@ import { Holder } from "./wrapper"
 
 
 export interface TabPaneProps {
-    tab?: React.ReactNode;
+    tab: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
     disabled?: boolean;
     children?: React.ReactNode;
    // Pass by TabPaneList
-    tabKey?: string;
+    tabKey: string;
   }
 
   const TabsItem: React.FC<React.PropsWithChildren<TabPaneProps>> = ({
@@ -28,7 +28,7 @@ export interface TabPaneProps {
     }, [tabKey, tab, disabled])
   
     /* eslint-disable react/jsx-no-useless-fragment */
-    return isActive ? <Holder>{children}</Holder> : null
+    return isActive ? <Holder id={`tab-body-${tabKey}`}>{children}</Holder> : null
   }
 
 export default TabsItem
