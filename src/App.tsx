@@ -16,6 +16,7 @@ import { EditOutlined } from '@ant-design/icons';
 import Skeleton from '../components/Skeleton/skeleton';
 import Slider from '../components/Slider';
 import Steps from '../components/Step';
+import Tabs from '../components/Tabs';
 
 function App() {
   const [visible, setvisible] = useState(false)
@@ -51,7 +52,14 @@ function App() {
   };
   return (
     <ThemeProvider theme={ThemeStore}>
-      <Switch checkedChildren={1}></Switch>
+      <Tabs>
+        <Tabs.Pane tab="good" tabKey="1">
+          aaa
+        </Tabs.Pane>
+        <Tabs.Pane tab="bad" tabKey="1">
+          vvv
+        </Tabs.Pane>
+      </Tabs>
     </ThemeProvider>
   );
 }
