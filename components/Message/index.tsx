@@ -10,12 +10,13 @@ import CheckCircleFilled from '@ant-design/icons/CheckCircleFilled';
 import InfoCircleFilled from '@ant-design/icons/InfoCircleFilled';
 import React from 'react';
 import { getColor } from '../utils/getColor';
+import styled from 'styled-components';
 
 type NoticeType = 'info' | 'success' | 'error' | 'warning' | 'loading';
 
 let messageInstance: RNotificationInstance | null;
 let defaultDuration = 3;
-let defaultTop: number;
+let defaultTop: number=8;
 let key = 1;
 let getContainer: () => HTMLElement;
 let maxCount: number;
@@ -23,7 +24,6 @@ let maxCount: number;
 export interface ConfigOptions {
     top?: number;
     duration?: number;
-    prefixCls?: string;
     getContainer?: () => HTMLElement;
     transitionName?: string;
     maxCount?: number;
@@ -51,7 +51,6 @@ export interface ArgsProps {
     content: React.ReactNode;
     duration: number | null;
     type: NoticeType;
-    prefixCls?: string;
     onClose?: () => void;
     icon?: React.ReactNode;
     key?: string | number;
@@ -92,27 +91,25 @@ function getRCNotificationInstance(
     }
     Notification.newInstance(
         {
-
-            style: { top: defaultTop }, // 覆盖原来的样式
+            style: { top: defaultTop,left:"50%" }, 
             getContainer,
             maxCount,
         },
         (instance: any) => {
             if (messageInstance) {
                 callback({
-
                     instance: messageInstance,
                 });
                 return;
             }
             messageInstance = instance;
             callback({
-
                 instance,
             });
         },
     );
 }
+
 
 function getRCNoticeProps(args: ArgsProps, ): NoticeContent {
     const duration = args.duration !== undefined ? args.duration : defaultDuration;
@@ -124,9 +121,9 @@ function getRCNoticeProps(args: ArgsProps, ): NoticeContent {
         style: args.style || {},
         className: args.className,
         content: (
-            <div style={{ color: getColor(args.type) }}>
+            <div style={{ color: getColor(args.type),display:'flex',flexDirection:'row',alignItems:"center" }}>
                 {args.icon || (IconComponent && <IconComponent />)}
-                <span>{args.content}</span>
+                <span style={{marginLeft:'4px'}}>{args.content}</span>
             </div>
         ),
         onClose: args.onClose,

@@ -8,18 +8,7 @@ import { ThemeStore } from '../components/styles';
 
 import message from '../components/Message'
 import notification from '../components/Notification'
-import Button from '../components/Button';
-import Pagination from '../components/Pagination';
-import Progress from '../components/Progress';
-import Select from '../components/Select/select';
-import { EditOutlined } from '@ant-design/icons';
-import Skeleton from '../components/Skeleton/skeleton';
-import Slider from '../components/Slider';
-import Steps from '../components/Step';
-import Tabs from '../components/Tabs';
-import Timeline from '../components/Timeline';
-import Tooltip from '../components/Tooltip';
-import Popconfirm from '../components/Popconfirm';
+
 
 function App() {
   const [visible, setvisible] = useState(false)
@@ -58,13 +47,11 @@ function App() {
       <div style={{height:"200px",width:"2px"}}>
 
       </div>
-      <Popconfirm title="Are you going to delete" >
-        <span >Tooltip will show on mouse enter.</span>
-      </Popconfirm>
-
-      <Tooltip>
-      <span >Tooltip will show on mouse enter.</span>
-      </Tooltip>
+     
+        <span onClick={()=>message.info({content:'aaa'})} >Tooltip will show on mouse enter.</span>
+      
+      
+   
     </ThemeProvider>
   );
 }
