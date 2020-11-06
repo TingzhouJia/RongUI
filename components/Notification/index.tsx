@@ -47,7 +47,6 @@ export interface ArgsProps {
     icon?: React.ReactNode;
     placement?: NotificationPlacement;
     style?: React.CSSProperties;
-    prefixCls?: string;
     className?: string;
     readonly type?: IconType;
     onClick?: () => void;
@@ -117,6 +116,7 @@ function getPlacementStyle(
     }
     return style;
 }
+
 function getNotificationInstance(
     args: ArgsProps,
     callback: (info: { instance: NotificationInstance }) => void,
@@ -130,7 +130,7 @@ function getNotificationInstance(
     } = args;
 
 
-    const cacheKey = `rongnotif-${placement}`;
+    const cacheKey = `rong-notif-${placement}`;
     const cacheInstance = notificationInstance[cacheKey];
     if (cacheInstance) {
         Promise.resolve(cacheInstance).then(instance => {
@@ -149,7 +149,6 @@ function getNotificationInstance(
     notificationInstance[cacheKey] = new Promise(resolve => {
         Notification.newInstance(
             {
-
                 style: getPlacementStyle(placement, top, bottom),
                 getContainer,
                 closeIcon: closeIconToRender,
@@ -164,6 +163,7 @@ function getNotificationInstance(
         );
     });
 }
+
 function getRCNoticeProps(args: ArgsProps) {
     const duration = args.duration === undefined ? defaultDuration : args.duration;
 
@@ -223,7 +223,7 @@ const api: any = {
         Promise.resolve(notificationInstance[cacheKey]).then(instance => {
           instance.destroy();
         });
-        delete notificationInstance[cacheKey]; // lgtm[js/missing-await]
+        delete notificationInstance[cacheKey]; 
       });
     },
   };
@@ -236,7 +236,6 @@ const api: any = {
       });
   });
   
-  api.warn = api.warning;
   //api.useNotification = createUseNotification(getNotificationInstance, getRCNoticeProps);
 
 export interface NotificationInstances {
@@ -248,7 +247,6 @@ export interface NotificationInstances {
 }
 
 export interface NotificationApi extends NotificationInstances {
-  warn(args: ArgsProps): void;
   close(key: string): void;
   config(options: ConfigProps): void;
   destroy(): void;

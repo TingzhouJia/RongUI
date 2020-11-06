@@ -9,18 +9,19 @@ export interface NoticeProps {
     duration?: number | null;
     children?: React.ReactNode;
     updateMark?: string;
-    props?:HTMLDivElement
+    props?: HTMLDivElement
     closeIcon?: React.ReactNode;
     closable?: boolean;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
     onClose?: () => void;
-
     holder?: HTMLDivElement;
 }
 
 
 const Notice: React.FC<NoticeProps> = (props) => {
-    const { onClose = () => { },holder,
+    const { 
+        onClose = () => { },
+        holder,
         duration = 1.5, } = props
     const [closeTimer, setcloseTimer] = useState<number | null>(null)
     const clearCloseTimer = () => {
@@ -34,7 +35,7 @@ const Notice: React.FC<NoticeProps> = (props) => {
             e.stopPropagation();
         }
         clearCloseTimer();
-        const { onClose } = props;
+ 
         if (onClose) {
             onClose();
         }
@@ -60,6 +61,7 @@ const Notice: React.FC<NoticeProps> = (props) => {
             onMouseEnter={clearCloseTimer}
             onMouseLeave={startCloseTimer}
             onClick={props.onClick} closable={props.closable}>
+                {props.children}
             {props.closable ? (
                 <CloseIcon tabIndex={0} onClick={close} >
                     {props.closeIcon || <CloseX />}
@@ -69,7 +71,7 @@ const Notice: React.FC<NoticeProps> = (props) => {
     )
     if (holder) {
         return ReactDOM.createPortal(node, holder);
-      }
+    }
     return node
 }
 

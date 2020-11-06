@@ -1,12 +1,11 @@
 import Notice, { NoticeProps } from "./notice";
-import { useState, ReactText, useRef, useEffect,useImperativeHandle } from "react";
+import { useState, ReactText, useRef, useEffect, useImperativeHandle } from "react";
 import { NotificationBase } from "./wrapper";
 import React from "react";
 import ReactDOM from "react-dom";
-import useNotification from "./useNotification";
+
 
 export interface NoticeContent extends Omit<NoticeProps, 'children'> {
-
     key?: React.Key;
     updateMark?: string;
     content?: React.ReactNode;
@@ -30,9 +29,8 @@ export interface NotificationInstance {
     notice: NoticeFunc;
     removeNotice: (key: React.Key) => void;
     destroy: () => void;
-    component: Notification;
 
-    useNotification: () => [NoticeFunc, React.ReactElement];
+    // useNotification: () => [NoticeFunc, React.ReactElement];
 }
 export interface NotificationProps {
     className?: string;
@@ -41,26 +39,27 @@ export interface NotificationProps {
     closeIcon?: React.ReactNode;
 }
 
-interface BaseNotif extends Omit<Partial<React.ImgHTMLAttributes<any> & React.HTMLAttributes<any>>,keyof NotificationProps> , NotificationProps {
 
-}
 
 export interface NotifFunc {
-    add:(originNotice: NoticeContent, holderCallback?: HolderReadyCallback)=>void
-    remove:(key: React.Key)=>void
+    add: (originNotice: NoticeContent, holderCallback?: HolderReadyCallback) => void
+    remove: (key: React.Key) => void
+}
+interface NotificationState {
+    notice: NoticeContent & {
+        userPassKey?: React.Key;
+    };
+    holderCallback?: HolderReadyCallback;
 }
 
-const InnerNotification:React.ForwardRefRenderFunction<NotifFunc,BaseNotif>=(props,ref)=> {
+const InnerNotification: React.ForwardRefRenderFunction<NotifFunc, NotificationProps> = (props, ref) => {
     const {
         style = {
             top: 65,
             left: '50%',
         }
     } = props
-    const [notices, setnotices] = useState<{
-        notice: NoticeContent;
-        holderCallback?: HolderReadyCallback;
-    }[]>([])
+    const [notices, setnotices] = useState<NotificationState[]>([])
 
     useImperativeHandle(
         ref,
@@ -69,11 +68,13 @@ const InnerNotification:React.ForwardRefRenderFunction<NotifFunc,BaseNotif>=(pro
             remove
         }),
     )
-   
+
     const add = (originNotice: NoticeContent, holderCallback?: HolderReadyCallback) => {
         const key: React.Key = originNotice.key || getUuid();
-        const notice = { ...originNotice, key };
-        const { maxCount } = props;
+        const notice :NoticeContent & {
+            userPassKey?: React.Key;
+        } = { ...originNotice, key };
+        const { maxCount = 20 } = props;
 
         setnotices(noticesInstance => {
 
@@ -86,6 +87,7 @@ const InnerNotification:React.ForwardRefRenderFunction<NotifFunc,BaseNotif>=(pro
 
                     notice.key = (updatedNotices[0].notice.key) as React.ReactText;
                     notice.updateMark = getUuid();
+                    notice.userPassKey = key;
                     updatedNotices.shift();
                 }
                 updatedNotices.push({ notice, holderCallback });
@@ -98,7 +100,7 @@ const InnerNotification:React.ForwardRefRenderFunction<NotifFunc,BaseNotif>=(pro
             notices.filter(({ notice }) => notice.key !== key)
         ))
     }
-    const noticePropsMap: Record<
+    const [noticePropsMap, setNoticePropsMap] = useState<Record<
         React.Key,
         {
             props: NoticeProps & {
@@ -106,12 +108,12 @@ const InnerNotification:React.ForwardRefRenderFunction<NotifFunc,BaseNotif>=(pro
             };
             holderCallback?: HolderReadyCallback;
         }
-    > = {};
+    >>({});
     const hookRefs = new Map<React.Key, HTMLDivElement>();
     const renderer = () => {
-        const { className, closeIcon,  } = props;
+        const { className, closeIcon, } = props;
         const noticeKeys: React.Key[] = [];
-
+        const curNoticeList:any={}
         notices.forEach(({ notice, holderCallback }, index) => {
             const updateMark = index === notices.length - 1 ? notice.updateMark : undefined;
             const { key } = notice;
@@ -135,11 +137,13 @@ const InnerNotification:React.ForwardRefRenderFunction<NotifFunc,BaseNotif>=(pro
 
             // Give to motion
             noticeKeys.push(key as ReactText);
-            noticePropsMap[key as ReactText] = { props: noticeProps, holderCallback };
+           
+            curNoticeList[key as ReactText] = { props: noticeProps, holderCallback };
+            //setNoticePropsMap(prev=>({...prev,[key as ReactText]:{props: noticeProps, holderCallback}}))
         });
 
         const renderNotice = (key: any) => {
-            const { props: noticeProps, holderCallback } = noticePropsMap[key];
+            const { props: noticeProps, holderCallback } = curNoticeList[key];
             if (holderCallback) {
                 return (
                     <div
@@ -179,66 +183,52 @@ const InnerNotification:React.ForwardRefRenderFunction<NotifFunc,BaseNotif>=(pro
 }
 
 interface CompoundedComponent
-  extends React.ForwardRefExoticComponent<BaseNotif & React.RefAttributes<HTMLElement> & React.RefAttributes<NotifFunc>> {
+    extends React.ForwardRefExoticComponent<NotificationProps & React.RefAttributes<HTMLElement> & React.RefAttributes<NotifFunc>> {
     newInstance: (
-        properties: BaseNotif & { getContainer?: () => HTMLElement },
+        properties: NotificationProps & { getContainer?: () => HTMLElement },
         callback: (instance: NotificationInstance) => void,
-      ) => void
+    ) => void
 }
-const Notification=React.forwardRef<NotifFunc,BaseNotif>(InnerNotification) as CompoundedComponent
+
+const Notification = React.forwardRef<NotifFunc, NotificationProps>(InnerNotification) as CompoundedComponent
 
 
 
-Notification.newInstance=function newNotificationInstance(properties, callback) {
+Notification.newInstance = (properties, callback) => {
     const { getContainer, ...props } = properties || {};
     const div = document.createElement('div');
     if (getContainer) {
-      const root = getContainer();
-      root.appendChild(div);
+        const root = getContainer();
+        root.appendChild(div);
     } else {
-      document.body.appendChild(div);
+        document.body.appendChild(div);
     }
-    const [called, setcalled] = useState(false)
- 
-    const ref = useRef<Notification & NotifFunc & HTMLElement>(null)
-  
-    useEffect(() => {
+    let called = false
+
+    function ref(notification: any) {
+
         if (called) {
-                 return;
+            return;
         }
-        setcalled(true)
+        called = true
         callback({
-                notice(noticeProps) {
-                    
-                   
-                  ref?.current?.add(noticeProps);
-                },
-                removeNotice(key) {
-                    ref.current?.remove(key)
-                 // notification.remove(key);
-                },
-                component: ref.current as Notification,
-                destroy() {
-                  ReactDOM.unmountComponentAtNode(div);
-                  if (div.parentNode) {
-                    div.parentNode.removeChild(div);
-                  }
-                },
-          
-                // Hooks
-                useNotification() {
-                  return useNotification(ref.current as (Notification & NotifFunc));
-                },
-              });
-      
-    }, [ref])
+            notice(noticeProps) {
+                notification.add(noticeProps);
+            },
+            removeNotice(key) {
+                notification.remove(key);
+            },
+            destroy() {
+                ReactDOM.unmountComponentAtNode(div);
+                div?.parentNode?.removeChild(div);
+            }
+        });
+    }
 
-  
-    
- 
-  
+
+
     ReactDOM.render(<Notification {...props} ref={ref} />, div);
-  };
+};
 
 
-  export default Notification
+export default Notification
