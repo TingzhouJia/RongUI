@@ -7,7 +7,6 @@ type EventType =
     | React.MouseEvent | React.KeyboardEvent
 
 type getContainerFunc = () => HTMLElement;
-const DrawerContext = React.createContext<typeof Drawer | null>(null);
 const PlacementTypes = tuple('top', 'right', 'bottom', 'left');
 type placementType = typeof PlacementTypes[number];
 export interface PushState {
@@ -16,7 +15,6 @@ export interface PushState {
 export interface DrawerProps {
     closable?: boolean;
     closeIcon?: React.ReactNode;
-    forceRender?: boolean;
     getContainer?:  getContainerFunc ;
     maskClosable?: boolean;
     mask?: boolean;
@@ -82,7 +80,8 @@ const Drawer: React.FC<DrawerProps> = (props) => {
           closable && (
             // eslint-disable-next-line react/button-has-type
             <DrawerCloseBtn
-              onClick={onClose}
+              onClick={onClose
+              }
               aria-label="Close"
             >
               {closeIcon}
@@ -90,9 +89,10 @@ const Drawer: React.FC<DrawerProps> = (props) => {
           )
         );
       }
+
       
       const getOffsetStyle=()=> {
-        const { placement, width, height, visible, mask } = props;
+        const { placement, width=256, height=256, visible, mask } = props;
     
         if (!visible && !mask) {
           return {};
@@ -108,7 +108,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
 
       
       const getDrawerStyle = () => {
-        const { zIndex, placement, mask, style } = props;
+        const { zIndex, mask, style } = props;
       
     
         const offsetStyle = mask ? {} :getOffsetStyle();
@@ -121,14 +121,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
       };
      const renderBody = () => {
         const { bodyStyle, drawerStyle, visible } = props;
-        if ( !visible) {
-          return null;
-        }
-
-    
         const containerStyle: React.CSSProperties = {};
-
-    
         return (
           <DrawerBodyWrapper
             style={{
@@ -144,6 +137,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
           </DrawerBodyWrapper>
         );
       };
+
     const renderProvider=()=>{
         const {
             placement,
@@ -155,15 +149,17 @@ const Drawer: React.FC<DrawerProps> = (props) => {
             handler,
             ...rest
           } = props;
-        return (<DrawerWrapper  open={visible}
-                showMask={mask}
-                handler={(handler as any)||false}
-                getContainer={props.getContainer}
-                style={getDrawerStyle()}
-                placement={placement} 
-                 {...rest}>
-                    {renderBody()}
-                </DrawerWrapper>)
+       
+        return (<DrawerWrapper  open={props.visible}
+          showMask={mask}
+
+          handler={(handler as any)||false}
+          getContainer={props.getContainer}
+          style={getDrawerStyle()}
+          placement={placement} 
+           {...rest}>
+              {renderBody()}
+          </DrawerWrapper>)
     }
    
 return (<>{renderProvider()}</>)

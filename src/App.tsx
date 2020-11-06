@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components'
 import Switch from '../components/Switch'
 import './App.css';
@@ -45,10 +45,14 @@ function App() {
   };
   return (
     <ThemeProvider theme={ThemeStore}>
+   
+      <span onClick={()=>{setvisible(true)}}> Tooltip will show on mouse enter.</span>
+  
       <Drawer
         title="Basic Drawer"
         placement="right"
-        closable={false}
+        closable
+        onClose={()=>{setvisible(false)}}
         visible={visible}
       >
         <p>Some contents...</p>
@@ -56,7 +60,7 @@ function App() {
         <p>Some contents...</p>
       </Drawer>
      
-        <span onClick={()=>setvisible(true)} >Tooltip will show on mouse enter.</span>
+       
       
       
    
