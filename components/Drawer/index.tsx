@@ -16,9 +16,8 @@ export interface PushState {
 export interface DrawerProps {
     closable?: boolean;
     closeIcon?: React.ReactNode;
-    destroyOnClose?: boolean;
     forceRender?: boolean;
-    getContainer?: string | HTMLElement | getContainerFunc | false;
+    getContainer?:  getContainerFunc ;
     maskClosable?: boolean;
     mask?: boolean;
     maskStyle?: React.CSSProperties;
@@ -31,7 +30,6 @@ export interface DrawerProps {
     width?: number | string;
     height?: number | string;
     zIndex?: number;
-    push?: boolean | PushState;
     placement?: placementType;
     onClose?: (e: EventType) => void;
     afterVisibleChange?: (visible: boolean) => void;
@@ -46,50 +44,16 @@ export interface IDrawerState {
     push?: boolean;
 }
 
-const defaultPushState: PushState = { distance: 180 };
+
 
 const Drawer: React.FC<DrawerProps> = (props) => {
 
-    const { width = 256,
-        height = 256,
-        closable = true,
-        placement = 'right' as placementType,
-        maskClosable = true,
-       
-        mask = true,
-        keyboard = true,
-        push = defaultPushState, } = props
-    const [curpush, setpush] = useState(false)
-    const [destroyClose, setdestoryState] = useState(false)
-    const [parentDrawer, setparentDrawer] = useState<typeof Drawer|null>(null)
 
-    const pushIt = () => {
-        if (props.push) {
-            setpush(true)
-        }
-    }
-    const pullIt = () => {
-        if (props.push) {
-            setpush(false)
-        }
-    }
-
-    // useEffect(() => {
-    //     const {visible}=props
-    //     if(visible&&parentDrawer){
-    //         if(visible){
-            
-    //         }
-    //     }
-        
-    // }, [props.visible])
     const renderHeader=()=> {
         const { title,  closable, headerStyle } = props;
         if (!title && !closable) {
           return null;
         }
-    
-     
         return (
           <DrawerHeader style={headerStyle}>
             {title && <DrawerHeaderTitle>{title}</DrawerHeaderTitle>}
@@ -126,6 +90,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
           )
         );
       }
+      
       const getOffsetStyle=()=> {
         const { placement, width, height, visible, mask } = props;
     
@@ -140,26 +105,8 @@ const Drawer: React.FC<DrawerProps> = (props) => {
         }
         return offsetStyle;
       }
-      const getPushDistance = () => {
-        const { push } = props;
-        let distance: number | string;
-        if (typeof push === 'boolean') {
-          distance = push ? defaultPushState.distance : 0;
-        } else {
-          distance = push?push.distance:0;
-        }
-        return parseFloat(String(distance || 0));
-      };
-      const getPushTransform = (placement?: placementType) => {
-        const distance = getPushDistance();
-    
-        if (placement === 'left' || placement === 'right') {
-          return `translateX(${placement === 'left' ? distance : -distance}px)`;
-        }
-        if (placement === 'top' || placement === 'bottom') {
-          return `translateY(${placement === 'top' ? distance : -distance}px)`;
-        }
-      };
+
+      
       const getDrawerStyle = () => {
         const { zIndex, placement, mask, style } = props;
       
@@ -167,27 +114,20 @@ const Drawer: React.FC<DrawerProps> = (props) => {
         const offsetStyle = mask ? {} :getOffsetStyle();
         return {
           zIndex,
-          transform: push ? getPushTransform(placement) : undefined,
+          
           ...offsetStyle,
           ...style,
         };
       };
      const renderBody = () => {
-        const { bodyStyle, drawerStyle, visible ,destroyOnClose} = props;
-        if (destroyClose && !visible) {
+        const { bodyStyle, drawerStyle, visible } = props;
+        if ( !visible) {
           return null;
         }
-        setdestoryState(false)
+
     
         const containerStyle: React.CSSProperties = {};
-    
-        const isDestroyOnClose = destroyOnClose && !props.visible;
-    
-        if (isDestroyOnClose) {
-          // Increase the opacity transition, delete children after closing.
-          containerStyle.opacity = 0;
-          containerStyle.transition = 'opacity .3s';
-        }
+
     
         return (
           <DrawerBodyWrapper
@@ -208,29 +148,16 @@ const Drawer: React.FC<DrawerProps> = (props) => {
         const {
             placement,
             className,
-            mask,
-            zIndex,
-            style,
-            closable,
-            closeIcon,
-            destroyOnClose,
-            drawerStyle,
-            headerStyle,
-            bodyStyle,
-            footerStyle,
-            footer,
+            mask=true,
+            zIndex=1000,
             visible,
             title,
-            push,
-            width,
-            children,
             handler,
-            height,
             ...rest
           } = props;
         return (<DrawerWrapper  open={visible}
                 showMask={mask}
-                handler={false}
+                handler={(handler as any)||false}
                 getContainer={props.getContainer}
                 style={getDrawerStyle()}
                 placement={placement} 

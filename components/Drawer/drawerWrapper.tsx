@@ -1,7 +1,9 @@
-import Portal from 'rc-util/lib/PortalWrapper';
+
 import React, { useState, useRef } from 'react';
 import { DrawerHandler, DrawerHanderIcon } from './wrapper';
 import Child from './drawerChild'
+import { createPortal } from 'react-dom';
+import usePortal from '../utils/usePortal';
 export type IPlacement = 'left' | 'top' | 'right' | 'bottom';
 
 type ILevelMove = number | [number, number];
@@ -12,7 +14,7 @@ interface IProps extends Omit<React.HTMLAttributes<any>, 'onChange'> {
     height?: string | number;
     open?: boolean;
     defaultOpen?: boolean;
-    handler?: React.ReactElement | null | false;
+    handler?: React.ReactElement | false;
     placement?: IPlacement;
     level?: null | string | string[];
     levelMove?: ILevelMove | ((e: { target: HTMLElement, open: boolean }) => ILevelMove);
@@ -29,12 +31,11 @@ interface IProps extends Omit<React.HTMLAttributes<any>, 'onChange'> {
 }
 export interface IDrawerProps extends IProps {
     wrapperClassName?: string;
-    forceRender?: boolean;
-    getContainer?: IStringOrHtmlElement | (() => IStringOrHtmlElement) | null | false;
+    getContainer?: () => HTMLElement|null;
 }
 
 export interface IDrawerChildProps extends IProps {
-    getContainer?: () => HTMLElement;
+    getContainer?: () => HTMLElement|null;
     getOpenCount?: () => number;
     switchScrollingEffect?: (close?: boolean) => void;
 }
@@ -47,7 +48,7 @@ interface IChildProps extends IDrawerChildProps {
 const DrawerWrapper: React.FC<IDrawerProps> = (props) => {
     const {
         placement = 'left',
-        getContainer = 'body',
+        getContainer,
         defaultOpen = false,
         level = 'all',
         duration = '.3s',
@@ -65,8 +66,9 @@ const DrawerWrapper: React.FC<IDrawerProps> = (props) => {
         wrapperClassName = '',
         className = '',
         keyboard = true,
-        forceRender = false, } = props
-    const [curOpen, SetOpen] = useState(props.open || !!props.defaultOpen)
+        } = props
+    const [curOpen, SetOpen] = useState(props.open || !!defaultOpen)
+
     const onHandleClick = (e: React.MouseEvent | React.KeyboardEvent) => {
         const { onHandleClick, open } = props
         if (onHandleClick) {
@@ -76,6 +78,7 @@ const DrawerWrapper: React.FC<IDrawerProps> = (props) => {
             SetOpen(!curOpen)
         }
     }
+    const rest={showMask,maskClosable,wrapperClassName,maskStyle,className,keyboard,placement,level,duration,ease,onChange}
 
     const onClose = (e: React.MouseEvent | React.KeyboardEvent) => {
         const { onClose, open } = props
@@ -84,41 +87,19 @@ const DrawerWrapper: React.FC<IDrawerProps> = (props) => {
         }
         SetOpen(!!open)
     }
-    const dom = useRef<HTMLDivElement>(null)
-    const $forceRender = !!handler || forceRender;
-    if (!getContainer) {
-        return (<div className={wrapperClassName} ref={dom}>
-            <Child
-                {...props}
-                open={props.open||props.defaultOpen}
-                handler={handler}
-                getContainer={() => dom.current as HTMLDivElement}
-                onClose={onClose}
-                onHandleClick={onHandleClick}
-            />
-        </div>)
-    }
+
+    const el = usePortal('drawer', getContainer)
+    if(!el) return <></>
     return (
-        <Portal
-            visible={props.open || defaultOpen}
-            forceRender={$forceRender}
-            getContainer={getContainer as string}
-            wrapperClassName={wrapperClassName}
-        >
-            {({ visible, afterClose, getContainer, ...rest }: IChildProps) => (
- 
-                <Child
-                    {...props}
-                    {...rest}
-                    getContainer={getContainer}
-                    open={visible || props.open}
-                    afterVisibleChange={afterClose !== undefined ? afterClose : props.afterVisibleChange}
-                    handler={handler}
-                    onClose={onClose}
-                    onHandleClick={onHandleClick}
-                />
-            )}
-        </Portal>
+       createPortal(curOpen? <Child
+        {...rest}
+        getContainer={getContainer}
+        open={curOpen}
+        afterVisibleChange={ afterVisibleChange}
+        handler={handler}
+        onClose={onClose}
+        onHandleClick={onHandleClick}
+    />:<></>, el)
     )
 }
 
