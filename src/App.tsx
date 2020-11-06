@@ -18,6 +18,8 @@ import Slider from '../components/Slider';
 import Steps from '../components/Step';
 import Tabs from '../components/Tabs';
 import Timeline from '../components/Timeline';
+import Tooltip from '../components/Tooltip';
+import Popconfirm from '../components/Popconfirm';
 
 function App() {
   const [visible, setvisible] = useState(false)
@@ -53,12 +55,16 @@ function App() {
   };
   return (
     <ThemeProvider theme={ThemeStore}>
-      <Timeline mode="left">
-        <Timeline.Item label="kkk">Create a services site </Timeline.Item>
-        <Timeline.Item status="error">Solve initial network problems 2015-09-01</Timeline.Item>
-        <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
-        <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
-      </Timeline>
+      <div style={{height:"200px",width:"2px"}}>
+
+      </div>
+      <Popconfirm title="Are you going to delete" >
+        <span >Tooltip will show on mouse enter.</span>
+      </Popconfirm>
+
+      <Tooltip>
+      <span >Tooltip will show on mouse enter.</span>
+      </Tooltip>
     </ThemeProvider>
   );
 }

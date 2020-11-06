@@ -1,4 +1,4 @@
-import { TriggerTypes, SnippetTypes, Placement } from "../utils";
+import { TriggerTypes, SnippetTypes, Placement, StatusTypes } from "../utils";
 import { useRef, useState, useEffect } from "react";
 import { TooltipBase } from "./wrapper";
 import React from "react";
@@ -7,8 +7,8 @@ import TooltipContent from "./tooltipContent";
 export type TooltipOnVisibleChange = (visible: boolean) => void
 
 interface Props {
-    text: string | React.ReactNode
-    type?: SnippetTypes
+    text?: string | React.ReactNode
+    type?: StatusTypes
     placement?: Placement
     visible?: boolean
     initialVisible?: boolean
@@ -19,41 +19,29 @@ interface Props {
     offset?: number
     className?: string
     portalClassName?: string
+    portalStyle?:React.CSSProperties
     onVisibleChange?: TooltipOnVisibleChange
 }
 
-const defaultProps = {
-    initialVisible: false,
-    hideArrow: false,
-    type: 'default' as SnippetTypes,
-    trigger: 'hover' as TriggerTypes,
-    placement: 'top' as Placement,
-    enterDelay: 100,
-    leaveDelay: 0,
-    offset: 12,
-    className: '',
-    portalClassName: '',
-    onVisibleChange: (() => { }) as TooltipOnVisibleChange,
-}
 
 type NativeAttrs = Omit<React.HTMLAttributes<any>, keyof Props>
-export type TooltipProps = Props & typeof defaultProps & NativeAttrs
+export type TooltipProps = Props & NativeAttrs
 
 
-const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
+const Tooltip: React.FC<TooltipProps> = ({
     children,
-    initialVisible,
+    initialVisible=false,
     text,
-    offset,
-    placement,
-    portalClassName,
-    enterDelay,
-    leaveDelay,
-    trigger,
     type,
-    className,
+    offset=12,
+    placement='top',
+    enterDelay=100,
+    leaveDelay=20,
+    trigger='hover',
     onVisibleChange,
-    hideArrow,
+    portalClassName,
+    portalStyle,
+    hideArrow=false,
     visible: customVisible,
     ...props
 }) => {
@@ -68,7 +56,8 @@ const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
         placement,
         hideArrow,
         parent: ref,
-        className: portalClassName,
+      portalClassName,
+      portalStyle
     }
     const changeVisible = (nextState: boolean) => {
         const clear = () => {
@@ -77,7 +66,7 @@ const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
         }
         const handler = (nextState: boolean) => {
           setVisible(nextState)
-          onVisibleChange(nextState)
+         onVisibleChange&&onVisibleChange(nextState)
           clear()
         }
         clear()
@@ -109,14 +98,14 @@ const Tooltip: React.FC<React.PropsWithChildren<TooltipProps>> = ({
 
       return (
           <TooltipBase
+          id="tooltip-base"
           {...props}
            ref={ref}
-          className={className}
           onClick={clickEventHandler}
           onMouseEnter={() => mouseEventHandler(true)}
           onMouseLeave={() => mouseEventHandler(false)}>
                {children}
-               <TooltipContent {...contentProps}>{text}</TooltipContent>
+               <TooltipContent {...contentProps} >{text}</TooltipContent>
           </TooltipBase>
       )
 }

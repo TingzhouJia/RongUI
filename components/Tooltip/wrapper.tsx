@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const TooltipBase=styled.div`
 width: max-content;
-          display: inline-block;
+display: inline-block;
 `
 export const TooltopContentBase=styled.div<{top?:string,left?:string,bg?:string,color?:string,transform?:string,hasShadow?:boolean}>`
-position: absolute;
+            position: absolute;
             width: auto;
             top: ${props=>props.top};
             left: ${props=>props.left};
@@ -15,7 +15,7 @@ position: absolute;
             border-radius: 2px;
             padding: 0;
             z-index: 1000;
-            box-shadow: ${props=>props.hasShadow ? props.theme.expressiveness.shadowMedium : 'none'};
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 8px 30px;
 `
 export const Inner=styled.div`
  padding: 5px 10px;
