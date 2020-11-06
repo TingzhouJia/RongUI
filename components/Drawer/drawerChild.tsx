@@ -5,7 +5,7 @@ import { DrawerBase, DrawerMask, DrawerContentWrapper, DrawerContent } from './w
 import React from 'react';
 
 const DrawerChild:React.FC<IDrawerChildProps>=(props)=>{
-    const {showMask,maskClosable,onClose,maskStyle,children,handler,onHandleClick,placement="right",open,keyboard}=props
+    const {showMask,maskClosable=true,onClose,maskStyle,children,handler,onHandleClick,placement="right",open,keyboard,style}=props
 
 
      const onKeyDown = (e: React.KeyboardEvent) => {
@@ -17,22 +17,9 @@ const DrawerChild:React.FC<IDrawerChildProps>=(props)=>{
           }
         }
     }
-    const getHorizontalBoolAndPlacementName = () => {
-        const { placement } = props;
-        const isHorizontal = placement === 'left' || placement === 'right';
-        const placementName = `translate${isHorizontal ? 'X' : 'Y'}`;
-        return {
-          isHorizontal,
-          placementName,
-        };
-      };
-      const { placementName } = getHorizontalBoolAndPlacementName();
-
-    const placementPos =
-      placement === 'left' || placement === 'top' ? '-100%' : '100%';
-    const transform = open ? '' : `${placementName}(${placementPos})`;
+  
       const ref = useRef(null)
-      const maskRef=useRef(null)
+      const maskRef=useRef<HTMLDivElement>(null)
       const contentWrapRef = useRef(null)
       const contentRef=useRef(null)
       const handleRef=useRef(null)
@@ -49,16 +36,19 @@ const DrawerChild:React.FC<IDrawerChildProps>=(props)=>{
       },
       ref: handleRef
     });
+  
     return (
-        <DrawerBase ref={ref} open={ref?open:false} placement={placement} mask={showMask} onKeyDown={open && keyboard ?onKeyDown : undefined}>
+        <DrawerBase id="drawer-base" ref={ref} open={ref?open:false} placement={placement} mask={showMask?1:0} onKeyDown={open && keyboard ?onKeyDown : undefined}>
             {showMask && (
           <DrawerMask
-            onClick={maskClosable ? onClose : undefined}
-            style={maskStyle}
+              id="drawer-mask"
+             onClick={maskClosable ? onClose : undefined}
+           
+            style={{...maskStyle}}
             ref={maskRef}
           />
         )}
-        <DrawerContentWrapper open={ref?open:false}  placement={placement}  ref={contentWrapRef}>
+        <DrawerContentWrapper onClick={()=>console.log('bd')} style={{...style}} id="drawer-content" open={ref?open:false}  placement={placement}  ref={contentWrapRef}>
            <DrawerContent open={ref?open:false} ref={contentRef}>
            {children}
            </DrawerContent>

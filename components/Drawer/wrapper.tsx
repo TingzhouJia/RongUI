@@ -12,12 +12,12 @@ const animiation=keyframes`
     opacity: 1;
   }
 `
-export const DrawerBase=styled.div<{open?:boolean,placement?:'left'|'right'|'top'|'bottom',mask?:boolean}>`
+export const DrawerBase=styled.div<{open?:boolean,placement?:'left'|'right'|'top'|'bottom',mask?:number}>`
 position: fixed;
   z-index: 1000;
-  width: 0%;
+  width: 100%;
   height: 100%;
-  ${props=>!props.mask?css` bottom: 1px;
+  ${props=>props.mask===0?css` bottom: 1px;
         transform: translateY(1px);`:null}
   transition: transform 0.3 cubic-bezier(0.7, 0.3, 0.1, 1),
     height 0s ease 0.3s, width 0s ease 0.3s;
@@ -27,7 +27,6 @@ position: fixed;
   }
   ${props=>props.placement==='left'||props.placement==='right'?css`
     top: 0;
-    width: 0%;
     height: 100%;
     ${props.placement==='left'?'left:0;':'right:0;'}
   `:css`
@@ -47,26 +46,23 @@ position: fixed;
 `
 
 export const DrawerMask=styled.div`
-position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    bottom:0;
-    right:0;
-    width: 100%;
-    height: 0;
-    background-color: rgba(0,0,0,0.45);
-    opacity: 0.2;
-    transition: opacity 0.3s linear, height 0s ease 0.3s;
-    pointer-events: none;
-`
-
-export const DrawerContentWrapper=styled.div<{placement:'left'|'right'|'top'|'bottom',open?:boolean}>`
-position: absolute;
     width: 100%;
     height: 100%;
+    background-color: rgba(0,0,0,.45);
+
+    transition: opacity 0.3s linear, height 0s ease 0.3s;
+`
+
+export const DrawerContentWrapper=styled.div<{placement:'left'|'right'|'top'|'bottom',open?:boolean,value?:string}>`
+position: absolute;
+    width: ${props=>props.placement==='left'||props.placement==='right'?props.value+'px':"100%"};
+    height: ${props=>props.placement==='top'||props.placement==='bottom'?props.value+'px':"100%"};
     ${props=>props.placement==='left'?'left:0;':'right:0;'}
     ${props=>String(props.placement)}:0;
-    ${props=>props.open?css`box-shadow:`:null}
+    background: white;
     box-shadow:${props=>ps[props.placement]}
 
 `
@@ -74,6 +70,7 @@ position: absolute;
 export const DrawerContent=styled.div<{open?:boolean}>`
 width: 100%;
     height: 100%;
+
    ${props=>props.open?css`box-shadow: ${shadow};`:null}
 `
 const shadowup = "0 -6px 16px -8px rgba(0, 0, 0, 0.08), 0 -9px 28px 0 rgba(0, 0, 0, 0.05),0 -12px 48px 16px rgba(0, 0, 0, 0.03)";
@@ -85,14 +82,69 @@ const shadow = "0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0
 const ps= {"top":shadowup,"right":shadowright,"bottom":shadowdown,"left":shadowleft,}
 
 
-export const DrawerHeader=styled.div``
+export const DrawerHeader=styled.div`
+position: relative;
+    padding: 12px 16px;
+    color: rgba(0,0,0,0,85);
+    background: white;
+    border-bottom: 1px solid #d9d9d9;
+    border-radius: 2px 2px 0 0;
+`
 
-export const DrawerFooter=styled.div``
+export const DrawerFooter=styled.div`
+flex-shrink: 0;
+    padding: 10px;
+    border-top: 1px solid #d9d9d9;
+`
 
-export const DrawerBody=styled.div``
+export const DrawerBody=styled.div`
+display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    padding: 16px;
+    overflow: auto;
+    font-size: 14px;
+    line-height: 22px;
+    word-wrap: break-word;
+`
 
-export const DrawerHeaderTitle=styled.div``
+export const DrawerHeaderTitle=styled.div`
+margin: 0;
+    color: black;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 22px;
+`
 
-export const DrawerCloseBtn=styled.button``
+export const DrawerCloseBtn=styled.button`
+position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    display: block;
+    padding: 12px;
+    color: rgba(0,0,0,0.45);
+    font-weight: 700;
+    font-size: 18px;
+    font-style: normal;
+    line-height: 1;
+    text-align: center;
+    text-transform: none;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    text-rendering: auto;
+
+    &:focus,
+    &:hover {
+      color: black;
+      text-decoration: none;
+    }
+`
 
 export const DrawerBodyWrapper=styled.div``
