@@ -13,7 +13,7 @@ export const getColor=(type:SnippetTypes|string)=>{
     if(type==="disabled"){
         return "#f2f2f2"
     }
-    if(type==="default"){
+    if(type==="info"){
         return palette.info
     }
     return "white"

@@ -37,17 +37,18 @@ export interface TimeLineItemProps {
     return (
       <TimeItemBase id="rong-timeline-item" {...restProps} className={className}>
       {label && <Itemlabel id="timeline-item-label" right={mode==="right"}>{label}</Itemlabel>}
-       {!last&& <ItemTail pending={pending} right={mode==="right"}/>}
+       {!last&& <ItemTail label={label?true:false} pending={pending} right={mode==="right"}/>}
         <ItemHead
-        id="timeline-item-dot"
+        id={`timeline-item-dot-${status}`}
           dot={dot?true:false}
           position={mode}
           pending={pending}
+          labels={label?true:false}
           color={color||getColor(status)}
         >
           {dot}
         </ItemHead>
-        <ItemContent right={mode==="right"} label={label?true:false}>{children}</ItemContent>
+        <ItemContent id="timeline-content" right={mode==="right"} labels={label?true:false}>{children}</ItemContent>
       </TimeItemBase>
     );
   };

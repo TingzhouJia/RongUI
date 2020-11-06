@@ -1,5 +1,5 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react"
-import { Placement, SnippetTypes } from "../utils"
+import React, { MutableRefObject, useEffect, useRef, useState, useImperativeHandle } from "react"
+import { Placement, StatusTypes } from "../utils"
 import usePortal from "../utils/usePortal"
 import { TooltipPosition, defaultTooltipPosition, getPosition } from "./placement"
 import { createPortal } from "react-dom"
@@ -9,13 +9,14 @@ import TooltipIcon from "./tooltipIcon"
 interface Props {
     parent?: MutableRefObject<HTMLElement | null> | undefined
     placement: Placement
-    type: SnippetTypes
+    type?: StatusTypes
     visible: boolean
     hideArrow: boolean
     offset: number
-    className?: string
+    color?:string
+    portalClassName?:string
+    portalStyle?:React.CSSProperties
     background?:string
-
 }
 
 interface ReactiveDomReact {
@@ -35,6 +36,8 @@ const defaultRect: ReactiveDomReact = {
     width: 0,
     height: 0,
 }
+
+
 const getRect = (ref: MutableRefObject<HTMLElement | null>): ReactiveDomReact => {
     if (!ref || !ref.current) return defaultRect
     const rect = ref.current.getBoundingClientRect()
@@ -49,21 +52,22 @@ const getRect = (ref: MutableRefObject<HTMLElement | null>): ReactiveDomReact =>
     }
 }
 
-const TooltipContent: React.FC<Props> = (props) => {
+const TooltipContent:React.FC<Props>=(props) => {
     const { children,
         parent,
         visible,
         offset,
         placement,
-        background="#fff",
+        background="rgba(0,0,0,.75)",
         type,
-    
-        className,
+        portalClassName,
+        color="#fff",
+        portalStyle,
         hideArrow, } = props
         if (!parent) return null
     const el = usePortal('tooltip')
     const selfRef = useRef<HTMLDivElement>(null)
-    const hasShadow = type === 'default'
+
     const [rect, setRect] = useState<TooltipPosition>(defaultTooltipPosition)
     const updateRect = () => {
         const position = getPosition(placement, getRect(parent as any), offset)
@@ -73,7 +77,8 @@ const TooltipContent: React.FC<Props> = (props) => {
         event.stopPropagation()
         event.nativeEvent.stopImmediatePropagation()
     }
-    const cur=getColor(type)
+    const cur=type&&getColor(type)
+ 
     useEffect(() => {
         updateRect()
     }, [visible])
@@ -91,16 +96,20 @@ const TooltipContent: React.FC<Props> = (props) => {
     }, [updateRect])
 
     return (
-        visible?createPortal(
-            <TooltopContentBase hasShadow={hasShadow} transform={rect.transform} color={cur} top={rect.top} left={rect.left} bg={background} ref={selfRef} onClick={preventHandler}>
-                <Inner>
-                {!hideArrow && (
-            <TooltipIcon placement={placement} bgColor={background} />
-          )}
-          {children}
-                </Inner>
-            </TooltopContentBase>,el as Element
-        ):<></>
+        createPortal(
+           visible? <TooltopContentBase className={portalClassName} 
+           style={portalStyle} 
+        
+           transform={rect.transform} 
+           color={color} top={rect.top} left={rect.left} bg={type?cur:background} ref={selfRef} onClick={preventHandler}>
+           <Inner>
+           {!hideArrow && (
+       <TooltipIcon placement={placement} bgColor={type?(cur as string):background} />
+     )}
+     {children}
+           </Inner>
+       </TooltopContentBase>:<></>,el as Element
+        )
     )
 }
 
