@@ -8,6 +8,7 @@ import { ThemeStore } from '../components/styles';
 
 import message from '../components/Message'
 import notification from '../components/Notification'
+import Drawer from '../components/Drawer';
 
 
 function App() {
@@ -44,11 +45,18 @@ function App() {
   };
   return (
     <ThemeProvider theme={ThemeStore}>
-      <div style={{height:"200px",width:"2px"}}>
-
-      </div>
+      <Drawer
+        title="Basic Drawer"
+        placement="right"
+        closable={false}
+        visible={visible}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
      
-        <span onClick={()=>message.info({content:'aaa'})} >Tooltip will show on mouse enter.</span>
+        <span onClick={()=>setvisible(true)} >Tooltip will show on mouse enter.</span>
       
       
    

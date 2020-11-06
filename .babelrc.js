@@ -5,6 +5,10 @@ module.exports = {
       "@babel/preset-env",
       {
         modules: outputModule || false
+      },
+      {
+        "corejs": "3",
+        "useBuiltIns": "usage"
       }
     ],
     "@babel/preset-react",

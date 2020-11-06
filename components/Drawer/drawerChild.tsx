@@ -6,38 +6,8 @@ import React from 'react';
 
 const DrawerChild:React.FC<IDrawerChildProps>=(props)=>{
     const {showMask,maskClosable,onClose,maskStyle,children,handler,onHandleClick,placement="right",open,keyboard}=props
-    const [levelDom, setlevelDom] = useState<Element[]>([])
-    const getLevelDom = ({ level, getContainer }: IDrawerChildProps) => {
-        if (!window||!window.document) {
-          return;
-        }
-        const container = getContainer && getContainer();
-        const parent = container ? (container.parentNode as HTMLElement) : null;
-        setlevelDom([])
-        if (level === 'all') {
-          const children: HTMLElement[] = parent
-            ? Array.prototype.slice.call(parent.children)
-            : [];
-          children.forEach((child: HTMLElement) => {
-            if (
-              child.nodeName !== 'SCRIPT' &&
-              child.nodeName !== 'STYLE' &&
-              child.nodeName !== 'LINK' &&
-              child !== container
-            ) {
-                setlevelDom([...levelDom,child])
-        
-            }
-          });
-        } else if (level) {
-            let list=Array.isArray(level)?level:[level]
-            list.forEach(key => {
-            document.querySelectorAll(key).forEach(item => {
-                setlevelDom([...levelDom,item])   
-            });
-          });
-        }
-      };
+
+
      const onKeyDown = (e: React.KeyboardEvent) => {
         if (e.keyCode === KeyCode.ESC) {
           const { onClose } = props;
@@ -57,8 +27,7 @@ const DrawerChild:React.FC<IDrawerChildProps>=(props)=>{
         };
       };
       const { placementName } = getHorizontalBoolAndPlacementName();
-    // 百分比与像素动画不同步，第一次打用后全用像素动画。
-    // const defaultValue = !this.contentDom || !level ? '100%' : `${value}px`;
+
     const placementPos =
       placement === 'left' || placement === 'top' ? '-100%' : '100%';
     const transform = open ? '' : `${placementName}(${placementPos})`;
@@ -67,7 +36,6 @@ const DrawerChild:React.FC<IDrawerChildProps>=(props)=>{
       const contentWrapRef = useRef(null)
       const contentRef=useRef(null)
       const handleRef=useRef(null)
-    const domFocus=()=>{}
     const handlerChildren =
     handler &&
     React.cloneElement(handler, {

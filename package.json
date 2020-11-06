@@ -4,12 +4,14 @@
   "private": true,
   "main": "dist/index.js",
   "module": "es/index.js",
-  "sideEffects": [
-    "dist/*",
-    "esm/**/style/*",
-    "lib/**/style/*",
-    "*.less"
-  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TingzhouJia/Rong"
+  },
+  "engines": {
+    "node": ">=10.13.0",
+    "npm": ">=5.7.0"
+  },
   "lint-staged": {
     "*.{js.jsx}": [
       "prettier --write",
@@ -34,7 +36,8 @@
     "eslint": "eslint ./components",
     "eslint:fix": "eslint ./components --fix",
     "lint": "prettier --write \"components/**/*.js\" && npm run eslint:fix && npm run stylelint:fix",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "build:webpack":"webpack"
   },
   "dependencies": {
     "react": "^16.13.1",
