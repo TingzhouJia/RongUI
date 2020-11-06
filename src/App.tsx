@@ -48,9 +48,9 @@ function App() {
 
       </div>
      
-        <span onClick={()=>notification.info({message:'aaa'})} >Tooltip will show on mouse enter.</span>
+        <span onClick={()=>message.info({content:'aaa'})} >Tooltip will show on mouse enter.</span>
       
-
+      
    
     </ThemeProvider>
   );

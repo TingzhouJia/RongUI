@@ -61,9 +61,9 @@ position: absolute;
 
 export const AutoMargin=styled.span`
 
-display: block;
-        width: calc(384px - 24px * 2 - 24px - 48px - 100%);
-        max-width: 4px;
+      display: block;
+      
+        width: 4px;
         background-color: transparent;
         pointer-events: none;
         &::before {
@@ -78,7 +78,7 @@ export const Desc=styled.span<{icon?:boolean}>`
 `
 
 export const Msg=styled.span<{icon?:boolean}>`
-display: inline-block;
+      display: inline-block;
       margin-bottom: 8px;
       color: rgba(0,0,0,0.85);
       font-size: 16px;

@@ -77,21 +77,25 @@ const InnerNotification: React.ForwardRefRenderFunction<NotifFunc, NotificationP
         const { maxCount = 20 } = props;
 
         setnotices(noticesInstance => {
-
+            
             const noticeIndex = noticesInstance.map(v => v.notice.key).indexOf(key);
-            const updatedNotices = notices.concat();
+            let updatedNotices = noticesInstance.concat();
             if (noticeIndex !== -1) {
+                
                 updatedNotices.splice(noticeIndex, 1, { notice, holderCallback });
             } else {
                 if (maxCount && noticesInstance.length >= maxCount) {
-
+                   
                     notice.key = (updatedNotices[0].notice.key) as React.ReactText;
                     notice.updateMark = getUuid();
                     notice.userPassKey = key;
                     updatedNotices.shift();
                 }
-                updatedNotices.push({ notice, holderCallback });
+                
+                updatedNotices=[...updatedNotices,{ notice, holderCallback }];
+                
             }
+          
             return updatedNotices;
         });
     };
@@ -100,15 +104,7 @@ const InnerNotification: React.ForwardRefRenderFunction<NotifFunc, NotificationP
             notices.filter(({ notice }) => notice.key !== key)
         ))
     }
-    const [noticePropsMap, setNoticePropsMap] = useState<Record<
-        React.Key,
-        {
-            props: NoticeProps & {
-                key: ReactText;
-            };
-            holderCallback?: HolderReadyCallback;
-        }
-    >>({});
+
     const hookRefs = new Map<React.Key, HTMLDivElement>();
     const renderer = () => {
         const { className, closeIcon, } = props;
@@ -204,7 +200,7 @@ Notification.newInstance = (properties, callback) => {
         document.body.appendChild(div);
     }
     let called = false
-
+    
     function ref(notification: any) {
 
         if (called) {
@@ -213,6 +209,7 @@ Notification.newInstance = (properties, callback) => {
         called = true
         callback({
             notice(noticeProps) {
+               
                 notification.add(noticeProps);
             },
             removeNotice(key) {

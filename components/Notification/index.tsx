@@ -180,12 +180,12 @@ function getRCNoticeProps(args: ArgsProps) {
         !args.description && iconNode ? (
             <AutoMargin />
         ) : null;
-
+          
     return {
         content: (
             <div role="alert">
                 {iconNode}
-                <Msg icon={iconNode ? true : false}>
+                <Msg id="rong-message" icon={iconNode ? true : false}>
                     {autoMarginTag}
                     {args.message}
                 </Msg>
