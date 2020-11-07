@@ -56,7 +56,7 @@ function App() {
           onOk={()=>setvisible(false)}
           onCancel={()=>setvisible(false)}
           footer={[
-            <Button>aaaaa</Button>
+            <Button >aaaaa</Button>
           ]}
         >
           <p>Some contents...</p>

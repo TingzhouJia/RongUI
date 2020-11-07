@@ -1,5 +1,5 @@
 import { LiteralUnion, NormalSizes } from "../utils";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useImperativeHandle } from "react";
 import React from "react";
 import ClearableLabeledInput from './clearable'
 import { OuterInputWrapper } from "./wrapper";
@@ -68,132 +68,144 @@ export function resolveOnChange(
       onChange(event as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>);
     }
   }
+export interface CompoundedComponent
+  extends React.ForwardRefExoticComponent<InputBasicProps& React.RefAttributes<HTMLInputElement>> {
+    Password:typeof Password
+    Search:typeof Search
+    TextArea:typeof TextArea
 
-export interface InputProps extends React.FC<InputBasicProps> {
-  Password:typeof Password
-  Search:typeof Search
-  TextArea:typeof TextArea
 }
+
 export function fixControlledValue<T>(value: T) {
   if (typeof value === 'undefined' || value === null) {
     return '';
   }
   return value;
 }
-const Input:InputProps=(props)=>{
-    const [removePasswordTimeout, setremovePasswordTimeout] = useState<number>()
+
+const InnerInput:React.ForwardRefRenderFunction<unknown,InputBasicProps>=(props,re)=>{
+  const [removePasswordTimeout, setremovePasswordTimeout] = useState<number>()
+
+  const [focused, setfocused] = useState(false)
+  const [curvale, setCurvale] = useState(props.value||props.defaultValue||"")
+  const ref = useRef<HTMLInputElement>(null)
+  useEffect(() => {
+      clearPasswordValueAttribute()
+     
+  }, [])
+  const clearPasswordValueAttribute = () => {
   
-    const [focused, setfocused] = useState(false)
-    const [curvale, setCurvale] = useState(props.value||props.defaultValue||"")
-    const ref = useRef<HTMLInputElement>(null)
-    useEffect(() => {
-        clearPasswordValueAttribute()
-       
-    }, [])
-    const clearPasswordValueAttribute = () => {
-    
-        let a=setTimeout(() => {
-            if (
-              ref &&
-              ref.current?.getAttribute('type') === 'password' &&
-              ref.current?.hasAttribute('value')
-            ) {
-              ref.current?.removeAttribute('value');
-            }
-          })
-        setremovePasswordTimeout(a)
-      };
-    const  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        clearPasswordValueAttribute()
-        setCurvale(e.target.value)
-        resolveOnChange(ref.current as HTMLInputElement, e, props.onChange);
-      };
-    
-    const  handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        const { onPressEnter, onKeyDown } = props;
-        if (e.keyCode === 13 && onPressEnter) {
-          onPressEnter(e);
-        }
-        if (onKeyDown) {
-          onKeyDown(e);
-        }
-      };
-    
-    
-    const onFocus: React.FocusEventHandler<HTMLInputElement> = e => {
-        const { onFocus } = props;
-        if(props.disabled){
-          return
-        }
-        setfocused(true)
-        focus()
-        clearPasswordValueAttribute()
-        if (onFocus) {
-          onFocus(e);
-        }
-      };
-    
-    const onBlur: React.FocusEventHandler<HTMLInputElement> = e => {
-        const { onBlur } = props;
-        setfocused(false)
-        clearPasswordValueAttribute()
-        blur()
-        if (onBlur) {
-          onBlur(e);
-        }
-      };
-    const focus=()=>{
-        ref.current?.focus()
-    }
-    const blur=()=>{
-        ref.current?.blur()
-    }
+      let a=setTimeout(() => {
+          if (
+            ref &&
+            ref.current?.getAttribute('type') === 'password' &&
+            ref.current?.hasAttribute('value')
+          ) {
+            ref.current?.removeAttribute('value');
+          }
+        })
+      setremovePasswordTimeout(a)
+    };
+  useImperativeHandle(
+    re,
+    () => ({
+        focus,
+        
+    }),
+    [],
+  )
+  const  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      clearPasswordValueAttribute()
+      setCurvale(e.target.value)
+      resolveOnChange(ref.current as HTMLInputElement, e, props.onChange);
+    };
+  
+  const  handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      const { onPressEnter, onKeyDown } = props;
+      if (e.keyCode === 13 && onPressEnter) {
+        onPressEnter(e);
+      }
+      if (onKeyDown) {
+        onKeyDown(e);
+      }
+    };
+  
+  
+  const onFocus: React.FocusEventHandler<HTMLInputElement> = e => {
+      const { onFocus } = props;
+      if(props.disabled){
+        return
+      }
+      setfocused(true)
+      focus()
+      clearPasswordValueAttribute()
+      if (onFocus) {
+        onFocus(e);
+      }
+    };
+  
+  const onBlur: React.FocusEventHandler<HTMLInputElement> = e => {
+      const { onBlur } = props;
+      setfocused(false)
+      clearPasswordValueAttribute()
+      blur()
+      if (onBlur) {
+        onBlur(e);
+      }
+    };
+  const focus=()=>{
+      ref.current?.focus()
+  }
+  const blur=()=>{
+      ref.current?.blur()
+  }
 
-    const handleReset = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        setCurvale('')
-        focus()
-        resolveOnChange((ref.current as HTMLInputElement), e, props.onChange);
-      };
-    const renderInput = () => {
-    const { className, addonBefore, addonAfter, size: customizeSize="default", disabled,onPressEnter,prefix,suffix,allowClear,type,bordered:curBorder=true,style,...other } = props;
+  const handleReset = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      setCurvale('')
+      focus()
+      resolveOnChange((ref.current as HTMLInputElement), e, props.onChange);
+    };
+  const renderInput = () => {
+  const { className, addonBefore, addonAfter, size: customizeSize="default", disabled,onPressEnter,prefix,suffix,allowClear,type,bordered:curBorder=true,style,...other } = props;
 
-        return (
-          <OuterInputWrapper
-            id="outer-input"
-            {...other}
-            type={type}
-            sizes={customizeSize as NormalSizes}
-            onChange={handleChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            onKeyDown={handleKeyDown}
-            ref={ref}
-            disabled={disabled}
-           
-          />
-        );
-      };
-      
-     const renderComponent = () => {
-       
-        const { bordered = true,size } = props;
+      return (
+        <OuterInputWrapper
+          id="outer-input"
+          {...other}
+          type={type}
+          sizes={customizeSize as NormalSizes}
+          onChange={handleChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onKeyDown={handleKeyDown}
+          ref={ref}
+          disabled={disabled}
+         
+        />
+      );
+    };
+    
+   const renderComponent = () => {
+     
+      const { bordered = true,size } = props;
 
-        return (
-              <ClearableLabeledInput
-                size={size}
-                {...props}
-                inputType="input"
-                value={curvale}
-                element={renderInput()}
-                handleReset={handleReset}
-                focused={focused}
-                triggerFocus={focus}
-                bordered={bordered}
-              />
-        );
-      };
-    return (<>{renderComponent()}</>)
+      return (
+            <ClearableLabeledInput
+              size={size}
+              {...props}
+              inputType="input"
+              value={curvale}
+              element={renderInput()}
+              handleReset={handleReset}
+              focused={focused}
+              triggerFocus={focus}
+              bordered={bordered}
+            />
+      );
+    };
+  return (<>{renderComponent()}</>)
 }
+const Input =React.forwardRef<unknown,InputBasicProps >(InnerInput) as CompoundedComponent
 Input.Password=Password
 Input.Search=Search
 Input.TextArea=TextArea
