@@ -32,7 +32,7 @@ export interface DialogProps {
     modalRender?: (node: ReactNode) => ReactNode;
   }
 
-const Dialog: React.FC<DialogProps> = (props) => {
+export const Dialog: React.FC<DialogProps> = (props) => {
     const {
         zIndex,
         visible = false,
