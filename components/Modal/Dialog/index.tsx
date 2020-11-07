@@ -132,3 +132,5 @@ const BaseModal:React.FC<DialogProps>=(props)=>{
     setAnimatedVisible(false);
   }}></Dialog>:<></>,el as Element)
 }
+
+export default BaseModal

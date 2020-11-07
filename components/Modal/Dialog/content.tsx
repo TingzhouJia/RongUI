@@ -1,14 +1,15 @@
 import { DialogProps } from "..";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { ModalFooterWrap, ModalTitleWrap, ModalHeaderWrap, ModalCloseBtn, ModalContentWrap, ModalContentBody } from "../wrapper";
 import { CloseOutlined } from "@ant-design/icons";
+import { offset } from "../utils";
 
 export interface ContentRef {
     focus?: () => void;
     getDOM: () => HTMLDivElement | null;
     changeActive: (next: boolean) => void;
 }
-
+const sentinelStyle = { width: 0, height: 0, overflow: 'hidden', outline: 'none' };
 export interface ContentProps extends DialogProps {
 
     onVisibleChanged: (visible: boolean) => void;
@@ -52,6 +53,31 @@ const Content = React.forwardRef<ContentRef, ContentProps>((props, ref) => {
             }
         },
     }));
+    const [transformOrigin, setTransformOrigin] = React.useState<string>();
+    const contentStyle: React.CSSProperties = {};
+    useEffect(() => {
+        if (width !== undefined) {
+            contentStyle.width = width;
+          }
+          if (height !== undefined) {
+            contentStyle.height = height;
+          }
+          if (transformOrigin) {
+            contentStyle.transformOrigin = transformOrigin;
+          }
+        
+          function onPrepare() {
+            const elementOffset = offset(dialogRef.current as any);
+        
+            setTransformOrigin(
+              mousePosition
+                ? `${mousePosition.x - elementOffset.left}px ${mousePosition.y - elementOffset.top}px`
+                : '',
+            );
+          }
+          onPrepare()
+       
+    }, [])
     let footerNode: React.ReactNode;
     if (footer) {
         footerNode = <ModalFooterWrap>{footer}</ModalFooterWrap>;
@@ -71,24 +97,25 @@ const Content = React.forwardRef<ContentRef, ContentProps>((props, ref) => {
     let closer: React.ReactNode;
     if (closable) {
         closer = (
-            <ModalCloseBtn>
+            <ModalCloseBtn id="modal-close-btn">
                 {closeIcon || <CloseOutlined />}
             </ModalCloseBtn>
         );
     }
 
     const content = (
-        <ModalContentWrap>
+        <ModalContentWrap id="rong-modal-content">
             {closer}
             {headerNode}
-            <ModalContentBody style={bodyStyle} {...bodyProps}>
+            <ModalContentBody id="rong-modal-content-body" style={bodyStyle} {...bodyProps}>
                 {children}
             </ModalContentBody>
             {footerNode}
         </ModalContentWrap>
     );
     return <div key="dialog-element"
-        role="document" onClick={onClick}>
+        role="document" onClick={onClick}
+        style={contentStyle}>
         <div tabIndex={0} ref={sentinelStartRef} aria-hidden="true" />
         {modalRender ? modalRender(content) : content}
         <div tabIndex={0} ref={sentinelEndRef}  aria-hidden="true" />

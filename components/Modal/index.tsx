@@ -1,4 +1,4 @@
-import { ReactNode, SyntheticEvent, CSSProperties } from "react";
+import { ReactNode, CSSProperties } from "react";
 
 export interface DialogProps {
     className?: string;
@@ -7,7 +7,7 @@ export interface DialogProps {
     mask?: boolean;
     children?: any;
     afterClose?: () => any;
-    onClose?: (e: SyntheticEvent) => any;
+    onClose?: (e: any) => any;
     closable?: boolean;
     maskClosable?: boolean;
     visible?: boolean;
