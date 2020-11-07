@@ -8,7 +8,7 @@ import AutoCompleteDropdown from "./dropdown";
 
 export type AutoCompleteOption = {
     value?: string,
-    text: string
+    text?: string
 }
 
 interface Props {
@@ -105,21 +105,23 @@ const AutoComplete: AutoCompleteProps = ({ options,
 
     return (
         <AutoCompleteContext.Provider value={{ref,updateValue,updateVisible,value:state,visible}}>
-            <div ref={ref}>
-                <Input  onChange={onInputChange} 
+       
+              <div style={{width:200}}>
+              <Input onChange={onInputChange} 
                  onFocus={() => toggleFocusHandler(true)}
                  onBlur={() => toggleFocusHandler(false)}
                  allowClear={allowClear}
                 ref={inputRef}/>
-                <AutoCompleteDropdown
+                {/* <AutoCompleteDropdown
                     visible={visible}
                     className={dropdownClassName}
                    
                     dropdownStyle={dropdownStyle}>
                     {childrenToOptionsNode(options)}
                     {children}
-                </AutoCompleteDropdown>
-            </div>
+                </AutoCompleteDropdown> */}
+              </div>
+       
         </AutoCompleteContext.Provider>
     )
 }

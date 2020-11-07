@@ -3,7 +3,7 @@ import { ClearableInputType } from "./clearable";
 import { NormalSizes } from "../utils";
 
 
-export const CloseBtn = styled.div<{ type?: typeof ClearableInputType[number], hidden?: boolean }>`
+export const CloseBtn = styled.div<{ type?: typeof ClearableInputType[number], hidden?: boolean,other?:number}>`
   color: rgba(0,0,0,0.25);
   font-size: 12px;
   cursor: pointer;
@@ -19,7 +19,9 @@ export const CloseBtn = styled.div<{ type?: typeof ClearableInputType[number], h
   }
 
 
-  margin-right:10px;
+  ${
+    props=>props.other===1?css`margin-right:5px;`:null
+  }
 `
 export const Pwd = styled.span<{ disabled?: boolean }>`
 color:rgba(0,0,0,0.45);
@@ -29,16 +31,15 @@ color:rgba(0,0,0,0.45);
 `
 export const Suffix = styled.span`
     position:relative;
-    padding-left: 10px;
-    padding-right:10px;
+    padding-left: 4px;
+ 
     display: flex;
-    flex: none;
+    flex: 1;
     align-items: center;
 `
 
 export const Preffix = styled.span`
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 4px;
     display: flex;
     flex: none;
     align-items: center;
@@ -64,19 +65,21 @@ export const AffixWrapper = styled.div<{
   focused?: boolean,
   disabled?: boolean, size: NormalSizes, withClear?: boolean, readonly?: boolean, borderless?: boolean
 }>`
+
 display:flex;
 flex-direction:row;
-flex:1;
+flex:none;
 justify-content:space-between;
 align-items:stretch;
 outline:none;
+padding: 0px 11px;
+border-radius:2px;
 ${
-  props => !props.disabled ? props.focused ? css`border:1px solid ${props.theme.colors.primary};` : null : null
+  props => !props.disabled ? props.focused ? css`border:1px solid ${props.theme.colors.primary};box-shadow: 0 0 1px 1px ${props.theme.colors.primary};` : null : null
   }
 &:hover,&:active {
     border:1px solid ${props => props.theme.colors.primary}; 
 };
-
   display: inline-flex;
   ${props => props.disabled || props.readonly ? getDisabled() : null}
   > input {
@@ -111,13 +114,12 @@ export const GroupWrapper = styled.div<{ size?: NormalSizes }>`
   justify-content:flex-start;
   flex-direction:row;
   align-items:center;
-  align-self: stretch;
-  width:100%;
+  flex:1;
 `
 
 export const AddOnWrapper = styled.div<{ size?: 'small' | 'large' | 'default' }>`
     position: relative;
-    padding: 2px 15px;
+    padding: 0 10px;
     color: rgba(0,0,0,0.85);
     font-weight: normal;
     cursor:pointer;
@@ -129,6 +131,7 @@ export const AddOnWrapper = styled.div<{ size?: 'small' | 'large' | 'default' }>
     display:flex;
     justify-content:center;
     align-items:center;
+    flex:none;
     transition: all 0.3s;
 `
 
@@ -139,7 +142,6 @@ export const WithAddOnWrapper = styled.span<{ addon?: boolean, borderless?: bool
   align-items:stretch;
   border:${props => props.borderless ? "none" : "1px solid #d9d9d9"};
   border-radius:2px;
-  width:100%;
 `
 
 export const TextAreaWrapper = styled.div<{ borderless?: boolean }>`
@@ -154,10 +156,10 @@ export const TextAreaWrapper = styled.div<{ borderless?: boolean }>`
 export const OuterInputWrapper = styled.input<{ disabled?: boolean, sizes: "small" | "default" | 'large', }>`
 font-size:${props => props.sizes === "small" ? "14px" : props.sizes === "default" ? "16px" : "18px"};
 border:none;
-margin:0 10px;
+margin:0 2px;
 display:flex;
 align-items:center;
-flex:1;
+flex:none;
 outline:none;
 background:transparent;
 height:${props => props.sizes === 'small' ? "22px;" : props.sizes === "default" ? "26px" : "32px"};

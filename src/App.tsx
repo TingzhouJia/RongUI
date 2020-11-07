@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components'
 import Switch from '../components/Switch'
 import './App.css';
-
+import AutoComplete from '../components/Autocomplete'
 
 
 
@@ -11,44 +11,33 @@ import notification from '../components/Notification'
 import Drawer from '../components/Drawer';
 import Modal from '../components/Modal';
 import Button from '../components/Button';
+import Input from '../components/Input';
+import { EditFilled, CheckCircleFilled } from '@ant-design/icons';
 
 
 function App() {
-  const [visible, setvisible] = useState(false)
-  const [val, setval] = useState('')
-  const listData = [];
-  for (let i = 0; i < 5; i++) {
-    listData.push({
-      href: 'https://ant.design',
-      title: `ant design part ${i}`,
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      description:
-        'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-      content:
-        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-    });
-  }
-  const IconText = ({ icon, text }: any) => (
-    <>
-      {React.createElement(icon)}
-      {text}
-    </>
-  );
-  const marks = {
-    0: '0°C',
-    26: '26°C',
-    37: '37°C',
-    100: {
-      style: {
-        color: '#f50',
-      },
-      label: <strong>100°C</strong>,
-    },
+  const [value, setValue] = useState('');
+  const [options, setOptions] = useState<{ value: string }[]>([]);
+  const mockVal = (str: string, repeat: number = 1) => {
+    return {
+      value: str.repeat(repeat),
+    };
+  };
+  const onSearch = (searchText: string) => {
+    setOptions(
+      !searchText ? [] : [mockVal(searchText), mockVal(searchText, 2), mockVal(searchText, 3)],
+    );
+  };
+  const onSelect = (data: string) => {
+    console.log('onSelect', data);
+  };
+  const onChange = (data: string) => {
+    setValue(data);
   };
   return (
    
    <>
-      <span onClick={()=>{setvisible(true)}}> Tooltip will show on mouse enter.</span>
+      {/* <span onClick={()=>{setvisible(true)}}> Tooltip will show on mouse enter.</span>
       <span onClick={()=>{Modal.confirm({type:'confirm',title:'aaa'})}}> Tooltip will show on mouse enter.</span>
       <Modal
           title="Basic Modal"
@@ -62,8 +51,15 @@ function App() {
           <p>Some contents...</p>
           <p>Some contents...</p>
           <p>Some contents...</p>
-        </Modal>
-       
+        </Modal> */}
+         <AutoComplete
+        options={options}
+        style={{ width: 200 }}
+        onSelect={onSelect}
+        onSearch={onSearch}
+        placeholder="input here"
+      />
+       <Input allowClear addonBefore={<EditFilled/>} prefix={<CheckCircleFilled/>} addonAfter={<EditFilled/>} suffix={<CheckCircleFilled/>} style={{ width: 200 }}/>
       </>
       
    
