@@ -56,7 +56,7 @@ const getRect = (
 }
 
 
-const AbstractDropdown: React.FC<React.PropsWithChildren<Props>> = React.memo(
+export const AbstractDropdown: React.FC<React.PropsWithChildren<Props>> = React.memo(
     ({ children, parent, visible, disableMatchWidth, getPopupContainer }) => {
         const el = usePortal('dropdown', getPopupContainer)
         const [rect, setRect] = useState<ReactiveDomReact>(defaultRect)

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components'
 import Switch from '../components/Switch'
 import './App.css';
-import { ThemeStore } from '../components/styles';
+
 
 
 
@@ -46,17 +46,17 @@ function App() {
     },
   };
   return (
-    <ThemeProvider theme={ThemeStore}>
    
+   <>
       <span onClick={()=>{setvisible(true)}}> Tooltip will show on mouse enter.</span>
-      {/* <span onClick={()=>{Modal.confirm({type:'confirm',title:'aaa'})}}> Tooltip will show on mouse enter.</span> */}
+      <span onClick={()=>{Modal.confirm({type:'confirm',title:'aaa'})}}> Tooltip will show on mouse enter.</span>
       <Modal
           title="Basic Modal"
           visible={visible}
           onOk={()=>setvisible(false)}
           onCancel={()=>setvisible(false)}
           footer={[
-            <Button>aaaaa</Button>
+            <Button >aaaaa</Button>
           ]}
         >
           <p>Some contents...</p>
@@ -64,10 +64,10 @@ function App() {
           <p>Some contents...</p>
         </Modal>
        
-      
+      </>
       
    
-    </ThemeProvider>
+
   );
 }
 

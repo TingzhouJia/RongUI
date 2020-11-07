@@ -1,14 +1,18 @@
 import Modal, { ModalFuncProps, destroyFns, } from "./modal";
-import BaseModal from "./Dialog";
+import BaseModal,{Dialog} from "./Dialog";
 import React from "react";
 import { ConfirmBody, ConfirmHeader, ConfirmTitle, ConfirmContent, ConfirmBtn } from "./wrapper";
-import ActionButton from "./actions";
 import * as ReactDOM from 'react-dom';
 import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
 import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
 import { getColor } from "../utils/getColor";
+import Button from "../Button";
+import usePortal from "../utils/usePortal";
+import { ThemeProvider } from "styled-components";
+import { ThemeStore } from "../styles";
+
 
 interface ConfirmDialogProps extends ModalFuncProps {
     afterClose?: () => void;
@@ -44,16 +48,23 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = (props) => {
     const style = props.style || {};
     const mask = props.mask === undefined ? true : props.mask;
     const maskClosable = props.maskClosable === undefined ? false : props.maskClosable;
-
+    const OkClick=()=>{
+        onOk&&onOk()
+        close()
+    }
+    const CancelClick=()=>{
+        onCancel&&onCancel()
+        close()
+    }
     const cancelButton = okCancel && (
-        <ActionButton
-            actionFn={onCancel}
-            closeModal={close}
-            buttonProps={cancelButtonProps}
+        <Button
+            onClick={CancelClick}
+           {...cancelButtonProps}
         >
             {cancelText}
-        </ActionButton>
+        </Button>
     );
+ 
     return (
         <Modal
             visible={visible}
@@ -77,13 +88,13 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = (props) => {
                 <ConfirmContent id="confirm-content">{props.content}</ConfirmContent>
                 <ConfirmBtn id="confirm-button">
                     {cancelButton}
-                    <ActionButton
-                        actionFn={onOk}
-                        closeModal={close}
-                        buttonProps={{type:'primary',...okButtonProps}}
+                    <Button
+                        type="primary"
+                        onClick={OkClick}
+                        {...okButtonProps}
                     >
                         {okText}
-                    </ActionButton>
+                    </Button>
                 </ConfirmBtn>
             </ConfirmBody>
         </Modal>
@@ -98,10 +109,9 @@ export interface ModalFunctions {
 }
 
 export default function confirm(config: ModalFuncProps) {
-    const div = document.createElement('div');
+    const div = document.createElement('div',);
     document.body.appendChild(div);
     let currentConfig = { ...config, close, visible: true } as any;
-
     function destroy(...args: any[]) {
         const unmountResult = ReactDOM.unmountComponentAtNode(div);
         if (unmountResult && div.parentNode) {
@@ -121,15 +131,17 @@ export default function confirm(config: ModalFuncProps) {
     }
 
     function render({ okText, cancelText, ...props }: any) {
-        ReactDOM.render(
+
+       
+        ReactDOM.render(<ThemeProvider theme={ThemeStore}>
             <ConfirmDialog
                 {...props}
-
+        
                 okText={okText || 'Yes'}
-                cancelText={cancelText || 'No'}
-            />,
-            div,
-        );
+                cancelText={cancelText || 'No'}/>
+        </ThemeProvider>,div)
+      
+
     }
 
     function close(...args: any[]) {
@@ -143,6 +155,7 @@ export default function confirm(config: ModalFuncProps) {
 
     function update(newConfig: ModalFuncProps) {
         currentConfig = {
+            
             ...currentConfig,
             ...newConfig,
         };

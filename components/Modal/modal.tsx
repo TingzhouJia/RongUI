@@ -24,7 +24,7 @@ export interface ModalProps {
     destroyOnClose?: boolean;
     style?: React.CSSProperties;
     className?: string;
-    maskClassName?:string
+    maskClassName?: string
     getContainer?: () => HTMLElement | HTMLElement;
     zIndex?: number;
     maskStyle?: React.CSSProperties;
@@ -44,19 +44,19 @@ export interface ModalFuncProps {
     okButtonProps?: ButtonProps;
     cancelButtonProps?: ButtonProps;
     centered?: boolean;
-    width?:  number;
+    width?: number;
     okText?: React.ReactNode;
     cancelText?: React.ReactNode;
     icon?: React.ReactNode;
     //masks
     mask?: boolean;
-    maskClassName?:string
+    maskClassName?: string
     maskClosable?: boolean;
     zIndex?: number;
     okCancel?: boolean;
     style?: React.CSSProperties;
     maskStyle?: React.CSSProperties;
-    type?: StatusTypes|'confirm';
+    type?: StatusTypes | 'confirm';
     keyboard?: boolean;
     getContainer?: () => HTMLElement | HTMLElement;
 }
@@ -90,27 +90,31 @@ const Modal: ModalInterface = (props) => {
             {closeIcon || <CloseOutlined />}
         </ModalCloseX>
     );
-    
+
     const renderFooter = () => {
-        const { okText, cancelText,} = props;
-        return (
+        const { okText, cancelText, } = props;
+        return okText&&cancelText?(
             <>
-                <Button onClick={handleCancel} {...props.cancelButtonProps}>
-                    {cancelText || 'Cancel'}
-                </Button>
-                <Button
-                    onClick={handleOk}
-                    type="primary"
-                    {...props.okButtonProps}
-                >
-                    {okText || 'Yes'}
-                </Button>
+                {
+                    cancelText && <Button onClick={handleCancel} {...props.cancelButtonProps}>
+                        {cancelText || 'Cancel'}
+                    </Button>
+                }
+                {
+                    okText && <Button
+                        onClick={handleOk}
+                        type="primary"
+                        {...props.okButtonProps}
+                    >
+                        {okText || 'Yes'}
+                    </Button>
+                }
             </>
-        );
+        ):false
     };
     return (<BaseModal {...restProps}
-        
-        footer={footer||renderFooter()}
+
+        footer={footer || renderFooter()}
         visible={visible}
         onClose={handleCancel}
         closeIcon={closeIconToRender}
