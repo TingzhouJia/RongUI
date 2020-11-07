@@ -9,6 +9,8 @@ import { ThemeStore } from '../components/styles';
 import message from '../components/Message'
 import notification from '../components/Notification'
 import Drawer from '../components/Drawer';
+import Modal from '../components/Modal';
+import Button from '../components/Button';
 
 
 function App() {
@@ -47,19 +49,20 @@ function App() {
     <ThemeProvider theme={ThemeStore}>
    
       <span onClick={()=>{setvisible(true)}}> Tooltip will show on mouse enter.</span>
-  
-      <Drawer
-        title="Basic Drawer"
-        placement="right"
-        closable
-        onClose={()=>{setvisible(false)}}
-        visible={visible}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Drawer>
-     
+      {/* <span onClick={()=>{Modal.confirm({type:'confirm',title:'aaa'})}}> Tooltip will show on mouse enter.</span> */}
+      <Modal
+          title="Basic Modal"
+          visible={visible}
+          onOk={()=>setvisible(false)}
+          onCancel={()=>setvisible(false)}
+          footer={[
+            <Button>aaaaa</Button>
+          ]}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
        
       
       

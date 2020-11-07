@@ -1,8 +1,8 @@
-import { DialogProps } from "..";
-import React, { useRef, useEffect } from "react";
-import { ModalFooterWrap, ModalTitleWrap, ModalHeaderWrap, ModalCloseBtn, ModalContentWrap, ModalContentBody } from "../wrapper";
+
+import React, { useRef } from "react";
+import { ModalFooterWrap, ModalTitleWrap, ModalHeaderWrap, ModalCloseBtn, ModalContentWrap, ModalContentBody, ModalDocument } from "../wrapper";
 import { CloseOutlined } from "@ant-design/icons";
-import { offset } from "../utils";
+import { DialogProps } from ".";
 
 export interface ContentRef {
     focus?: () => void;
@@ -18,22 +18,16 @@ export interface ContentProps extends DialogProps {
 const Content = React.forwardRef<ContentRef, ContentProps>((props, ref) => {
     const {
         closable,
-        width,
-        height,
+        width=520,
         footer,
+        style,
         title,
         closeIcon,
-        style,
-        className,
-        visible,
-        bodyStyle,
         bodyProps,
         children,
         modalRender,
         onClose,
-        onVisibleChanged,
         onClick,
-        mousePosition,
     } = props;
 
     const sentinelStartRef = useRef<HTMLDivElement>(null);
@@ -53,41 +47,18 @@ const Content = React.forwardRef<ContentRef, ContentProps>((props, ref) => {
             }
         },
     }));
-    const [transformOrigin, setTransformOrigin] = React.useState<string>();
-    const contentStyle: React.CSSProperties = {};
-    useEffect(() => {
-        if (width !== undefined) {
-            contentStyle.width = width;
-          }
-          if (height !== undefined) {
-            contentStyle.height = height;
-          }
-          if (transformOrigin) {
-            contentStyle.transformOrigin = transformOrigin;
-          }
-        
-          function onPrepare() {
-            const elementOffset = offset(dialogRef.current as any);
-        
-            setTransformOrigin(
-              mousePosition
-                ? `${mousePosition.x - elementOffset.left}px ${mousePosition.y - elementOffset.top}px`
-                : '',
-            );
-          }
-          onPrepare()
-       
-    }, [])
+ 
+
     let footerNode: React.ReactNode;
     if (footer) {
-        footerNode = <ModalFooterWrap>{footer}</ModalFooterWrap>;
+        footerNode = <ModalFooterWrap id="modal-footer">{footer}</ModalFooterWrap>;
     }
 
     let headerNode: React.ReactNode;
     if (title) {
         headerNode = (
-            <ModalHeaderWrap>
-                <ModalTitleWrap>
+            <ModalHeaderWrap id="modal-header">
+                <ModalTitleWrap id="modal-title">
                     {title}
                 </ModalTitleWrap>
             </ModalHeaderWrap>
@@ -97,7 +68,7 @@ const Content = React.forwardRef<ContentRef, ContentProps>((props, ref) => {
     let closer: React.ReactNode;
     if (closable) {
         closer = (
-            <ModalCloseBtn id="modal-close-btn">
+            <ModalCloseBtn id="modal-close-btn" onClick={onClose}>
                 {closeIcon || <CloseOutlined />}
             </ModalCloseBtn>
         );
@@ -107,19 +78,22 @@ const Content = React.forwardRef<ContentRef, ContentProps>((props, ref) => {
         <ModalContentWrap id="rong-modal-content">
             {closer}
             {headerNode}
-            <ModalContentBody id="rong-modal-content-body" style={bodyStyle} {...bodyProps}>
+            <ModalContentBody id="rong-modal-content-body"  {...bodyProps}>
                 {children}
             </ModalContentBody>
             {footerNode}
         </ModalContentWrap>
     );
-    return <div key="dialog-element"
+   
+    return <ModalDocument key="dialog-element"
         role="document" onClick={onClick}
-        style={contentStyle}>
-        <div tabIndex={0} ref={sentinelStartRef} aria-hidden="true" />
+        centered={props.centered}
+        style={{...style,width}}
+      >
+        <div tabIndex={0} style={sentinelStyle} ref={sentinelStartRef} aria-hidden="true" />
         {modalRender ? modalRender(content) : content}
-        <div tabIndex={0} ref={sentinelEndRef}  aria-hidden="true" />
-    </div>
+        <div tabIndex={0} style={sentinelStyle} ref={sentinelEndRef}  aria-hidden="true" />
+    </ModalDocument>
 })
 
 Content.displayName="Content"

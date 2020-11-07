@@ -1,32 +1,42 @@
-import { ReactNode, CSSProperties } from "react";
+import confirm,{ useSuccess, ModalFunctions,useConfirm,useError,useInfo,useWarning } from "./confirm";
+import BaseModal,{ ModalFuncProps, destroyFns } from "./modal";
 
-export interface DialogProps {
-    className?: string;
-    keyboard?: boolean;
-    style?: CSSProperties;
-    mask?: boolean;
-    children?: any;
-    afterClose?: () => any;
-    onClose?: (e: any) => any;
-    closable?: boolean;
-    maskClosable?: boolean;
-    visible?: boolean;
-    mousePosition?: {
-      x: number;
-      y: number;
-    };
-    title?: ReactNode;
-    footer?: ReactNode;
-    bodyStyle?: CSSProperties
-    maskStyle?: CSSProperties
-    wrapClassName?: string;
-    width?: number;
-    height?: number;
-    zIndex?: number;
-    bodyProps?: any;
-    maskProps?: any;
-    wrapProps?: any;
-    getContainer?: ()=>HTMLElement | false;
-    closeIcon?: ReactNode;
-    modalRender?: (node: ReactNode) => ReactNode;
+
+
+type ModalType = typeof BaseModal &
+  ModalFunctions & { destroyAll: () => void;  };
+
+const Modal = BaseModal as ModalType;
+
+Modal.info = function infoFn(props: ModalFuncProps) {
+  return confirm(useInfo(props));
+};
+
+Modal.success = function successFn(props: ModalFuncProps) {
+  return confirm(useSuccess(props));
+};
+
+Modal.error = function errorFn(props: ModalFuncProps) {
+  return confirm(useError(props));
+};
+
+Modal.warning=function warnFn(props: ModalFuncProps) {
+  return confirm(useWarning(props));
+}
+
+Modal.confirm = function confirmFn(props: ModalFuncProps) {
+  return confirm(useConfirm(props));
+};
+
+Modal.destroyAll = function destroyAllFn() {
+  while (destroyFns.length) {
+    const close = destroyFns.pop();
+    if (close) {
+      close();
+    }
   }
+};
+
+export default Modal
+
+
