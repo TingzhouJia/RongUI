@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const ModalContentWrap=styled.div`
 position: relative;
@@ -22,10 +22,15 @@ export const ModalTitleWrap=styled.div`
 
 export const ModalFooterWrap=styled.div`
     padding: 10px 16px;
-    text-align: right;
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-end;
     background: 0 0;
     border-top: 1px solid #f0f0f0;
     border-radius: 0 0 2px 2px;
+    & > button {
+        margin-left:20px;
+    }
 `
 
 export const ModalHeaderWrap=styled.div`
@@ -65,7 +70,7 @@ export const ModalmaskWrap=styled.div`
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 999;
     height: 100%;
     background-color: rgba(0,0,0,.45);  
 `
@@ -80,7 +85,36 @@ export const ModalBodyWrap=styled.div`
     left: 0;
     overflow: auto;
     outline: 0;
-
+    z-index:1000;
 ` 
 
-export const ModalCloseX=styled.span``
+export const ModalCloseX=styled.span`
+ display: block;
+      width: 56px;
+      height:56px;
+      font-size: 16px;
+      font-style: normal;
+      line-height: 56px;
+      text-align: center;
+      text-transform: none;
+      text-rendering: auto;
+      &:focus,
+    &:hover {
+      color: rgba(0,0,0,.75);
+      text-decoration: none;
+    }
+`
+
+export const ModalDocument=styled.div<{centered?:boolean}>`
+    position:absolute;
+    top:100px;
+    left:50%;
+    transform:translateX(-50%);
+    ${
+        props=>props.centered?css`
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+        `:null
+    }
+`

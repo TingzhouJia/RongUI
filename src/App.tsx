@@ -9,6 +9,7 @@ import { ThemeStore } from '../components/styles';
 import message from '../components/Message'
 import notification from '../components/Notification'
 import Drawer from '../components/Drawer';
+import Modal from '../components/Modal';
 
 
 function App() {
@@ -48,18 +49,16 @@ function App() {
    
       <span onClick={()=>{setvisible(true)}}> Tooltip will show on mouse enter.</span>
   
-      <Drawer
-        title="Basic Drawer"
-        placement="right"
-        closable
-        onClose={()=>{setvisible(false)}}
-        visible={visible}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Drawer>
-     
+      <Modal
+          title="Basic Modal"
+          visible={visible}
+          onOk={()=>setvisible(false)}
+          onCancel={()=>setvisible(false)}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
        
       
       

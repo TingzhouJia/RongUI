@@ -1,31 +1,47 @@
-import { DialogProps } from "..";
+
 import { ModalRenderRoot, ModalBodyWrap } from "../wrapper";
 import Mask from "./mask";
-import React, { useRef } from "react";
+import React, { useRef, ReactNode, CSSProperties } from "react";
 import KeyCode from "rc-util/lib/KeyCode";
 import Content, { ContentRef } from "./content";
 import { createPortal } from "react-dom";
 import usePortal from "../../utils/usePortal";
-
+export interface DialogProps {
+    className?: string;
+    keyboard?: boolean;
+    style?: CSSProperties;
+    mask?: boolean;
+    centered?:boolean
+    children?: any;
+    afterClose?: () => any;
+    onClose?: (e: any) => any;
+    closable?: boolean;
+    maskClosable?: boolean;
+    visible?: boolean;
+    title?: ReactNode;
+    footer?: ReactNode;
+    maskStyle?: CSSProperties
+    width?: number;
+    height?: number;
+    zIndex?: number;
+    bodyProps?: any;
+    maskProps?: any;
+    wrapProps?: any;
+    getContainer?: ()=>HTMLElement | false;
+    closeIcon?: ReactNode;
+    modalRender?: (node: ReactNode) => ReactNode;
+  }
 
 const Dialog: React.FC<DialogProps> = (props) => {
     const {
-
         zIndex,
         visible = false,
         keyboard = true,
-
-
-        // Wrapper
-        title,
-        wrapClassName,
-        wrapProps,
+        
         onClose,
         afterClose,
-
         // Dialog
         closable = true,
-
         // Mask
         mask = true,
         maskClosable = true,
@@ -46,7 +62,7 @@ const Dialog: React.FC<DialogProps> = (props) => {
   };
 
   const contentTimeoutRef = useRef<number>();
-    function onInternalClose(e: React.SyntheticEvent) {
+function onInternalClose(e: React.SyntheticEvent) {
         onClose?.(e);
       }
     let onWrapperClick: (e: React.SyntheticEvent) => void = ()=>{};
@@ -80,7 +96,6 @@ const Dialog: React.FC<DialogProps> = (props) => {
       return;
     }
 
-    // keep focus inside dialog
     if (visible) {
       if (e.keyCode === KeyCode.TAB) {
         contentRef?.current?.changeActive(!e.shiftKey);
@@ -99,8 +114,8 @@ const Dialog: React.FC<DialogProps> = (props) => {
         <ModalBodyWrap
          tabIndex={-1}
          onKeyDown={onWrapperKeyDown}
-         className={ wrapClassName}
          ref={wrapperRef}
+         style={{zIndex,}}
          onClick={onWrapperClick}
          role="dialog"
         >
@@ -119,7 +134,7 @@ const Dialog: React.FC<DialogProps> = (props) => {
 
 
 const BaseModal:React.FC<DialogProps>=(props)=>{
-    const { visible=false, getContainer,  afterClose } = props;
+    const { visible=false, getContainer,  afterClose,style } = props;
   const [animatedVisible, setAnimatedVisible] = React.useState<boolean>(visible);
     const el=usePortal('modal',(getContainer as any))
   React.useEffect(() => {
@@ -127,7 +142,7 @@ const BaseModal:React.FC<DialogProps>=(props)=>{
       setAnimatedVisible(true);
     }
   }, [visible]);
-  return createPortal(visible?<Dialog   {...props} afterClose={() => {
+  return createPortal(visible?<Dialog   {...props} style={{...style,display: !animatedVisible ? 'none' : 'block' }} afterClose={() => {
     afterClose?.();
     setAnimatedVisible(false);
   }}></Dialog>:<></>,el as Element)

@@ -3,23 +3,9 @@ import React from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import { ModalCloseX } from "./wrapper";
 import BaseModal from "./Dialog";
-let mousePosition:any
-const getClickPosition = (e: MouseEvent) => {
-     mousePosition = {
-      x: e.pageX,
-      y: e.pageY,
-    };
-    setTimeout(() => {
-      mousePosition = null;
-    }, 100);
-  };
-  
 
-  if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
-    document.documentElement.addEventListener( 'click', getClickPosition);
-  }
-  
-  export interface ModalProps {
+
+export interface ModalProps {
     visible?: boolean;
     title?: React.ReactNode | string;
     closable?: boolean;
@@ -27,7 +13,7 @@ const getClickPosition = (e: MouseEvent) => {
     onCancel?: (e: React.MouseEvent<HTMLElement>) => void;
     afterClose?: () => void;
     centered?: boolean;
-    width?:  number;
+    width?: number;
     footer?: React.ReactNode;
     okText?: React.ReactNode;
     cancelText?: React.ReactNode;
@@ -36,21 +22,18 @@ const getClickPosition = (e: MouseEvent) => {
     cancelButtonProps?: ButtonProps;
     destroyOnClose?: boolean;
     style?: React.CSSProperties;
-    wrapClassName?: string;
-    maskTransitionName?: string;
-    transitionName?: string;
     className?: string;
-    getContainer?: ()=>HTMLElement|  HTMLElement ;
+    maskClassName?:string
+    getContainer?: () => HTMLElement | HTMLElement;
     zIndex?: number;
-    bodyStyle?: React.CSSProperties;
     maskStyle?: React.CSSProperties;
     mask?: boolean;
     keyboard?: boolean;
     wrapProps?: any;
     closeIcon?: React.ReactNode;
-  }
+}
 
-  export interface ModalFuncProps {
+export interface ModalFuncProps {
     className?: string;
     visible?: boolean;
     title?: React.ReactNode;
@@ -64,7 +47,9 @@ const getClickPosition = (e: MouseEvent) => {
     okText?: React.ReactNode;
     cancelText?: React.ReactNode;
     icon?: React.ReactNode;
+    //masks
     mask?: boolean;
+    maskClassName?:string
     maskClosable?: boolean;
     zIndex?: number;
     okCancel?: boolean;
@@ -72,71 +57,64 @@ const getClickPosition = (e: MouseEvent) => {
     maskStyle?: React.CSSProperties;
     type?: string;
     keyboard?: boolean;
-    getContainer?: ()=>HTMLElement|  HTMLElement ;
-  }
-  interface ModalInterface extends React.FC<ModalProps> {
-  
-  }
+    getContainer?: () => HTMLElement | HTMLElement;
+}
+interface ModalInterface extends React.FC<ModalProps> {
 
-  const Modal:ModalInterface =(props)=>{
+}
+
+const Modal: ModalInterface = (props) => {
     const {
         footer,
         visible,
-        wrapClassName,
-        centered,
         getContainer,
         closeIcon,
         ...restProps
-      } = props;
+    } = props;
     const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
         const { onCancel } = props;
         if (onCancel) {
-          onCancel(e);
+            onCancel(e);
         }
-      };
-    
-      const handleOk = (e: React.MouseEvent<HTMLButtonElement>) => {
+    };
+
+    const handleOk = (e: React.MouseEvent<HTMLButtonElement>) => {
         const { onOk } = props;
         if (onOk) {
-          onOk(e);
+            onOk(e);
         }
-      };
-      const closeIconToRender = (
-        <ModalCloseX>
-          {closeIcon || <CloseOutlined  />}
+    };
+    const closeIconToRender = (
+        <ModalCloseX id="close-x">
+            {closeIcon || <CloseOutlined />}
         </ModalCloseX>
-      );
+    );
     
-      const renderFooter = () => {
-        const { okText,  cancelText,  } = props;
+    const renderFooter = () => {
+        const { okText, cancelText, } = props;
         return (
-          <>
-            <Button onClick={handleCancel} {...props.cancelButtonProps}>
-              {cancelText || 'Cancel'}
-            </Button>
-            <Button
-              onClick={handleOk}
-              type="primary"
-              {...props.okButtonProps}
-            >
-              {okText || 'Yes'}
-            </Button>
-          </>
+            <>
+                <Button onClick={handleCancel} {...props.cancelButtonProps}>
+                    {cancelText || 'Cancel'}
+                </Button>
+                <Button
+                    onClick={handleOk}
+                    type="primary"
+                    {...props.okButtonProps}
+                >
+                    {okText || 'Yes'}
+                </Button>
+            </>
         );
-      };
-      return (<BaseModal {...restProps}
-            footer={renderFooter()}
-            visible={visible}
-            mousePosition={mousePosition}
-            onClose={handleCancel}
-            closeIcon={closeIconToRender}
-        ></BaseModal>)
+    };
+    return (<BaseModal {...restProps}
+        footer={renderFooter()}
+        visible={visible}
+        onClose={handleCancel}
+        closeIcon={closeIconToRender}
+    ></BaseModal>)
 
-  }
+}
 
-  Modal.defaultProps = {
-    width: 520,
-    visible: false,
-  };
 
 export default Modal

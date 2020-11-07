@@ -13,8 +13,8 @@ export interface MaskProps {
     return (
     
          visible? <ModalmaskWrap
+         id="rong-modal-mask"
          style={{  ...style }}
-        
          {...maskProps}
        />:<></>
     
