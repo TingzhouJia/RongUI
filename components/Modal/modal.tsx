@@ -3,8 +3,9 @@ import React from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import { ModalCloseX } from "./wrapper";
 import BaseModal from "./Dialog";
+import { StatusTypes } from "../utils";
 
-
+export const destroyFns: Array<() => void> = [];
 export interface ModalProps {
     visible?: boolean;
     title?: React.ReactNode | string;
@@ -43,7 +44,7 @@ export interface ModalFuncProps {
     okButtonProps?: ButtonProps;
     cancelButtonProps?: ButtonProps;
     centered?: boolean;
-    width?: string | number;
+    width?:  number;
     okText?: React.ReactNode;
     cancelText?: React.ReactNode;
     icon?: React.ReactNode;
@@ -55,7 +56,7 @@ export interface ModalFuncProps {
     okCancel?: boolean;
     style?: React.CSSProperties;
     maskStyle?: React.CSSProperties;
-    type?: string;
+    type?: StatusTypes|'confirm';
     keyboard?: boolean;
     getContainer?: () => HTMLElement | HTMLElement;
 }
@@ -91,7 +92,7 @@ const Modal: ModalInterface = (props) => {
     );
     
     const renderFooter = () => {
-        const { okText, cancelText, } = props;
+        const { okText, cancelText,} = props;
         return (
             <>
                 <Button onClick={handleCancel} {...props.cancelButtonProps}>
@@ -108,11 +109,12 @@ const Modal: ModalInterface = (props) => {
         );
     };
     return (<BaseModal {...restProps}
-        footer={renderFooter()}
+        
+        footer={footer||renderFooter()}
         visible={visible}
         onClose={handleCancel}
         closeIcon={closeIconToRender}
-    ></BaseModal>)
+    />)
 
 }
 

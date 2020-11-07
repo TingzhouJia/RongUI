@@ -118,3 +118,34 @@ export const ModalDocument=styled.div<{centered?:boolean}>`
         `:null
     }
 `
+
+export const ConfirmBody=styled.div`
+display:flex;
+flex-direction:column;
+`
+
+export const ConfirmHeader=styled.div`
+display:flex;
+flex-direction:row;
+justify-content:flex-start;
+align-items:center;
+`
+
+export const ConfirmTitle=styled.span`
+margin-left:15px;
+font-size:18px;
+`
+
+export const ConfirmContent=styled.div`
+margin-top:10px;
+margin-left:38px;
+`
+
+export const ConfirmBtn=styled.div`
+display:flex;
+flex-direction:row;
+justify-content:flex-end;
+& > button {
+    margin-left:10px;
+}
+`

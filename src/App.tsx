@@ -10,6 +10,7 @@ import message from '../components/Message'
 import notification from '../components/Notification'
 import Drawer from '../components/Drawer';
 import Modal from '../components/Modal';
+import Button from '../components/Button';
 
 
 function App() {
@@ -48,12 +49,15 @@ function App() {
     <ThemeProvider theme={ThemeStore}>
    
       <span onClick={()=>{setvisible(true)}}> Tooltip will show on mouse enter.</span>
-  
+      {/* <span onClick={()=>{Modal.confirm({type:'confirm',title:'aaa'})}}> Tooltip will show on mouse enter.</span> */}
       <Modal
           title="Basic Modal"
           visible={visible}
           onOk={()=>setvisible(false)}
           onCancel={()=>setvisible(false)}
+          footer={[
+            <Button>aaaaa</Button>
+          ]}
         >
           <p>Some contents...</p>
           <p>Some contents...</p>

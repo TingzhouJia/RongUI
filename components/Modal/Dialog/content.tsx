@@ -19,9 +19,8 @@ const Content = React.forwardRef<ContentRef, ContentProps>((props, ref) => {
     const {
         closable,
         width=520,
-        height=370,
         footer,
-        
+        style,
         title,
         closeIcon,
         bodyProps,
@@ -88,7 +87,8 @@ const Content = React.forwardRef<ContentRef, ContentProps>((props, ref) => {
    
     return <ModalDocument key="dialog-element"
         role="document" onClick={onClick}
-        style={{width,height}}
+        centered={props.centered}
+        style={{...style,width}}
       >
         <div tabIndex={0} style={sentinelStyle} ref={sentinelStartRef} aria-hidden="true" />
         {modalRender ? modalRender(content) : content}
