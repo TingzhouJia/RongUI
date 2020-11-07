@@ -1,14 +1,12 @@
 import { useAutoCompleteContext } from "./context"
 import { AutoItemWrap } from "./wrapper"
 import React from "react"
-
-export interface Props {
-    value?: string
-    text:string
-  }
+import { AutoCompleteOption } from "./auto-complete"
 
 
-const AutoCompleteItem:React.FC<Props>=(props)=>{
+
+
+const AutoCompleteItem:React.FC<AutoCompleteOption>=(props)=>{
     const { value, updateValue, updateVisible } = useAutoCompleteContext()
     const handleClick=()=>{
         updateValue && updateValue(props.value||props.text)

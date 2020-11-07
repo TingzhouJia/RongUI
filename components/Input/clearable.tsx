@@ -42,7 +42,7 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
     }
   };
   const renderClearIcon = () => {
-    const { allowClear, value, disabled, readOnly, inputType, handleReset } = props;
+    const { allowClear, value, disabled, readOnly, inputType,suffix, handleReset } = props;
 
     if (!allowClear) {
       return null;
@@ -51,7 +51,7 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
     const needClear = !disabled && !readOnly && value;
 
     return (
-      <CloseBtn id="close-button" hidden={!needClear} type={inputType}>
+      <CloseBtn id="close-button" other={suffix?1:0} hidden={!needClear} type={inputType}>
         <CloseCircleFilled
           onClick={handleReset}
           role="button"
