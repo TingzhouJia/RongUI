@@ -3,7 +3,7 @@ import { ToRGBA } from "../utils/hex_rgb";
 
 
 export const AutoItemWrap=styled.div<{active?:boolean,}>`
- display: flex;
+          display: flex;
           justify-content: flex-start;
           align-items: center;
           font-weight: ${props=>props.active?'600':'normal'};
@@ -20,4 +20,11 @@ export const AutoItemWrap=styled.div<{active?:boolean,}>`
           &:hover {
               background:#f2f2f2 ;
           }
+`
+
+export const AutoEmpty =styled.div`
+    min-height:100px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 `

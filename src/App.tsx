@@ -64,21 +64,15 @@ function App() {
           <p>Some contents...</p>
           <p>Some contents...</p>
         </Modal> */}
-         {/* <AutoComplete
+         <AutoComplete
+         disabled
         options={options}
         style={{ width: 200 }}
         onSelect={onSelect}
         onSearch={searchHandler}
         placeholder="input here"
-      /> */}
-      <Input style={{width:200}} 
-      allowClear 
-      disabled
-    //   addonAfter={<EditFilled/>} 
-      //   addonBefore={<EditFilled/>} 
-      //  prefix={<CheckCircleFilled/>} 
-      //   suffix={<CheckCircleFilled/>} 
-       />
+      />
+     
          </>
       
    
