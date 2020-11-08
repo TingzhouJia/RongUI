@@ -29,7 +29,7 @@ describe('Input Test', () => {
         })
         it("should have larger size",()=>{
             const wrap=mountWithTheme(<Input size="large"/>)
-            expect(wrap.find("input").first()).toHaveStyleRule("height","32px")
+            expect(wrap.find("input").first()).toHaveStyleRule("height","25px")
         })
 
 })

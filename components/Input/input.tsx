@@ -175,6 +175,7 @@ const InnerInput:React.ForwardRefRenderFunction<unknown,InputBasicProps>=(props,
           disabled={!!disabled}
           bordered={!!curBorder}
           focused={focused}
+          value={curvale}
           type={type}
           withPS={(prefix||suffix||allowClear)?true:false}
           sizes={customizeSize as NormalSizes}
@@ -183,7 +184,6 @@ const InnerInput:React.ForwardRefRenderFunction<unknown,InputBasicProps>=(props,
           onBlur={onBlur}
           onKeyDown={handleKeyDown}
           ref={ref}
-         
         />
       );
     };

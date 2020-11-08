@@ -65,6 +65,7 @@ function App() {
           <p>Some contents...</p>
         </Modal> */}
          <AutoComplete
+         disabled
         options={options}
         style={{ width: 200 }}
         onSelect={onSelect}

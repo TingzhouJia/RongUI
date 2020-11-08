@@ -118,6 +118,8 @@ const AutoComplete: AutoCompleteProps = ({ options,
 
             <div ref={ref} style={{width:'max-content'}}>
                 <Input onChange={onInputChange}
+                    value={customInitialValue}
+                    disabled={disabled}
                     style={props.style}
                     placeholder={placeholder}
                     onFocus={() => toggleFocusHandler(true)}

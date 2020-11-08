@@ -102,7 +102,7 @@ function onInternalClose(e: React.SyntheticEvent) {
       }
     }
   }
-    return <ModalRenderRoot>
+    return <ModalRenderRoot id="modal-render-root">
         <Mask
             visible={mask && visible}
             style={{

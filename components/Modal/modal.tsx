@@ -21,7 +21,6 @@ export interface ModalProps {
     maskClosable?: boolean;
     okButtonProps?: ButtonProps;
     cancelButtonProps?: ButtonProps;
-    destroyOnClose?: boolean;
     style?: React.CSSProperties;
     className?: string;
     maskClassName?: string
@@ -96,12 +95,13 @@ const Modal: ModalInterface = (props) => {
         return okText&&cancelText?(
             <>
                 {
-                    cancelText && <Button onClick={handleCancel} {...props.cancelButtonProps}>
+                    cancelText && <Button id="cancel-button" onClick={handleCancel} {...props.cancelButtonProps}>
                         {cancelText || 'Cancel'}
                     </Button>
                 }
                 {
                     okText && <Button
+                    id="ok-button"
                         onClick={handleOk}
                         type="primary"
                         {...props.okButtonProps}
