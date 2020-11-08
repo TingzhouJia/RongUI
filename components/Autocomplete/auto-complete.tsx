@@ -5,6 +5,8 @@ import AutoCompleteItem from "./item";
 import { AutoCompleteContext } from "./context";
 import Input from "../Input";
 import AutoCompleteDropdown from "./dropdown";
+import { AutoEmpty } from "./wrapper";
+import { InboxOutlined } from "@ant-design/icons";
 
 export type AutoCompleteOption = {
     value?: string,
@@ -21,6 +23,7 @@ interface Props {
     onSearch?: (value: string) => void
     onSelect?: (value: string) => void
     allowClear?: boolean
+    emptyElement?:React.ReactNode
     dropdownClassName?: string
     dropdownStyle?: object
     disabled?: boolean
@@ -103,12 +106,19 @@ const AutoComplete: AutoCompleteProps = ({ options,
             }, 100)
         }
     }
-
+    const renderEmpty=()=>{
+        const {emptyElement}=props
+        return (emptyElement||<AutoEmpty>
+            <InboxOutlined />
+            <span>Empty Result</span>
+        </AutoEmpty>)
+    }
     return (
         <AutoCompleteContext.Provider value={{ ref, updateValue, updateVisible, value: state, visible }}>
 
-            <div ref={ref} >
+            <div ref={ref} style={{width:'max-content'}}>
                 <Input onChange={onInputChange}
+                    style={props.style}
                     placeholder={placeholder}
                     onFocus={() => toggleFocusHandler(true)}
                     onBlur={() => toggleFocusHandler(false)}
@@ -119,7 +129,7 @@ const AutoComplete: AutoCompleteProps = ({ options,
                     className={dropdownClassName}
 
                     dropdownStyle={dropdownStyle}>
-                    {childrenToOptionsNode(options)}
+                    {options.length===0?renderEmpty():childrenToOptionsNode(options)}
                     {children}
                 </AutoCompleteDropdown>
             </div>
