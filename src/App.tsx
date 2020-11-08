@@ -73,10 +73,11 @@ function App() {
       /> */}
       <Input style={{width:200}} 
       allowClear 
-        addonAfter={<EditFilled/>} 
-        addonBefore={<EditFilled/>} 
-       prefix={<CheckCircleFilled/>} 
-        suffix={<CheckCircleFilled/>} 
+      disabled
+    //   addonAfter={<EditFilled/>} 
+      //   addonBefore={<EditFilled/>} 
+      //  prefix={<CheckCircleFilled/>} 
+      //   suffix={<CheckCircleFilled/>} 
        />
          </>
       

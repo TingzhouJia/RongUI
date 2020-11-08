@@ -22,5 +22,5 @@
     "components",
     "../setupTests.ts", "setupTests.ts"
   ],
-  "exclude": ["lib", "es", "node_modules", "__tests__", "stories", "mdx"],
+  "exclude": ["lib", "es", "node_modules", "__tests__", "stories", "mdx","src/bundle.js"],
 }

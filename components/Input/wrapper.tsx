@@ -46,55 +46,6 @@ export const Preffix = styled.span`
 
 
 
-const getDisabled = () => {
-  return css`
-    color: rgba(0,0,0,0.25);
-  background-color: #d9d9d9 ;
-  cursor: not-allowed;
-  opacity: 1;
-  outline:none;
-  &:hover,&:active,&:focus {
-      border:none;
-  }  
-    `
-}
-
-/* ${
-  props => !props.disabled ? props.focused ? css`border:1px solid ${props.theme.colors.primary};box-shadow: 0 0 1px 1px ${props.theme.colors.primary};` : null : null
-}
-
-  
-// display:flex;
-// flex-direction:row;
-// flex:none;
-// justify-content:space-between;
-// align-items:stretch;
-// outline:none;
-// padding: 0px 11px;
-// border-radius:2px;
-
-// &:hover,&:active {
-//     border:1px solid ${props => props.theme.colors.primary}; 
-// };
-//   display: inline-flex;
-//   ${props => props.disabled || props.readonly ? getDisabled() : null}
-
-//   &::before {
-//       width: 0;
-//       visibility: hidden;
-//       content: '\a0';
-//     };
-
-// ${props => props.borderless ? css`
-//     &,
-//     &:hover,
-//     &:focus {
-//       background-color: transparent;
-//       border: none;
-//       box-shadow: none;
-//     }
-// `: null}; */
-
 export const AffixWrapper = styled.div<{
   focused?: boolean,
   disabled?: boolean, size: NormalSizes,  borderless?: boolean,withPS?:boolean
@@ -115,12 +66,21 @@ export const AffixWrapper = styled.div<{
         `:null
       }
     }
-    
+
     ${
       props=>props.withPS&&!props.disabled&&!props.borderless?css`
-          border: 1px solid #d9d9d9 ;
+          border: 1px solid ${
+            props.focused?props.theme.colors.primary:"#d9d9d9"
+          } ;
       `:null
     }
+    ${
+    props=>props.disabled&&!props.borderless?css`border:1px solid #d9d9d9;color: rgba(0,0,0,.25);
+    background-color: #f5f5f5;`:null
+  }
+  ${
+    props=>props.disabled?css` cursor:not-allowed;`:null
+  }
 `
 
 export const GroupWrapper = styled.div<{ size?: NormalSizes }>`
@@ -162,11 +122,22 @@ export const AddOnWrapper = styled.div<{ size?: 'small' | 'large' | 'default' ,r
     transition: all 0.3s;
 `
 
-export const WithAddOnWrapper = styled.span`
+export const WithAddOnWrapper = styled.span<{disabled?:boolean}>`
   display:flex;
   flex-direction:row;
   justify-content:stretch;
   align-items:center;
+  ${
+    props=>props.disabled?css`
+  
+    &, &> * {
+      color: rgba(0,0,0,.25);
+    background-color: #f5f5f5;
+    cursor:not-allowed;
+    }
+    
+    `:null
+  }
 `
 
 export const TextAreaWrapper = styled.div<{ borderless?: boolean }>`
@@ -178,7 +149,7 @@ export const TextAreaWrapper = styled.div<{ borderless?: boolean }>`
     transition: all 0.3s, height 0s;
 `
 
-export const OuterInputWrapper = styled.input<{ disabled?: boolean, sizes: "small" | "default" | 'large',withPS?:boolean,bordered?:boolean }>`
+export const OuterInputWrapper = styled.input<{ disabled?: boolean, sizes: "small" | "default" | 'large',withPS?:boolean,bordered?:boolean,focused?:boolean }>`
 font-size:${props => props.sizes === "small" ? "14px" : props.sizes === "default" ? "16px" : "18px"};
 
     width:100%;
@@ -194,7 +165,9 @@ font-size:${props => props.sizes === "small" ? "14px" : props.sizes === "default
    
     ${
       props=>!props.withPS&&!props.disabled&&props.bordered?css`
-      border: 1px solid #d9d9d9 ; 
+      border: 1px solid ${
+        props.focused?props.theme.colors.primary:"#d9d9d9"
+      } ; 
       &:hover {
         border-color:${props.theme.colors.primary};
       }
@@ -205,8 +178,9 @@ font-size:${props => props.sizes === "small" ? "14px" : props.sizes === "default
       outline:none;
     }
 ${
-  props => props.disabled ? css`cursor:not-allowed` : null
+  props => props.disabled ? css`cursor:not-allowed; background:#f5f5f5;` : null
   }
+
 &:-webkit-autofill {
     box-shadow:0 0 0px 32px #fff inset !important;
     -webkit-box-shadow: 0 0 0px 32px #fff inset !important; 

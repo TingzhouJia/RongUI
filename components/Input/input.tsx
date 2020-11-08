@@ -174,6 +174,7 @@ const InnerInput:React.ForwardRefRenderFunction<unknown,InputBasicProps>=(props,
           {...other}
           disabled={!!disabled}
           bordered={!!curBorder}
+          focused={focused}
           type={type}
           withPS={(prefix||suffix||allowClear)?true:false}
           sizes={customizeSize as NormalSizes}

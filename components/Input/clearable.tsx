@@ -118,7 +118,7 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
 
     return (
       <GroupWrapper id="input-group-wrapper" className={className} size={size} style={style}>
-        <WithAddOnWrapper  id="addon-wrapper" >
+        <WithAddOnWrapper disabled={!!props.disabled}  id="addon-wrapper" >
           {addonBeforeNode}
           {labeledElement}
           {addonAfterNode}
