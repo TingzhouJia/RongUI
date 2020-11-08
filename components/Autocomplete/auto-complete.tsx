@@ -37,7 +37,7 @@ const childrenToOptionsNode = (options: Array<AutoCompleteOption>) =>
         )
     })
 export interface AutoCompleteProps extends React.FC<Props> {
-    Option:typeof AutoCompleteItem
+    Option: typeof AutoCompleteItem
 }
 const AutoComplete: AutoCompleteProps = ({ options,
     initialValue: customInitialValue = "",
@@ -46,6 +46,7 @@ const AutoComplete: AutoCompleteProps = ({ options,
     onChange,
     children,
     value,
+    placeholder,
     allowClear = true,
     disabled = false,
     dropdownClassName,
@@ -74,8 +75,8 @@ const AutoComplete: AutoCompleteProps = ({ options,
         onSelect && onSelect(val)
         setState(val)
         inputRef.current && inputRef.current.focus()
-      }
-    
+    }
+
     const updateVisible = (next: boolean) => setVisible(next)
     const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setVisible(true)
@@ -91,7 +92,7 @@ const AutoComplete: AutoCompleteProps = ({ options,
     }
     const toggleFocusHandler = (next: boolean) => {
         clearTimeout(resetTimer.current)
-        if (!state || state === '') return
+        // if (!state || state === '') return
         setVisible(next)
         if (next) {
             onSearch && onSearch(stateRef.current)
@@ -104,28 +105,29 @@ const AutoComplete: AutoCompleteProps = ({ options,
     }
 
     return (
-        <AutoCompleteContext.Provider value={{ref,updateValue,updateVisible,value:state,visible}}>
-       
-              <div style={{width:200}}>
-              <Input onChange={onInputChange} 
-                 onFocus={() => toggleFocusHandler(true)}
-                 onBlur={() => toggleFocusHandler(false)}
-                 allowClear={allowClear}
-                ref={inputRef}/>
-                {/* <AutoCompleteDropdown
+        <AutoCompleteContext.Provider value={{ ref, updateValue, updateVisible, value: state, visible }}>
+
+            <div ref={ref} >
+                <Input onChange={onInputChange}
+                    placeholder={placeholder}
+                    onFocus={() => toggleFocusHandler(true)}
+                    onBlur={() => toggleFocusHandler(false)}
+                    allowClear={allowClear}
+                    ref={inputRef} />
+                <AutoCompleteDropdown
                     visible={visible}
                     className={dropdownClassName}
-                   
+
                     dropdownStyle={dropdownStyle}>
                     {childrenToOptionsNode(options)}
                     {children}
-                </AutoCompleteDropdown> */}
-              </div>
-       
+                </AutoCompleteDropdown>
+            </div>
+
         </AutoCompleteContext.Provider>
     )
 }
 
-AutoComplete.Option=AutoCompleteItem
+AutoComplete.Option = AutoCompleteItem
 
 export default AutoComplete

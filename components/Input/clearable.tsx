@@ -2,7 +2,6 @@ import { tuple, NormalTypes, NormalSizes } from "../utils";
 import React, { useRef, cloneElement } from 'react'
 import { CloseCircleFilled } from "@ant-design/icons";
 import { CloseBtn, Suffix, Preffix, AffixWrapper, AddOnWrapper, GroupWrapper, WithAddOnWrapper, TextAreaWrapper } from "./wrapper";
-import Button from "../Button";
 export const ClearableInputType = tuple('text', 'input');
 
 interface BasicProps {
@@ -82,7 +81,6 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
       suffix,
       disabled,
       allowClear,
-      readOnly,
       bordered,
     } = props;
     const suffixNode = renderSuffix();
@@ -93,8 +91,8 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
         id="affix-input-wrapper"
         disabled={disabled}
         borderless={!bordered}
-        readonly={readOnly}
-        withClear={suffix && allowClear && value}
+        withPS={(prefix||suffix||allowClear)?true:false}
+        
         focused={focused}
         ref={containerRef}
         size={size||'default'}
@@ -114,13 +112,13 @@ const ClearableTextField: React.FC<ClearableInputProps> = (props) => {
     // Not wrap when there is not addons
  
     const addonBeforeNode = addonBefore ? (
-      <AddOnWrapper size={size} id="add-before">{addonBefore}</AddOnWrapper>
+      <AddOnWrapper right={false} size={size} id="add-before">{addonBefore}</AddOnWrapper>
     ) : null;
-    const addonAfterNode = addonAfter ? <AddOnWrapper size={size} id="add-after">{addonAfter}</AddOnWrapper> : null;
+    const addonAfterNode = addonAfter ? <AddOnWrapper right={true} size={size} id="add-after">{addonAfter}</AddOnWrapper> : null;
 
     return (
       <GroupWrapper id="input-group-wrapper" className={className} size={size} style={style}>
-        <WithAddOnWrapper borderless={!bordered} id="addon-wrapper" addon={!!addonBefore || !!addonAfter}>
+        <WithAddOnWrapper disabled={!!props.disabled}  id="addon-wrapper" >
           {addonBeforeNode}
           {labeledElement}
           {addonAfterNode}

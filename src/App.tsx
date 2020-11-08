@@ -17,7 +17,12 @@ import { EditFilled, CheckCircleFilled } from '@ant-design/icons';
 
 function App() {
   const [value, setValue] = useState('');
-  const [options, setOptions] = useState<{ value: string }[]>([]);
+  const allOptions = [
+    { text: 'London', value: 'london' },
+    { text: 'Sydney', value: 'sydney' },
+    { text: 'Shanghai', value: 'shanghai' },
+  ]
+  const [options, setOptions] = useState<{ value: string }[]>(allOptions);
   const mockVal = (str: string, repeat: number = 1) => {
     return {
       value: str.repeat(repeat),
@@ -34,6 +39,13 @@ function App() {
   const onChange = (data: string) => {
     setValue(data);
   };
+  
+
+  const searchHandler = (currentValue:any) => {
+    if (!currentValue) return setOptions([])
+    const relatedOptions = allOptions.filter(item => item.value.includes(currentValue))
+    setOptions(relatedOptions)
+  }
   return (
    
    <>
@@ -52,15 +64,22 @@ function App() {
           <p>Some contents...</p>
           <p>Some contents...</p>
         </Modal> */}
-         <AutoComplete
+         {/* <AutoComplete
         options={options}
         style={{ width: 200 }}
         onSelect={onSelect}
-        onSearch={onSearch}
+        onSearch={searchHandler}
         placeholder="input here"
-      />
-       <Input allowClear addonBefore={<EditFilled/>} prefix={<CheckCircleFilled/>} addonAfter={<EditFilled/>} suffix={<CheckCircleFilled/>} style={{ width: 200 }}/>
-      </>
+      /> */}
+      <Input style={{width:200}} 
+      allowClear 
+      disabled
+    //   addonAfter={<EditFilled/>} 
+      //   addonBefore={<EditFilled/>} 
+      //  prefix={<CheckCircleFilled/>} 
+      //   suffix={<CheckCircleFilled/>} 
+       />
+         </>
       
    
 
