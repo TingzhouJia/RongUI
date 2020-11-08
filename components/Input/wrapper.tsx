@@ -32,9 +32,8 @@ color:rgba(0,0,0,0.45);
 export const Suffix = styled.span`
     position:relative;
     padding-left: 4px;
- 
     display: flex;
-    flex: 1;
+    flex: none;
     align-items: center;
 `
 
@@ -60,88 +59,114 @@ const getDisabled = () => {
     `
 }
 
+/* ${
+  props => !props.disabled ? props.focused ? css`border:1px solid ${props.theme.colors.primary};box-shadow: 0 0 1px 1px ${props.theme.colors.primary};` : null : null
+}
+
+  
+// display:flex;
+// flex-direction:row;
+// flex:none;
+// justify-content:space-between;
+// align-items:stretch;
+// outline:none;
+// padding: 0px 11px;
+// border-radius:2px;
+
+// &:hover,&:active {
+//     border:1px solid ${props => props.theme.colors.primary}; 
+// };
+//   display: inline-flex;
+//   ${props => props.disabled || props.readonly ? getDisabled() : null}
+
+//   &::before {
+//       width: 0;
+//       visibility: hidden;
+//       content: '\a0';
+//     };
+
+// ${props => props.borderless ? css`
+//     &,
+//     &:hover,
+//     &:focus {
+//       background-color: transparent;
+//       border: none;
+//       box-shadow: none;
+//     }
+// `: null}; */
 
 export const AffixWrapper = styled.div<{
   focused?: boolean,
-  disabled?: boolean, size: NormalSizes, withClear?: boolean, readonly?: boolean, borderless?: boolean
+  disabled?: boolean, size: NormalSizes,  borderless?: boolean,withPS?:boolean
 }>`
-
-display:flex;
-flex-direction:row;
-flex:none;
-justify-content:space-between;
-align-items:stretch;
-outline:none;
-padding: 0px 11px;
-border-radius:2px;
-${
-  props => !props.disabled ? props.focused ? css`border:1px solid ${props.theme.colors.primary};box-shadow: 0 0 1px 1px ${props.theme.colors.primary};` : null : null
-  }
-&:hover,&:active {
-    border:1px solid ${props => props.theme.colors.primary}; 
-};
-  display: inline-flex;
-  ${props => props.disabled || props.readonly ? getDisabled() : null}
-  > input {
-      padding: 0;
-      border: none;
-      outline: none;
-      &:focus {
-        box-shadow: none;
+    position: relative;
+    display: flex;
+    flex-direction:row;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    padding: ${
+      props=>props.withPS?(props.size==='small'?'0 7px':props.size==='default'?'4px 11px':'6.5px 11px'):'0'
+    };
+    &:hover {
+      ${
+        props=>!props.disabled&&!props.borderless&&props.withPS?css`
+        border: 1px solid ${props.theme.colors.primary};
+        `:null
       }
     }
-  &::before {
-      width: 0;
-      visibility: hidden;
-      content: '\a0';
-    };
-
-${props => props.borderless ? css`
-    &,
-    &:hover,
-    &:focus {
-      background-color: transparent;
-      border: none;
-      box-shadow: none;
+    
+    ${
+      props=>props.withPS&&!props.disabled&&!props.borderless?css`
+          border: 1px solid #d9d9d9 ;
+      `:null
     }
-`: null};
-
 `
 
 export const GroupWrapper = styled.div<{ size?: NormalSizes }>`
   position: relative;
-  display: flex;
-  justify-content:flex-start;
-  flex-direction:row;
-  align-items:center;
-  flex:1;
+  display: inline-block;
+    width: 100%;
+    text-align: start;
+    vertical-align: top;
 `
 
-export const AddOnWrapper = styled.div<{ size?: 'small' | 'large' | 'default' }>`
+export const AddOnWrapper = styled.div<{ size?: 'small' | 'large' | 'default' ,right?:boolean}>`
     position: relative;
-    padding: 0 10px;
-    color: rgba(0,0,0,0.85);
-    font-weight: normal;
-    cursor:pointer;
+    padding: 0 11px;
+    color: rgba(0,0,0,.85);
+    font-weight: 400;
     font-size: 14px;
     text-align: center;
-   
-    background-color: #f0f0f0 ;
-    opacity:0.7;
+    background-color: #fafafa;
+    border: 1px solid #d9d9d9;
     display:flex;
+    border-radius:2px;
+    ${
+      props=>props.right?css`
+       border-left:none;
+       border-top-left-radius:0;
+       border-bottom-right-radius:0;
+      
+      `:css`
+      border-right:none;
+      border-top-right-radius:0;
+      border-bottom-right-radius:0;
+      
+      `
+    }
+   
+    align-self: stretch;
     justify-content:center;
     align-items:center;
-    flex:none;
     transition: all 0.3s;
 `
 
-export const WithAddOnWrapper = styled.span<{ addon?: boolean, borderless?: boolean }>`
+export const WithAddOnWrapper = styled.span`
   display:flex;
   flex-direction:row;
-  justify-content:flex-start;
-  align-items:stretch;
-  border:${props => props.borderless ? "none" : "1px solid #d9d9d9"};
-  border-radius:2px;
+  justify-content:stretch;
+  align-items:center;
 `
 
 export const TextAreaWrapper = styled.div<{ borderless?: boolean }>`
@@ -153,32 +178,47 @@ export const TextAreaWrapper = styled.div<{ borderless?: boolean }>`
     transition: all 0.3s, height 0s;
 `
 
-export const OuterInputWrapper = styled.input<{ disabled?: boolean, sizes: "small" | "default" | 'large', }>`
+export const OuterInputWrapper = styled.input<{ disabled?: boolean, sizes: "small" | "default" | 'large',withPS?:boolean,bordered?:boolean }>`
 font-size:${props => props.sizes === "small" ? "14px" : props.sizes === "default" ? "16px" : "18px"};
-border:none;
-margin:0 2px;
-display:flex;
-align-items:center;
-flex:none;
-outline:none;
-background:transparent;
-height:${props => props.sizes === 'small' ? "22px;" : props.sizes === "default" ? "26px" : "32px"};
 
+    width:100%;
+    min-width: 0;
+    padding: ${
+      props=>props.withPS?'0':(props.sizes==='small'?'0 7px':props.sizes==='default'?'4px 11px':'6.5px 11px')
+    };
+    color: rgba(0,0,0,.85);
+    height:${props=>props.sizes==='large'?'25px':'22px'};
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+   
+    ${
+      props=>!props.withPS&&!props.disabled&&props.bordered?css`
+      border: 1px solid #d9d9d9 ; 
+      &:hover {
+        border-color:${props.theme.colors.primary};
+      }
+      
+      `:css`border:none; &,&:focus,&:active {border:none;}`
+    }
+    &,&:active,&:hover {
+      outline:none;
+    }
 ${
   props => props.disabled ? css`cursor:not-allowed` : null
   }
 &:-webkit-autofill {
     box-shadow:0 0 0px 32px #fff inset !important;
-    -webkit-box-shadow: 0 0 0px 32px #fff inset !important; /**通过边框阴影遮挡住背景*/
-    -webkit-text-fill-color: #333; /*自动填充内容的文本颜色*/
+    -webkit-box-shadow: 0 0 0px 32px #fff inset !important; 
+    -webkit-text-fill-color: #333; 
 }
 
 `
 
 export const SearchIconWrapper = styled.div`
 border-left:1px solid #d9d9d9;
-padding-left:10px;
-margin-left:10px;
+padding-left:15px;
+margin-left:5px;
 display:flex;
 height:100%;
 justify-content:stretch;

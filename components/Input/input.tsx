@@ -166,20 +166,22 @@ const InnerInput:React.ForwardRefRenderFunction<unknown,InputBasicProps>=(props,
       resolveOnChange((ref.current as HTMLInputElement), e, props.onChange);
     };
   const renderInput = () => {
-  const { className, size: customizeSize="default", disabled,onPressEnter,prefix,suffix,allowClear,type,bordered:curBorder=true,...other } = props;
+  const { className, size: customizeSize="default", disabled,onPressEnter,prefix,suffix,allowClear,type,bordered:curBorder=true,style,addonAfter,addonBefore,...other } = props;
 
       return (
         <OuterInputWrapper
           id="outer-input"
           {...other}
+          disabled={!!disabled}
+          bordered={!!curBorder}
           type={type}
+          withPS={(prefix||suffix||allowClear)?true:false}
           sizes={customizeSize as NormalSizes}
           onChange={handleChange}
           onFocus={onFocus}
           onBlur={onBlur}
           onKeyDown={handleKeyDown}
           ref={ref}
-          disabled={disabled}
          
         />
       );
@@ -187,11 +189,12 @@ const InnerInput:React.ForwardRefRenderFunction<unknown,InputBasicProps>=(props,
     
    const renderComponent = () => {
      
-      const { bordered = true,size,className,style,...rest } = props;
+      const { bordered = true,size,...rest } = props;
 
       return (
             <ClearableLabeledInput
               size={size}
+              
               {...rest}
               inputType="input"
               value={curvale}
