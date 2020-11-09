@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components'
-import Switch from '../components/Switch'
-import './App.css';
-import AutoComplete from '../components/Autocomplete'
 
-
-
-import message from '../components/Message'
-import notification from '../components/Notification'
-import Drawer from '../components/Drawer';
-import Modal from '../components/Modal';
-import Button from '../components/Button';
-import Input from '../components/Input';
-import { EditFilled, CheckCircleFilled } from '@ant-design/icons';
 import Cascader from '../components/Cascader/cascader';
 
 
@@ -85,7 +73,7 @@ function App() {
    
    <>
       {/* <span onClick={()=>{setvisible(true)}}> Tooltip will show on mouse enter.</span> */}
-      <span onClick={()=>{Modal.confirm({type:'confirm',title:'aaa'})}}> Tooltip will show on mouse enter.</span>
+      {/* <span onClick={()=>{Modal.confirm({type:'confirm',title:'aaa'})}}> Tooltip will show on mouse enter.</span> */}
       {/* <Modal
           title="Basic Modal"
           visible={visible}

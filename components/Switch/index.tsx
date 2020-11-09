@@ -1,1 +1,2 @@
-export {default,SwitchProps} from './toggle'
+import Switch from './toggle'
+export default Switch

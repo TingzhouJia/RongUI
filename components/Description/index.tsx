@@ -1,1 +1,1 @@
-export {default,DescriptionProps,DescriptionsItemProps} from './description'
+export {default} from './description'

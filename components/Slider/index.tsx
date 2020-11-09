@@ -1,1 +1,2 @@
-export {default,GenericSliderProps as SliderPorps} from './slider'
+import Slider from './slider'
+export default Slider

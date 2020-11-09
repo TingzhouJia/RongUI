@@ -1,1 +1,2 @@
-export {default,AutoCompleteProps,AutoCompleteOption} from './auto-complete'
+import AutoComplete from './auto-complete'
+export default AutoComplete

@@ -28,7 +28,6 @@ type RefNode = React.ReactInstance | HTMLElement | null;
 
 // Still need to be compatible with React 15, we use class component here
 class ReactResizeObserver extends React.Component<ResizeObserverProps, ResizeObserverState> {
-  static displayName = 'ResizeObserver';
 
   resizeObserver: ResizeObserver | null = null;
 
