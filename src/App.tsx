@@ -13,6 +13,7 @@ import Modal from '../components/Modal';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { EditFilled, CheckCircleFilled } from '@ant-design/icons';
+import Cascader from '../components/Cascader/cascader';
 
 
 function App() {
@@ -46,6 +47,40 @@ function App() {
     const relatedOptions = allOptions.filter(item => item.value.includes(currentValue))
     setOptions(relatedOptions)
   }
+  const optionss = [
+    {
+      value: 'zhejiang',
+      label: 'Zhejiang',
+      children: [
+        {
+          value: 'hangzhou',
+          label: 'Hangzhou',
+          children: [
+            {
+              value: 'xihu',
+              label: 'West Lake',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      value: 'jiangsu',
+      label: 'Jiangsu',
+      children: [
+        {
+          value: 'nanjing',
+          label: 'Nanjing',
+          children: [
+            {
+              value: 'zhonghuamen',
+              label: 'Zhong Hua Men',
+            },
+          ],
+        },
+      ],
+    },
+  ];
   return (
    
    <>
@@ -64,14 +99,7 @@ function App() {
           <p>Some contents...</p>
           <p>Some contents...</p>
         </Modal> */}
-         <AutoComplete
-         disabled
-        options={options}
-        style={{ width: 200 }}
-        onSelect={onSelect}
-        onSearch={searchHandler}
-        placeholder="input here"
-      />
+        <Cascader options={optionss}/>
      
          </>
       
