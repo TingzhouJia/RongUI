@@ -49,9 +49,9 @@ function App() {
   return (
    
    <>
-      {/* <span onClick={()=>{setvisible(true)}}> Tooltip will show on mouse enter.</span>
+      {/* <span onClick={()=>{setvisible(true)}}> Tooltip will show on mouse enter.</span> */}
       <span onClick={()=>{Modal.confirm({type:'confirm',title:'aaa'})}}> Tooltip will show on mouse enter.</span>
-      <Modal
+      {/* <Modal
           title="Basic Modal"
           visible={visible}
           onOk={()=>setvisible(false)}

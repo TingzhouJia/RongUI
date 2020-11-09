@@ -112,6 +112,7 @@ function onInternalClose(e: React.SyntheticEvent) {
             maskProps={maskProps}
         />
         <ModalBodyWrap
+        id="modal-body-wrap"
          tabIndex={-1}
          onKeyDown={onWrapperKeyDown}
          ref={wrapperRef}
