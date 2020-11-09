@@ -29,20 +29,21 @@ describe('Modal test', () => {
 
   })
 
-  it("should handle onClose",async ()=>{
+  it("should handle close other",async ()=>{
     const openHandler = jest.fn()
     const closeHandler = jest.fn()
     const wrapper = mountWithTheme(
-      <Modal visible={false} title={'aaaa'} cancelText={'aaaa'} onOk={openHandler} afterClose={closeHandler}>
+      <Modal maskClosable={true} visible={false} title={'aaaa'} cancelText={'aaaa'} onOk={openHandler} onCancel={closeHandler}>
         
       </Modal>,
     )
     wrapper.setProps({ visible:true} as any)
    
-
-   wrapper.find("#modal-render-root").first().simulate('click')
-    await updateWrapper(wrapper, 500)
-    expectModalIsClosed(wrapper)
-    // expect(closeHandler).toHaveBeenCalled()
+    expect(wrapper.find(".cancel-button")).toHaveLength(2)
+  // wrapper.find("#cancel-button").first().simulate('click',nativeEvent)
+  // wrapper.find("#modal-render-root").first().simulate('click')
+    // await updateWrapper(wrapper, 500)
+    // expectModalIsClosed(wrapper)
+     expect(closeHandler).toHaveBeenCalled()
   })
 })

@@ -72,10 +72,11 @@ const Modal: ModalInterface = (props) => {
         ...restProps
     } = props;
     const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const { onCancel } = props;
+        const { onCancel,afterClose } = props;
         if (onCancel) {
             onCancel(e);
         }
+        afterClose&&afterClose()
     };
 
     const handleOk = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -95,13 +96,13 @@ const Modal: ModalInterface = (props) => {
         return okText&&cancelText?(
             <>
                 {
-                    cancelText && <Button id="cancel-button" onClick={handleCancel} {...props.cancelButtonProps}>
+                    cancelText && <Button className="cancel-button" onClick={handleCancel} {...props.cancelButtonProps}>
                         {cancelText || 'Cancel'}
                     </Button>
                 }
                 {
                     okText && <Button
-                    id="ok-button"
+                    className="ok-button"
                         onClick={handleOk}
                         type="primary"
                         {...props.okButtonProps}
