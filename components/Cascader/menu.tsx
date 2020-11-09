@@ -6,10 +6,9 @@ import {useCascaderContext} from './context'
 import { RightOutlined } from "@ant-design/icons";
 export interface CascadeMenuOptions {
     isLeaf?: boolean
-    index?:number
+    index:number
     items?: CascaderOption[]
     value?: string
-    disabled?: boolean
     parent?: RefObject<any>
     visible?: boolean
 }
@@ -44,7 +43,7 @@ const CascaderMenu: React.FC<CascadeMenuOptions> = (props) => {
         <div ref={ref}>
             <AbstractDropdown parent={props.parent} visible={props.visible || false}>
                 {menuSource()}
-                <CascaderMenu parent={ref} items={curChild?.children} visible={curValue===''}/>
+                <CascaderMenu parent={ref} items={curChild?.children} visible={curValue===''} index={props.index+1}/>
             </AbstractDropdown>
         </div>
     )
