@@ -1,1 +1,1 @@
-export {default ,CommentProps} from './comments'
+export {default } from './comments'

@@ -1,2 +1,2 @@
-export {default,TabsProps} from './tabs'
-export {TabPaneProps} from './tabPane'
+import Tabs from './tabs'
+export default Tabs

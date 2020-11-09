@@ -1,2 +1,2 @@
-export  {default,TimelineProps} from './timeline'
-export {TimeLineItemProps} from './item'
+import Timeline from './timeline'
+export default Timeline

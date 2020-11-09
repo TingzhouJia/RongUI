@@ -1,1 +1,2 @@
-export {default,TooltipProps} from './tooltips'
+import Tooltip from './tooltips'
+export default Tooltip

@@ -119,7 +119,7 @@ const Cascader: React.FC<CascaderProps> = (props) => {
                 </IconWrap>
             )}
             </SelectWrap>
-            <CascaderMenu visible={visible} items={options} index={index + 1} parent={ref} value={curValue[1]||undefined} />
+            <CascaderMenu visible={visible} items={options} index={index + 1} parent={ref} value={""} />
 
 
            

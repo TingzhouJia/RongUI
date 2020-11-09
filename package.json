@@ -1,13 +1,24 @@
 {
-  "name": "rong",
+  "name": "rong-react",
   "version": "0.1.0",
-  "private": true,
   "main": "dist/index.js",
   "module": "es/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/TingzhouJia/Rong"
   },
+  "license": "MIT",
+  "author": {
+    "name": "Tingzhou Jia"
+  },
+  "keywords": [
+    "react",
+    "ui",
+    "styled-component"
+  ],
+  "files": [
+    "/dist"
+  ],
   "engines": {
     "node": ">=10.13.0",
     "npm": ">=5.7.0"
@@ -37,7 +48,7 @@
     "eslint:fix": "eslint ./components --fix",
     "lint": "prettier --write \"components/**/*.js\" && npm run eslint:fix && npm run stylelint:fix",
     "test": "jest --watch",
-    "build:webpack":"webpack"
+    "build:webpack": "webpack --config scripts/webpack.config.js"
   },
   "dependencies": {
     "react": "^16.13.1",
@@ -73,12 +84,15 @@
     "@types/react-test-renderer": "^16.9.3",
     "@types/styled-components": "^5.1.3",
     "babel-loader": "^8.1.0",
+    "babel-plugin-styled-components": "^1.11.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "cache-loader": "^4.1.0",
     "chai": "^4.2.0",
     "cross-env": "^6.0.3",
     "css-loader": "^3.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
+    "fs-extra": "^9.0.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-babel": "^8.0.0",

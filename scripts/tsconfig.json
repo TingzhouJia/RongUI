@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "baseUrl": "../",
+    "outDir": "../dist",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "noImplicitAny": true,
+    "target": "es5",
+    "lib": [
+      "dom",
+      "es2017"
+    ],
+    "skipLibCheck": true,
+    "allowJs": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "files": [
+    "../components/index.ts"
+  ],
+  "include": [
+    "src",
+    "components",
+    "../setupTests.ts", "setupTests.ts"
+  ],
+  "exclude": ["lib", "es", "node_modules", "__tests__", "stories", "mdx","src/bundle.js"],
+}

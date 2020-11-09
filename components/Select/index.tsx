@@ -1,3 +1,2 @@
-export {OptionGroupProps} from './optGroup'
-export {SelectOptionProps} from './option'
-export {default,SelectProps} from './select'
+import Select from './select'
+export default Select

@@ -1,1 +1,2 @@
-export {default,ProgressProps} from './progress'
+import Progress from './progress'
+export default Progress
