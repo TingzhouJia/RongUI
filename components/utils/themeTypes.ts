@@ -109,17 +109,7 @@ export type ThemePalette = {
     infoLighter: string
     infoLight: string
     infoDark: string
-    cyan: string
-    cyanLighter: string
-    cyanLight: string
-    cyanDark: string
-    violet: string
-    violetLighter: string
-    violetLight: string
-    violetDark: string
-    link: string
-    purple: string
-    magenta: string
+
 }
 export interface ThemesExpressiveness {
     linkStyle: string

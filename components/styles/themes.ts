@@ -1,5 +1,5 @@
 
-import { palette } from "./palette";
+import { palette ,DarkPalette} from "./palette";
 import {expressiveness,defaultFont,defaultFontSize, defaultPadding, defaultMargin} from './design'
 import { DefaultTheme } from "styled-components";
 export const DefaultLightTheme:DefaultTheme={
@@ -14,8 +14,6 @@ export const DefaultLightTheme:DefaultTheme={
         disabledBackground:palette.disabledBackground,
         borderColor:palette.borderColor
     },
-    mode:'light',
-    palette,
     expressiveness,
     font:defaultFont,
     size:defaultFontSize,
@@ -23,4 +21,21 @@ export const DefaultLightTheme:DefaultTheme={
     padding:defaultPadding
 }
 
-export const DefaultDarkTheme={}
+export const DefaultDarkTheme:DefaultTheme={
+    colors:{
+        primary:DarkPalette.primary,
+        info:DarkPalette.info,
+        error:DarkPalette.error,
+        warning:DarkPalette.warning,
+        background:DarkPalette.background,
+        fontColor:DarkPalette.fontColor,
+        disabledColor:DarkPalette.disabledColor,
+        disabledBackground:DarkPalette.disabledBackground,
+        borderColor:DarkPalette.borderColor
+    },
+    expressiveness,
+    font:defaultFont,
+    size:defaultFontSize,
+    margin:defaultMargin,
+    padding:defaultPadding
+}

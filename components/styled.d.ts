@@ -17,12 +17,11 @@ declare module 'styled-components' {
       disabledColor:string
       disabledBackground:string
     }
-    mode:ThemeTypes,
-    palette:ThemePalette,
     expressiveness:ThemesExpressiveness,
     font:ThemesFont,
     size:ThemeFontType
     padding:PaddingRule
     margin:MarginRule
+    
   }
 }
