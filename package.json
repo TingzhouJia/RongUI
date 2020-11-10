@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "es/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/TingzhouJia/Rong"
@@ -48,7 +49,10 @@
     "eslint:fix": "eslint ./components --fix",
     "lint": "prettier --write \"components/**/*.js\" && npm run eslint:fix && npm run stylelint:fix",
     "test": "jest --watch",
-    "build:webpack": "webpack --config scripts/webpack.config.js"
+    "clear": "rm -rf ./dist",
+    "build:webpack": "webpack --config scripts/webpack.config.js",
+    "build:types": "tsc -p ./scripts",
+    "build":"npm run clear && npm run build:webpack && npm run build:types"
   },
   "dependencies": {
     "react": "^16.13.1",

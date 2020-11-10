@@ -1,11 +1,15 @@
-export const palette = {
+import { ThemePalette } from "../utils";
+
+export const palette:ThemePalette = {
     primary:'#F15A24',
-    background: '#fff',
-    foreground: '#000',
-    selection: '#79ffe1',
-    secondary: '#666',
-    code: '#f81ce5',
-    border: '#eaeaea',
+    primaryLight:"#f48157",
+    primaryLighter:"#f7a587",
+    primaryDark:" #d8430e",
+    background:"#fff",
+    fontColor:"rgba(0,0,0,0.85)",
+    disabledBackground:"#f5f5f5",
+    disabledColor:"rgba(0,0,0,.25)",
+    borderColor:"#d9d9d9",
     error: '#ff4d4f',
     errorLight: '#ff7875',
     errorLighter: '#ffa39e',
@@ -31,7 +35,6 @@ export const palette = {
     violetLight: '#8a63d2',
     violetDark: '#4c2889',
     purple: '#f81ce5',
-    alert: '#ff0080',
     magenta: '#eb367f',
     link: '#0070f3',
 }

@@ -81,13 +81,18 @@ export type Placement = typeof placement[number]
 export type DividerAlign = typeof dividerAlign[number]
 
 export type ThemePalette = {
+    //primary
     primary: string
-    background: string
-    foreground: string
-    selection: string
-    secondary: string
-    code: string
-    border: string
+    primaryLighter:string
+    primaryLight:string
+    primaryDark:string
+    //basic color
+    background:string
+    fontColor:string
+    disabledColor:string
+    disabledBackground:string
+    borderColor:string
+    //status
     success: string
     successLighter: string
     successLight: string
@@ -115,7 +120,6 @@ export type ThemePalette = {
     link: string
     purple: string
     magenta: string
-    alert: string
 }
 export interface ThemesExpressiveness {
     linkStyle: string
@@ -124,25 +128,22 @@ export interface ThemesExpressiveness {
     shadowSmall: string
     shadowMedium: string
     shadowLarge: string
-    portalOpacity: number
+    maskColor: string
+    borderRadius:string
 }
-export interface BreakpointsItem {
-    min: string
-    max: string
-}
+
 export interface ThemesFont {
     sans: string
     mono: string
 }
-export interface ThemesBreakpoints {
-    xs: BreakpointsItem
-    sm: BreakpointsItem
-    md: BreakpointsItem
-    lg: BreakpointsItem
-    xl: BreakpointsItem
-}
+
 
 export interface ThemeFontType {
+    small:{
+        size:string
+        weight:string
+        height: string;
+    }
     normal: {
         size: string;
         height: string;
@@ -153,4 +154,16 @@ export interface ThemeFontType {
         height: string;
         weight: string;
     }
+}
+
+export interface PaddingRule {
+    lg:string
+    md:string
+    sm:string
+}
+
+export interface MarginRule {
+    lg:string
+    md:string
+    sm:string
 }
