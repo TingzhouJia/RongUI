@@ -1,10 +1,6 @@
 import { ThemePalette } from "../utils";
 
-export const palette:ThemePalette = {
-    primary:'#F15A24',
-    primaryLight:"#f48157",
-    primaryLighter:"#f7a587",
-    primaryDark:" #d8430e",
+export const BasicLight={
     background:"#fff",
     fontColor:"rgba(0,0,0,0.85)",
     disabledBackground:"#f5f5f5",
@@ -26,15 +22,43 @@ export const palette:ThemePalette = {
     warningLight: '#fff566',
     warningLighter: '#fffb8f',
     warningDark: '#fadb14',
-    cyan: '#50e3c2',
-    cyanLighter: '#aaffec',
-    cyanLight: '#79ffe1',
-    cyanDark: '#29bc9b',
-    violet: '#7928ca',
-    violetLighter: '#e3d7fc',
-    violetLight: '#8a63d2',
-    violetDark: '#4c2889',
-    purple: '#f81ce5',
-    magenta: '#eb367f',
-    link: '#0070f3',
+}
+export const palette:ThemePalette = {
+    primary:'#F15A24',
+    primaryLight:"#f48157",
+    primaryLighter:"#f7a587",
+    primaryDark:" #d8430e",
+    ...BasicLight
+}
+
+export const BasicDark={
+    background:"#000",
+    fontColor:"#fff",
+    disabledBackground:"#8c8c8c",
+    disabledColor:"rgba(0,0,0,.45)",
+    borderColor:"#434343",
+    error: '#d32029',
+    errorLight: '#791a1f',
+    errorLighter: '#58181c',
+    errorDark: '#e84749',
+    info:"#177ddc",
+    infoDark:"#3c9ae8",
+    infoLight:"#1765ad",
+    infoLighter:"#164c7e",
+    success: '#49aa19',
+    successLight: '#3c8618',
+    successLighter: '#306317',
+    successDark: '#6abe39',
+    warning: '#d8bd14',
+    warningLight: '#aa9514',
+    warningLighter: '#7c6e14',
+    warningDark: '#e8d639',
+
+}
+export const DarkPalette:ThemePalette={
+    primary:'#F15A24',
+    primaryLight:"#e87949",
+    primaryLighter:"#f39e73",
+    primaryDark:" #d05022",
+   ...BasicDark
 }
