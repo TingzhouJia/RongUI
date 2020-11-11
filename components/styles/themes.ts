@@ -18,7 +18,8 @@ export const DefaultLightTheme:DefaultTheme={
     font:defaultFont,
     size:defaultFontSize,
     margin:defaultMargin,
-    padding:defaultPadding
+    padding:defaultPadding,
+    palette:palette
 }
 
 export const DefaultDarkTheme:DefaultTheme={
@@ -37,5 +38,7 @@ export const DefaultDarkTheme:DefaultTheme={
     font:defaultFont,
     size:defaultFontSize,
     margin:defaultMargin,
-    padding:defaultPadding
+    padding:defaultPadding,
+    palette:DarkPalette
+    
 }

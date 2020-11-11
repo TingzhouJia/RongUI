@@ -2,6 +2,7 @@
 import styled, { ThemeProvider, createGlobalStyle, DefaultTheme } from "styled-components"
 import { ThemeTypes } from "../utils"
 import { DefaultDarkTheme, DefaultLightTheme } from "./themes"
+import React from "react"
 
 const Global = createGlobalStyle`
     body {

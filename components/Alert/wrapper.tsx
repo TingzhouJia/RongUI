@@ -12,7 +12,8 @@ import styled, { css } from "styled-components";
 import {palette} from '../styles'
 import { ReactNode } from "react";
 import React from "react";
-import { AlertProps } from ".";
+import {AlertProps} from './alert'
+import { getColor, getBg, getBorder } from "../utils/getColor";
 
 export const iconMapFilled = {
     success: <CheckCircleFilled/>,
@@ -28,23 +29,18 @@ export const iconMapOutlined = {
     warning: <ExclamationCircleOutlined/>,
 };
 
-export const TypeBg={
-    error:palette.errorLighter,
-    success:palette.successLighter,
-    warning:palette.warningLighter,
-    info:palette.infoLighter
-}
-export const TypeIcon={
-    error:palette.errorDark,
-    success:palette.successDark,
-    warning:palette.warningDark,
-    info:palette.infoDark
-}
-export const TypeBd={
-    error:palette.error,
-    success:palette.success,
-    warning:palette.warning,
-    info:palette.info
+
+const paddingFinder=(desc?:boolean,icon?:boolean)=>{
+    if(desc&&icon){
+        return '15px 15px 15px 63px'
+    }
+    if(desc&&!icon){
+        return "15px"
+    }
+    if(!desc&&icon){
+        return "8px 15px 8px 37px"
+    }
+    return "8px 15px"
 }
 
 
@@ -75,28 +71,26 @@ export const CloseMsg = styled.span`
     font-size:16px;
     margin-bottom: 4px;
 `
-export const AlertIcon = styled.span<{type:ResultType}>`
+export const AlertIcon = styled.span<{type:ResultType,withDescription:boolean}>`
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size:18px;
-    left: 16px;
-    color:${props=>TypeIcon[props.type]}
+    top: ${props=>props.withDescription?"12px":"15px"};
+    font-size:${props=>props.withDescription?"24px":"18px"};
+    left: ${props=>props.withDescription?"24px":"16px"};
+    color:${props=>getColor(props.type,props.theme)};
 `
 export const CloseDescription = styled.span`
-    margin-left:16px;
     font-size: 14px;
     line-height: 22px;
 `
 
-export const AlertDiv = styled.div<AlertProps&{closed:boolean}>`
+export const AlertDiv = styled.div<{closed:boolean,message:boolean,description:boolean,type:any,closable:boolean,icon?:boolean}>`
     display: ${props => props.closed?'none':props.message ? 'block' : 'none'}; 
     position: relative;
-    padding: ${props=>props.icon?"":'8px 15px 8px 37px'};
-    background:${props=>TypeBg[props.type as ResultType]};
+    padding: ${props=>paddingFinder(props.description,props.icon)};
+    background:${props=>getBg(props.type,props.theme)};
     font-size:14px;
     line-height: 22px;
-    border: 1px solid ${props=>TypeBd[props.type as ResultType]};
+    border: 1px solid ${props=>getBorder(props.type,props.theme)};
     border-radius:2px;
     word-wrap: break-word;
     ${props=>props.closable?css`padding-right: 30px;`:''}
