@@ -30,6 +30,19 @@ export const iconMapOutlined = {
 };
 
 
+const paddingFinder=(desc?:boolean,icon?:boolean)=>{
+    if(desc&&icon){
+        return '15px 15px 15px 63px'
+    }
+    if(desc&&!icon){
+        return "15px"
+    }
+    if(!desc&&icon){
+        return "8px 15px 8px 37px"
+    }
+    return "8px 15px"
+}
+
 
 export const CloseBtn = styled.button`
     position: absolute;
@@ -58,24 +71,22 @@ export const CloseMsg = styled.span`
     font-size:16px;
     margin-bottom: 4px;
 `
-export const AlertIcon = styled.span<{type:ResultType}>`
+export const AlertIcon = styled.span<{type:ResultType,withDescription:boolean}>`
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size:18px;
-    left: 16px;
-    color:${props=>getColor(props.type,props.theme)}
+    top: ${props=>props.withDescription?"12px":"15px"};
+    font-size:${props=>props.withDescription?"24px":"18px"};
+    left: ${props=>props.withDescription?"24px":"16px"};
+    color:${props=>getColor(props.type,props.theme)};
 `
 export const CloseDescription = styled.span`
-    margin-left:16px;
     font-size: 14px;
     line-height: 22px;
 `
 
-export const AlertDiv = styled.div<AlertProps&{closed:boolean}>`
+export const AlertDiv = styled.div<{closed:boolean,message:boolean,description:boolean,type:any,closable:boolean,icon?:boolean}>`
     display: ${props => props.closed?'none':props.message ? 'block' : 'none'}; 
     position: relative;
-    padding: ${props=>props.icon?'8px 15px 8px 37px':`8px 15px`};
+    padding: ${props=>paddingFinder(props.description,props.icon)};
     background:${props=>getBg(props.type,props.theme)};
     font-size:14px;
     line-height: 22px;
