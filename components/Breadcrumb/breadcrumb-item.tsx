@@ -1,24 +1,13 @@
 import styled from "styled-components";
 import React, { ReactNode } from "react";
 import BreadSeperator from "./bread-seperator";
+import { LinkWrapper, SpanWrapper } from "./wrapper";
 export interface BreadcrumbItemProps {
     href?: string;
     onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLSpanElement>;
 }
 
 
-const LinkWrapper = styled.a`
- color: rgba(0,0,0,0.85);
-    transition: color 0.3s;
-    cursor:pointer;
-    &:hover {
-      color: #ff7a45 ;
-    };
-    & >  span,
-    >  a {
-      margin-left: 4px;
-    }
-`
 export const pickChild = (
     children: ReactNode | undefined,
     targetChild: React.ElementType,
@@ -38,12 +27,12 @@ export const pickChild = (
     return [withoutTargetChildren, targetChildren]
   }
 
-const SpanWrapper = styled.span(LinkWrapper)
+
 const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({  href, children, ...rest }) => {
     const [withoutSepChildren] = pickChild(children, BreadSeperator)
     let link;
     if (href) {
-        link = (<LinkWrapper id="bread-item-link" {...rest} >{withoutSepChildren}</LinkWrapper>)
+        link = (<LinkWrapper id="bread-item-link" href={href} {...rest}  >{withoutSepChildren}</LinkWrapper>)
     } else {
         link = (<SpanWrapper id="bread-item-span"  {...rest}>{withoutSepChildren}</SpanWrapper>)
     }
