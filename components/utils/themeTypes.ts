@@ -13,7 +13,7 @@ import { tuple } from "./type"
 // )
 const statusTypes = tuple('success', 'info', 'danger', 'warning');
 const resultTypes = tuple('success','error','info','warning')
-const buttomMode = tuple('link', 'dashed', 'primary', 'ghost', 'text', 'default')
+const buttomMode = tuple('link', 'dashed', 'primary', 'text', 'default')
 
 const normalSizes = tuple('small', 'large',"default")
 
