@@ -22,6 +22,6 @@ declare module 'styled-components' {
     size:ThemeFontType
     padding:PaddingRule
     margin:MarginRule
-    
+    palette:ThemePalette
   }
 }

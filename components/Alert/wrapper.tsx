@@ -12,7 +12,8 @@ import styled, { css } from "styled-components";
 import {palette} from '../styles'
 import { ReactNode } from "react";
 import React from "react";
-import { AlertProps } from ".";
+import {AlertProps} from './alert'
+import { getColor, getBg, getBorder } from "../utils/getColor";
 
 export const iconMapFilled = {
     success: <CheckCircleFilled/>,
@@ -28,24 +29,6 @@ export const iconMapOutlined = {
     warning: <ExclamationCircleOutlined/>,
 };
 
-export const TypeBg={
-    error:palette.errorLighter,
-    success:palette.successLighter,
-    warning:palette.warningLighter,
-    info:palette.infoLighter
-}
-export const TypeIcon={
-    error:palette.errorDark,
-    success:palette.successDark,
-    warning:palette.warningDark,
-    info:palette.infoDark
-}
-export const TypeBd={
-    error:palette.error,
-    success:palette.success,
-    warning:palette.warning,
-    info:palette.info
-}
 
 
 export const CloseBtn = styled.button`
@@ -81,7 +64,7 @@ export const AlertIcon = styled.span<{type:ResultType}>`
     transform: translateY(-50%);
     font-size:18px;
     left: 16px;
-    color:${props=>TypeIcon[props.type]}
+    color:${props=>getColor(props.type,props.theme)}
 `
 export const CloseDescription = styled.span`
     margin-left:16px;
@@ -92,11 +75,11 @@ export const CloseDescription = styled.span`
 export const AlertDiv = styled.div<AlertProps&{closed:boolean}>`
     display: ${props => props.closed?'none':props.message ? 'block' : 'none'}; 
     position: relative;
-    padding: ${props=>props.icon?"":'8px 15px 8px 37px'};
-    background:${props=>TypeBg[props.type as ResultType]};
+    padding: ${props=>props.icon?'8px 15px 8px 37px':`8px 15px`};
+    background:${props=>getBg(props.type,props.theme)};
     font-size:14px;
     line-height: 22px;
-    border: 1px solid ${props=>TypeBd[props.type as ResultType]};
+    border: 1px solid ${props=>getBorder(props.type,props.theme)};
     border-radius:2px;
     word-wrap: break-word;
     ${props=>props.closable?css`padding-right: 30px;`:''}
