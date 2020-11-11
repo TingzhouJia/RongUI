@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { expressiveness, palette } from "../styles";
-import { NormalSizes } from "../utils";
 
 export const clearfix = css`
 &::before {
@@ -16,26 +15,27 @@ export const clearfix = css`
 `
 
 export const CardContain = styled.div<{ hoverable?: boolean, size?: string, bordered?: boolean }>`
-position: relative;
-  background: #fff ;
+  position: relative;
+  background: ${props=>props.theme.colors.background} ;
+  font-size:${props=>props.size==='small'?'14px':'16px'};
   border-radius: 2px ;
   ${props => props.hoverable ? hover : null}
-  border:${props => props.bordered ? '1px solid #f0f0f0' : 'none'};
+  border:${props => props.bordered ? `1px solid ${props.theme.colors.borderColor}` : 'none'};
 
 `
 
 export const CardHeader = styled.div<{ size?: string }>`
     min-height: ${props => props.size === 'small' ? '36px' : '48px'};
     margin-bottom: -1px; 
-    padding: ${props => props.size === 'small' ? '5px' : '8px'} ${props => props.size === 'small' ? '10px' : '16px'};
-    color: rgba(0,0,0,0.85);
+    padding: ${props => props.size ==='small'? '0 12px' : '0 24px'};
+    color: ${props=>props.theme.colors.fontColor};
     font-weight: 500;
     font-size: ${props => props.size === 'small' ? '14px' : '16px'};
     background: #fff ;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 1px solid ${props=>props.theme.colors.borderColor};
     border-radius: 2px 2px 0 0;
     display: flex;
-      align-items: center;
+    align-items: center;
     ${clearfix}
 `
 
@@ -51,16 +51,15 @@ export const CardCover = styled.div`
 `
 
 export const CardBody = styled.div<{ size?: string }>`
-padding:${props => props.size === 'small' ? '10px' : '18px'};
+padding:${props => props.size === 'small' ? '12px' : '24px'};
 
 `
 
 export const CardExtra = styled.div<{ size?: string }>`
     float: right;
     margin-left: auto;
-    /* padding:${props => props.size === 'small' ? '8px' : '16px'}; */
-    color: rgba(0,0,0,0.85);
-    font-weight: normal;
+    padding:${props=>props.size==='small'?'8px 0':'16px 0'};
+    font-weight: 400;
     font-size: ${props => props.size === 'small' ? '12px' : '14px'};
 `
 
@@ -69,7 +68,7 @@ export const CardActions = styled.ul<{size?:string}>`
     padding: 0;
     list-style: none;
     background: #fff ;
-    border-top: 1px solid #d9d9d9;
+    border-top: 1px solid ${props=>props.theme.colors.borderColor};
     ${clearfix}
     display:flex;
     flex-direction:row;
@@ -118,11 +117,11 @@ export const CardActions = styled.ul<{size?:string}>`
 
 export const CardHeaderTitle = styled.h3<{small?:boolean}>`
       flex: 1;
-      font-size:${props=>props.small?"18px":"22px"};
       margin:0;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      padding:${props=>props.small?'8px 0':'16px 0'};
 `
 
 
@@ -134,7 +133,7 @@ export const CardMetaAvatar = styled.div`
 
 export const CardMetaTitle = styled.div`
 overflow: hidden;
-      color: rgba(0,0,0,0.85);
+      color: ${props=>props.theme.colors.fontColor};
       font-weight: 500;
       
       font-size: 16px;
@@ -143,7 +142,7 @@ overflow: hidden;
 `
 
 export const CardMetaDescription = styled.div`
-    color:rgba(0,0,0,0.45);
+    color: ${props=>props.theme.colors.fontColor};
 `
 
 export const CardMetaDetail = styled.div`
@@ -160,7 +159,7 @@ export const hover = css`
 cursor: pointer;
     transition: box-shadow 0.3s, border-color 0.3s;
     &:hover {
-      border-color: ${expressiveness.shadowLarge};
+      border-color: ${props=>props.theme.colors.borderColor};
       box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.12),
   0 5px 12px 4px rgba(0, 0, 0, 0.09);
     }
