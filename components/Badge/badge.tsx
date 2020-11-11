@@ -1,5 +1,5 @@
 import { LiteralUnion, ResultType, NormalSizes } from "../utils";
-import { BadgeBase, BadgeText, BadgeDot, BadgeNumber } from "./components";
+import { BadgeBase, BadgeText, BadgeDot, BadgeNumber } from "./wrapper";
 import React from "react";
 import { palette } from "../styles";
 
@@ -9,7 +9,6 @@ export interface Props {
     showZero?: boolean;
     /** Max count to show */
     maxCount?: number;
-
     /** whether to show red dot without number */
     dot?: boolean;
     style?: React.CSSProperties;
@@ -18,17 +17,11 @@ export interface Props {
     color?: string;
     text?: React.ReactNode;
     size?: 'default' | 'small';
-
 }
 type NativeAttrs = Omit<React.HTMLAttributes<any>, keyof Props>
 export type BadgeProps = Props & NativeAttrs
 
-const TypeBd = {
-    error: palette.error,
-    success: palette.success,
-    warning: palette.warning,
-    info: palette.info
-}
+
 const Badge: React.FC<BadgeProps> = ({ children,
     status,
     text,
@@ -47,76 +40,54 @@ const Badge: React.FC<BadgeProps> = ({ children,
             (count as number) > (maxCount as number) ? `${maxCount}+` : count;
         return displayCount as string | number | null;
     };
-
-    const hasStatus = (): boolean =>
-        (status !== null && status !== undefined) || (color !== null && color !== undefined);
     const isZero = () => {
         const numberedDisplayCount = getNumberedDisplayCount();
         return numberedDisplayCount === '0' || numberedDisplayCount === 0;
     };
 
-    const isDot = () => {
-        return (dot && !isZero()) || hasStatus();
-    };
-    const bdot=isDot()
-    const getDisplayCount = () => {
-        // dot mode don't need count
-        if (bdot) {
-            return '';
-        }
-        return getNumberedDisplayCount();
-    };
-    const isHidden = () => {
-        const displayCount = getDisplayCount();
-        const isEmpty = displayCount === null || displayCount === undefined || displayCount === '';
-        return (isEmpty || (isZero() && !showZero)) && !bdot;
-    };
-    const exactColor = () => {
-        if (hasStatus()) {
-            if (color) {
-                return color
-            }
-            return TypeBd[status as ResultType]
-        }else{
-            return "#bfbfbf"
-        }
-    }
+  
+  
+    
     const renderStatusText = () => {
-        const hidden = isHidden();
-        return hidden || !text ? null : <BadgeText id="badge-text">
+       
+        return (color|| text||status)&& <BadgeText id="badge-text">
             {text}
         </BadgeText>
     };
 
-    if (!children && hasStatus()) {
+    if (!children && (text||color||status)) {
 
         return (
-            <BadgeBase 
-            id="badge-base"
-            status={hasStatus()}
-           {...restProps} 
-            className={className} 
-           >
-                <BadgeDot id="badge-dot" color={exactColor()}  status={hasStatus()} />
+            <BadgeBase
+                id="badge-base"
+                className={className}
+            >
+                <BadgeDot id="badge-dot" istext={!children||!!text}  status={status||'info'} color={color}/>
                 <BadgeText id="badge-text" >
                     {text}
                 </BadgeText>
             </BadgeBase>
         );
     }
+    const renderBadgeNumber=()=>{
+        if(isZero()&&!showZero){
+            return <></>
+        }
+        return <BadgeNumber id="badge-number"   multi={ count.toString().length > 1}
+        small={size === 'small'}  style={style}
+        className={className} >
+        { getNumberedDisplayCount()}
+    </BadgeNumber>
+    }
     return (
-        <BadgeBase 
-        id="badge-base"
-        status={hasStatus()}
-        style={style}
-        className={className} 
-       >
-           {children}
-        <BadgeNumber id="badge-number" dot={isDot()} status={!!status} multi={(!bdot && count && count.toString().length > 1) as boolean} 
-        small={size==='small'} {...restProps} >
-           {getDisplayCount()}
-        </BadgeNumber>
-        {renderStatusText()}
+        <BadgeBase
+            id="badge-base"
+        >
+            {children}
+            {
+                dot?<BadgeDot id="badge-dot" istext={false} />:renderBadgeNumber()
+            }
+            {renderStatusText()}
         </BadgeBase>
     )
 }

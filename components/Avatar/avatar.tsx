@@ -2,11 +2,11 @@ import React, { useState, useMemo } from 'react'
 import { NormalSizes } from '../utils'
 import styled from 'styled-components'
 import { palette } from '../styles'
+import { AvatarContainer, AvatarImg, AvatarText } from './wrapper'
 
 export interface AvatarProps {
     /** Shape of avatar, options:`circle`, `square` */
     shape?: 'circle' | 'square';
-
     size?: NormalSizes | number;
     gap?: number;
     /** Src of image avatar */
@@ -39,37 +39,7 @@ const safeText = (text: string): string => {
     return text.slice(0, 4)
 }
 
-const AvatarContainer = styled.span<{ width: string, radius: string }>`
-    width:${props => props.width};
-    height:${props => props.width};
-    border-radius:${props => props.radius};
-    display: inline-block;
-    cursor:pointer;
-    
-    position: relative;
-    overflow: hidden;
-    vertical-align: top;
-    border:1px solid #d9d9d9;
-    background-color: ${palette.background};
-    vertical-align: top;
-`
-const AvatarText=styled.span`
- position: absolute;
- left: 50%;
- top: 50%;
- font-size: 1em;
- text-align: center;
- text-overflow:ellipsis;
- transform: translate(-50%, -50%) scale(0.65);
- white-space: nowrap;
- user-select: none;
-`
-const AvatarImg=styled.img<{radius:string}>`
-display: inline-block;
-width: 100%;
-height: 100%;
-border-radius: ${props=>props.radius};
-`
+
 
 const InnerAvatar: React.ForwardRefRenderFunction<unknown, NativeAttrs> = (props, ref) => {
     const { shape = "circle", size = "default", src, text="", alt, className, style,srcSet,icon,...rest } = props
@@ -78,7 +48,7 @@ const InnerAvatar: React.ForwardRefRenderFunction<unknown, NativeAttrs> = (props
   
 
     const width = getSize(size)
-    return (<AvatarContainer id="avatar-container" width={width} radius={radius} className={className} style={style}>
+    return (<AvatarContainer size={typeof size==='number'?'default':size} id="avatar-container" width={width} radius={radius} className={className} style={style}>
         {!showText?<AvatarImg id="avatar-img" srcSet={srcSet} src={src}  alt={alt} radius={radius} {...rest} />:<AvatarText id="avatar-text" {...rest}>{text?safeText(text):icon}</AvatarText>}
     </AvatarContainer>)
 }

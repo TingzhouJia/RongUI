@@ -134,12 +134,12 @@ export interface ThemeFontType {
         weight:string
         height: string;
     }
-    normal: {
+    default: {
         size: string;
         height: string;
         weight: string;
     }
-    larger: {
+    large: {
         size: string;
         height: string;
         weight: string;

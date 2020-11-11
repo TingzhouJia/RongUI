@@ -1,6 +1,7 @@
-import {  StatusTypes, ResultType } from "./themeTypes";
+import {  StatusTypes, ResultType, NormalSizes } from "./themeTypes";
 import { DefaultTheme } from "styled-components";
-export const getColor = (type: StatusTypes|ResultType | string,theme:DefaultTheme) => {
+import { ThemeTy } from "../styles";
+export const getColor = (type: StatusTypes|ResultType | string,theme:ThemeTy) => {
     if (type === "warning") {
         return theme.palette.warning
     }
@@ -20,7 +21,7 @@ export const getColor = (type: StatusTypes|ResultType | string,theme:DefaultThem
 }
 
 
-export const getBg=(type:StatusTypes|ResultType,theme:DefaultTheme,)=>{
+export const getBg=(type:StatusTypes|ResultType,theme:ThemeTy,)=>{
    
         switch(type){
             case 'danger':
@@ -38,7 +39,7 @@ export const getBg=(type:StatusTypes|ResultType,theme:DefaultTheme,)=>{
         }
 }
 
-export const getBorder=(type:StatusTypes|ResultType,theme:DefaultTheme,)=>{
+export const getBorder=(type:StatusTypes|ResultType,theme:ThemeTy,)=>{
     switch(type){
         case 'danger':
             return theme.palette.errorLight
@@ -52,5 +53,16 @@ export const getBorder=(type:StatusTypes|ResultType,theme:DefaultTheme,)=>{
             return theme.palette.warningLight
         default:
             return theme.palette.primaryLight
+    }
+}
+
+export const getSize=(size:NormalSizes,theme:ThemeTy)=>{
+    switch(size){
+        case 'small':
+            return theme.size.small
+        case 'default':
+            return theme.size.default
+        case 'large':
+            return theme.size.large
     }
 }

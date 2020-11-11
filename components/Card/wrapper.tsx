@@ -12,6 +12,7 @@ export const clearfix = css`
     clear: both;
     content: '';
   }
+  
 `
 
 export const CardContain = styled.div<{ hoverable?: boolean, size?: string, bordered?: boolean }>`
