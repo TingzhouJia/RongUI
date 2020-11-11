@@ -78,7 +78,7 @@ const Switcher = (mode?: StatusTypes, type?: ButtonModes) => {
             return css`
                 ${dashedMixin}
                 color:${props => mode ? getColor(mode, props.theme) : props.theme.colors.fontColor};
-                border-color:${props => mode ? getColor(mode, props.theme) : props.theme.colors.borderColor};
+                border-color:${props => mode ? getBorder(mode, props.theme) : props.theme.colors.borderColor};
                 ${
                 mode ? css`
                      opacity:0.75;
@@ -96,7 +96,7 @@ const Switcher = (mode?: StatusTypes, type?: ButtonModes) => {
                 ${normalMixin}
                 color:${props => props.theme.colors.fontColor};
                 background:transparent;
-                border-color:${props => mode ? getColor(mode, props.theme) : props.theme.colors.borderColor};
+                border-color:${props => mode ? getBorder(mode, props.theme) : props.theme.colors.borderColor};
                 &:hover,&:active,&:focus {
                     opacity:0.75;
                 ${
