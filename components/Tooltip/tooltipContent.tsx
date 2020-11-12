@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, useState, useImperativeHandle } from "react"
+import React, { MutableRefObject, useEffect, useRef, useState, useImperativeHandle, useContext } from "react"
 import { Placement, StatusTypes } from "../utils"
 import usePortal from "../utils/usePortal"
 import { TooltipPosition, defaultTooltipPosition, getPosition } from "./placement"
@@ -6,6 +6,7 @@ import { createPortal } from "react-dom"
 import { Inner, TooltopContentBase } from "./wrapper"
 import { getColor } from "../utils/getColor"
 import TooltipIcon from "./tooltipIcon"
+import { ThemeContext } from "styled-components"
 interface Props {
     parent?: MutableRefObject<HTMLElement | null> | undefined
     placement: Placement
@@ -67,7 +68,7 @@ const TooltipContent:React.FC<Props>=(props) => {
         if (!parent) return null
     const el = usePortal('tooltip')
     const selfRef = useRef<HTMLDivElement>(null)
-
+    const theme=useContext(ThemeContext)
     const [rect, setRect] = useState<TooltipPosition>(defaultTooltipPosition)
     const updateRect = () => {
         const position = getPosition(placement, getRect(parent as any), offset)
@@ -77,7 +78,7 @@ const TooltipContent:React.FC<Props>=(props) => {
         event.stopPropagation()
         event.nativeEvent.stopImmediatePropagation()
     }
-    const cur=type&&getColor(type)
+    const cur=type&&getColor(type,theme)
  
     useEffect(() => {
         updateRect()

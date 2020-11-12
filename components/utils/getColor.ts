@@ -1,5 +1,4 @@
 import {  StatusTypes, ResultType, NormalSizes } from "./themeTypes";
-import { DefaultTheme } from "styled-components";
 import { ThemeTy } from "../styles";
 export const getColor = (type: StatusTypes|ResultType | string,theme:ThemeTy) => {
     if (type === "warning") {

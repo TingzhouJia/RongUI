@@ -121,7 +121,7 @@ function getRCNoticeProps(args: ArgsProps, ): NoticeContent {
         style: args.style || {},
         className: args.className,
         content: (
-            <div style={{ color: getColor(args.type),display:'flex',flexDirection:'row',alignItems:"center" }}>
+            <div style={{ display:'flex',flexDirection:'row',alignItems:"center" }}>
                 {args.icon || (IconComponent && <IconComponent />)}
                 <span style={{marginLeft:'4px'}}>{args.content}</span>
             </div>

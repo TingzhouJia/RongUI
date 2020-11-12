@@ -73,7 +73,7 @@ const Badge: React.FC<BadgeProps> = ({ children,
         if(isZero()&&!showZero){
             return <></>
         }
-        return <BadgeNumber id="badge-number"   multi={ count.toString().length > 1}
+        return <BadgeNumber id="badge-number"   multi={ (count&&count.toString().length > 1) as boolean}
         small={size === 'small'}  style={style}
         className={className} >
         { getNumberedDisplayCount()}
@@ -85,7 +85,7 @@ const Badge: React.FC<BadgeProps> = ({ children,
         >
             {children}
             {
-                dot?<BadgeDot id="badge-dot" istext={false} />:renderBadgeNumber()
+                dot?<BadgeDot id="badge-dot" istext={false} status={status||'info'} />:renderBadgeNumber()
             }
             {renderStatusText()}
         </BadgeBase>

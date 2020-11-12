@@ -1,7 +1,6 @@
 import React from 'react'
 import { CardHeader, CardHeaderTitle, CardExtra, CardCover, CardBody, CardActions, CardContain } from './wrapper';
 import Meta, { CardMetaProps } from './meta'
-export { CardMetaProps }
 export type CardType = 'inner';
 export type CardSize = 'default' | 'small';
 

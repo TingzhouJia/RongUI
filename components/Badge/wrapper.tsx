@@ -9,7 +9,7 @@ export const BadgeBase = styled.span<{status?:boolean}>`
 `
 
 
-export const BadgeNumber=styled.span<{dot?:boolean,multi?:boolean,small?:boolean,}>`
+export const BadgeNumber=styled.span<{dot?:boolean,multi:boolean,small?:boolean,}>`
 
 position: absolute;
 top: 0;
@@ -44,7 +44,7 @@ cursor:pointer;
 
 `
 
-export const BadgeDot = styled.span<{color?:string,status?:string,istext?:boolean}>`
+export const BadgeDot = styled.span<{color?:string,status:string,istext?:boolean}>`
       width:6px;
       height: 6px;
       border-radius: 100%;

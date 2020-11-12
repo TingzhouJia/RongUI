@@ -1,15 +1,15 @@
 
 import styled, { ThemeProvider, createGlobalStyle, DefaultTheme } from "styled-components"
 import { ThemeTypes } from "../utils"
-import { DefaultDarkTheme, DefaultLightTheme } from "./themes"
+import { DefaultDarkTheme, DefaultLightTheme, ThemeTy } from "./themes"
 import React from "react"
 
 const Global = createGlobalStyle`
     body {
-        color:${props => props.theme.colors.fontColor};
-        font-family:${props => props.theme.font.mono + " " + props.theme.font.sans};
-        font-size:${props => props.theme.size.default.size};
-        line-height:${props => props.theme.size.default.height};
+        color:${(props:any) => props.theme.colors.fontColor};
+        font-family:${(props:any) => props.theme.font.mono + " " + props.theme.font.sans};
+        font-size:${(props:any) => props.theme.size.default.size};
+        line-height:${(props:any) => props.theme.size.default.height};
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -17,12 +17,12 @@ const Global = createGlobalStyle`
     }
 `
 export interface RongThemeProps {
-    theme: Partial<DefaultTheme>
+    theme: Partial<DefaultTheme|ThemeTy>
     mode: ThemeTypes
 }
 const RongTheme: React.FC<RongThemeProps> = ({ mode, theme, children }) => {
-    const init = mode === 'dark' ? { ...DefaultDarkTheme, ...theme } : { ...DefaultLightTheme, ...theme }
-    return <ThemeProvider theme={init}>
+    const init= mode === 'dark' ? { ...DefaultDarkTheme, ...theme } : { ...DefaultLightTheme, ...theme }
+    return <ThemeProvider theme={init as DefaultTheme}>
         <Global />
         {children}
     </ThemeProvider>

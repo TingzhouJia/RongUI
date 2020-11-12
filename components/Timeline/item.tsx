@@ -1,8 +1,9 @@
 import { StatusTypes } from "../utils";
-import React from 'react'
+import React, { useContext } from 'react'
 import { TimeItemBase, ItemContent, Itemlabel, ItemTail, ItemHead } from "./wrapper";
 import { getColor } from "../utils/getColor";
 import { useTimelineContext } from "./context";
+import { ThemeContext } from "styled-components";
 export interface TimeLineItemProps {
     className?: string;
     status?: 'success'|'error'|'default'|'disabled';
@@ -31,7 +32,7 @@ export interface TimeLineItemProps {
       ...restProps
     } = props;
   
-
+    const theme=useContext(ThemeContext)
     
   
     return (
@@ -44,7 +45,7 @@ export interface TimeLineItemProps {
           position={mode}
           pending={pending}
           labels={label?true:false}
-          color={color||getColor(status)}
+          color={color||getColor(status,theme)}
         >
           {dot}
         </ItemHead>

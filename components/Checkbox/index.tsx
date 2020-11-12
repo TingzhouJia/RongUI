@@ -2,7 +2,6 @@ import React from 'react'
 import {CheckBoxLabel} from './wrapper'
 import CheckBoxItem from './checkbox'
 import CheckboxGroup ,{CheckboxGroupProps,useCheckboxGroupContext} from './group'
-export {CheckboxGroupProps}
 export interface AbstractCheckboxProps {
     className?: string;
     defaultChecked?: boolean;

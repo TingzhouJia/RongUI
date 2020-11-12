@@ -1,4 +1,4 @@
-import React,{ useState, MutableRefObject, useEffect } from "react"
+import { useState, MutableRefObject, useEffect } from "react"
 
 export type ShapeType = {
     width: number
