@@ -161,7 +161,7 @@ ${props => props.nav ? css`
     display: flex;
     flex-direction:row;
     padding-right: 16px;
-    color: rgba(0,0,0,0.85);
+    color: ${props=>props.theme.colors.fontColor};
     font-size: 16px;
     line-height: 32px;
    
@@ -182,7 +182,7 @@ ${props => props.nav ? css`
       height: 1px;
        `
      }
-      background: ${props.actived?props.theme.colors.primary:'rgba(0,0,0,0.25)'};
+      background: ${props.actived?props.theme.colors.primary:'#fafafa'};
       content: '';
     }`
     }
@@ -271,7 +271,7 @@ export const StepIconDot = styled.div<{status?:Status,size?:'default'|'small',ve
     padding-right: 0;
     border-radius:50%;
     line-height: ${props=>props.actived?10:8}px;
-    background: ${props=>props.status==='error'?props.theme.palette.error:props.status==='wait'?'rgba(0,0,0,.25)':props.theme.colors.primary};
+    background: ${props=>props.status==='error'?props.theme.palette.error:props.status==='wait'?props.theme.colors.disabledColor:props.theme.colors.primary};
     border: 0;
 
 `

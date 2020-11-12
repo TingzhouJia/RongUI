@@ -7,7 +7,7 @@ export const HandleDiv=styled.div<{focused?:boolean,disabled?:boolean}>`
     width: 14px;
     height: 14px;
     background-color: #fff ;
-    border: solid 2px ${props=>ToRGBA(props.theme.colors.primary,0.7)};
+    border: solid 2px ${props=>props.theme.palette.primaryLight};
     border-radius: 50%;
     box-shadow: 0;
     cursor: pointer;
@@ -30,7 +30,7 @@ export const HandleDiv=styled.div<{focused?:boolean,disabled?:boolean}>`
 
 export const TrackBody=styled.div<{offset?:number,length?:number,vertical?:boolean,disabled?:boolean}>`
     position: absolute;
-    background-color: ${props=>props.disabled?"rgba(0,0,0,0.25)":props.theme.colors.primary};
+    background-color: ${props=>props.disabled?props.theme.colors.disabledBackground:props.theme.colors.primary};
     opacity:0.8;
     border-radius: 2px;
     transition: background-color 0.3s;
@@ -75,7 +75,7 @@ export const DotBody=styled.span<{disabled?:boolean,vertical?:boolean,active?:bo
     width: 8px;
     height: 8px;
     background-color: #fff ;
-    border: 2px solid ${props=>props.disabled?"rgba(0,0,0,0.25)":props.active?props.theme.colors.primary:"#d9d9d9"};
+    border: 2px solid ${props=>props.active?props.theme.colors.primary:"#d9d9d9"};
     border-radius: 50%;
     cursor: ${props=>props.disabled?"not-allowed":"pointer"};
     box-shadow: none;

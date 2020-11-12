@@ -66,7 +66,7 @@ ${props => props.pending ? css` display: none;` : null}
 export const ItemHead = styled.div<{ dot?: boolean, color?: string, pending?: boolean,position?:'left'|'right',labels?:boolean }>`
 ${props => props.pending ? css` font-size: 12px;
       background-color: transparent;`: null}
-      background-color: #fff ;
+      background-color: ${props=>props.theme.colors.background} ;
       border-color:${props => props.color};
       color:${props => props.color};
       ${props => props.dot ? css`
@@ -101,7 +101,7 @@ ${props => props.pending ? css` font-size: 12px;
 
 export const BasicTimeLine = styled.ul`
 box-sizing: border-box;
-    color: rgba(0,0,0,.85);
+    color: ${props=>props.theme.colors.fontColor};
     font-size: 14px;
 
     margin: 0;
