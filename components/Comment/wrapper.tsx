@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CommentsBase=styled.div`
       position: relative;
-      background-color: #fff ;
+      background-color: transparent ;
 `
 
 export const CommentAvatar=styled.div`
@@ -64,15 +64,10 @@ export const ContentAuthor=styled.div`
 `
 
 export const AuthorName=styled.span`
- color: rgba(0,0,0,0.85);
+ color: ${props=>props.theme.colors.fontColor};
         font-size: 14px;
         transition: color 0.3s;
-        > * {
-          color: rgba(0,0,0,0.85);
-          &:hover {
-            color:rgba(0,0,0,0.85);
-          }
-        }
+      
 `
 
 export const AuthorDate=styled.span`
