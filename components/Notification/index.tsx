@@ -166,13 +166,13 @@ function getNotificationInstance(
 
 function getRCNoticeProps(args: ArgsProps) {
     const duration = args.duration === undefined ? defaultDuration : args.duration;
-
+   
     let iconNode: React.ReactNode = null;
     if (args.icon) {
         iconNode = <WithIcon>{args.icon}</WithIcon>;
     } else if (args.type) {
         iconNode = React.createElement(typeToIcon[args.type] || null, {
-            style: { color: getColor(args.type) },
+           
         });
     }
 

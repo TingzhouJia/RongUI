@@ -1,6 +1,5 @@
 import Modal, { ModalFuncProps, destroyFns, } from "./modal";
-import BaseModal,{Dialog} from "./Dialog";
-import React from "react";
+import React, { useContext } from "react";
 import { ConfirmBody, ConfirmHeader, ConfirmTitle, ConfirmContent, ConfirmBtn } from "./wrapper";
 import * as ReactDOM from 'react-dom';
 import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
@@ -9,9 +8,8 @@ import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
 import { getColor } from "../utils/getColor";
 import Button from "../Button";
-import usePortal from "../utils/usePortal";
-import { ThemeProvider } from "styled-components";
-import { ThemeStore } from "../styles";
+import { ThemeProvider, ThemeContext } from "styled-components";
+
 
 
 interface ConfirmDialogProps extends ModalFuncProps {
@@ -48,6 +46,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = (props) => {
     const style = props.style || {};
     const mask = props.mask === undefined ? true : props.mask;
     const maskClosable = props.maskClosable === undefined ? false : props.maskClosable;
+    const theme=useContext(ThemeContext)
     const OkClick=()=>{
         onOk&&onOk()
         close()
@@ -82,7 +81,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = (props) => {
         >
             <ConfirmBody id="confirm-body">
                 <ConfirmHeader id="confirm-header">
-                    {React.cloneElement(icon as any,{style:{color:type&&type!=='confirm'?getColor(type):"#faad14"}})}
+                    {React.cloneElement(icon as any,{style:{color:type&&type!=='confirm'?getColor(type,theme):"#faad14"}})}
                     <ConfirmTitle id="confirm-title">{props.title}</ConfirmTitle>
                 </ConfirmHeader>
                 <ConfirmContent id="confirm-content">{props.content}</ConfirmContent>
@@ -133,13 +132,13 @@ export default function confirm(config: ModalFuncProps) {
     function render({ okText, cancelText, ...props }: any) {
 
        
-        ReactDOM.render(<ThemeProvider theme={ThemeStore}>
+        ReactDOM.render(
             <ConfirmDialog
                 {...props}
         
                 okText={okText || 'Yes'}
                 cancelText={cancelText || 'No'}/>
-        </ThemeProvider>,div)
+  ,div)
       
 
     }

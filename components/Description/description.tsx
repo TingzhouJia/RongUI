@@ -1,9 +1,8 @@
 import React from 'react'
-import toArray from '../utils/toArray';
 import { DescBase, DesHeader, DesTitle, DesExtra, DescView } from './wrapper';
 import DescriptionsItem, { DescriptionsItemProps } from './items';
 import Cell from './cell';
-export {DescriptionsItemProps}
+
 
 
   export interface BasicDescriptionsProps {

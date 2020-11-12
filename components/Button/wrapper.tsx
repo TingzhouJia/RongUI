@@ -47,7 +47,7 @@ const linkMixin = css`
     }
 `
 
-const Switcher = (mode?: StatusTypes, type?: ButtonModes) => {
+const Switcher = (mode: StatusTypes, type?: ButtonModes) => {
     switch (type) {
         case 'link':
             return css`
@@ -150,7 +150,7 @@ const shapeSwitcher = (shape?: 'round' | 'circle', size?: NormalSizes) => {
 }
 
 export 
-const BaseButton = styled.button.attrs((props: NativeButtonProps) => ({ type: props.htmlType, className: props.className, ctype: props.type }))`
+const BaseButton = styled.button<{ type: string, ctype:any,mode:any,shape:any,block:boolean,size:any }>`
 
 ${props => (Switcher(props.mode,props.ctype))}
 
@@ -160,7 +160,7 @@ font-weight: 300;
 ${props => props.disabled ? disabledMixin : ''}
 
 
-${props => shapeSwitcher(props.shape)}
+${props => shapeSwitcher(props.shape,props.size)}
 white-space: nowrap;
 text-align: center;
 display:flex;

@@ -1,4 +1,5 @@
-import Button, { ButtonProps } from "../Button";
+import Button from "../Button";
+import {BaseButtonProps} from '../Button/button'
 import React from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import { ModalCloseX } from "./wrapper";
@@ -19,8 +20,8 @@ export interface ModalProps {
     okText?: React.ReactNode;
     cancelText?: React.ReactNode;
     maskClosable?: boolean;
-    okButtonProps?: ButtonProps;
-    cancelButtonProps?: ButtonProps;
+    okButtonProps?: BaseButtonProps;
+    cancelButtonProps?: BaseButtonProps;
     style?: React.CSSProperties;
     className?: string;
     maskClassName?: string
@@ -40,8 +41,8 @@ export interface ModalFuncProps {
     content?: React.ReactNode;
     onOk?: (...args: any[]) => any;
     onCancel?: (...args: any[]) => any;
-    okButtonProps?: ButtonProps;
-    cancelButtonProps?: ButtonProps;
+    okButtonProps?: BaseButtonProps;
+    cancelButtonProps?: BaseButtonProps;
     centered?: boolean;
     width?: number;
     okText?: React.ReactNode;

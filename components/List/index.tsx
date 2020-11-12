@@ -1,5 +1,6 @@
 import React from 'react'
-import Pagination, { PaginationProps } from '../Pagination';
+import Pagination from '../Pagination';
+import {PaginationProps} from '../Pagination/pagination'
 import { ListPagination, ListHeader, ListFooter, ListBase } from './wrapper';
 import Item from './item'
 export type ListItemLayout = 'horizontal' | 'vertical';

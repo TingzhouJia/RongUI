@@ -49,8 +49,8 @@ const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonP
 
     return (<BaseButton
         id="base-button"
-        {...rest}
-        type={type}
+       type={htmlType as any}
+        ctype={type}
         ref={buttonRef}
         onClick={handleClick}
         mode={mode}

@@ -1,7 +1,8 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import Tooltip from '../Tooltip'
-import Button, { ButtonProps } from '../Button'
+import Button from '../Button'
+import {BaseButtonProps} from '../Button/button'
 import TooltipContent from '../Tooltip/tooltipContent'
 import { PopConfirmBase, PopconfirmButtons, PopconfirmMessage, PopconfirmTitle } from './wrapper'
 import { Placement } from '../utils'
@@ -11,12 +12,12 @@ import { TooltipBase } from '../Tooltip/wrapper'
 
 export interface PopconfirmProps {
     cancelText?: string
-    cancelType?: ButtonProps
+    cancelType?: BaseButtonProps
     disabled?: boolean
     icon?: React.ReactNode
     confirmText?: string
     title?: React.ReactNode
-    confirmType?: ButtonProps
+    confirmType?: BaseButtonProps
     onConfirm?: () => void
     onCancel?: () => void
 }
