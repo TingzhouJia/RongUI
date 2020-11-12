@@ -1,5 +1,6 @@
 
-export {default as RongThemeProvider} from './styles/themeProvider'
+export {DefaultDarkTheme,DefaultLightTheme} from './styles/themes'
+export {default as RongTheme} from './styles/themeProvider'
 export {default as Alert} from './Alert'
 export {default as AutoComplete} from './Autocomplete'
 export {default as Avatar} from './Avatar'

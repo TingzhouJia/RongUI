@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components'
 
 import Cascader from '../components/Cascader/cascader';
+import Alert from '../components/Alert/alert';
 
 
 function App() {
@@ -87,11 +88,9 @@ function App() {
           <p>Some contents...</p>
           <p>Some contents...</p>
         </Modal> */}
-        <Cascader options={optionss}/>
-     
-         </>
+        <Alert message="good"/>
       
-   
+   </>
 
   );
 }

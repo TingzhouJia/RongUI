@@ -1,9 +1,9 @@
 {
   "name": "rong-react",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "main": "dist/index.js",
   "module": "es/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/components/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/TingzhouJia/Rong"
@@ -51,7 +51,7 @@
     "test": "jest --watch",
     "clear": "rm -rf ./dist",
     "build:webpack": "webpack --config scripts/webpack.config.js",
-    "build:types": "tsc -p ./scripts",
+    "build:types": "tsc ",
     "build":"npm run clear && npm run build:webpack && npm run build:types"
   },
   "dependencies": {
