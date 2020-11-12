@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const ModalContentWrap=styled.div`
 position: relative;
-    background-color: #fff;
+    background-color: ${props=>props.theme.colors.background};
     background-clip: padding-box;
     border: 0;
     border-radius: 2px;
@@ -13,7 +13,7 @@ position: relative;
 
 export const ModalTitleWrap=styled.div`
     margin: 0;
-    color: rgba(0,0,0,.85);
+    color: ${props=>props.theme.colors.fontColor};
     font-weight: 500;
     font-size: 16px;
     line-height: 22px;
@@ -26,7 +26,7 @@ export const ModalFooterWrap=styled.div`
     flex-direction:row;
     justify-content:flex-end;
     background: 0 0;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid ${props=>props.theme.colors.borderColor};
     border-radius: 0 0 2px 2px;
     & > button {
         margin-left:20px;
@@ -36,8 +36,8 @@ export const ModalFooterWrap=styled.div`
 export const ModalHeaderWrap=styled.div`
     padding: 16px 24px;
     color: rgba(0,0,0,.85);
-    background: #fff;
-    border-bottom: 1px solid #f0f0f0;
+    background: ${props=>props.theme.colors.background};
+    border-bottom: 1px solid ${props=>props.theme.colors.borderColor};
     border-radius: 2px 2px 0 0;
 `
 
@@ -72,7 +72,7 @@ export const ModalmaskWrap=styled.div`
     left: 0;
     z-index: 999;
     height: 100%;
-    background-color: rgba(0,0,0,.45);  
+    background-color: ${props=>props.theme.expressiveness.maskColor};  
 `
 
 export const ModalRenderRoot=styled.div``

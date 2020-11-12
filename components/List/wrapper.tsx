@@ -16,7 +16,7 @@ margin-right: 16px;
 export const ItemMetaContent = styled.div`
         flex: 1 0;
         width: 0;
-        color: rgba(0,0,0,0.85);
+        color:${props=>props.theme.colors.fontColor};
 `
 
 export const ItemMetaDescription = styled.div`
@@ -27,11 +27,11 @@ export const ItemMetaDescription = styled.div`
 
 export const ItemMetaTitle = styled.div`
 margin-bottom: 4px;
-        color: rgba(0,0,0,0.85);
+        color: ${props=>props.theme.colors.fontColor};
         font-size: 14px;
         line-height: 22px;
         > a {
-          color: rgba(0,0,0.85);
+          color: ${props=>props.theme.colors.fontColor};
           transition: all 0.3s;
           &:hover {
             color: ${props => props.theme.colors.primary};
@@ -89,11 +89,11 @@ export const ItemExtra = styled.div`
 
 export const ItemWrap = styled.div<{ flex?: boolean, bordered?: boolean, size?: 'small' | 'default' | 'large' }>`
   padding: ${props=>props.size === 'large' ? "16px 24px" : props.size === 'small' ? "8px 16px" : "12px 20px"};
-  ${props=>props.bordered ? css`border-bottom: 1px solid #d9d9d9 ;
+  ${props=>props.bordered ? css`border-bottom: 1px solid ${props=>props.theme.colors.borderColor}; ;
     &:last-child {
-      border-bottom: ${props.bordered ? "1px solid #d9d9d9" : "none"};
+      border-bottom: ${props.bordered ? "1px solid "+props.theme.colors.borderColor : "none"};
     }`: null}
-  color: rgba(0,0,0,0.85);
+  color: ${props=>props.theme.colors.fontColor};
     ${props => props.flex ? css`
     display: flex;
     align-items: center;
@@ -109,7 +109,7 @@ export const ItemWrap = styled.div<{ flex?: boolean, bordered?: boolean, size?: 
 
 
 export const ItemLi = styled.li<{ flex?: boolean, bordered?: boolean, size?: 'small' | 'default' | 'large' }>`
-color: rgba(0,0,0,0.85);
+color: ${props=>props.theme.colors.fontColor};
 padding: ${props=>props.size === 'large' ? "16px 24px" : props.size === 'small' ? "8px 16px" : "12px 20px"};
 
 ${props => props.flex ? css`
@@ -121,9 +121,9 @@ ${props => props.flex ? css`
     display: block;
     max-width: 100%;
     `}
-    ${props=>props.bordered ? css`border-bottom: 1px solid #d9d9d9 ;
+    ${props=>props.bordered ? css`border-bottom: 1px solid ${props=>props.theme.colors.borderColor}; ;
     &:last-child {
-      border-bottom: ${props.bordered ? "1px solid #d9d9d9" : "none"};
+      border-bottom: ${props.bordered ? "1px solid "+props.theme.colors.borderColor : "none"};
     }`: null}
     
 `
@@ -140,7 +140,7 @@ export const ListHeader = styled.div<{ bordered?: boolean, size?: 'small' | 'def
     font-size:${props=>props.size === 'large' ? '24px' : props.size === 'small' ? '18px' : '22px'};
     padding: ${props=>props.size === 'large' ? '16px 24px' : props.size === 'small' ? '8px 16px' : '12px 20px'};
     ${
-      props=>props.bordered?css`border-bottom:1px solid #d9d9d9 ;`:null
+      props=>props.bordered?css`border-bottom:1px solid ${props.theme.colors.borderColor} ;`:null
     }
 `
 
@@ -159,7 +159,7 @@ export const ListBase = styled.div<{
 }>`
     position: relative;
     ${props => props.bordered ? css`
-        border: 1px solid #d9d9d9 ;
+        border: 1px solid ${props.theme.colors.borderColor} ;
        
     `: css`border:none;`}
     border-radius: 2px;

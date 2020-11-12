@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { tuple } from '../utils';
 import { palette } from '../styles';
 import {CloseOutlined,CheckCircleFilled, CloseCircleFilled, CheckOutlined} from '@ant-design/icons'
 import {ProgressText} from './wrapper'
 import LineProgress from './line';
+import {  ThemeContext } from 'styled-components';
 const ProgressStatuses = tuple('normal', 'error', 'success');
 export type ProgressSize = 'default' | 'small';
 export interface ProgressProps {
@@ -26,6 +27,8 @@ export interface ProgressProps {
 }
 const Progress:React.FC<ProgressProps>=(props)=>{
     const {className,percentage=0,active=false,status,showInfo=true,background,color,format}=props
+    const themeContext = useContext(ThemeContext);
+    
     const getPercentNumber=() =>{
    
         return parseInt(
@@ -35,12 +38,12 @@ const Progress:React.FC<ProgressProps>=(props)=>{
       }
     const getColor=()=>{
         if(status==="success"||String(percentage)==="100"){
-            return palette.success
+            return themeContext.colors.success
         }
         if(status==="error"){
-            return palette.error
+            return themeContext.colors.error
         }
-        return color||palette.info
+        return color||themeContext.colors.info
     }
     const getProgressStatus=() =>{
     

@@ -70,13 +70,13 @@ export const AffixWrapper = styled.div<{
     ${
       props=>props.withPS&&!props.disabled&&!props.borderless?css`
           border: 1px solid ${
-            props.focused?props.theme.colors.primary:"#d9d9d9"
+            props.focused?props.theme.colors.primary:props.theme.colors.borderColor
           } ;
       `:null
     }
     ${
-    props=>props.disabled&&!props.borderless?css`border:1px solid #d9d9d9;color: rgba(0,0,0,.25);
-    background-color: #f5f5f5;`:css`border:none;`
+    props=>props.disabled&&!props.borderless?css`border:1px solid ${props.theme.colors.borderColor};color: ${props.theme.colors.disabledColor};
+    background-color: ${props.theme.colors.disabledBackground}`:css`border:none;`
   }
   ${
     props=>props.disabled?css` cursor:not-allowed;`:null
@@ -98,8 +98,8 @@ export const AddOnWrapper = styled.div<{ size?: 'small' | 'large' | 'default' ,r
     font-weight: 400;
     font-size: 14px;
     text-align: center;
-    background-color: #fafafa;
-    border: 1px solid #d9d9d9;
+    background-color: ${props=>props.theme.colors.background};
+    border: 1px solid ${props=>props.theme.colors.borderColor};
     display:flex;
     border-radius:2px;
     ${
@@ -131,8 +131,8 @@ export const WithAddOnWrapper = styled.span<{disabled?:boolean}>`
     props=>props.disabled?css`
   
     &, &> * {
-      color: rgba(0,0,0,.25);
-    background-color: #f5f5f5;
+      color: ${props.theme.colors.disabledColor};
+    background-color: ${props.theme.colors.disabledBackground};
     cursor:not-allowed;
     }
     
@@ -160,13 +160,13 @@ font-size:${props => props.sizes === "small" ? "14px" : props.sizes === "default
     color: rgba(0,0,0,.85);
     height:${props=>props.sizes==='large'?'25px':'22px'};
     line-height: 1.5715;
-    background-color: #fff;
+    background-color: ${props=>props.theme.colors.background};
     background-image: none;
    
     ${
       props=>!props.withPS&&!props.disabled&&props.bordered?css`
       border: 1px solid ${
-        props.focused?props.theme.colors.primary:"#d9d9d9"
+        props.focused?props.theme.colors.primary:props.theme.colors.borderColor
       } ; 
       &:hover {
         border-color:${props.theme.colors.primary};
@@ -178,7 +178,7 @@ font-size:${props => props.sizes === "small" ? "14px" : props.sizes === "default
       outline:none;
     }
 ${
-  props => props.disabled ? css`cursor:not-allowed; background:#f5f5f5;` : null
+  props => props.disabled ? css`cursor:not-allowed; background:${props.theme.colors.disabledBackground};` : null
   }
 
 &:-webkit-autofill {
@@ -190,7 +190,7 @@ ${
 `
 
 export const SearchIconWrapper = styled.div`
-border-left:1px solid #d9d9d9;
+border-left:1px solid ${props=>props.theme.colors.borderColor};
 padding-left:15px;
 margin-left:5px;
 display:flex;
@@ -200,13 +200,13 @@ align-items:center;
 `
 
 export const TextAreaBase=styled.textarea<{disabled?:boolean,bordered?:boolean}>`
-    max-width: 100%; // prevent textearea resize from coming out of its container
+    max-width: 100%; 
     height: auto;
     min-height: 32px;
     line-height: 32px;
     vertical-align: bottom;
     transition: all 0.3s, height 0s;
-    border:${props=>props.bordered?"1px solid #d9d9d9":null};
+    border:${props=>props.bordered?"1px solid "+props.theme.colors.borderColor:null};
     outline:none;
     &:hover,&:active,&:focus {
       border-color:${props=>props.disabled?"none":props.theme.colors.primary};

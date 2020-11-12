@@ -23,7 +23,7 @@ export const TreeFileWrapper=styled.div<{level:number,disabled?:boolean}>`
           margin-left: calc(1.875rem * ${props=>props.level+1});
           ${props=>props.disabled?css`
           & > * {
-            color:rgba(0,0,0,0.25);
+            color:${props=>props.theme.colors.disabledColor};
           }
           `:null}
 `
@@ -47,7 +47,7 @@ export const FileIcon=styled.span<{disabled?:boolean}>`
 export const FileNameWrap=styled.span<{disabled?:boolean}>`
 
           transition: opacity 100ms ease 0ms;
-          color: ${props=>props.disabled?"rgba(0,0,0,0.45)":"rgba(0,0,0,0.85)"};
+          color: ${props=>props.disabled?props.theme.colors.disabledColor:props.theme.colors.fontColor};
           white-space: nowrap;
           font-size: 0.875rem;
           &:hover {

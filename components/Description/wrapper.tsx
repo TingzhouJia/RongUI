@@ -18,8 +18,8 @@ export const DesItemContainer=styled.div<{direction?:'vertical'|'horizontal',bor
  align-self:stretch;
     justify-self:stretch;
  align-items:${props=>props.direction==='vertical'?'flex-start':'flex-start'};
- border-left:${props=>props.bordered?'1px solid #f0f0f0':'none'};
- border-top:${props=>props.bordered?'1px solid #f0f0f0':'none'};
+ border-left:${props=>props.bordered?'1px solid '+props.theme.colors.borderColor:'none'};
+ border-top:${props=>props.bordered?'1px solid '+props.theme.colors.borderColor:'none'};
  /* width:${props=>100/props.column+'%'}; */
 `
 
@@ -31,7 +31,7 @@ export const DesItemLabel=styled.span<{colon?:boolean,layout?:'vertical'|'horizo
     align-self:stretch;
     ${props=>props.bordered?css`
         background-color:#fafafa ;
-       ${props.layout==='vertical'?css` border-bottom:1px solid #f0f0f0 ;`:css` border-right:1px solid #f0f0f0 ;`}
+       ${props.layout==='vertical'?css` border-bottom:1px solid ${props.theme.colors.borderColor} ;`:css` border-right:1px solid ${props.theme.colors.borderColor} ;`}
     `:''}
 
     ${props=>props.labelExist?css`
@@ -113,6 +113,6 @@ export const DescView=styled.div<{bordered?:boolean}>`
     flex-wrap:wrap;
     overflow: hidden;
     border-radius:2px;
-    border-bottom:${props=>props.bordered?'1px solid #f0f0f0':'none'};
-    border-right:${props=>props.bordered?'1px solid#f0f0f0':'none'};
+    border-bottom:${props=>props.bordered?'1px solid '+props.theme.colors.borderColor:'none'};
+    border-right:${props=>props.bordered?'1px solid '+props.theme.colors.borderColor:'none'};
 `

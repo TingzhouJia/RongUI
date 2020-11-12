@@ -53,19 +53,6 @@ background-color:${props=>props.bg};
 `
 
 
-const CircleText=css`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    line-height: 1;
-    white-space: normal;
-    text-align: center;
-    transform: translate(-50%, -50%);
-`
 
 
 const ProgressAnimi = keyframes`

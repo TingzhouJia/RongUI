@@ -32,7 +32,7 @@ export const palette:ThemePalette = {
 }
 
 export const BasicDark={
-    background:"#000",
+    background:"#141414",
     fontColor:"#fff",
     disabledBackground:"#8c8c8c",
     disabledColor:"rgba(0,0,0,.45)",
