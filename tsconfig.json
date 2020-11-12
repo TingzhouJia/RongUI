@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": "../",
+    "baseUrl": "",
     "outDir": "../dist",
     "declaration": true,
-    "emitDeclarationOnly": true,
     "strictNullChecks": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "jsx": "react",
     "noUnusedParameters": false,
+    "noEmit": false,
     "noUnusedLocals": false,
     "noImplicitAny": true,
     "target": "es5",
@@ -26,12 +26,12 @@
     "isolatedModules": true
   },
   "files": [
-    "../components/index.ts"
+    "./components/index.ts"
   ],
   "include": [
     "src",
     "components",
-    "../setupTests.ts", "setupTests.ts"
+     "setupTests.ts"
   ],
   "exclude": ["lib", "es", "node_modules", "__tests__", "stories", "mdx","src/bundle.js"],
 }

@@ -7,14 +7,7 @@ export const GridItemWrap=styled.div<{justify?:string, direction?:string,
     alignContent?:string,
     layout:{ [key in ['xs', 'sm', 'md', 'lg', 'xl'][number]]: ItemLayoutValue},
     type:'xs'|'sm'|'md'|'lg'|'xl'}>`
-    @media only screen and (min-width: ${props=>props.theme.breakpoints[props.type].min}) {
-  
-          flex-grow: ${props=>props.layout[props.type].grow};
-          max-width: ${props=>props.layout[props.type].width};
-          flex-basis: ${props=>props.layout[props.type].basis};
-          ${props=>props.layout.lg.display}
-        
-    }
+
     ${props=>props.justify?css`
     justify-content: ${props.justify};
     `:null};

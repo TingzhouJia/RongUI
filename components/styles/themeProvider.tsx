@@ -21,8 +21,16 @@ export interface RongThemeProps {
     mode: ThemeTypes
 }
 const RongTheme: React.FC<RongThemeProps> = ({ mode, theme, children }) => {
-    const init= mode === 'dark' ? { ...DefaultDarkTheme, ...theme } : { ...DefaultLightTheme, ...theme }
-    return <ThemeProvider theme={init as DefaultTheme}>
+    const {colors,padding,palette,expressiveness,font,size,margin}=theme
+    const curcolor={...(mode === 'dark'?DefaultDarkTheme.colors:DefaultLightTheme.colors),...colors}
+    const curpadding={...(DefaultLightTheme.padding),...padding}
+    const curmargin={...(DefaultLightTheme.margin),...margin}
+    const curpalette={...(mode === 'dark'?DefaultDarkTheme.palette:DefaultLightTheme.palette),...palette}
+    const curfont={...DefaultLightTheme.font,...font}
+    const curexpres={...DefaultDarkTheme.expressiveness,...expressiveness}
+    const cursize={...DefaultDarkTheme.size,...size}
+    const init:DefaultTheme= {colors:curcolor,padding:curpadding,margin:curmargin,palette:curpalette,font:curfont,expressiveness:curexpres,size:cursize}
+    return <ThemeProvider theme={init }>
         <Global />
         {children}
     </ThemeProvider>

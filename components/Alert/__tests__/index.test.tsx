@@ -1,4 +1,4 @@
-import Alert, { AlertProps } from '..'
+import Alert, { AlertProps } from '../alert'
 import 'jest-styled-components'
 import { shallow, mount } from 'enzyme'
 import renderer from 'react-test-renderer'

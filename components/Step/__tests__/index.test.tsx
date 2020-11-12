@@ -1,8 +1,8 @@
 import 'jest-styled-components'
 import React from 'react'
-import Steps from '../index'
+import Steps from '../steps'
 import { mountWithTheme } from '../../utils/testUtils'
-import { palette } from '../../styles'
+
 
 describe('Steps Test', () => {
     it("should render steps", () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import Step from './step'
+import Steps from './steps'
 export interface StepsProps {
     type?: 'default' | 'navigation';
     className?: string;
@@ -26,4 +26,4 @@ export interface StepsProps {
     style?: React.CSSProperties;
   }
 
-  export default Step
+  export default Steps

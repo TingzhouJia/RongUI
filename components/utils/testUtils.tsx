@@ -1,17 +1,18 @@
 import { mount, shallow, ReactWrapper } from "enzyme"
 import { ThemeProvider } from 'styled-components'
 import React from "react";
-import { ThemeStore } from "../styles";
+
 import { act } from 'react-dom/test-utils'
+import { DefaultLightTheme } from "../styles";
 export function mountWithTheme(child: any) {
     return mount(child, {
-        wrappingComponent: ({ children }: { children: any }) => <ThemeProvider theme={ThemeStore}>{children}</ThemeProvider>,
+        wrappingComponent: ({ children }: { children: any }) => <ThemeProvider theme={DefaultLightTheme}>{children}</ThemeProvider>,
     });
 }
 
 export function shallowWithTheme(child: any) {
     return shallow(child, {
-        wrappingComponent: ({ children }: { children: any }) => <ThemeProvider theme={ThemeStore}>{children}</ThemeProvider>,
+        wrappingComponent: ({ children }: { children: any }) => <ThemeProvider theme={DefaultLightTheme}>{children}</ThemeProvider>,
     });
 }
 
