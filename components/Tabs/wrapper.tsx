@@ -31,7 +31,7 @@ export const TabItem = styled.div<{ disabled?: boolean, active?: boolean }>`
             text-transform: capitalize;
             font-size: 1rem;
             margin: 0 5px;
-            color: ${props => props.disabled ? "rgba(0,0,0,0.25)" : "rgba(0,0,0,0.85)"};
+            color: ${props => props.disabled ? "rgba(0,0,0,0.25)" :props.theme.colors.fontColor};
             user-select: none;
             display: flex;
             align-items: center;

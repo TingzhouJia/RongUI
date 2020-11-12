@@ -24,9 +24,9 @@ export const CollapseArrow = styled.div<{ disabled?: boolean, right?: boolean }>
       }
 `
 
-export const CollapseBase = styled.div<{ border?: boolean, ghost?: boolean }>`
-  background-color: ${props => props.ghost ? "transparent" : "#fff"} ;
-  border: ${props => props.border ? '1px solid #d9d9d9' : 'none'};
+export const CollapseBase = styled.div<{ border?: boolean,}>`
+  background-color:  "#fff" ;
+  border: ${props => props.border ? '1px solid '+props.theme.colors.borderColor : 'none'};
   border-radius:2px;
   ${clearfix}
   &:hover,&:focus,&:active,& {
@@ -53,7 +53,7 @@ export const CollapseHeader = styled.div<{ arrow?: boolean, right?: boolean }>`
 `
 
 export const PanelBase = styled.div<{ active?: boolean, disable?: boolean, ghost?: boolean }>`
-    border-bottom: ${props => props.ghost ? "0" : "1px solid #d9d9d9"};
+    border-bottom: ${props =>  "1px solid "+props.theme.colors.borderColor};
     &:last-child {
       &,
       & > div {
@@ -73,23 +73,21 @@ export const PanelExtra = styled.div`
   }
 `
 
-export const PanelContentWrap = styled.div<{ isActive: boolean, border?: boolean, ghost?: boolean }>`
+export const PanelContentWrap = styled.div<{ isActive: boolean, border?: boolean }>`
     overflow: hidden;
     display:${props => props.isActive ? 'block' : 'none'};
     color: rgba(0,0,0,0.85);
-    background-color: ${props => props.border || props.ghost ? "transparent" : "#fff"} ;
-    border-top: ${props => props.border ? "1px solid #d9d9d9" : "0"};
+    background-color: "#fff";
+    border-top: ${props => props.border ? "1px solid "+props.theme.colors.borderColor : "0"};
     &:hover,&:focus,&:active,& {
     outline:none;
   }
 
 `
 
-export const PanelContentBox = styled.div<{ border?: boolean, ghost?: boolean }>`
+export const PanelContentBox = styled.div<{ border?: boolean }>`
 ${props => props.border ? null : css`padding-top: 4px;`};
-padding:0px 16px;
-${props => props.ghost ? css` padding-top: 12px;
-          padding-bottom: 12px;`: null}
+padding: 16px;
           &:hover,&:focus,&:active,& {
     outline:none;
   };

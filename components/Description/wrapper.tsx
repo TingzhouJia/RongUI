@@ -18,8 +18,8 @@ export const DesItemContainer=styled.div<{direction?:'vertical'|'horizontal',bor
  align-self:stretch;
     justify-self:stretch;
  align-items:${props=>props.direction==='vertical'?'flex-start':'flex-start'};
- border-left:${props=>props.bordered?'1px solid rgba(0,0,0,0.45)':'none'};
- border-top:${props=>props.bordered?'1px solid rgba(0,0,0,0.45)':'none'};
+ border-left:${props=>props.bordered?'1px solid '+props.theme.colors.borderColor:'none'};
+ border-top:${props=>props.bordered?'1px solid '+props.theme.colors.borderColor:'none'};
  /* width:${props=>100/props.column+'%'}; */
 `
 
@@ -31,11 +31,11 @@ export const DesItemLabel=styled.span<{colon?:boolean,layout?:'vertical'|'horizo
     align-self:stretch;
     ${props=>props.bordered?css`
         background-color:#fafafa ;
-       ${props.layout==='vertical'?css` border-bottom:1px solid rgba(0,0,0,0.45);`:css` border-right:1px solid rgba(0,0,0,0.45);`}
+       ${props.layout==='vertical'?css` border-bottom:1px solid ${props.theme.colors.borderColor} ;`:css` border-right:1px solid ${props.theme.colors.borderColor} ;`}
     `:''}
 
     ${props=>props.labelExist?css`
-    color: rgba(0,0,0,0.85);
+    color: ${props.theme.colors.fontColor};
     font-weight: normal;
 
     font-size: 14px;
@@ -60,7 +60,7 @@ export const DesItemLabel=styled.span<{colon?:boolean,layout?:'vertical'|'horizo
 export const DesItemContent=styled.span<{vertical?:boolean,size?:NormalSizes}>`
     display: flex;
     flex: 1;
-    color: rgba(0,0,0,0.85);
+    color: ${props=>props.theme.colors.fontColor};
     font-size: 14px;
     line-height: 22px;
     align-self:stretch;
@@ -75,7 +75,7 @@ export const DesItemContent=styled.span<{vertical?:boolean,size?:NormalSizes}>`
 export const DesTitle=styled.h3<{size:NormalSizes,bordered?:boolean}>`
     flex: auto;
     overflow: hidden;
-    color: rgba(0,0,0,0.85);
+    color: ${props=>props.theme.colors.fontColor};
     font-weight: bold;
     font-size: ${props=>props.size==='small'?'16px':props.size==='default'?'20px':'24px'};
     padding-left:${props=>props.bordered?'0':props.size==='small'?'12px':props.size==='default'?'16px':'20px'};
@@ -87,7 +87,7 @@ export const DesTitle=styled.h3<{size:NormalSizes,bordered?:boolean}>`
 
 export const DesExtra=styled.div`
     margin-left: auto;
-    color: rgba(0,0,0,0.85);
+    color: ${props=>props.theme.colors.fontColor};
     font-size: 14px;
 `
 
@@ -113,6 +113,6 @@ export const DescView=styled.div<{bordered?:boolean}>`
     flex-wrap:wrap;
     overflow: hidden;
     border-radius:2px;
-    border-bottom:${props=>props.bordered?'1px solid rgba(0,0,0,0.45)':'none'};
-    border-right:${props=>props.bordered?'1px solid rgba(0,0,0,0.45)':'none'};
+    border-bottom:${props=>props.bordered?'1px solid '+props.theme.colors.borderColor:'none'};
+    border-right:${props=>props.bordered?'1px solid '+props.theme.colors.borderColor:'none'};
 `

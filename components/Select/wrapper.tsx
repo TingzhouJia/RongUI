@@ -29,8 +29,8 @@ export const MultiItem=styled.div<{disabled?:boolean}>`
             padding: 0 0.5rem;
             font-size: 12px;
             border-radius: 2px;
-            background-color: #d9d9d9;
-            color: ${props=>props.disabled ? "rgba(0,0,0,0.25)" : "rgba(0,0,0,0.65)"};
+            background-color: #fafafa;
+            color: ${props=>props.disabled ? props=>props.theme.colors.disabledColor : "rgba(0,0,0,0.65)"};
             & > :global(div),
           & > :global(div:hover) {
             border-radius: 0;
@@ -64,8 +64,8 @@ export const OptionWrap=styled.div<{disabled?:boolean,select?:boolean,divider?:b
           min-height: calc(1.688 * 10px);
           padding: 5px 12px;
           opacity:1;
-          background: ${props=>props.select?ToRGBA(props.theme.colors.primary,0.2):props.disabled?"transparent":"white"};
-          color: ${props=>props.disabled?"rgba(0,0,0,0.35)":"rgba(0,0,0,0.85)"};
+          background: ${props=>props.select?props.theme.palette.primaryLighter:props.disabled?"transparent":"white"};
+          color: ${props=>props.disabled?props.theme.colors.disabledColor:props.theme.colors.fontColor};
           user-select: none;
           border: 0;
           cursor: ${props=>props.disabled ? 'not-allowed' : 'pointer'};
@@ -79,7 +79,7 @@ export const OptionWrap=styled.div<{disabled?:boolean,select?:boolean,divider?:b
           height: 0;
           padding: 0;
           overflow: hidden;
-          border-top: 1px solid #d2d2d2 ;
+          border-top: 1px solid ${props.theme.colors.borderColor} ;
           margin: 0.5rem 0;
           width: 100%;`:null
         }
@@ -101,15 +101,15 @@ export const SelectWrap=styled.div<{multiple?:boolean,disabled?:boolean,size?:No
             min-height: ${props=>props.size==="large"?"35px":props.size==="small"?"24px":"28px"};
             min-width: 60px;
             text-overflow:ellipsis;
-            background-color: ${props=>props.disabled ? "#f2f2f2 ": "white"};
+            background-color: ${props=>props.disabled ? props.theme.colors.disabledBackground: "white"};
             ${
               props=>props.bordered?css`
-               border: 1px solid #d9d9d9 ;
+               border: 1px solid ${props.theme.colors.borderColor} ;
               ${
               props.focused?css`border-color: ${props.theme.colors.primary}`:null
               }
               &:hover {
-            border-color: ${props.disabled ? "#d9d9d9" : props.theme.colors.primary};
+            border-color: ${props.disabled ? props.theme.colors.borderColor : props.theme.colors.primary};
             }`
             :css`border: none;`
             }
@@ -127,7 +127,7 @@ export const CloseBtn = styled.div`
     color: rgba(0,0,0,0.45);
   }
   &:active {
-    color: rgba(0,0,0,0.85);
+    color: ${props=>props.theme.colors.fontColor};
   }
 `
 
@@ -145,7 +145,7 @@ export const ValueWrap=styled.div<{disabled?:boolean,size?:NormalSizes}>`
 
             margin-right: 1.25rem;
             font-size: 14px;
-            color: ${props=>props.disabled ? "#f2f2f2": "rgba(0,0,0,0.85)"};
+            color: ${props=>props.disabled ? props.theme.colors.disabledColor: props.theme.colors.fontColor};
             /* width: calc(100% - 1.25rem); */
 
             & > * {

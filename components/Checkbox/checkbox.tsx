@@ -39,7 +39,7 @@ const CheckBoxItem:React.FC<Props>=(props)=>{
       };
 
 
-      return (<CheckBoxBase id="checkbox-item" checked={!!curCheck} disabled={disabled}>
+      return (<CheckBoxBase  id="checkbox-item" checked={!!curCheck} disabled={disabled}>
           <CheckBoxInput type='checkbox' 
           checked={!!curCheck} 
           onFocus={onFocus} 

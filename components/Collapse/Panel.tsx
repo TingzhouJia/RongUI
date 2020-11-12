@@ -62,7 +62,7 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
                 {header}
                 {extra && <PanelExtra  id="collapse-panel-header-extra">{extra}</PanelExtra>}
             </CollapseHeader>
-            <PanelContent ghost={ghost} border={bordered} isActive={isActive}>{children}</PanelContent>
+            <PanelContent  border={bordered} isActive={isActive}>{children}</PanelContent>
         </PanelBase>
     )
 }

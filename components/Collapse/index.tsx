@@ -7,7 +7,6 @@ export type ExpandIconPosition = 'left' | 'right' | undefined;
 export interface CollapseProps {
     activeKey?: Array<string | number> | string | number;
     defaultActiveKey?: Array<string | number> | string | number;
-    /** 手风琴效果 */
     accordion?: boolean;
     onChange?: (key: string | string[]) => void;
     style?: React.CSSProperties;
@@ -15,14 +14,13 @@ export interface CollapseProps {
     bordered?: boolean;
     expandIcon?: (panelProps: CollapseProps) => React.ReactNode;
     expandIconPosition?: ExpandIconPosition;
-    ghost?: boolean;
   }
 
   interface CollapseInterface extends React.FC<CollapseProps> {
     Panel: typeof CollapsePanel;
   }
 const Collapse:CollapseInterface=(props)=>{
-  const {accordion=false,expandIcon,bordered=true,ghost=false}=props
+  const {accordion=false,bordered=true}=props
   const [activeKey, setactiveKey] = useState<ReactText[]>([])
   const getIconPosition = (childP?:'left'|'right') => {
     const { expandIconPosition } = props;
@@ -81,7 +79,6 @@ const Collapse:CollapseInterface=(props)=>{
       header,
       headerClass,
       isActive,
-      ghost,
       position:getIconPosition(child.props.position),
       bordered,
       children: child.props.children,
@@ -106,7 +103,7 @@ const Collapse:CollapseInterface=(props)=>{
     });
   };
 
-return (<CollapseBase id="collapse-base" style={props.style} className={props.className} ghost={ghost} border={bordered}>{getItems()}</CollapseBase>)
+return (<CollapseBase id="collapse-base" style={props.style} className={props.className}  border={bordered}>{getItems()}</CollapseBase>)
 }
 Collapse.Panel=CollapsePanel
 export default Collapse

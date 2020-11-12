@@ -51,7 +51,7 @@ export const DrawerMask=styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,.45);
+    background-color: ${props=>props.theme.expressiveness.maskColor};
 
     transition: opacity 0.3s linear, height 0s ease 0.3s;
 `
@@ -87,14 +87,14 @@ position: relative;
     padding: 12px 16px;
     color: rgba(0,0,0,0,85);
     background: white;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 1px solid ${props=>props.theme.colors};
     border-radius: 2px 2px 0 0;
 `
 
 export const DrawerFooter=styled.div`
 flex-shrink: 0;
     padding: 10px;
-    border-top: 1px solid #d9d9d9;
+    border-top: 1px solid ${props=>props.theme.colors};
 `
 
 export const DrawerBody=styled.div`

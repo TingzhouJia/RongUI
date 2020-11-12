@@ -23,10 +23,10 @@ export const PaginationItemBtn=styled.button<{active?:boolean,disabled?:boolean}
           min-width: 30px;
           font-size: inherit;
           cursor: ${props=>props.disabled?"not-allowed":"pointer"};
-          color: ${props=>props.active?"#fff":props.disabled?"rgba(0,0,0,0.25)":props.theme.colors.primary};
+          color: ${props=>props.active?props.theme.colors.background:props.disabled?props.theme.colors.disabledColor:props.theme.colors.primary};
           ${props=>props.active?css`box-shadow:${props.theme.expressiveness.shadowSmall}`:null}
           border-radius: 2px;
-          background-color: ${props=>props.active?props.disabled?"#bfbfbf":props.theme.colors.primary:"transparent"};
+          background-color: ${props=>props.active?props.disabled?props.theme.colors.disabledColor:props.theme.colors.primary:"transparent"};
           transition: all linear 200ms 0ms;
           ${props=>props.active?css`font-weight:bold;`:null}
           &:hover {

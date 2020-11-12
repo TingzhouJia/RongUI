@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import CheckableTag from './checkable';
 import { SnippetTypes } from '../utils';
 import { CloseIcon, TagBase } from './wrapper';
 import { CloseOutlined } from '@ant-design/icons';
 import { getColor } from '../utils/getColor';
+import { ThemeContext } from 'styled-components';
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
     className?: string;
     color?: string;
@@ -32,6 +33,7 @@ const InnerTag: React.ForwardRefRenderFunction<unknown, TagProps> = ({
     visible:baseVisible,
     ...props }, ref) => {
     const [visible, setVisible] = React.useState(true);
+    const theme=useContext(ThemeContext)
     React.useEffect(() => {
         if (baseVisible) {
             setVisible(baseVisible!);
@@ -72,7 +74,7 @@ const InnerTag: React.ForwardRefRenderFunction<unknown, TagProps> = ({
       children
     );
     const tagNode = (
-        <TagBase status={status} id="rong-tag" color={status?getColor(status):color} visble={visible} {...props} ref={ref as React.MutableRefObject<any>} >
+        <TagBase status={status} id="rong-tag" color={status?getColor(status,theme):color} visble={visible} {...props} ref={ref as React.MutableRefObject<any>} >
           {kids}
           {renderCloseIcon()}
         </TagBase>

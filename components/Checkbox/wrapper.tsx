@@ -21,7 +21,7 @@ export const CheckBoxBase = styled.span<{ checked?: boolean, disabled?: boolean 
     outline: none;
     cursor: ${props=>props.disabled?"not-allowed":"pointer"};
     &:hover,&:focus {
-        border-color: ${palette.primary};
+        border-color: ${props=>props.theme.colors.primary};
     };
     &:hover::after {
         visibility: visible;
@@ -29,7 +29,7 @@ export const CheckBoxBase = styled.span<{ checked?: boolean, disabled?: boolean 
     ${props=>props.checked?checkedcss:null}
     ${props=>props.disabled?css`
     & + span {
-      color:rgba(0,0,0,0.25);
+      color:${props.theme.colors.disabledColor};
       cursor: not-allowed;
     }
     `:null}
@@ -53,7 +53,7 @@ export const CheckBoxInput = styled.input<{disabled?:boolean}>`
       cursor: ${props=>props.disabled?"not-allowed":"pointer"};
       opacity: 0;
       &:hover,&:focus {
-        border-color: ${props=>props.disabled?'rgba(0,0,0,0.25)':palette.primary};
+        border-color: ${props=>props.disabled?'#d9d9d9':props.theme.colors.primary};
     }
 `
 
@@ -64,7 +64,6 @@ export const CheckBoxInput = styled.input<{disabled?:boolean}>`
       left: 0;
       width: 100%;
       height: 100%;
-      /* border: 1px solid ${palette.primary}; */
       border-radius: 2px;
       visibility: hidden;
       animation: ${checkanimation} 0.36s ease-in-out;
@@ -81,7 +80,7 @@ display: inline-block;
     };
     cursor:${props=>props.disabled?"not-allowed":'pointer'};
     &:hover {
-        border-color: ${palette.primary};
+        border-color: ${props=>props.disabled?'none':props.theme.colors.primary};
     }
     ${props=>props.checked?checkedcss:null}
     & + & {
@@ -97,8 +96,8 @@ export const CheckboxInner = styled.span<{ checked?: boolean,disabled?:boolean }
       width:16px;
       height: 16px;
     /* z-index:1; */
-      background-color: ${props=>props.checked?props.theme.colors.primary:props.disabled?'rgba(0,0,0,0.25)':'#fff'} ;
-      border: 1px solid ${props=>props.checked?palette.primary:props.disabled?'rgba(0,0,0,0.25)':'rgba(0,0,0,0.45)'};
+      background-color: ${props=>props.checked?props.theme.colors.primary:props.disabled?props.theme.colors.disabledBackground:'#fff'} ;
+      border: 1px solid ${props=>props.checked?props.theme.colors.primary:'#d9d9d9'};
       border-radius: 2px;
       border-collapse: separate;
       transition: all 0.3s;
@@ -126,7 +125,7 @@ export const CheckboxInner = styled.span<{ checked?: boolean,disabled?:boolean }
         display: table;
         width: ${(16 / 14) * 5} px;
         height:${(16 / 14) * 8} px;
-        border: 2px solid ${props.disabled?'rgba(0,0,0,0.25)':'#fff'};
+        border: 2px solid ${props.disabled?props.theme.colors.disabledColor:'#fff'};
         border-top: 0;
         border-left: 0;
         transform: rotate(45deg) scale(0) translate(-50%, -50%);

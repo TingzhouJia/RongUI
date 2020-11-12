@@ -8,6 +8,7 @@ export const DefaultLightTheme:DefaultTheme={
         primary:palette.primary,
         info:palette.info,
         error:palette.error,
+        success:palette.success,
         warning:palette.warning,
         background:palette.background,
         fontColor:palette.fontColor,
@@ -28,6 +29,7 @@ export const DefaultDarkTheme:DefaultTheme={
         primary:DarkPalette.primary,
         info:DarkPalette.info,
         error:DarkPalette.error,
+        success:DarkPalette.success,
         warning:DarkPalette.warning,
         background:DarkPalette.background,
         fontColor:DarkPalette.fontColor,
@@ -53,6 +55,7 @@ export interface ThemeTy {
         warning:string
         error:string
         background:string
+        success:string
         fontColor:string
         disabledColor:string
         disabledBackground:string

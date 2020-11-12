@@ -24,12 +24,12 @@ export const expressiveness:ThemesExpressiveness = {
         height:"20",
         weight:"400"
       },
-      normal:{
+      default:{
           size:'14px',
           height:'22px',
           weight:'400'
       },
-      larger:{
+      large:{
           size:'16px',
           height:'24px',
           weight:'400'

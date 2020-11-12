@@ -3,10 +3,8 @@ import styled, { css } from "styled-components";
 export const Noticebase=styled.div<{closable?:boolean}>`
      padding: 7px 20px 7px 10px;
     border-radius: 3px 3px;
-    border: 1px solid #999;;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border: 0px solid rgba(0, 0, 0, 0);;
-    background: #fff;
+    background: ${props=>props.theme.colors.background};
     display: block;
     width: auto;
     line-height: 1.5;
@@ -27,7 +25,7 @@ position: absolute;
       font-size: 16px;
       font-weight: 700;
       line-height: 1;
-      text-shadow: 0 1px 0 #fff;
+      text-shadow: 0 1px 0 ${props=>props.theme.colors.background};
       filter: alpha(opacity=20);
       opacity: .2;
       text-decoration: none;
@@ -80,7 +78,7 @@ export const Desc=styled.span<{icon?:boolean}>`
 export const Msg=styled.span<{icon?:boolean}>`
       display: inline-block;
       margin-bottom: 8px;
-      color: rgba(0,0,0,0.85);
+      color: ${props=>props.theme.colors.fontColor};
       font-size: 16px;
       line-height: 24px;
       ${props=>props.icon?css`margin-bottom: 4px;

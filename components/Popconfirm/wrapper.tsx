@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const PopConfirmBase=styled.div`
 padding: 12px 16px;
-    color: rgba(0,0,0,.85);
+    color: ${props=>props.theme.colors.fontColor};
   border-radius:2px;
 `
 
@@ -11,7 +11,7 @@ export const PopconfirmMessage=styled.div`
     display:flex;
     flex-direction:row;
     padding: 4px 0 12px;
-    color: rgba(0,0,0,.85);
+    color: ${props=>props.theme.colors.fontColor};
     font-size: 14px;
 `
 export const PopconfirmTitle=styled.div`

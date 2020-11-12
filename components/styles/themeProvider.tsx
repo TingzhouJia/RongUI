@@ -7,10 +7,9 @@ import React from "react"
 const Global = createGlobalStyle`
     body {
         color:${props => props.theme.colors.fontColor};
-        background:${props => props.theme.colors.background};
         font-family:${props => props.theme.font.mono + " " + props.theme.font.sans};
-        font-size:${props => props.theme.size.normal.size};
-        line-height:${props => props.theme.size.normal.height};
+        font-size:${props => props.theme.size.default.size};
+        line-height:${props => props.theme.size.default.height};
         box-sizing: border-box;
         margin: 0;
         padding: 0;

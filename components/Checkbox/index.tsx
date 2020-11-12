@@ -53,8 +53,8 @@ const Checkbox:CheckboxProps=(props)=>{
             restData.disabled=props.disabled||groupData.disabled||false
             restData.checked=groupData.value.indexOf(props.value) !== -1
         }
-     return (<CheckBoxLabel id="checkbox-base" checked={restData.checked} disabled={restData.disabled ||false} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <CheckBoxItem id="rong-checkbox" {...restData} />
+     return (<CheckBoxLabel className={props.className} style={props.style} id="checkbox-base" checked={restData.checked} disabled={restData.disabled ||false} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            <CheckBoxItem  id="rong-checkbox" {...restData} />
             {children && <span>{children}</span>}
         </CheckBoxLabel>)
     }
