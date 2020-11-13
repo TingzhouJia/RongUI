@@ -66,7 +66,6 @@ export const CloseMsg = styled.span`
     display: block;
     margin-left:16px;
     font-size:16px;
-    margin-bottom: 4px;
 `
 export const AlertIcon = styled.span<{type:ResultType,withDescription:boolean}>`
     position: absolute;
