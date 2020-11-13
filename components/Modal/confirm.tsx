@@ -8,7 +8,7 @@ import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
 import { getColor } from "../utils/getColor";
 import Button from "../Button";
-import { ThemeProvider, ThemeContext } from "styled-components";
+import {  ThemeContext, DefaultTheme, ThemeProvider } from "styled-components";
 
 
 
@@ -81,7 +81,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = (props) => {
         >
             <ConfirmBody id="confirm-body">
                 <ConfirmHeader id="confirm-header">
-                    {React.cloneElement(icon as any,{style:{color:type&&type!=='confirm'?getColor(type,theme):"#faad14"}})}
+                    {React.cloneElement(icon as any,{style:{color:type&&type!=='confirm'?getColor(type,theme):theme.colors.info}})}
                     <ConfirmTitle id="confirm-title">{props.title}</ConfirmTitle>
                 </ConfirmHeader>
                 <ConfirmContent id="confirm-content">{props.content}</ConfirmContent>
@@ -107,7 +107,7 @@ export interface ModalFunctions {
     confirm: ModalFunc;
 }
 
-export default function confirm(config: ModalFuncProps) {
+export default function confirm(config: ModalFuncProps,theme:DefaultTheme) {
     const div = document.createElement('div',);
     document.body.appendChild(div);
     let currentConfig = { ...config, close, visible: true } as any;
@@ -130,14 +130,14 @@ export default function confirm(config: ModalFuncProps) {
     }
 
     function render({ okText, cancelText, ...props }: any) {
-
-       
         ReactDOM.render(
-            <ConfirmDialog
+           <ThemeProvider theme={theme}>
+                <ConfirmDialog
                 {...props}
         
                 okText={okText || 'Yes'}
                 cancelText={cancelText || 'No'}/>
+           </ThemeProvider>
   ,div)
       
 

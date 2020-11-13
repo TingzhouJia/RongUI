@@ -5,7 +5,7 @@ import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
 import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
 import Notification, { NotificationInstance } from './notification'
-import { WithIcon, AutoMargin, Msg, Desc, Btn } from './wrapper';
+import { WithIcon, AutoMargin, Msg, Desc, Btn, StatusIcon } from './wrapper';
 import { getColor } from '../utils/getColor';
 export type NotificationPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
@@ -171,9 +171,7 @@ function getRCNoticeProps(args: ArgsProps) {
     if (args.icon) {
         iconNode = <WithIcon>{args.icon}</WithIcon>;
     } else if (args.type) {
-        iconNode = React.createElement(typeToIcon[args.type] || null, {
-           
-        });
+    iconNode = <StatusIcon status={args.type}>{typeToIcon[args.type]}</StatusIcon>
     }
 
     const autoMarginTag =

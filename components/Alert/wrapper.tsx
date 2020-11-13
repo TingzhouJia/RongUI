@@ -9,10 +9,7 @@ import ExclamationCircleFilled from '@ant-design/icons/ExclamationCircleFilled';
 import InfoCircleFilled from '@ant-design/icons/InfoCircleFilled';
 import CloseCircleFilled from '@ant-design/icons/CloseCircleFilled';
 import styled, { css } from "styled-components";
-import {palette} from '../styles'
-import { ReactNode } from "react";
 import React from "react";
-import {AlertProps} from './alert'
 import { getColor, getBg, getBorder } from "../utils/getColor";
 
 export const iconMapFilled = {
