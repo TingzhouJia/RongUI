@@ -29,8 +29,6 @@ export interface NotificationInstance {
     notice: NoticeFunc;
     removeNotice: (key: React.Key) => void;
     destroy: () => void;
-
-    // useNotification: () => [NoticeFunc, React.ReactElement];
 }
 export interface NotificationProps {
     className?: string;

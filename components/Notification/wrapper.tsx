@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { getColor } from "components/utils/getColor";
 
 export const Noticebase=styled.div<{closable?:boolean}>`
      padding: 7px 20px 7px 10px;
@@ -88,4 +89,8 @@ export const Msg=styled.span<{icon?:boolean}>`
 export const Btn=styled.span`
 float: right;
       margin-top: 16px;
+`
+
+export const StatusIcon=styled.span<{status:any}>`
+color:${props=>getColor(status,props.theme)}
 `
