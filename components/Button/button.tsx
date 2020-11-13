@@ -13,7 +13,7 @@ export interface BaseButtonProps {
     mode?: StatusTypes
     className?: string
     disabled?: boolean
-    shape?: 'circle' | 'round'
+    shape?: 'circle' | 'round'|'default'
     loading?: boolean
     block?: boolean
 }
@@ -34,7 +34,7 @@ interface CompoundedComponent
 
 const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonProps>> = (props, ref) => {
     const groupConfig = useButtonGroupContext()
-    let { loading, type="default", mode, size, disabled = false, shape = "round", block = false, className = "", children, htmlType = "button", ...rest } = filterPropsWithGroup(props, groupConfig)
+    let { loading, type="default", mode, size, disabled = false, shape = "default", block = false, className = "", children, htmlType = "button", ...rest } = filterPropsWithGroup(props, groupConfig)
     const [innerLoading, setinnerLoading] = useState(!!loading)
     const buttonRef = (ref as any) || useRef<HTMLButtonElement>()
     const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {

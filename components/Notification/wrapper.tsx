@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { getColor } from "components/utils/getColor";
+import { getColor } from "../utils/getColor";
 
 export const Noticebase=styled.div<{closable?:boolean}>`
      padding: 7px 20px 7px 10px;
