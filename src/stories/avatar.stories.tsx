@@ -3,7 +3,7 @@ import { Avatar } from '../../components'
 import { themeIt } from './utils/withTheme'
 import { UserOutlined } from '@ant-design/icons';
 export default {
-    title: 'Feedback / Alert',
+    title: 'Data Display / Avatar',
     component: Avatar as any,
     decorators: [themeIt],
     parameters: {

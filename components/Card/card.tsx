@@ -43,7 +43,6 @@ const Card: CardInterface = (props) => {
     headStyle = {},
     bodyStyle = {},
     title,
-    loading,
     bordered = true,
     size = 'default',
     cover,

@@ -12,7 +12,7 @@ export interface CollapseProps {
     style?: React.CSSProperties;
     className?: string;
     bordered?: boolean;
-    expandIcon?: (panelProps: CollapseProps) => React.ReactNode;
+    expandIcon?: (panelProps: CollapsePanelProps) => React.ReactNode;
     expandIconPosition?: ExpandIconPosition;
   }
 
