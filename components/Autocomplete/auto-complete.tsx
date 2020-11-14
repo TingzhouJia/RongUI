@@ -14,7 +14,7 @@ export type AutoCompleteOption = {
 }
 
 interface Props {
-    options: AutoCompleteOption[]
+    options?: AutoCompleteOption[]
     initialValue?: string
     placeholder?: string
     value?: string
@@ -131,7 +131,7 @@ const AutoComplete: AutoCompleteProps = ({ options,
                     className={dropdownClassName}
 
                     dropdownStyle={dropdownStyle}>
-                    {options.length===0?renderEmpty():childrenToOptionsNode(options)}
+                    {(!options||options?.length===0)?renderEmpty():childrenToOptionsNode(options)}
                     {children}
                 </AutoCompleteDropdown>
             </div>
