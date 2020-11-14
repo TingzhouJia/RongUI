@@ -3,7 +3,7 @@ import { Card, Avatar } from '../../components'
 import { themeIt } from './utils/withTheme'
 import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 export default {
-    title: 'Data Display / Button',
+    title: 'Data Display / Card',
     component: Card as any,
     decorators: [themeIt],
     parameters: {

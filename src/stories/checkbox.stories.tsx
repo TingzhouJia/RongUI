@@ -3,7 +3,7 @@ import { Checkbox} from '../../components'
 import { themeIt } from './utils/withTheme'
 
 export default {
-    title: 'General / Button',
+    title: 'Data Collection / Checkbox',
     component: Checkbox as any,
     decorators: [themeIt],
     parameters: {
@@ -19,7 +19,7 @@ export default {
 
 export const Basic=()=>{
     return (
-        <Checkbox/>
+        <Checkbox name="checkbox" />
     )
 }
 
