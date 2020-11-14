@@ -5,20 +5,17 @@ import CollapseIcon from './icon';
 export interface CollapsePanelProps {
     id?: string;
     header?: string | React.ReactNode;
-    headerClass?: string;
     showArrow?: boolean;
     className?: string;
     style?: object;
     isActive?: boolean;
     disabled?: boolean;
-    destroyInactivePanel?: boolean;
     bordered?: boolean,
     position?: 'left' | 'right'
     extra?: string | React.ReactNode;
     onItemClick?: (panelKey: string | number) => void;
     expandIcon?: (props: any) => React.ReactNode;
     panelKey?: string | number;
-    ghost?: boolean
     role?: string;
 }
 
@@ -30,7 +27,6 @@ const CollapsePanel: React.FC<CollapsePanelProps> = (props) => {
         header,
         bordered = false,
         children,
-        ghost = false,
         isActive = false,
         showArrow=true,
         position,
