@@ -17,7 +17,7 @@ export interface DividerProps {
     className,
     children,
     dashed,
-    plain,
+    plain=true,
     ...restProps
   } = props;
   const hasChildren = !!children;

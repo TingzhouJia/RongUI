@@ -8,7 +8,7 @@ import { TreeBase } from "./wrapper"
 
 
 export type FileTreeValue = {
-  type: 'directory'| 'file' 
+  type: 'directory'| 'file'
   name: string
   extra?: string
   files?: Array<FileTreeValue>
