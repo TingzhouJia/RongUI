@@ -62,7 +62,8 @@ const Alert: React.FC<AlertProps> = ({
                     )}
             </CloseBtn>):null
     }
-    return (<AlertDiv id="alert_base" closed={!!closed} type={type} description={!!description} icon={!!icon} message={!!message} closable={!!closable} className={className} role="alert" ref={ref} >
+    
+    return (<AlertDiv id="alert_base" closed={!!closed} type={type} description={description?1:0} icon={showIcon||icon?1:0} message={!!message} closable={!!closable} className={className} role="alert" ref={ref} >
         {showIcon ? renderIcon() : null}
         <CloseMsg id="alert-msg">{message}</CloseMsg>
         <CloseDescription id="alert-desc">{description}</CloseDescription>
