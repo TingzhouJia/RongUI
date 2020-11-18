@@ -8,7 +8,7 @@ import { ThemeContext } from 'styled-components';
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
     className?: string;
     color?: string;
-    status?: 'success'|'error'|'default'|'disabled'|'warning'
+    status?: 'success'|'error'|'default'|'warning'
     closable?: boolean;
     closeIcon?: React.ReactNode;
     visible?: boolean;
