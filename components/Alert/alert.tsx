@@ -39,7 +39,7 @@ const Alert: React.FC<AlertProps> = ({
     const ref = useRef<HTMLDivElement>(null)
     const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
         setClosed(true);
-        props.onClose?.(e);
+        props.onClose&&props.onClose(e)
     };
     const renderIcon = () => {
        
