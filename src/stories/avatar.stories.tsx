@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar } from '../../components'
+import { Avatar, Space } from '../../components'
 import { themeIt } from './utils/withTheme'
 import { UserOutlined } from '@ant-design/icons';
 export default {
@@ -12,29 +12,36 @@ export default {
         }
     },
     argTypes: {
-
+        message: { control: 'text', name: 'message', description: 'content of message', type: { name: 'string', required: true }, },
+        type: { name: 'type', description: 'info | error | wanring | success ', },
+        className: { name: 'className', description: 'classname for alert' },
+        onClick: { name: 'onClick', description: 'onclick action' },
+        description: { name: 'description', description: '' },
+        closeText: { name: 'closeText', description: 'customized close button' },
+        afterClose: { name: 'afterClose', description: 'afterClose callback' }
     },
+}
 
-};
-
-export const SquareAvatar = () => <Avatar shape="square" icon={<UserOutlined />} />
+export const SquareAvatar = () => (<Avatar shape="square" icon={<UserOutlined />} />);
 
 export const BasicAvatar = () => {
-    return <>
+    return <Space>
+         <Avatar size={64} icon={<UserOutlined />} />
         <Avatar size="large" icon={<UserOutlined />} />
         <Avatar size="default" icon={<UserOutlined />} />
         <Avatar size="small" icon={<UserOutlined />} />
-        <Avatar size={64} icon={<UserOutlined />} />
-    </>
-}
+       
+    </Space>
+};
 
 export const AvatarType=()=>{
-    return <>
+    return <Space
+    >
      <Avatar icon={<UserOutlined />} />
-    <Avatar  size={40} text="USER"/>
+    <Avatar  text="USER"/>
     <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-    </>
-}
+    </Space>
+};
 
 export const Group = () => {
     return <Avatar.Group maxCount={2}>
@@ -42,4 +49,4 @@ export const Group = () => {
         <Avatar icon={<UserOutlined />} />
         <Avatar icon={<UserOutlined />} />
     </Avatar.Group>
-}
+};

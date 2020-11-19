@@ -4,20 +4,20 @@ import { getBg, getBorder, getColor } from '../utils/getColor'
 import { ThemeTy } from "../styles"
 import { NativeButtonProps } from "./button"
 const dashedMixin = css`
-    border: 1px dashed ${props=>props.theme.colors.borderColor} ;
+    border: 1px dashed ${props => props.theme.colors.borderColor} ;
     color:black ;
     background:transparent;
 `
 const disabledMixin = css` 
-    border:1px solid ${props=>props.theme.colors.borderColor} ;
-    background: ${props=>props.theme.colors.disabledBackground} ;
-    color: ${props=>props.theme.colors.disabledColor} ;
+    border:1px solid ${props => props.theme.colors.borderColor} ;
+    background: ${props => props.theme.colors.disabledBackground} ;
+    color: ${props => props.theme.colors.disabledColor} ;
     &:hover,&:focus, &:active,& {
         cursor:not-allowed;
     }
 `
 const normalMixin = css`
-      border: 1px solid ${props=>props.theme.colors.borderColor} ;
+      border: 1px solid ${props => props.theme.colors.borderColor} ;
       background: transparent;
      
 `
@@ -25,7 +25,7 @@ const textMixin = css`
     color:black ;
     border:none;
     background:transparent;
-    &,&:active,&:hover {
+    &:active,&:hover {
         background:#fafafa;
     }
 `
@@ -52,7 +52,7 @@ const Switcher = (mode: StatusTypes, type?: ButtonModes) => {
         case 'link':
             return css`
                 ${linkMixin}
-                color:${props => props.theme.colors.primary};
+                color:${props => mode?getColor(mode, props.theme):props.theme.colors.primary};
                 &:hover,&:active,&:focus {
                         opacity:0.75;
                     }
@@ -60,7 +60,7 @@ const Switcher = (mode: StatusTypes, type?: ButtonModes) => {
         case 'primary':
             return css`
                     ${primaryMixin}
-                    background:${props => getColor(mode, props.theme)}
+                    background:${props => mode?getColor(mode, props.theme):props.theme.colors.primary};
                     &:hover,&:active,&:focus {
                         opacity:0.75;
                     }
@@ -68,11 +68,10 @@ const Switcher = (mode: StatusTypes, type?: ButtonModes) => {
         case 'text':
             return css`
                 ${textMixin}
-                color:${props => props.theme.colors.fontColor};
-                background:transparent;
-                &:hover {
-                    background: #f5f5f5;
-                }
+                color:${props =>mode?getColor(mode, props.theme):props.theme.colors.fontColor};
+               
+             
+                background-color:transparent;
                 `
         case 'dashed':
             return css`
@@ -94,7 +93,7 @@ const Switcher = (mode: StatusTypes, type?: ButtonModes) => {
         default:
             return css`
                 ${normalMixin}
-                color:${props => props.theme.colors.fontColor};
+                color:${props =>mode?getColor(mode, props.theme): props.theme.colors.fontColor};
                 background:transparent;
                 border-color:${props => mode ? getBorder(mode, props.theme) : props.theme.colors.borderColor};
                 &:hover,&:active,&:focus {
@@ -115,11 +114,11 @@ const Switcher = (mode: StatusTypes, type?: ButtonModes) => {
 const shapeSwitcher = (shape?: 'round' | 'circle', size?: NormalSizes) => {
     switch (shape) {
         case 'round':
-       
-            return size==='small'?css`border-radius:24px;padding:0 12px;`:size==='default'? css`height: 32px;
+
+            return size === 'small' ? css`border-radius:24px;padding:0 12px;` : size === 'default' ? css`height: 32px;
     padding: 4px 16px;
     font-size: 14px;
-    border-radius: 32px;`:css`height: 40px;
+    border-radius: 32px;`: css`height: 40px;
     padding: 6.4px 20px;
     font-size: 16px;
     border-radius: 40px;`
@@ -136,23 +135,23 @@ const shapeSwitcher = (shape?: 'round' | 'circle', size?: NormalSizes) => {
     padding: 2.4px 0;
     font-size: 16px;`};`
         default:
-            return size==='small'?css`height: 24px;
+            return size === 'small' ? css`height: 24px;
     padding: 0 7px;
     font-size: 14px;
-    border-radius: 2px;`:size==='default'?css`height: 32px;
+    border-radius: 2px;`: size === 'default' ? css`height: 32px;
     padding: 4px 15px;
     font-size: 14px;
-    border-radius: 2px;`:css`    height: 40px;
+    border-radius: 2px;`: css`    height: 40px;
     padding: 6.4px 15px;
     font-size: 16px;
     border-radius: 2px;`
     }
 }
 
-export 
-const BaseButton = styled.button<{ type: string, ctype:any,mode:any,shape:any,block:boolean,size:any }>`
+export
+    const BaseButton = styled.button<{ type: string, ctype: any, mode: any, shape: any, block: boolean, size: any }>`
 
-${props => (Switcher(props.mode,props.ctype))}
+${props => (Switcher(props.mode, props.ctype))}
 
 position: relative;
 display: inline-block;
@@ -160,7 +159,7 @@ font-weight: 300;
 ${props => props.disabled ? disabledMixin : ''}
 
 
-${props => shapeSwitcher(props.shape,props.size)}
+${props => shapeSwitcher(props.shape, props.size)}
 white-space: nowrap;
 text-align: center;
 display:flex;
@@ -175,8 +174,8 @@ user-select: none;
 touch-action: manipulation;
 
 ${
-    props => props.block ? css`width:100%;` : null
-    }
+        props => props.block ? css`width:100%;` : null
+        }
 &,&:active, &:focus {
     outline: 0;
   }
