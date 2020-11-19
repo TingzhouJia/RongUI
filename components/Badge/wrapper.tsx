@@ -19,7 +19,7 @@ align-items:center;
 right: 0;
 transform: translate(50%, -50%);
 transform-origin: 100% 0%;
-font-size: ${props=>props.small?props.theme.size.small:props.theme.size.default};
+font-size: ${props=>props.small?'10px':'12px'};
 span {
   font-size: ${props=>props.small?"8px":"14px"};
 }
