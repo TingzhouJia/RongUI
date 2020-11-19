@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SeperatorWrapper=styled.span`
+export const SeperatorWrapper = styled.span`
 display: inline-flex;
  margin: 0 8px;
  user-select: none;
@@ -27,12 +27,19 @@ export const Nav = styled.nav`
       cursor:pointer;
     }
   }
+
 `
 
 export const LinkWrapper = styled.a`
- color:${props=>props.theme.colors.fontColor};
     transition: color 0.3s;
+    color:#d9d9d9;
+    &:hover{
+
+color: ${props => props.theme.colors.primary};
+
+}
     cursor:pointer;
+    text-decoration:none;
     & >  span,
     >  a {
       margin-left: 4px;
