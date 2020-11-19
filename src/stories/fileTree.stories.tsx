@@ -34,7 +34,7 @@ export const  Basic=()=>{
 export const CustomizeIcon=()=>{
     return (
         <FileTree >
-            <FileTree.File  icon={(select:any)=><SettingOutlined/>} name="app.jsx"></FileTree.File>
+            <FileTree.File  icon={<SettingOutlined/>} name="app.jsx"></FileTree.File>
         </FileTree>
     )
 }
