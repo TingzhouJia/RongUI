@@ -1,5 +1,5 @@
 import React from 'react'
-import { Badge, Button } from '../../components'
+import { Badge, Button, Space } from '../../components'
 import { themeIt } from './utils/withTheme'
 import { SearchOutlined } from '@ant-design/icons';
 export default {
@@ -15,84 +15,94 @@ export default {
 
     },
 
-};
+}
 
-export const Basic=()=>{
+export const Basic = () => {
     return <Button>button</Button>
 }
 
-export const Type=()=>{
+export const Type = () => {
     return (
-        <>
-        <Button type="primary">primary</Button>
-        &nbsp;&nbsp;
-        <Button type="dashed">dashed</Button>
-        &nbsp;&nbsp;
-        <Button type="link">link</Button>
-        &nbsp;&nbsp;
-        <Button type="text">text</Button>
-        </>
+        <Space>
+            <Button type="primary">primary</Button>
+
+            <Button type="dashed">dashed</Button>
+
+            <Button type="link">link</Button>
+
+            <Button type="text">text</Button>
+        </Space>
     )
 }
 
-export const Status=()=>{
+export const Status = () => {
     return (
         <>
-        <Button mode="success">success</Button>
-        &nbsp;&nbsp;
-        <Button mode="success" type="primary">success</Button>
-        &nbsp;&nbsp;
-        <Button mode="success" type="dashed">success</Button>
-        &nbsp;&nbsp;
-        <Button mode="success" type="link">success</Button>
-        <br/>
-        <Button mode="info">info</Button>
-        &nbsp;&nbsp;
-        <Button mode="info" type="primary">info</Button>
-        &nbsp;&nbsp;
-        <Button mode="info" type="dashed">info</Button>
-        &nbsp;&nbsp;
-        <Button mode="info" type="link">info</Button>
-        <br/>
-        <Button mode="danger">danger</Button>
-        &nbsp;&nbsp;
-        <Button mode="danger" type="primary">danger</Button>
-        &nbsp;&nbsp;
-        <Button mode="danger" type="dashed">danger</Button>
-        &nbsp;&nbsp;
-        <Button mode="danger" type="link">danger</Button>
-        <br/>
-        <Button mode="warning">warning</Button>
-        &nbsp;&nbsp;
-        <Button mode="warning" type="primary">warning</Button>
-        &nbsp;&nbsp;
-        <Button mode="warning" type="dashed">warning</Button>
-        &nbsp;&nbsp;
-        <Button mode="warning" type="link">warning</Button>
-        <br/>
+            <Space>
+                <Button mode="success">success</Button>
+
+                <Button mode="success" type="dashed">success</Button>
+
+                <Button mode="success" type="primary">success</Button>
+
+                <Button mode="success" type="link">success</Button>
+            </Space>
+
+            <br />
+            <br />
+            <Space>
+                <Button mode="info">info</Button>
+
+                <Button mode="info" type="dashed">info</Button>
+
+                <Button mode="info" type="primary">info</Button>
+
+                <Button mode="info" type="link">info</Button>
+            </Space>
+            <br />
+            <br />
+            <Space>
+                <Button mode="danger">danger</Button>
+
+                <Button mode="danger" type="dashed">danger</Button>
+
+                <Button mode="danger" type="primary">danger</Button>
+
+                <Button mode="danger" type="link">danger</Button>
+            </Space>
+            <br />
+            <br />
+            <Space>
+                <Button mode="warning">warning</Button>
+
+                <Button mode="warning" type="dashed">warning</Button>
+
+                <Button mode="warning" type="primary">warning</Button>
+
+                <Button mode="warning" type="link">warning</Button>
+            </Space>
+
         </>
-        
+
     )
 }
 
-export const Shape=()=>{
-    return <>
-    <Button shape="round">round </Button>
-    &nbsp;&nbsp;
-    <Button shape="circle"><SearchOutlined/></Button>
-    </>
+export const Shape = () => {
+    return <Space>
+        <Button shape="round">round </Button>
+        <Button >default </Button>
+        <Button shape="circle"><SearchOutlined /></Button>
+    </Space>
 }
 
-export const Size=()=>{
-    return <>
-    <Button size="small">small </Button>
-    &nbsp;&nbsp;
-    <Button size="large">large</Button>
-    &nbsp;&nbsp;
-    <Button>default</Button>
-    </>
+export const Size = () => {
+    return <Space>
+        <Button size="small">small </Button>
+        <Button>default</Button>
+        <Button size="large">large</Button>
+    </Space>
 }
 
-export const Block=()=>{
+export const Block = () => {
     return <Button block>block button</Button>
 }
