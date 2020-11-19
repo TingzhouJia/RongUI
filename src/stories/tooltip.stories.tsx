@@ -4,33 +4,33 @@ import { themeIt } from './utils/withTheme'
 
 
 export default {
-    text: 'Data Display / Tooltip',
+    title: 'Data Display / Tooltip',
     component: Tooltip as any,
     decorators: [themeIt],
     parameters: {
         docs: {
             description: ''
         }
-    },
-    argTypes: {
+    }
 
-    },
 }
 
 export const Basic=()=>{
     return (
-        <Tooltip text="prompt text">
-        <span>Tooltip will show on mouse enter.</span>
+      <div style={{marginTop:'100px'}}>
+          <Tooltip text="prompt text">
+        <span > tooltip will show on mouse enter.</span>
       </Tooltip>
+      </div>
     )
-}
+};
 
 export const Direction =()=>{
     const text:React.ReactNode = <span>prompt text</span>;
 
 const buttonWidth = 70;
     return (
-        <div className="demo">
+        <div style={{marginTop:'100px',marginLeft:'100px'}}>
         <div style={{ marginLeft: buttonWidth, whiteSpace: 'nowrap' }}>
           <Tooltip placement="topStart" text={text}>
             <Button>TL</Button>
@@ -77,7 +77,7 @@ const buttonWidth = 70;
         </div>
       </div>
     )
-}
+};
 
 export const Color=()=>{
     return (
@@ -85,5 +85,5 @@ export const Color=()=>{
             colorful
         </Tooltip>
     )
-}
+};
 

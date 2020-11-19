@@ -45,7 +45,7 @@ const Image:React.FC<ImageProps>=({
 
     const [status, setStatus] = useState<ImageStatus>( 'loading');
     const [url, seturl] = useState(src)
-    const isError = status === 'error';
+
     const imgCommonProps = {
         crossOrigin,
         decoding,
@@ -81,8 +81,8 @@ const Image:React.FC<ImageProps>=({
               height,
             }}
           >
-            {isError ? (fallback ? (
-              <ImgWrap id="fallback-img" place={placeholder?true:false}  onLoad={onLoad} onError={onError} {...imgCommonProps} src={fallback} />
+            {status === 'error' ? (fallback ? (
+              <ImgWrap id="fallback-img" place={placeholder?true:false}  {...imgCommonProps} src={fallback} />
             ) : (
               <ImgPlaceholder id="default-fallback" onClick={reload}>
                 <PictureOutlined />

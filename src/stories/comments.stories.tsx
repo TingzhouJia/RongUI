@@ -1,12 +1,12 @@
 import React from 'react'
-import { Comment } from '../../components'
+import { Comment,Avatar } from '../../components'
 import { themeIt } from './utils/withTheme'
-import Avatar from 'components/Avatar/avatar';
+
 import {  EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 
 
 export default {
-    title: 'Data Display / Collapse',
+    title: 'Data Display / Comments',
     component: Comment as any,
     decorators: [themeIt],
     parameters: {

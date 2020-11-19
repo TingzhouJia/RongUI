@@ -65,6 +65,7 @@ export const DesItemContent=styled.span<{vertical?:boolean,size?:NormalSizes}>`
     line-height: 22px;
     align-self:stretch;
     justify-self:stretch;
+    align-items:center;
     overflow-wrap: break-word;
     ${props=>props.vertical?css`padding:${props.size==='small'?'8px 12px':props.size==='default'?'8px 16px':'8px 24px'};;`:null}
    
@@ -79,8 +80,8 @@ export const DesTitle=styled.h3<{size:NormalSizes,bordered?:boolean}>`
     font-weight: bold;
     font-size: ${props=>props.size==='small'?'16px':props.size==='default'?'20px':'24px'};
     padding-left:${props=>props.bordered?'0':props.size==='small'?'12px':props.size==='default'?'16px':'20px'};
-    line-height: ${props=>props.size==='small'?'16px':props.size==='default'?'20px':'24px'};
-    margin-bottom:0;
+    /* line-height: ${props=>props.size==='small'?'16px':props.size==='default'?'20px':'24px'}; */
+    margin:0;
     white-space: nowrap;
     text-overflow: ellipsis;
 `

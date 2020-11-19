@@ -47,3 +47,89 @@ export const Basic=()=>{
     </>
   );
 }
+
+export const InnerClose=()=>{
+  const [visible, setVisible] = useState(false);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
+  return (
+    <>
+      <Button type="primary" onClick={showDrawer}>
+        Open
+      </Button>
+      <Drawer
+        title="Basic Drawer"
+        placement="right"
+        closable
+        onClose={onClose}
+        visible={visible}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
+    </>
+  );
+}
+
+export const NoMaskClose=()=>{
+  const [visible, setVisible] = useState(false);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
+  return (
+    <>
+      <Button type="primary" onClick={showDrawer}>
+        Open
+      </Button>
+      <Drawer
+        title="Basic Drawer"
+        placement="right"
+        closable
+        maskClosable={false}
+        onClose={onClose}
+        visible={visible}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
+    </>
+  );
+}
+
+export const NoMask=()=>{
+  const [visible, setVisible] = useState(false);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
+  return (
+    <>
+      <Button type="primary" onClick={showDrawer}>
+        Open
+      </Button>
+      <Drawer
+        title="Basic Drawer"
+        placement="right"
+        closable
+        mask={false}
+        onClose={onClose}
+        visible={visible}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
+    </>
+  );
+}

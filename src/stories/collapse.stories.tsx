@@ -5,7 +5,7 @@ import { CaretRightOutlined, SettingOutlined } from '@ant-design/icons';
 
 export default {
     title: 'Data Display / Collapse',
-    component: Checkbox as any,
+    component: Collapse as any,
     decorators: [themeIt],
     parameters: {
         docs: {
@@ -72,7 +72,7 @@ export const Extra=()=>{
 export const PositionedArrow=()=>{
     return (
         <Collapse >
-        <Collapse.Panel position="left" header="panel1">content1</Collapse.Panel>
+        <Collapse.Panel position="right" header="panel1">content1</Collapse.Panel>
         <Collapse.Panel header="panel2">content2</Collapse.Panel>
     </Collapse>)
 }

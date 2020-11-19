@@ -30,6 +30,7 @@ export const Extra=()=>{
 export const Meta=()=>{
     return (
         <Card 
+        style={{width:'300px'}}
         actions={[
             <SettingOutlined key="setting" />,
             <EditOutlined key="edit" />,
