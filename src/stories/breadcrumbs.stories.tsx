@@ -15,12 +15,12 @@ export default {
 
     },
 
-};
+}
 
 export const Basic=()=>{
     return (
         <Breadcrumb >
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item href='/a'>Home</Breadcrumb.Item>
         <Breadcrumb.Item>Rong</Breadcrumb.Item>
         <Breadcrumb.Item>UI</Breadcrumb.Item>
         </Breadcrumb>
