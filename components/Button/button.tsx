@@ -33,7 +33,7 @@ interface CompoundedComponent
 
 const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonProps>> = (props, ref) => {
     const groupConfig = useButtonGroupContext()
-    let {  type="default", mode, size, disabled = false, shape = "default", block = false, className = "", children, htmlType = "button", ...rest } = filterPropsWithGroup(props, groupConfig)
+    let {  type="default", mode, size="default", disabled = false, shape = "default", block = false, className = "", children, htmlType = "button", ...rest } = filterPropsWithGroup(props, groupConfig)
 
     const buttonRef = (ref as any) || useRef<HTMLButtonElement>()
     const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>) => {
