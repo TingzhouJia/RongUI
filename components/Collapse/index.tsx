@@ -47,7 +47,7 @@ const Collapse:CollapseInterface=(props)=>{
     if (!child) return null;
     // If there is no key provide, use the panel order as default key
     const key = child.key || String(index);
-    const { header, headerClass, disabled } = child?.props;
+    const { header, headerClass, disabled } = child.props;
     let isActive = false;
     if (accordion) {
       isActive = activeKey[0] === key;
