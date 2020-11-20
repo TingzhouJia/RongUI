@@ -20,7 +20,7 @@ export default {
 
 export const Basic = () => {
     return (
-        <Select style={{width:'200px'}}>
+        <Select style={{ width: '200px' }}>
             <Select.Option value="Rong">
                 Rong UI 1
             </Select.Option>
@@ -33,7 +33,7 @@ export const Basic = () => {
 
 export const Multiple = () => {
     return (
-        <Select multiple style={{width:'200px'}}>
+        <Select multiple style={{ width: '200px' }}>
             <Select.Option value="Rong">
                 Rong UI 1
             </Select.Option>
@@ -46,7 +46,7 @@ export const Multiple = () => {
 
 export const Group = () => {
     return (
-        <Select multiple style={{width:'200px'}}>
+        <Select multiple style={{ width: '200px' }}>
             <Select.OptGroup label="group">
                 <Select.Option value="Rong">
                     Rong UI 1
