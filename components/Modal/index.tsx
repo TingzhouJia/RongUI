@@ -1,5 +1,6 @@
 import confirm,{ useSuccess, ModalFunctions,useConfirm,useError,useInfo,useWarning } from "./confirm";
 import BaseModal,{ ModalFuncProps, destroyFns } from "./modal";
+import { DefaultTheme } from "styled-components";
 
 
 
@@ -8,24 +9,24 @@ type ModalType = typeof BaseModal &
 
 const Modal = BaseModal as ModalType;
 
-Modal.info = function infoFn(props: ModalFuncProps) {
-  return confirm(useInfo(props));
+Modal.info = function infoFn(props: ModalFuncProps,theme:DefaultTheme) {
+  return confirm(useInfo(props),theme);
 };
 
-Modal.success = function successFn(props: ModalFuncProps) {
-  return confirm(useSuccess(props));
+Modal.success = function successFn(props: ModalFuncProps,theme:DefaultTheme) {
+  return confirm(useSuccess(props),theme);
 };
 
-Modal.error = function errorFn(props: ModalFuncProps) {
-  return confirm(useError(props));
+Modal.error = function errorFn(props: ModalFuncProps,theme:DefaultTheme) {
+  return confirm(useError(props),theme);
 };
 
-Modal.warning=function warnFn(props: ModalFuncProps) {
-  return confirm(useWarning(props));
+Modal.warning=function warnFn(props: ModalFuncProps,theme:DefaultTheme) {
+  return confirm(useWarning(props),theme);
 }
 
-Modal.confirm = function confirmFn(props: ModalFuncProps) {
-  return confirm(useConfirm(props));
+Modal.confirm = function confirmFn(props: ModalFuncProps,theme:DefaultTheme) {
+  return confirm(useConfirm(props),theme);
 };
 
 Modal.destroyAll = function destroyAllFn() {

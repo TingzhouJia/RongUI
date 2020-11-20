@@ -63,7 +63,7 @@ export const Dialog: React.FC<DialogProps> = (props) => {
 
   const contentTimeoutRef = useRef<number>();
 function onInternalClose(e: React.SyntheticEvent) {
-        onClose?.(e);
+        onClose&&onClose(e);
       }
     let onWrapperClick: (e: React.SyntheticEvent) => void = ()=>{};
   if (maskClosable) {
