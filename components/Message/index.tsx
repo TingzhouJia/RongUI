@@ -10,13 +10,14 @@ import CheckCircleFilled from '@ant-design/icons/CheckCircleFilled';
 import InfoCircleFilled from '@ant-design/icons/InfoCircleFilled';
 import React from 'react';
 import { getColor } from '../utils/getColor';
-import styled from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
+import { IconRender } from './wrapper';
 
 type NoticeType = 'info' | 'success' | 'error' | 'warning' | 'loading';
 
 let messageInstance: RNotificationInstance | null;
 let defaultDuration = 3;
-let defaultTop: number=8;
+let defaultTop: number = 8;
 let key = 1;
 let getContainer: () => HTMLElement;
 let maxCount: number;
@@ -81,6 +82,7 @@ function setMessageConfig(options: ConfigOptions) {
 function getRCNotificationInstance(
     args: ArgsProps,
     callback: (info: { instance: RNotificationInstance }) => void,
+    theme: DefaultTheme
 ) {
 
     if (messageInstance) {
@@ -91,7 +93,7 @@ function getRCNotificationInstance(
     }
     Notification.newInstance(
         {
-            style: { top: defaultTop,left:"50%" }, 
+            style: { top: defaultTop, left: "50%" },
             getContainer,
             maxCount,
         },
@@ -107,6 +109,7 @@ function getRCNotificationInstance(
                 instance,
             });
         },
+        theme
     );
 }
 
@@ -121,16 +124,18 @@ function getRCNoticeProps(args: ArgsProps, ): NoticeContent {
         style: args.style || {},
         className: args.className,
         content: (
-            <div style={{ display:'flex',flexDirection:'row',alignItems:"center" }}>
-                {args.icon || (IconComponent && <IconComponent />)}
-                <span style={{marginLeft:'4px'}}>{args.content}</span>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center" }}>
+                <IconRender type={args.type}>
+                    {args.icon || (IconComponent && <IconComponent />)}
+                </IconRender>
+                <span style={{ marginLeft: '4px' }}>{args.content}</span>
             </div>
         ),
         onClose: args.onClose,
     };
 }
 
-function notice(args: ArgsProps): MessageType {
+function notice(args: ArgsProps, theme: DefaultTheme): MessageType {
     const target = args.key || key++;
     const closePromise = new Promise(resolve => {
         const callback = () => {
@@ -142,7 +147,7 @@ function notice(args: ArgsProps): MessageType {
 
         getRCNotificationInstance(args, ({ instance }) => {
             instance.notice(getRCNoticeProps({ ...args, key: target, onClose: callback }));
-        });
+        }, theme);
     });
     const result: any = () => {
         if (messageInstance) {
@@ -167,8 +172,54 @@ function isArgsProps(content: JointContent): content is ArgsProps {
     );
 }
 
-const api: any = {
-    open: notice,
+
+
+export function attachTypeApi(originalApi: any, type: NoticeType, theme: DefaultTheme) {
+    originalApi[type] = (
+        content: JointContent,
+        duration?: ConfigDuration,
+        onClose?: ConfigOnClose,
+    ) => {
+        if (isArgsProps(content)) {
+            return notice({ ...content, type }, theme);
+        }
+
+        if (typeof duration === 'function') {
+            onClose = duration;
+            duration = undefined;
+        }
+
+        return originalApi.open({ content, duration, type, onClose });
+    };
+}
+
+
+
+
+
+export interface MessageInstance {
+    info(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
+    success(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
+    error(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
+    warning(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
+    loading(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
+    open(args: ArgsProps): MessageType;
+}
+const useMessage = (theme: DefaultTheme): MessageInstance => {
+    let cur: any = { success: () => { }, info: () => { }, warning: () => { }, error: () => { } }
+    let so = ['success', 'info', 'warning', 'error']
+    so.forEach((type: any) => attachTypeApi(cur, type as NoticeType, theme));
+    return cur
+}
+export interface MessageApi {
+    // warn(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
+    config(options: ConfigOptions): void;
+    destroy(messageKey?: React.Key): void;
+    useMessage: (theme: DefaultTheme) => MessageInstance
+}
+
+const api: MessageApi = {
+
     config: setMessageConfig,
     destroy(messageKey?: React.Key) {
         if (messageInstance) {
@@ -182,45 +233,6 @@ const api: any = {
             }
         }
     },
+    useMessage
 };
-
-export function attachTypeApi(originalApi: any, type: string) {
-    originalApi[type] = (
-        content: JointContent,
-        duration?: ConfigDuration,
-        onClose?: ConfigOnClose,
-    ) => {
-        if (isArgsProps(content)) {
-            return originalApi.open({ ...content, type });
-        }
-
-        if (typeof duration === 'function') {
-            onClose = duration;
-            duration = undefined;
-        }
-
-        return originalApi.open({ content, duration, type, onClose });
-    };
-}
-
-['success', 'info', 'warning', 'error', 'loading'].forEach(type => attachTypeApi(api, type));
-api.warn = api.warning;
-
-
-export interface MessageInstance {
-  info(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
-  success(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
-  error(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
-  warning(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
-  loading(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
-  open(args: ArgsProps): MessageType;
-}
-
-export interface MessageApi extends MessageInstance {
-  warn(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
-  config(options: ConfigOptions): void;
-  destroy(messageKey?: React.Key): void;
-  useMessage(): [MessageInstance, React.ReactElement];
-}
-
-export default api as MessageApi
+export default api 
