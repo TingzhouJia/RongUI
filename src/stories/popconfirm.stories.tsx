@@ -23,11 +23,11 @@ export const Basic=()=>{
    return (
     <Popconfirm
     title="Are you sure delete this task?"
-  
+    
     confirmText="Yes"
     cancelText="No"
   >
-    <a href="#">Delete</a>
+    <div style={{marginTop:'200px'}}>Delete</div>
   </Popconfirm>
    )
 }
