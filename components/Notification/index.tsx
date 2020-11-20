@@ -7,6 +7,7 @@ import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
 import Notification, { NotificationInstance } from './notification'
 import { WithIcon, AutoMargin, Msg, Desc, Btn, StatusIcon } from './wrapper';
 import { getColor } from '../utils/getColor';
+import { DefaultTheme } from 'styled-components';
 export type NotificationPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
 export type IconType = 'success' | 'info' | 'error' | 'warning';
@@ -120,6 +121,7 @@ function getPlacementStyle(
 function getNotificationInstance(
     args: ArgsProps,
     callback: (info: { instance: NotificationInstance }) => void,
+    theme: DefaultTheme
 ) {
     const {
         placement = defaultPlacement,
@@ -160,25 +162,26 @@ function getNotificationInstance(
                     instance: notification,
                 });
             },
+            theme
         );
     });
 }
 
 function getRCNoticeProps(args: ArgsProps) {
     const duration = args.duration === undefined ? defaultDuration : args.duration;
-   
+
     let iconNode: React.ReactNode = null;
     if (args.icon) {
         iconNode = <WithIcon>{args.icon}</WithIcon>;
     } else if (args.type) {
-    iconNode = <StatusIcon status={args.type}>{typeToIcon[args.type]}</StatusIcon>
+        iconNode = <StatusIcon status={args.type}>{typeToIcon[args.type]}</StatusIcon>
     }
 
     const autoMarginTag =
         !args.description && iconNode ? (
             <AutoMargin />
         ) : null;
-          
+
     return {
         content: (
             <div role="alert">
@@ -201,56 +204,71 @@ function getRCNoticeProps(args: ArgsProps) {
     };
 }
 
-function notice(args: ArgsProps) {
+function notice(args: ArgsProps, theme: DefaultTheme) {
     getNotificationInstance(args, ({ instance }) => {
         instance.notice(getRCNoticeProps(args));
-    });
+    }, theme);
 }
-const api: any = {
-    open: notice,
+
+
+// ['success', 'info', 'warning', 'error'].forEach(type => {
+//     api[type] = (args: ArgsProps) =>
+//         api.open({
+//             ...args,
+//             type,
+//         });
+// });
+
+//api.useNotification = createUseNotification(getNotificationInstance, getRCNoticeProps);
+
+export interface NotificationInstances {
+    success(args: ArgsProps): void;
+    error(args: ArgsProps): void;
+    info(args: ArgsProps): void;
+    warning(args: ArgsProps): void;
+   
+}
+
+export interface NotificationApi  {
+    close(key: string): void;
+    config(options: ConfigProps): void;
+    destroy(): void;
+    open(args: ArgsProps,theme:DefaultTheme): void;
+    // Hooks
+     useNotification: (theme:DefaultTheme) =>NotificationInstances ;
+}
+const useStatusNotification = (theme: DefaultTheme) => {
+    let apis:any;
+    ['success', 'info', 'warning', 'error'].forEach(type => {
+        apis[type] = (args: ArgsProps) =>
+           notice({
+                ...args,
+                type:(type as any),
+            },theme);
+    });
+    return apis
+}
+const api: NotificationApi = {
+    open:notice,
     close(key: string) {
-      Object.keys(notificationInstance).forEach(cacheKey =>
-        Promise.resolve(notificationInstance[cacheKey]).then(instance => {
-          instance.removeNotice(key);
-        }),
-      );
+        Object.keys(notificationInstance).forEach(cacheKey =>
+            Promise.resolve(notificationInstance[cacheKey]).then(instance => {
+                instance.removeNotice(key);
+            }),
+        );
     },
     config: setNotificationConfig,
     destroy() {
-      Object.keys(notificationInstance).forEach(cacheKey => {
-        Promise.resolve(notificationInstance[cacheKey]).then(instance => {
-          instance.destroy();
+        Object.keys(notificationInstance).forEach(cacheKey => {
+            Promise.resolve(notificationInstance[cacheKey]).then(instance => {
+                instance.destroy();
+            });
+            delete notificationInstance[cacheKey];
         });
-        delete notificationInstance[cacheKey]; 
-      });
     },
-  };
-  
-  ['success', 'info', 'warning', 'error'].forEach(type => {
-    api[type] = (args: ArgsProps) =>
-      api.open({
-        ...args,
-        type,
-      });
-  });
-  
-  //api.useNotification = createUseNotification(getNotificationInstance, getRCNoticeProps);
+    useNotification:useStatusNotification
+};
 
-export interface NotificationInstances {
-  success(args: ArgsProps): void;
-  error(args: ArgsProps): void;
-  info(args: ArgsProps): void;
-  warning(args: ArgsProps): void;
-  open(args: ArgsProps): void;
-}
 
-export interface NotificationApi extends NotificationInstances {
-  close(key: string): void;
-  config(options: ConfigProps): void;
-  destroy(): void;
 
-  // Hooks
- // useNotification: () => [NotificationInstance, React.ReactElement];
-}
-
-export default api as NotificationApi;
+export default api ;
