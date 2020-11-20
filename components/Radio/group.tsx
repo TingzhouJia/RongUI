@@ -17,7 +17,7 @@ export interface Props {
 
 
 
-const RadioGroup:React.FC<Props>=(props,)=>{
+const RadioGroup:React.FC<Props>=(props)=>{
     const {initialValue,value:curValue,onChange,disabled,children,options,useRow}=props
     const [value, setValue] =useState(initialValue||curValue)
     const updateState = (nextValue: string | number) => {

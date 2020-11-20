@@ -3,6 +3,13 @@ import React, { useState, useEffect } from 'react'
 import { RadioContext, useRadioContext } from "./context";
 import { RadioLabel, RadioWrapper, RadioInput, RadioInner } from "./wrapper";
 import { CSSProperties } from "styled-components";
+import RadioGroup from './group'
+ 
+interface CompoundedComponent
+  extends React.ForwardRefExoticComponent<InnerRadioProps & React.RefAttributes<HTMLElement>> {
+  Group: typeof RadioGroup;
+ 
+}
 interface RadioEventTarget {
     checked: boolean
   }
@@ -69,8 +76,8 @@ const InnerRadio:React.ForwardRefRenderFunction<unknown,InnerRadioProps>=({check
       )
 }
 
-const Radio = React.forwardRef<unknown, InnerRadioProps>(InnerRadio);
-
+const Radio = React.forwardRef<unknown, InnerRadioProps>(InnerRadio) as CompoundedComponent;
+Radio.Group=RadioGroup
 Radio.displayName = 'Radio';
 
 export default Radio

@@ -18,24 +18,38 @@ export default {
 
 };
 
-export const Basic=()=>{
+export const Basic = () => {
     return (
         <Radio >Radio</Radio>
     )
 }
 
-export const RadioGroup=()=>{
+export const RadioGroup = () => {
     const [value, setvalue] = useState(0)
-    const onChange = (e:any) => {
-       setvalue(e.target.value)
-       
-      };
+    const onChange = (e: any) => {
+        setvalue(e.target.value)
+
+    };
     return (
-        <Radio.Group onChange={onChange} value={value} >
-        <Radio value={1}>A</Radio>
-        <Radio value={2}>B</Radio>
-        <Radio value={3}>C</Radio>
-        <Radio value={4}>D</Radio>
-      </Radio.Group>
+        <Radio.Group value={value} onChange={onChange}>
+            <Radio value={1}>A</Radio>
+            <Radio value={2}>B</Radio>
+            <Radio value={3}>C</Radio>
+            <Radio value={4}>D</Radio>
+        </Radio.Group>
+    )
+}
+
+export const OptionMode=()=>{
+    const [value, setvalue] = useState(0)
+    const onChange = (e: any) => {
+        setvalue(e.target.value)
+
+    };
+    const options=[{label:'A',value:1},{label:'B',value:2}]
+    return (
+        <Radio.Group options={options} value={value} onChange={onChange}>
+            
+        </Radio.Group>
     )
 }

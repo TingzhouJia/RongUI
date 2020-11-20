@@ -1,10 +1,4 @@
-import InternalRadio,{InnerRadioProps} from './radio'
-import RadioGroup from './group'
- 
-interface CompoundedComponent
-  extends React.ForwardRefExoticComponent<InnerRadioProps & React.RefAttributes<HTMLElement>> {
-  Group: typeof RadioGroup;
- 
-}
-const Radio = InternalRadio as CompoundedComponent;
+import Radio from './radio'
+
+
 export default Radio

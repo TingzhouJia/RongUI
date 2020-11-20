@@ -18,9 +18,13 @@ export const RadioLabel = styled.label`
     font-variant: tabular-nums;
     line-height: 1.5715;
     list-style: none;
-    outline: none;
+    align-items:center;
+    flex-direction:row;
+    &,&:active,&:hover {
+        outline: none;
+    }
     position: relative;
-    display: inline-block;
+    display: inline-flex;
     white-space: nowrap;
     cursor: pointer;
     margin: 0 8px 0 0;
@@ -32,7 +36,15 @@ export const RadioWrapper=styled.span<{disabled:boolean}>`
         &,&>* {
             cursor:not-allowed;
         }
-        `:null
+       
+    }
+        `:css`
+        &:hover {   
+      & > span {
+        border-color:${props.theme.colors.primary};
+      }
+  }
+        `
     }
 `
 
@@ -54,13 +66,16 @@ export const RadioInner=styled.span<{checked?:boolean,disabled?:boolean}>`
     display: block;
     width: 16px;
     height: 16px;
+    margin-right:3px;
+   
     background-color: ${props=>props.disabled?props.theme.colors.disabledBackground: props.theme.colors.background};
     border: 1px solid ${props=>props.checked?props.theme.colors.primary:props.theme.colors.borderColor};
     border-radius: 100px;
     &::after {
         position: absolute;
-    top: 3px;
-    left: 3px;
+    top:4px;
+    left:4px;
+  
     display: table;
     width: 8px;
     height: 8px;
