@@ -9,6 +9,7 @@ import { Placement } from '../utils'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { palette } from '../styles'
 import { TooltipBase } from '../Tooltip/wrapper'
+import { CSSProperties } from 'styled-components'
 
 export interface PopconfirmProps {
     cancelText?: string
@@ -17,7 +18,8 @@ export interface PopconfirmProps {
     icon?: React.ReactNode
     confirmText?: string
     title?: React.ReactNode
-    confirmType?: BaseButtonProps
+    confirmType?: BaseButtonProps,
+    style?:CSSProperties
     onConfirm?: () => void
     onCancel?: () => void
 }
@@ -29,6 +31,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
     disabled = false,
     icon,
     confirmText,
+    style,
     confirmType,
     onCancel,
     onConfirm,
@@ -86,8 +89,8 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
             <PopconfirmTitle>{title}</PopconfirmTitle>
         </PopconfirmMessage>
         <PopconfirmButtons>
-            <Button {...cancelType} onClick={handleCancel}>{cancelText || 'No'}</Button>
-            <Button type="primary" {...confirmType} onClick={handleConfirm} style={{marginLeft:"7px"}}>{confirmText || 'Yes'}</Button>
+            <Button size="small" {...cancelType} onClick={handleCancel}>{cancelText || 'No'}</Button>
+            <Button size="small" type="primary" {...confirmType} onClick={handleConfirm} style={{marginLeft:"7px"}}>{confirmText || 'Yes'}</Button>
         </PopconfirmButtons>
     </PopConfirmBase>)
     const handleOpen = () => {
@@ -95,7 +98,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
         changeVisible(!visible)
 
     }
-    return <TooltipBase onClick={handleOpen} ref={ref}>
+    return <TooltipBase style={style} id="popconfirm_base" onClick={handleOpen} ref={ref}>
         {children}
         <TooltipContent {...contentProps}  >{content}</TooltipContent>
     </TooltipBase>

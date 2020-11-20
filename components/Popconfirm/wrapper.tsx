@@ -18,7 +18,6 @@ export const PopconfirmTitle=styled.div`
     padding-left:22px
 `
 export const PopconfirmButtons=styled.div`
-margin-bottom: 4px;
 display:flex;
 flex-direction:row;
 justify-content:flex-end;
