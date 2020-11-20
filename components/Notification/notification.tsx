@@ -3,6 +3,7 @@ import { useState, ReactText, useRef, useEffect, useImperativeHandle } from "rea
 import { NotificationBase } from "./wrapper";
 import React from "react";
 import ReactDOM from "react-dom";
+import { DefaultTheme, ThemeProvider } from "styled-components";
 
 
 export interface NoticeContent extends Omit<NoticeProps, 'children'> {
@@ -162,7 +163,7 @@ const InnerNotification: React.ForwardRefRenderFunction<NotifFunc, NotificationP
             return (
                 <Notice
                     {...noticeProps}
-                    className={noticeProps?.className}
+                    className={noticeProps.className}
                     style={{ ...noticeProps?.style }}
                 />
             );
@@ -181,6 +182,7 @@ interface CompoundedComponent
     newInstance: (
         properties: NotificationProps & { getContainer?: () => HTMLElement },
         callback: (instance: NotificationInstance) => void,
+        theme:DefaultTheme
     ) => void
 }
 
@@ -188,7 +190,7 @@ const Notification = React.forwardRef<NotifFunc, NotificationProps>(InnerNotific
 
 
 
-Notification.newInstance = (properties, callback) => {
+Notification.newInstance = (properties, callback,theme) => {
     const { getContainer, ...props } = properties || {};
     const div = document.createElement('div');
     if (getContainer) {
@@ -222,7 +224,9 @@ Notification.newInstance = (properties, callback) => {
 
 
 
-    ReactDOM.render(<Notification {...props} ref={ref} />, div);
+    ReactDOM.render(<ThemeProvider theme={theme}>
+        <Notification {...props} ref={ref} />
+    </ThemeProvider>, div);
 };
 
 

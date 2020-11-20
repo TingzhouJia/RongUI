@@ -18,6 +18,7 @@ interface ConfirmDialogProps extends ModalFuncProps {
 }
 export type ModalFunc = (
     props: ModalFuncProps,
+    theme:DefaultTheme
 ) => {
     destroy: () => void;
     update: (newConfig: ModalFuncProps) => void;
