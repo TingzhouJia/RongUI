@@ -8,7 +8,6 @@ export interface GroupProps {
     size?:NormalSizes
     style?: React.CSSProperties;
     maxCount?: number;
-    maxStyle?: React.CSSProperties;
  //   maxPopoverPlacement?: 'top' | 'bottom';
   }
 
