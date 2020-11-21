@@ -3,9 +3,10 @@ import { Avatar, Space } from '../../components'
 import { themeIt } from './utils/withTheme'
 import { UserOutlined } from '@ant-design/icons';
 import { Meta } from '@storybook/react/types-6-0';
+import  AvatrarGroup from '../../components/Avatar/avatar-group'
 export default {
     title: 'Data Display / Avatar',
-    component: Avatar as any,
+    component: Avatar ,
     decorators: [themeIt],
     parameters: {
         componentSubtitle: "Avatars can be used to represent people or objects. It supports images, Icons, or letters.",
@@ -13,39 +14,89 @@ export default {
     },
     argTypes: {
         shape: {
-            description: "shape of avatar<br/><h6>type:</h6><code>square</code> | <code>circle</code>",
+            description: "Shape of Avatar<br/><h6>type:</h6>",
             table: {
+                type:{
+                    summary:'"circle" | "square"'
+                },
                 defaultValue: { summary: "circle" }
             },
             control: {},
         },
         size: {
-            description: "size of avatar<br/><h6>type:</h6><code>small</code> | <code>default</code> | <code>large</code> |<code>number</code>",
+            description: "Size of <strong>Avatar</strong> or <strong>AvatarGroup</strong><br/><h6>type:</h6>",
             table: {
+                type:{
+                    summary:"'small' | 'default' | 'large' | number"
+                },
                 defaultValue: { summary: "default" }
             }
         },
         src: {
-            description: "src for image avatar<br/><h6>type:</h6><code>string</code>"
+            table:{
+                type:{
+                    summary:"string",
+                }
+            },
+            description: "Src for image avatar<br/><h6>type:</h6>"
         },
         icon: {
-            description: "reactnode for icon avatar<br/><h6>type:</h6><code>ReactNode</code>"
+            table:{
+                type:{
+                    summary:"ReactNode",
+                }
+            },
+            description: "Reactnode for icon avatar<br/><h6>type:</h6>"
         },
         alt: {
-            description: "alternative text describing the image<br/><h6>type:</h6><code>string</code>"
+            table:{
+                type:{
+                    summary:"string",
+                }
+            },
+            description: "Alternative text describing the image<br/><h6>type:</h6>"
         },
         srcSet: {
-            description: "list of sources to use for different screen resolutions<br/><h6>type:</h6><code>string</code>"
+            table:{
+                type:{
+                    summary:"string",
+                }
+            },
+            description: "list of sources to use for different screen resolutions<br/><h6>type:</h6>"
         },
         text: {
-            description: "text type avatar<br/><h6>type:</h6><code>string</code>"
+            table:{
+                type:{
+                    summary:"string",
+                }
+            },
+            description: "text type avatar<br/><h6>type:</h6>"
         },
         style: {
-            description: "The style object of container<br/><h6>type:</h6><code>CSSProperties</code>",
+            table:{
+                type:{
+                    summary:"CSSProperties",
+                }
+            },
+            description: "The style object of container<br/><h6>type:</h6>",
         },
         className: {
-            description: "The className object of container<br/><h6>type:</h6><code>string</code>",
+            table:{
+                type:{
+                    summary:"string",
+                }
+            },
+            description: "The className object of container<br/><h6>type:</h6>",
         },
+        maxCount:{
+            name:'maxCount',
+            table:{
+                type:{
+                    summary:"number",
+                }
+            },
+            description:"The max number of avatar to show in group.<strong>This property only works for AvatarGroup</strong><h6>type:</h6>"
+        }
     },
 } as Meta
 

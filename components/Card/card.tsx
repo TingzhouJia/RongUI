@@ -1,6 +1,6 @@
 import React from 'react'
 import { CardHeader, CardHeaderTitle, CardExtra, CardCover, CardBody, CardActions, CardContain } from './wrapper';
-import Meta, { CardMetaProps } from './meta'
+import Meta from './meta'
 export type CardType = 'inner';
 export type CardSize = 'default' | 'small';
 
@@ -12,12 +12,9 @@ export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 't
   headStyle?: React.CSSProperties;
   bodyStyle?: React.CSSProperties;
   style?: React.CSSProperties;
-  loading?: boolean;
   children?: React.ReactNode;
-  id?: string;
   className?: string;
   size?: CardSize;
-  type?: CardType;
   cover?: React.ReactNode;
   actions?: React.ReactNode[];
 }

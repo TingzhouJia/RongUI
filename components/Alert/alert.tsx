@@ -14,9 +14,6 @@ export interface AlertProps {
     className?: string;
     onClose?: React.MouseEventHandler<HTMLButtonElement>;
     afterClose?: () => void;
-    onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
-    onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
-    onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 
@@ -25,9 +22,6 @@ const Alert: React.FC<AlertProps> = ({
     message,
     type="info",
     className = '',
-    onMouseEnter,
-    onMouseLeave,
-    onClick,
     afterClose,
     showIcon,
     closable,

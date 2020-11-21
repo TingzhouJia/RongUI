@@ -5,11 +5,6 @@ import styled, { CSSProperties } from "styled-components";
 import { Nav } from "./wrapper";
 
 
-interface Route {
-  path: string;
-  breadcrumbName: string;
-  children?: Omit<Route, 'children'>[];
-}
 
 export interface BreadcrumbProps {
 

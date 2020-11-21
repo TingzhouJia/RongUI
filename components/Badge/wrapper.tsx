@@ -20,13 +20,13 @@ right: 0;
 transform: translate(50%, -50%);
 transform-origin: 100% 0%;
 font-size: ${props=>props.small?'10px':'12px'};
-span {
+& > span {
   font-size: ${props=>props.small?"8px":"14px"};
 }
 
 z-index: auto;
 color: white;
-padding: ${props=>props.small?props.multi?"0px 6px":"0px":props.multi?'0px 8px':"5px"};
+padding: ${props=>props.small?props.multi?"0px 3px":"0px":props.multi?'0px 6px':"0px"};
 height:${props=>props.small?'14px':'20px'};
 line-height:${props=>props.small?'14px':'20px'};
 min-width:${props=>props.small?'14px':'20px'};
@@ -44,7 +44,7 @@ cursor:pointer;
 
 `
 
-export const BadgeDot = styled.span<{color?:string,status:string,istext?:boolean}>`
+export const BadgeDot = styled.span<{colordot?:string,status?:string,istext?:boolean}>`
       width:6px;
       height: 6px;
       border-radius: 100%;
@@ -60,7 +60,7 @@ export const BadgeDot = styled.span<{color?:string,status:string,istext?:boolean
       
       
       `}
-      background:${props=>props.color||(getColor(props.status,props.theme))};
+    background:${props=>props.colordot?props.colordot:(props.status?(getColor(props.status as string,props.theme)):'#ff4d4f')};
 
 `
 
