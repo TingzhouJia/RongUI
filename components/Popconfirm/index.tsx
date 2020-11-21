@@ -1,6 +1,6 @@
 
-import React, { useState, useRef, useEffect } from 'react'
-import Tooltip from '../Tooltip'
+import React, { useState, useRef, useEffect, useContext } from 'react'
+
 import Button from '../Button'
 import {BaseButtonProps} from '../Button/button'
 import TooltipContent from '../Tooltip/tooltipContent'
@@ -9,7 +9,7 @@ import { Placement } from '../utils'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { palette } from '../styles'
 import { TooltipBase } from '../Tooltip/wrapper'
-import { CSSProperties } from 'styled-components'
+import { CSSProperties, ThemeContext } from 'styled-components'
 
 export interface PopconfirmProps {
     cancelText?: string
@@ -17,6 +17,7 @@ export interface PopconfirmProps {
     disabled?: boolean
     icon?: React.ReactNode
     confirmText?: string
+    placement?: Placement
     title?: React.ReactNode
     confirmType?: BaseButtonProps,
     style?:CSSProperties
@@ -31,6 +32,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
     disabled = false,
     icon,
     confirmText,
+    placement="top",
     style,
     confirmType,
     onCancel,
@@ -40,10 +42,11 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
     const [visible, setVisible] = useState(false)
     const timer = useRef<number | undefined>(0)
     const ref = useRef<HTMLDivElement>(null)
+    const theme=useContext(ThemeContext)
     const contentProps = {
         visible,
         offset: 12,
-        placement: 'top' as Placement,
+        placement,
         hideArrow: false,
         parent: ref,
         background: "#fff"
@@ -85,7 +88,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
     }
     const content = (<PopConfirmBase>
         <PopconfirmMessage>
-            {icon || <ExclamationCircleFilled style={{ color: palette.warningDark,fontSize:"20px" }} />}
+            {icon || <ExclamationCircleFilled style={{ color: theme.colors.warning,fontSize:"20px" }} />}
             <PopconfirmTitle>{title}</PopconfirmTitle>
         </PopconfirmMessage>
         <PopconfirmButtons>
@@ -100,7 +103,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
     }
     return <TooltipBase style={style} id="popconfirm_base" onClick={handleOpen} ref={ref}>
         {children}
-        <TooltipContent {...contentProps}  >{content}</TooltipContent>
+        <TooltipContent  {...contentProps}  >{content}</TooltipContent>
     </TooltipBase>
 }
 
