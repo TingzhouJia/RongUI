@@ -12,7 +12,7 @@ export default {
         componentSubtitle:"A divider line separates different content.",
         docs:{
             description:{
-                component:"<h3>When to use?</h3><br/><ul><li>Divide sections of article.</li><li>Divide inline text and links such as the operation column of table.</li></ul>"
+                component:"<h3>When To Use?</h3><br/><ul><li>Divide sections of article.</li><li>Divide inline text and links such as the operation column of table.</li></ul>"
                 ,
                 
             },
