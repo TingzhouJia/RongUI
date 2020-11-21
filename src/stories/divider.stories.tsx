@@ -28,7 +28,7 @@ export default {
             table:{
                 defaultValue: { summary: '"horizontal"' },
             },
-            description:'The direction type of divider: <br/><code>"horizontal"</code> | <code>"vertical"</code> ',
+            description:'The direction type of divider: <br/><h6>type:</h6><code>"horizontal"</code> | <code>"vertical"</code> ',
             control:{},
             type:'string'
         },
@@ -36,17 +36,17 @@ export default {
             table:{
                 defaultValue: { summary: true },
             },
-            description:"Divider text show as plain style<br/><code>Boolean</code>"
+            description:"Divider text show as plain style<br/><h6>type:</h6><code>Boolean</code>"
         },
         style:{
-            description:"The style object of container<br/><code>CSSProperties</code>",
+            description:"The style object of container<br/><h6>type:</h6><code>CSSProperties</code>",
             
         },
         className:{
-            description:"The className object of container<br/><code>string</code>",
+            description:"The className object of container<br/><h6>type:</h6><code>string</code>",
         },
         orientation:{
-            description:`The position of title inside divider<br/><code>"left"</code> | <code>"center"</code> | <code>"right"</code>`,
+            description:`The position of title inside divider<br/><h6>type:</h6><code>"left"</code> | <code>"center"</code> | <code>"right"</code>`,
             table:{
                 defaultValue: { summary: '"center' },
             },
@@ -55,7 +55,7 @@ export default {
             table:{
                 defaultValue: { summary: false },
             },
-            description:"Whether line is dashed<br/><code>Boolean</code>"
+            description:"Whether line is dashed<br/><h6>type:</h6><code>Boolean</code>"
         },
     },
 
