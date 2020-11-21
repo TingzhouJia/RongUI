@@ -8,7 +8,6 @@ export interface AvatarProps {
     /** Shape of avatar, options:`circle`, `square` */
     shape?: 'circle' | 'square';
     size?: NormalSizes | number;
-    gap?: number;
     /** Src of image avatar */
     src?: string;
     /** Srcset of image avatar */
@@ -16,7 +15,6 @@ export interface AvatarProps {
     icon?: React.ReactNode;
     style?: React.CSSProperties;
     className?: string;
-    children?: React.ReactNode;
     text?: string;
     alt?: string;
 }
