@@ -8,40 +8,42 @@ export default {
     decorators: [themeIt],
     parameters: {
         componentSubtitle: 'Alert for action or feedback',
-        docs:{
-            description:{
-                component:"<h3>When To Use?</h3><br/><ul><li>When you need to show alert messages to users.</li><li>When you need a persistent static container which is closable by user actions.</li></ul>"
+        docs: {
+            description: {
+                component: "<h3>When To Use?</h3><br/><ul><li>When you need to show alert messages to users.</li><li>When you need a persistent static container which is closable by user actions.</li></ul>"
                 ,
-                
+
             },
-            source:{
-                type:"code"
+            source: {
+                type: "code"
             }
         }
     },
     argTypes: {
-        message: {  name: 'message', description: 'content of message<br/><h6>type:</h6><code>string</code>', type: { name: 'string', required: true }, control:{}},
-        type: { name: 'type', 
-        description: 'Type of Alert styles<br/>callback when Alert closed<br/><h6>type:</h6><code>success</code> | <code>info</code> | <code>warning</code> | <code>error</code>', 
-        table: {
-            defaultValue:{summary:'info'}
-        } },
-        closable:{
-            description:"Whether Alert can be closed<br/><h6>type:</h6><code>Boolean</code>",
-            table:{
-                defaultValue:{summary:"false"}
+        message: { name: 'message', description: 'Content of message<br/><h6>type:</h6><code>string</code>', type: { name: 'string', required: true }, control: {} },
+        type: {
+            name: 'type',
+            description: 'Type of Alert styles<h6>type:</h6><code>success</code> | <code>info</code> | <code>warning</code> | <code>error</code>',
+            table: {
+                defaultValue: { summary: 'info' }
             }
         },
-        showIcon:{
-            description:"whether show icon or not<br/><h6>type:</h6><code>boolean</code>",
-            table:{defaultValue:{summary:"false"}}
+        closable: {
+            description: "Whether Alert can be closed<br/><h6>type:</h6><code>Boolean</code>",
+            table: {
+                defaultValue: { summary: "false" }
+            }
         },
-        icon:{description:'customized icon when <code>showIcon</code> property is true<br/><h6>type:</h6><code>ReactNode</code>'},
-        className: { name: 'className', description: 'classname for alert<br/><h6>type:</h6><code>string</code>' },
-        description: { name: 'description', description: 'more detail for alert<br/><h6>type:</h6><code>string</code>',},
-        closeText: { name: 'closeText', description: 'customized close button<br/><h6>type:</h6><code>ReactNode</code>' },
-        afterClose: { name: 'afterClose', description: 'callback aftrer Alert closed<br/><h6>type:</h6><code>()=>void</code>' },
-        onClose:{description:"callback when Alert closed<br/><h6>type:</h6><code>(event: React.MouseEvent<T, MouseEvent>) => void</code> "}
+        showIcon: {
+            description: "Whether show icon or not<br/><h6>type:</h6><code>boolean</code>",
+            table: { defaultValue: { summary: "false" } }
+        },
+        icon: { description: 'Customized icon when <code>showIcon</code> property is true<br/><h6>type:</h6><code>ReactNode</code>' },
+        className: { description: 'Classname for Alert<br/><h6>type:</h6><code>string</code>' },
+        description: {  description: 'Detail information for Alert<br/><h6>type:</h6><code>string</code>', },
+        closeText: {  description: 'Customized close button<br/><h6>type:</h6><code>ReactNode</code>' },
+        afterClose: { description: 'Callback aftrer Alert closed<br/><h6>type:</h6><code>()=>void</code>' },
+        onClose: { description: "Callback when Alert closed<br/><h6>type:</h6><code>(event: React.MouseEvent<T, MouseEvent>) => void</code> " }
     },
 
 } as Meta
@@ -59,7 +61,7 @@ export const Status = () => (<>
     <br />
     <Alert type="warning" message="warning" />
     <br />
-    <Alert type="success" message="success"  />
+    <Alert type="success" message="success" />
 </>);
 
 export const Closable = () => {
@@ -73,9 +75,9 @@ export const withDescription = () => {
 export const withIcon = () => {
     return (
         <>
-        <Alert message="title" showIcon />
-        <br/>
-        <Alert message="title" description="description" showIcon />
+            <Alert message="title" showIcon />
+            <br />
+            <Alert message="title" description="description" showIcon />
         </>
     )
 };
