@@ -62,8 +62,8 @@ const Badge: React.FC<BadgeProps> = ({ children,
                 id="badge-base"
                 className={className}
             >
-                <BadgeDot id="badge-dot" istext={!children||!!text}  status={status||'info'} color={color}/>
-                <BadgeText id="badge-text" >
+                <BadgeDot id="badge-dot" istext={!children||!!text}  status={status} colordot={color}/>
+                <BadgeText id="badge-text-no-child" >
                     {text}
                 </BadgeText>
             </BadgeBase>
@@ -79,15 +79,16 @@ const Badge: React.FC<BadgeProps> = ({ children,
         { getNumberedDisplayCount()}
     </BadgeNumber>
     }
+   
     return (
         <BadgeBase
             id="badge-base"
         >
             {children}
             {
-                dot?<BadgeDot id="badge-dot" istext={false} status={status||'info'} />:renderBadgeNumber()
+                dot?<BadgeDot id="badge-dot" istext={false} status={status} colordot={color} />:renderBadgeNumber()
             }
-            {renderStatusText()}
+            {/* {renderStatusText()} */}
         </BadgeBase>
     )
 }
