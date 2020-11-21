@@ -21,7 +21,7 @@ export interface DividerProps {
     ...restProps
   } = props;
   const hasChildren = !!children;
-    return (<DividerBase id="divider-base" hasChildren={hasChildren} {...restProps} className={className} orientation={orientation} dashed={dashed} plain={plain}>
+    return (<DividerBase id="divider-base" hasChildren={hasChildren} {...restProps} className={className} type={type} orientation={orientation} dashed={dashed} plain={plain}>
         {children&&<DivideInner id="divider-item">{children}</DivideInner>}
     </DividerBase>)
   }

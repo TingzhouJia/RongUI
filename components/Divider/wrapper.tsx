@@ -41,7 +41,7 @@ ${props=>props.type==='vertical'?css`
       width: ${props.orientation==='left'?'5%':props.orientation==='right'?'95%':'50%'};
      
       border-top: 1px solid transparent;
-      border-top-color: inherit;
+      border-top-color: rgba(0,0,0,0.06);
       border-bottom: 0;
       ${props.dashed?css`border-style: dashed none none;`:null};
       transform: translateY(50%);
@@ -53,7 +53,7 @@ ${props=>props.type==='vertical'?css`
      width: ${props.orientation==='left'?'95%':props.orientation==='right'?'5%':'50%'};
       border-top: 1px solid transparent;
       ${props.dashed?css`border-style: dashed none none;`:null}
-      border-top-color: inherit;
+      border-top-color: rgba(0,0,0,0.06);
       border-bottom: 0;
       transform: translateY(50%);
       content: '';
