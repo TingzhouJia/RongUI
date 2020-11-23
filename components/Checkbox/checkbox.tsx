@@ -50,11 +50,11 @@ const CheckBoxItem:React.FC<Props>=(props)=>{
           onBlur={onBlur} 
           required={required} 
           name={name} 
+          disabled={disabled}
           onChange={handleChange} 
           id={id} 
           tabIndex={tabIndex} >
-          </CheckBoxInput>
-        
+          </CheckBoxInput> 
           <CheckboxInner disabled={disabled} checked={!!curCheck}/>
       </CheckBoxBase>)
 }
