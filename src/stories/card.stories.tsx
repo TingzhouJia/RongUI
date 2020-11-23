@@ -73,7 +73,7 @@ export default {
             description: "Whether show border of card or not<h6>type:</h6>",
             table: {
                 type: {
-                    summary: "Boolean"
+                    summary: "boolean"
                 },
                 defaultValue: {
                     summary: "true"
@@ -84,7 +84,7 @@ export default {
             description: "Zoom in card when hover<h6>type:</h6>",
             table: {
                 type: {
-                    summary: "Boolean"
+                    summary: "boolean"
                 },
                 defaultValue: {
                     summary: "false"
