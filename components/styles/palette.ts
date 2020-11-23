@@ -18,10 +18,10 @@ export const BasicLight={
     successLight: '#95de64',
     successLighter: '#b7eb8f',
     successDark: '#52c41a',
-    warning: '#ffec3d',
-    warningLight: '#fff566',
-    warningLighter: '#fffb8f',
-    warningDark: '#fadb14',
+    warning: '#faad14',
+    warningLight: '#ffc53d',
+    warningLighter: '#ffd666',
+    warningDark: '#d48806',
 }
 export const palette:ThemePalette = {
     primary:'#F15A24',

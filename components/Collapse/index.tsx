@@ -8,7 +8,7 @@ export interface CollapseProps {
     activeKey?: Array<string | number> | string | number;
     defaultActiveKey?: Array<string | number> | string | number;
     accordion?: boolean;
-    onChange?: (key: string | string[]) => void;
+    onChange?: (key: string | string[]|number|number[]) => void;
     style?: React.CSSProperties;
     className?: string;
     bordered?: boolean;
