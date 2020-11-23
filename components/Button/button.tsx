@@ -54,9 +54,10 @@ const InnerButton: React.ForwardRefRenderFunction<unknown, Partial<NativeButtonP
         onClick={handleClick}
         mode={mode}
         block={block}
+        {...rest}
         size={size}
         disabled={disabled}
-        shape={shape} className={className}>{children || " "}</BaseButton>)
+        shape={shape} className={className} >{children || " "}</BaseButton>)
 }
 
 
