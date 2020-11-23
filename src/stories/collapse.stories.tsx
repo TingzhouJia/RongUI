@@ -8,11 +8,126 @@ export default {
     component: Collapse as any,
     decorators: [themeIt],
     parameters: {
+        componentSubtitle:"A content area which can be collapsed and expanded.",
         docs: {
-            description: ''
+
+            description: '<h3>When To Use?</h3><ol><li>Can be used to group or hide complex regions to keep the page clean.</li><li>Accordion is a special kind of Collapse, which allows only one panel to be expanded at a time.</li></ol>'
         }
     },
     argTypes: {
+        style: {
+            description: "The  style object of container<br/><h6>type:</h6>",
+            control:{},
+            table: {
+                type: {
+                    summary: "CSSProperties"
+                }
+            }
+        },
+        className: {
+            description: "The className object of container<br/><h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "string"
+                }
+            }
+        },
+        accordion: {
+            description: "Collapse will open only one panel<br/><h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "boolean"
+                },
+                defaultValue:{
+                    summary:"false"
+                }
+            }
+        },
+        activeKey:{
+            description:"Key of the active panel<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"string[] | string | number[] | number"
+                },
+               
+            }
+        },
+        bordered: {
+            description: "Whether show border of Collapse or not<h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "boolean"
+                },
+                defaultValue: {
+                    summary: "true"
+                }
+            }
+        },
+        defaultActiveKey:{
+            description:"Default key of the active panel<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"string[] | string | number[] | number"
+                },
+               
+            }
+        },
+        onChange:{
+            description:"Callback function executed when active panel is changed<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"(string[] | string | number[] | number)=>void"
+                }
+            }
+        },
+        expandIconPosition:{
+            description:"Set expand icon position<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"'left' | 'right'"
+                },
+                defaultValue:{
+                    summary:'"right"'
+                }
+            }
+        },
+        extra:{
+            name:"extra (Only works for Collapse.Panel)",
+            description:"The extra element in the corner<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"ReactNode"
+                },
+               
+            }
+        },
+        expandIcon:{
+            description:"Allow to customize collapse icon<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"({isActive})=>ReacNode"
+                },
+            }
+        },
+        header:{
+            name:'header (Only in Collapse.Panel)',
+            description:"Title of the panel<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"ReactNode"
+                },
+            }
+        },
+        showArrow:{
+            name:"showArrow (Only in Collapse.Panel)",
+            description:"If false, panel will not show arrow icon<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"boolean"
+                },
+            }
+        },
+
 
     },
 
