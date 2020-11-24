@@ -27,35 +27,56 @@ export default {
         type:{
             table:{
                 defaultValue: { summary: '"horizontal"' },
+                type:{
+                    summary:'"horizontal" | "vertical"'
+                }
             },
-            description:'The direction type of divider: <br/><h6>type:</h6><code>"horizontal"</code> | <code>"vertical"</code> ',
+            description:'The direction type of divider: <br/><h6>type:</h6>',
             control:{},
-            type:'string'
+           
         },
         plain:{
             table:{
                 defaultValue: { summary: true },
+                type:{
+                    summary:"boolean"
+                }
             },
-            description:"Divider text show as plain style<br/><h6>type:</h6><code>Boolean</code>"
+            description:"Divider text show as plain style<br/><h6>type:</h6>"
         },
         style:{
-            description:"The style object of container<br/><h6>type:</h6><code>CSSProperties</code>",
-            
+            description:"The style object of container<br/><h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"CSSProperties"
+                }
+            }
         },
         className:{
-            description:"The className object of container<br/><h6>type:</h6><code>string</code>",
+            description:"The className object of container<br/><h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"string"
+                }
+            }
         },
         orientation:{
-            description:`The position of title inside divider<br/><h6>type:</h6><code>"left"</code> | <code>"center"</code> | <code>"right"</code>`,
+            description:`The position of title inside divider<br/><h6>type:</h6>`,
             table:{
                 defaultValue: { summary: '"center' },
+                type:{
+                    summary:'"left" | "center" | "right"'
+                }
             },
         },
         dashed:{
             table:{
+                type:{
+                    summary:"boolean"
+                },
                 defaultValue: { summary: false },
             },
-            description:"Whether line is dashed<br/><h6>type:</h6><code>Boolean</code>"
+            description:"Whether line is dashed<br/><h6>type:</h6>"
         },
     },
 
