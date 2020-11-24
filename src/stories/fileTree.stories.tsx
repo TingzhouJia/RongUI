@@ -30,7 +30,8 @@ export default {
                     disabled?: boolean
                     icon?: (select: boolean) => React.ReactNode
                   }`
-            }
+            },
+            control:{}
         },
         onClick:{
             description:"A callback return path when click either Folder or File.<h6>type:</h6>",
