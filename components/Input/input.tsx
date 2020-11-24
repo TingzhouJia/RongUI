@@ -98,8 +98,8 @@ const InnerInput:React.ForwardRefRenderFunction<unknown,InputBasicProps>=(props,
       let a=setTimeout(() => {
           if (
             ref &&
-            ref.current?.getAttribute('type') === 'password' &&
-            ref.current?.hasAttribute('value')
+            ref?.current?.getAttribute('type') === 'password' &&
+            ref?.current?.hasAttribute('value')
           ) {
             ref.current?.removeAttribute('value');
           }
