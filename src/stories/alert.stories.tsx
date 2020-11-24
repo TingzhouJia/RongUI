@@ -29,7 +29,7 @@ export default {
             }
         },
         closable: {
-            description: "Whether Alert can be closed<br/><h6>type:</h6><code>Boolean</code>",
+            description: "Whether Alert can be closed<br/><h6>type:</h6><code>boolean</code>",
             table: {
                 defaultValue: { summary: "false" }
             }
