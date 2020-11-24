@@ -24,13 +24,13 @@ export default {
             description: "Number to show in badge<h6>type:</h6><code>ReactNode</code>"
         },
         dot: {
-            description: "Whether to display a red dot instead of number<h6>type:</h6><code>Boolean</code>",
+            description: "Whether to display a red dot instead of number<h6>type:</h6><code>boolean</code>",
             table: {
                 defaultValue: { summary: "false" }
             }
         },
         showZero: {
-            description: "Whether to display a badge if count is zero<h6>type:</h6><code>Boolean</code>",
+            description: "Whether to display a badge if count is zero<h6>type:</h6><code>boolean</code>",
             table: {
                 defaultValue: { summary: "false" }
             }
