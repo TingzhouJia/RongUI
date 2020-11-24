@@ -5,31 +5,22 @@ export interface ImageProps
   extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'placeholder' | 'onClick'> {
   // Original
   src?: string;
-
   placeholder?: React.ReactNode;
   fallback?: string;
- // preview?: boolean | ImagePreviewType;
- // onPreviewClose?: (value: boolean, prevValue: boolean) => void;
-  //onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
- // getPopupContainer?: () => HTMLElement;
 }
 type ImageStatus = 'normal' | 'error' | 'loading';
 
-const Image:React.FC<ImageProps>=({
-
-    src,
+const Image: React.FC<ImageProps> = ({
+  src,
   alt,
-//   onPreviewClose: onInitialPreviewClose,
-//   getPopupContainer,
-
   placeholder,
   fallback,
-  width="120px",
-  height="120px",
+  width = "120px",
+  height = "120px",
   style,
-//   preview = true,
+  //   preview = true,
   className: originalClassName,
- // onClick,
+  // onClick,
 
   // Img
   crossOrigin,
@@ -40,65 +31,65 @@ const Image:React.FC<ImageProps>=({
   srcSet,
   useMap,
   ...otherProps
-})=>{
-    const isCustomPlaceholder = placeholder && placeholder !== true;
+}) => {
+  const isCustomPlaceholder = placeholder && placeholder !== true;
 
-    const [status, setStatus] = useState<ImageStatus>( 'loading');
-    const [url, seturl] = useState(src)
+  const [status, setStatus] = useState<ImageStatus>('loading');
+  const [url, seturl] = useState(src)
 
-    const imgCommonProps = {
-        crossOrigin,
-        decoding,
-        loading,
-        referrerPolicy,
-        sizes,
-        srcSet,
-        useMap,
-        alt,
-        style: height !== undefined ? { height } : undefined,
-      };
-    
-    const onLoad = () => {
-        setStatus('normal');
-      };
-    
-      const onError = () => {
-        setStatus('error');
-      };
-    
-      const reload=()=>{
-        setStatus('normal')
-        seturl(prev=>prev+`?time=${Math.random()}`)
-      }
-    return (
-        <>
-          <ImgBase
-            {...otherProps}
-            id='rong-image'
-            style={{
-              ...style,
-              width,
-              height,
-            }}
-          >
-            {status === 'error' ? (fallback ? (
-              <ImgWrap id="fallback-img" place={placeholder?true:false}  {...imgCommonProps} src={fallback} />
-            ) : (
-              <ImgPlaceholder id="default-fallback" onClick={reload}>
-                <PictureOutlined />
+  const imgCommonProps = {
+    crossOrigin,
+    decoding,
+    loading,
+    referrerPolicy,
+    sizes,
+    srcSet,
+    useMap,
+    alt,
+    style: height !== undefined ? { height } : undefined,
+  };
+
+  const onLoad = () => {
+    setStatus('normal');
+  };
+
+  const onError = () => {
+    setStatus('error');
+  };
+
+  const reload = () => {
+    setStatus('normal')
+    seturl(prev => prev + `?time=${Math.random()}`)
+  }
+  return (
+    <>
+      <ImgBase
+        {...otherProps}
+        id='rong-image'
+        style={{
+          ...style,
+          width,
+          height,
+        }}
+      >
+        {status === 'error' ? (fallback ? (
+          <ImgWrap id="fallback-img" place={placeholder ? true : false}  {...imgCommonProps} src={fallback} />
+        ) : (
+            <ImgPlaceholder id="default-fallback" onClick={reload}>
+              <PictureOutlined />
                 Reload
-              </ImgPlaceholder>
-            )):<ImgWrap id="image-base"  place={placeholder?true:false} {...imgCommonProps} onLoad={onLoad} onError={onError} src={url} />
-            }
+            </ImgPlaceholder>
+          )) : <ImgWrap id="image-base" place={placeholder ? true : false} {...imgCommonProps} onLoad={onLoad} onError={onError} src={url} />
+        }
 
-            {status === 'loading' && (
-              <ImgPlaceholder id="loading-image" aria-hidden="true">
-                {placeholder||<LoadingOutlined />}
-              </ImgPlaceholder>
-            )}
-          </ImgBase>
-        </>
-      );
+        {status === 'loading' && (
+          <ImgPlaceholder id="loading-image" aria-hidden="true">
+            {placeholder || <LoadingOutlined />}
+          </ImgPlaceholder>
+        )}
+      </ImgBase>
+    </>
+  );
 }
 
 export default Image
