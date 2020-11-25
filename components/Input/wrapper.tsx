@@ -76,7 +76,7 @@ export const AffixWrapper = styled.div<{
     }
     ${
     props=>props.disabled&&!props.borderless?css`border:1px solid ${props.theme.colors.borderColor};color: ${props.theme.colors.disabledColor};
-    background-color: ${props.theme.colors.disabledBackground}`:css`border:none;`
+    background-color: ${props.theme.colors.disabledBackground}`:null
   }
   ${
     props=>props.disabled?css` cursor:not-allowed;`:null

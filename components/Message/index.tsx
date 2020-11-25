@@ -215,7 +215,8 @@ export interface MessageApi {
     // warn(content: JointContent, duration?: ConfigDuration, onClose?: ConfigOnClose): MessageType;
     config(options: ConfigOptions): void;
     destroy(messageKey?: React.Key): void;
-    useMessage: (theme: DefaultTheme) => MessageInstance
+    useMessage: (theme: DefaultTheme) => MessageInstance,
+    open(args: ArgsProps,theme:DefaultTheme): MessageType;
 }
 
 const api: MessageApi = {
@@ -233,6 +234,7 @@ const api: MessageApi = {
             }
         }
     },
-    useMessage
+    useMessage,
+    open:notice
 };
 export default api 

@@ -13,7 +13,6 @@ export interface BasicListProps {
   dataSource?: any[];
   grid?: { gap?: number, justify?: 'center' };
   pagination?: PaginationProps | boolean
-  id?: string;
   itemLayout?: ListItemLayout;
   // loading?: boolean | SpinProps;
   loadMore?: React.ReactNode;
@@ -99,8 +98,9 @@ const List:ListProps=({
 
   const paginationProps = {
     ...defaultPaginationProps,
-    total: dataSource.length,
+
     current: paginationCurrent,
+    total:dataSource.length,
     pageSize: paginationSize,
     ...(pagination as PaginationProps),
   };

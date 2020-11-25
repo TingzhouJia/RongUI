@@ -82,7 +82,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = (props) => {
         >
             <ConfirmBody id="confirm-body">
                 <ConfirmHeader id="confirm-header">
-                    {React.cloneElement(icon as any,{style:{color:type&&type!=='confirm'?getColor(type,theme):theme.colors.info}})}
+                    {React.cloneElement(icon as any,{style:{color:type&&type!=='confirm'?getColor(type,theme):theme.colors.info,fontSize:"20px"},})}
                     <ConfirmTitle id="confirm-title">{props.title}</ConfirmTitle>
                 </ConfirmHeader>
                 <ConfirmContent id="confirm-content">{props.content}</ConfirmContent>
