@@ -5,7 +5,7 @@ export const ItemMeta = styled.div`
       display: flex;
 
       flex-direction:row;
-      max-width: 100%;
+      width: 100%;
       margin-bottom:10px;
 `
 
@@ -111,7 +111,6 @@ export const ItemWrap = styled.div<{ flex?: boolean, bordered?: boolean, size?: 
 export const ItemLi = styled.li<{ flex?: boolean, bordered?: boolean, size?: 'small' | 'default' | 'large' }>`
 color: ${props=>props.theme.colors.fontColor};
 padding: ${props=>props.size === 'large' ? "16px 24px" : props.size === 'small' ? "8px 16px" : "12px 20px"};
-
 ${props => props.flex ? css`
     display: flex;
     align-items: center;
@@ -119,7 +118,7 @@ ${props => props.flex ? css`
    
     `: css`
     display: block;
-    max-width: 100%;
+    
     `}
     ${props=>props.bordered ? css`border-bottom: 1px solid ${props=>props.theme.colors.borderColor}; ;
     &:last-child {
