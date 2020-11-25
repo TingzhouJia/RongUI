@@ -9,13 +9,164 @@ export default {
     decorators: [themeIt],
     parameters: {
         docs: {
-            description: ''
+            description: {
+                component:"<h3>When To Use?</h3>A list can be used to display content related to a single subject. The content can consist of multiple elements of varying type and size."
+            }
         }
     },
     argTypes: {
-
+        bordered: {
+            description: "Whether show border of list or not<h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "boolean"
+                },
+                defaultValue: {
+                    summary: "true"
+                }
+            },
+            control:{}
+        },
+        size: {
+            description: "The size of list<h6>type</h6>",
+            table: {
+                type: {
+                    summary: '"small" | "default" | "large"'
+                },
+                defaultValue: {
+                    summary: "default"
+                }
+            }
+        },
+        style:{
+            description:"The style object of container<br/><h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"CSSProperties"
+                }
+            }
+        },
+        className:{
+            description:"The className object of container<br/><h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"string"
+                }
+            }
+        },
+        pagination:{
+            description:"pagination configuration<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"boolean | PaginationProps"
+                },
+                defaultValue:{summary:"false"}
+            }
+        },
+        header:{
+            description:"The header component of list<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"ReactNode"
+                }
+            }
+        },
+        footer:{
+            description:"The footer component of list<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"ReactNode"
+                }
+            }
+        },
+        loadMore:{
+            description:"The loadMore component of list to show part of list<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"ReactNode"
+                }
+            }
+        },
+        rowKey:{
+            description:"Item's unique key, could be a string or function that returns a string<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"string | Function(record): string"
+                },
+                defaultValue:{summary:"key"}
+            }
+        },
+        dataSource:{
+            description:"DataSource for list",
+            table:{
+                type:{
+                    summary:"any[]"
+                } 
+            }
+        },
+        itemLayout:{
+            description:"The layout of list",
+            table:{
+                type:{
+                    summary:"horizontal | vertical"
+                } ,
+                defaultValue:{summary:"vertical"}
+            }
+        },
+        renderItem:{
+            description:"Function to render list item<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"(item: any, index: number) => React.ReactNode"
+                }
+            }
+        },
+        avatar:{
+            name:"avatar (Only in ListItem.Meta)",
+            description:"The loadMore component of list item<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"ReactNode"
+                }
+            }
+        },
+        title:{
+            name:"title (Only in ListItem.Meta)",
+            description:"The title component of list of list item<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"ReactNode"
+                }
+            }
+        },
+        description:{
+            name:"description (Only in ListItem.Meta)",
+            description:"The description component of list item<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"ReactNode"
+                }
+            }
+        },
+        actions:{
+            name:"actions (Only in ListItem)",
+            description:"The actions component of list item<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"ReactNode[]"
+                }
+            }
+        },
+        extra:{
+            name:"extra (Only in ListItem)",
+            description:"The extra component of list item<h6>type:</h6>",
+            table:{
+                type:{
+                    summary:"ReactNode"
+                }
+            }
+        },
     },
-
 };
 
 export const Basic = () => {
@@ -71,7 +222,7 @@ export const MetaList = () => {
 
 export const MoreMetaList = () => {
     const listData = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 6; i++) {
         listData.push({
             title: `Rong ui design ${i}`,
             avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
@@ -86,9 +237,10 @@ export const MoreMetaList = () => {
         dataSource={listData}
         footer={
             <div>
-                <b>ant design</b> footer part
+                <b>Rong UI</b> footer part
           </div>
         }
+        pagination={{pageSize:3}}
         renderItem={item => (
             <List.Item
                 key={item.title}
@@ -115,3 +267,4 @@ export const MoreMetaList = () => {
         )}
     />)
 }
+
