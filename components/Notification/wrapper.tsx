@@ -61,8 +61,7 @@ position: absolute;
 export const AutoMargin=styled.span`
 
       display: block;
-      
-        width: 4px;
+        width: 8px;
         background-color: transparent;
         pointer-events: none;
         &::before {
@@ -82,8 +81,8 @@ export const Msg=styled.span<{icon?:boolean}>`
       color: ${props=>props.theme.colors.fontColor};
       font-size: 16px;
       line-height: 24px;
-      ${props=>props.icon?css`margin-bottom: 4px;
-      margin-left: 48px;`:null}
+      ${props=>props.icon?css`margin-bottom: 4px;margin-left:6px;
+      `:null}
 `
 
 export const Btn=styled.span`

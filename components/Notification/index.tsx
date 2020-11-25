@@ -32,10 +32,10 @@ export interface ConfigProps {
 
 }
 const typeToIcon = {
-    success: CheckCircleOutlined,
-    info: InfoCircleOutlined,
-    error: CloseCircleOutlined,
-    warning: ExclamationCircleOutlined,
+    success:<CheckCircleOutlined/>,
+    info: <InfoCircleOutlined/>,
+    error: <CloseCircleOutlined/>,
+    warning: <ExclamationCircleOutlined/>,
 };
 
 export interface ArgsProps {
@@ -190,6 +190,7 @@ function getRCNoticeProps(args: ArgsProps) {
                     {autoMarginTag}
                     {args.message}
                 </Msg>
+                <br/>
                 <Desc icon={iconNode ? true : false}>{args.description}</Desc>
                 {args.btn ? <Btn>{args.btn}</Btn> : null}
             </div>
@@ -211,15 +212,6 @@ function notice(args: ArgsProps, theme: DefaultTheme) {
 }
 
 
-// ['success', 'info', 'warning', 'error'].forEach(type => {
-//     api[type] = (args: ArgsProps) =>
-//         api.open({
-//             ...args,
-//             type,
-//         });
-// });
-
-//api.useNotification = createUseNotification(getNotificationInstance, getRCNoticeProps);
 
 export interface NotificationInstances {
     success(args: ArgsProps): void;
@@ -238,15 +230,16 @@ export interface NotificationApi  {
      useNotification: (theme:DefaultTheme) =>NotificationInstances ;
 }
 const useStatusNotification = (theme: DefaultTheme) => {
-    let apis:any;
-    ['success', 'info', 'warning', 'error'].forEach(type => {
-        apis[type] = (args: ArgsProps) =>
+    let cur: any = { success: () => { }, info: () => { }, warning: () => { }, error: () => { } }
+    const so=['success', 'info', 'warning', 'error']
+    so.forEach(type => {
+        cur[type] = (args: ArgsProps) =>
            notice({
                 ...args,
                 type:(type as any),
             },theme);
     });
-    return apis
+    return cur
 }
 const api: NotificationApi = {
     open:notice,

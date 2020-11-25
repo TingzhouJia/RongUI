@@ -223,7 +223,6 @@ Notification.newInstance = (properties, callback,theme) => {
     }
 
 
-
     ReactDOM.render(<ThemeProvider theme={theme}>
         <Notification {...props} ref={ref} />
     </ThemeProvider>, div);
