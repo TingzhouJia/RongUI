@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useEffect } from "react";
+import React, { useMemo, useRef, useEffect, useCallback } from "react";
 import { pickChild,useCurrentState } from "../utils";
 import PaginationPrevious from "./prev";
 import PaginationNext from "./next";
@@ -15,10 +15,8 @@ interface Props {
     defaultPageSize?: number;
     pageSize?: number;
     onChange?: (page: number, pageSize?: number) => void;
-    size?: 'default' | 'small';
     style?: React.CSSProperties;
     className?: string;
-    showLessItems?: boolean;
   }
   
   
@@ -45,6 +43,12 @@ export const keyCodde= {
   const Pagination:React.FC<PaginationProps>=({children,current,defaultCurrent=1,total=0,limit=10,pageSize,defaultPageSize=10,disabled=false,
     onChange,...props})=>{
     const [page, setPage, pageRef] = useCurrentState(current||defaultCurrent)
+    const totalPagi=useCallback(
+      () => {
+        return pageSize?Math.ceil(total/pageSize):Math.ceil(total/defaultPageSize)
+      },
+      [total,pageSize],
+    )
     const ref=useRef<number>(current||defaultCurrent||20)
     const [, prevChildren] = pickChild(children, PaginationPrevious)
     const [, nextChildren] = pickChild(children, PaginationNext)
@@ -68,7 +72,7 @@ export const keyCodde= {
       const values = useMemo<PaginationConfig>(
         () => ({
           isFirst: page <= 1,
-          isLast: page >= (total),
+          isLast: page >= (totalPagi()),
           update,
           disabled
         }),
@@ -86,7 +90,7 @@ export const keyCodde= {
           <PaginationContext.Provider value={values}>
               <PaginationNav id="pagination-nav" {...props}>
               {prevItem}
-        <PaginationPages id="pagination-container" count={total} current={page} limit={limit} setPage={setPage} />
+        <PaginationPages id="pagination-container" count={totalPagi()} current={page} limit={limit} setPage={setPage} />
         {nextItem}
               </PaginationNav>
           </PaginationContext.Provider>
