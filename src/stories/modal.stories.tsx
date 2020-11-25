@@ -15,7 +15,9 @@ export default {
                 component:"<h3>When To Use?</h3>When requiring users to interact with the application,"+
                 "but without jumping to a new page and interrupting the user's workflow,"
                 +" you can use Modal to create a new floating layer over the current page to get user feedback or display information. "
-                +"Additionally, if you need show a simple confirmation dialog, you can use Modal.info(),Modal.success() and so on."
+                +"Additionally, if you need show a simple confirmation dialog, you can use Modal.info(),Modal.success() and so on."+
+                "<br/><br/><h3>Functional API</h3>"+
+                "<ul><li><code>Modal.info(config,theme)</code></li><li><code>Modal.success(config,theme)</code></li><li><code>Modal.warning(config,theme)</code></li><li><code>Modal.error(config,theme)</code></li>"
             }
         }
     },
@@ -224,6 +226,7 @@ export const WithStatus=()=>{
     const theme=useContext(ThemeContext)
     return (
         <Space>
+            
             <Button onClick={()=>Modal.info({title:"Info"},theme)}>Info</Button>
             <Button onClick={()=>Modal.warning({title:"Warning"},theme)}>Warning</Button>
             <Button onClick={()=>Modal.success({title:"Success"},theme)}>Success</Button>
