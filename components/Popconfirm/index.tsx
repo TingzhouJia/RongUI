@@ -7,7 +7,6 @@ import TooltipContent from '../Tooltip/tooltipContent'
 import { PopConfirmBase, PopconfirmButtons, PopconfirmMessage, PopconfirmTitle } from './wrapper'
 import { Placement } from '../utils'
 import { ExclamationCircleFilled } from '@ant-design/icons'
-import { palette } from '../styles'
 import { TooltipBase } from '../Tooltip/wrapper'
 import { CSSProperties, ThemeContext } from 'styled-components'
 
@@ -21,6 +20,7 @@ export interface PopconfirmProps {
     title?: React.ReactNode
     confirmType?: BaseButtonProps,
     style?:CSSProperties
+    className?:string
     onConfirm?: () => void
     onCancel?: () => void
 }
@@ -37,7 +37,8 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
     confirmType,
     onCancel,
     onConfirm,
-    title
+    title,
+    className
 }) => {
     const [visible, setVisible] = useState(false)
     const timer = useRef<number | undefined>(0)
@@ -86,7 +87,7 @@ const Popconfirm: React.FC<PopconfirmProps> = ({
         onCancel && onCancel()
         changeVisible(false)
     }
-    const content = (<PopConfirmBase>
+    const content = (<PopConfirmBase className={className}>
         <PopconfirmMessage>
             {icon || <ExclamationCircleFilled style={{ color: theme.colors.warning,fontSize:"20px" }} />}
             <PopconfirmTitle>{title}</PopconfirmTitle>
