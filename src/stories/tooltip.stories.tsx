@@ -8,9 +8,70 @@ export default {
     component: Tooltip as any,
     decorators: [themeIt],
     parameters: {
+      componentSubtitle:"Simple text popup tip.",
         docs: {
-            description: ''
+            description: {
+              component:"<h3>When To Use?</h3><ul><li>The tip is shown on mouse enter, and is hidden on mouse leave. The Tooltip doesn't support complex text or operations.</li>"+
+              "<li>To provide an explanation of a button/text/operation</li></ul>"
+            }
         }
+    },
+    argTypes:{
+      style: {
+        description: "The style object of container<br/><h6>type:</h6>",
+        table: {
+          type: {
+            summary: "CSSProperties"
+          }
+        },
+        control:{}
+      },
+      className: {
+        description: "The className object of container<br/><h6>type:</h6>",
+        table: {
+          type: {
+            summary: "string"
+          }
+        }
+      },
+      placement: {
+        description: "Placement of Tooltip<h6>type:</h6>",
+        table: {
+          type: {
+            summary: "'top' |'topStart' |'topEnd'| 'left' | 'leftStart' | 'leftEnd' | 'bottom'|'bottomStart'|'bottomEnd'|'right'|'rightStart'|'rightEnd'"
+          }
+        }
+      },
+      hideArrow:{
+        description:"Hide arrow of Tooltip<h6>type:</h6>",
+        table:{
+          type:{
+            summary:"boolean"
+          },
+          defaultValue:{
+            summary:"false"
+          }
+        }
+      },
+      text:{
+        description:"Text of Tooltip<h6>type:</h6>",
+        table:{
+          type:{
+            summary:"ReactNode"
+          },
+        },
+        type:{
+          required:true
+        }
+      },
+      content:{
+        description:"Content of Tooltip<h6>type:</h6>",
+        table:{
+          type:{
+            summary:"ReactNode"
+          },
+        }
+      }
     }
 
 }
@@ -79,11 +140,13 @@ const buttonWidth = 70;
     )
 };
 
-export const Color=()=>{
+export const Status=()=>{
     return (
-        <Tooltip color="red">
-            colorful
+       <div style={{marginTop:"100px"}}>
+          <Tooltip type="danger"  text="danger">
+            Danger
         </Tooltip>
+       </div>
     )
 };
 
