@@ -22,8 +22,6 @@ export interface ProgressProps {
     background?: string;
     width?: number;
     style?: React.CSSProperties;
-    size?: ProgressSize;
-    steps?: number;
 }
 const Progress:React.FC<ProgressProps>=(props)=>{
     const {className,percentage=0,active=false,status,showInfo=true,background,color,format}=props

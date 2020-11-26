@@ -17,9 +17,10 @@ const Popover:React.FC<PopoverProps>=({
     content,
     children,
     title,
+    popClassname,
     ...props
 })=>{
-const contentNode=(<Flexbox>{title}<Divider plain/>{content}</Flexbox>)
+const contentNode=(<Flexbox className={popClassname}>{title}<Divider plain/>{content}</Flexbox>)
 return <Tooltip {...props} text={contentNode}>{children}</Tooltip>
 }
 
