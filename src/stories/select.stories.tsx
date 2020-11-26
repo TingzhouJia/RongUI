@@ -8,43 +8,43 @@ export default {
     component: Select as any,
     decorators: [themeIt],
     parameters: {
-        componentSubtitle:"Select component to select value from options.",
+        componentSubtitle: "Select component to select value from options.",
         docs: {
             description: {
-                component:"<h3>When To Use?</h3><ul><li>A dropdown menu for displaying choices - same as native <code>select<code> element.</li></ul>"
+                component: "<h3>When To Use?</h3><ul><li>A dropdown menu for displaying choices - same as native <code>select<code> element.</li></ul>"
             }
         }
     },
     argTypes: {
-        value:{
-            desciption:"The select's value<h6>type:</h6>",
-            table:{
-                type:{
-                    summary:"string|string[]"
+        value: {
+            desciption: "The select's value<h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "string|string[]"
                 }
             }
         },
-        initialValue:{
-            desciption:"The select's initial  value<h6>type:</h6>",
-            table:{
-                type:{
-                    summary:"string|string[]"
+        initialValue: {
+            desciption: "The select's initial  value<h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "string|string[]"
                 }
             }
         },
-        placeholder:{
-            desciption:"The placeholder of select<h6>type:</h6>",
-            table:{
-                type:{
-                    summary:"ReactNode"
+        placeholder: {
+            desciption: "The placeholder of select<h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "ReactNode"
                 }
             }
         },
-        onChange:{
-            description:"Callback when user select<h6>type</h6>",
-            table:{
-                type:{
-                    summary:"(string|string[])=>void"
+        onChange: {
+            description: "Callback when user select<h6>type</h6>",
+            table: {
+                type: {
+                    summary: "(string|string[])=>void"
                 }
             }
         },
@@ -75,58 +75,58 @@ export default {
                 }
             }
         },
-        pure:{
-            description:"No arrow shown in Select<h6>type:</h6>",
-            table:{
-                type:{
-                    summary:"boolean"
+        pure: {
+            description: "No arrow shown in Select<h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "boolean"
                 },
-                defaultValue:{
-                    summary:"false"
+                defaultValue: {
+                    summary: "false"
                 }
             }
         },
-        multiple:{
-            description:"Select multiple choice<h6>type:</h6>",
-            table:{
-                type:{
-                    summary:"boolean"
+        multiple: {
+            description: "Select multiple choice<h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "boolean"
                 },
-                defaultValue:{
-                    summary:"false"
+                defaultValue: {
+                    summary: "false"
                 }
             }
         },
-        bordered:{
-            description:"Border of select<h6>type:</h6>",
-            table:{
-                type:{
-                    summary:"boolean"
+        bordered: {
+            description: "Border of select<h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "boolean"
                 },
-                defaultValue:{
-                    summary:"true"
+                defaultValue: {
+                    summary: "true"
                 }
             }
         },
-        disabled:{
-            description:"Disable select<h6>type:</h6>",
-            table:{
-                type:{
-                    summary:"boolean"
+        disabled: {
+            description: "Disable select<h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "boolean"
                 },
-                defaultValue:{
-                    summary:"false"
+                defaultValue: {
+                    summary: "false"
                 }
             }
         },
-        label:{
-            name:"label (Only in Select.OptGroup)",
-            description:"Label for Select.OptGroup<h6>type:</h6>",
-            table:{
-                type:{
-                    summary:"ReactNode"
+        label: {
+            name: "label (Only in Select.OptGroup)",
+            description: "Label for Select.OptGroup<h6>type:</h6>",
+            table: {
+                type: {
+                    summary: "ReactNode"
                 },
-               
+
             }
         },
 
@@ -144,6 +144,35 @@ export const Basic = () => {
                 Rong UI 2
             </Select.Option>
         </Select>
+    )
+}
+
+export const Size = () => {
+    return (
+        <>
+            <Select placeholder="Small" size="small" style={{ width: '200px' }}>
+
+                <Select.Option value="Rong2">
+                    Rong UI 2
+            </Select.Option>
+            </Select>
+            <br/>
+            <br/>
+            <Select placeholder="Default" size="default" style={{ width: '200px' }}>
+
+                <Select.Option value="Rong2">
+                    Rong UI 2
+           </Select.Option>
+            </Select>
+            <br/>
+            <br/>
+            <Select placeholder="Large" size="large" style={{ width: '200px' }}>
+
+                <Select.Option value="Rong2">
+                    Rong UI 2
+           </Select.Option>
+            </Select>
+        </>
     )
 }
 
