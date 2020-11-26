@@ -24,7 +24,6 @@ interface RadioEventTarget {
  export interface InnerRadioProps {
     checked?: boolean
     value?: string | number
-    size?: NormalSizes
     className?: string
     style?:CSSProperties
     children?:any
@@ -64,10 +63,11 @@ const InnerRadio:React.ForwardRefRenderFunction<unknown,InnerRadioProps>=({check
       }, [checked])
 
       return (
-          <RadioLabel>
+          <RadioLabel className={className} style={style}>
               <RadioWrapper disabled={isDisabled}
               >
                   <RadioInput type="radio" value={radioValue}
+                  disabled={disabled}
           checked={selfChecked} onChange={changeHandler}/>
                   <RadioInner checked={selfChecked} disabled={isDisabled}/>
               </RadioWrapper>

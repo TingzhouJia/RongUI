@@ -48,14 +48,14 @@ export const RadioWrapper=styled.span<{disabled:boolean}>`
     }
 `
 
-export const RadioInput=styled.input`
+export const RadioInput=styled.input<{disabled?:boolean}>`
 position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     z-index: 1;
-    cursor: pointer;
+    cursor: ${props=>props.disabled?"not-allowed":"pointer"};
     opacity: 0;
 `
 
@@ -69,7 +69,7 @@ export const RadioInner=styled.span<{checked?:boolean,disabled?:boolean}>`
     margin-right:3px;
    
     background-color: ${props=>props.disabled?props.theme.colors.disabledBackground: props.theme.colors.background};
-    border: 1px solid ${props=>props.checked?props.theme.colors.primary:props.theme.colors.borderColor};
+    border: 1px solid ${props=>!props.disabled&&props.checked?props.theme.colors.primary:props.theme.colors.borderColor};
     border-radius: 100px;
     &::after {
         position: absolute;
@@ -79,7 +79,7 @@ export const RadioInner=styled.span<{checked?:boolean,disabled?:boolean}>`
     display: table;
     width: 8px;
     height: 8px;
-    background-color: ${props=>props.theme.colors.primary};
+    background-color: ${props=>props.disabled?props.theme.colors.disabledColor: props.theme.colors.background};
     border-top: 0;
     border-left: 0;
     border-radius: 8px;
