@@ -3,9 +3,8 @@ import Paragraph, { SkeletonParagraphProps } from './paragraph';
 import Title, { SkeletonTitleProps } from './title';
 import SkeletonAvatar, { SkeletonAvatarProps } from './avatar';
 import SkeletonButton from './button';
-import Element from './element'
 import SkeletonImage from './image'
-import {  ElemContent, SkeletonBase, ElemAvatar } from './wrapper';
+import {  ElemContent, SkeletonBase, } from './wrapper';
 import { NormalSizes } from '../utils';
 export interface Props {
     active?: boolean;

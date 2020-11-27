@@ -80,7 +80,7 @@ export default {
             }
         },
         onChange:{
-            description:"Callback when user input",
+            description:"Callback when user input<h6>type</h6>",
             table:{
                 type:{
                     summary:"(e:string)=>void"

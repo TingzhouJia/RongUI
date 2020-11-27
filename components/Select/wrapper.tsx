@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { NormalSizes } from "../utils";
-import { ToRGBA } from "../utils/hex_rgb";
 
 export const AbsDropdown=styled.div<{rect?:any,disable?:boolean}>`
   position: absolute;
@@ -97,16 +96,16 @@ export const SelectWrap=styled.div<{multiple?:boolean,disabled?:boolean,size?:No
             transition: border 0.2s ease 0s, color 0.2s ease-out 0s, box-shadow 0.2s ease 0s;
            
             border-radius: 2px;
-            padding: ${props=>props.size==="large"?"5px 7px":props.size==="small"?"2px 5px":"3px 5px"};
-            min-height: ${props=>props.size==="large"?"35px":props.size==="small"?"24px":"28px"};
-            min-width: 60px;
+            padding: ${props=>props.size==="large"?"0px 11px":"0px 7px"};
+            min-height: ${props=>props.size==="large"?"40px":props.size==="small"?"24px":"32px"};
+            width: 100%;
             text-overflow:ellipsis;
             background-color: ${props=>props.disabled ? props.theme.colors.disabledBackground: "white"};
             ${
               props=>props.bordered?css`
                border: 1px solid ${props.theme.colors.borderColor} ;
               ${
-              props.focused?css`border-color: ${props.theme.colors.primary}`:null
+              props.focused&&!props.disabled?css`border-color: ${props.theme.colors.primary}`:null
               }
               &:hover {
             border-color: ${props.disabled ? props.theme.colors.borderColor : props.theme.colors.primary};

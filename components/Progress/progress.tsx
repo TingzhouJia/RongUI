@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { tuple } from '../utils';
+import { tuple, NormalSizes } from '../utils';
 import { palette } from '../styles';
 import {CloseOutlined,CheckCircleFilled, CloseCircleFilled, CheckOutlined} from '@ant-design/icons'
 import {ProgressText} from './wrapper'
@@ -24,7 +24,7 @@ export interface ProgressProps {
     style?: React.CSSProperties;
 }
 const Progress:React.FC<ProgressProps>=(props)=>{
-    const {className,percentage=0,active=false,status,showInfo=true,background,color,format}=props
+    const {className,percentage=0,active=false,status,showInfo=true,background,color,format,}=props
     const themeContext = useContext(ThemeContext);
     
     const getPercentNumber=() =>{

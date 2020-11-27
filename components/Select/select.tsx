@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect, ReactNode } from 'react'
-import { useCurrentState } from '../utils'
+import { useCurrentState, NormalSizes } from '../utils'
 import { SelectConfig, SelectContext } from './context'
 import SelectMultipleValue from './mutivalue'
 import { SelectWrap, ValueWrap, IconWrap, CloseBtn, MultiItemContainer } from './wrapper'
@@ -14,11 +14,11 @@ interface Props {
     placeholder?: React.ReactNode | string
     onChange?: (value: string | string[]) => void
     pure?: boolean
+    size?:NormalSizes
     multiple?: boolean
     bordered?:boolean
     className?: string
     style?:React.CSSProperties
-    width?: string
     dropdownClassName?: string
     dropdownStyle?: object
     disableMatchWidth?: boolean
@@ -81,7 +81,7 @@ const Select: SelectComponent<ComponentProps> = (props) => {
         multiple = false,
         className = '',
         bordered=true,
-        
+        size="default",
         onChange,
         initialValue: init,
         value: customValue,
@@ -169,7 +169,7 @@ const Select: SelectComponent<ComponentProps> = (props) => {
 
     return (
         <SelectContext.Provider value={initialValue}>
-            <SelectWrap id="select-base" bordered={bordered} disabled={disabled} focused={visible} ref={ref} onClick={clickHandler} style={props.style} className={className}
+            <SelectWrap id="select-base" bordered={bordered} size={size} disabled={disabled} focused={visible} ref={ref} onClick={clickHandler} style={props.style} className={className}
             >
                 {isEmpty && (
                     <ValueWrap id="select-placeholder" style={{ color: "rgba(0,0,0,0.25)" }}>
