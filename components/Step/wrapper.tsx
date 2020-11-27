@@ -102,7 +102,7 @@ ${
     }
   `:css`
   position: absolute;
-    top: 3px;
+    top: -5px;
     width: 100%;
     margin: 0 0 0 70px;
     padding: 0;
@@ -182,7 +182,7 @@ ${props => props.nav ? css`
       height: 1px;
        `
      }
-      background: ${props.actived?props.theme.colors.primary:'#fafafa'};
+      background: ${props.actived?props.theme.colors.primary:'rgba(0,0,0,0.25)'};
       content: '';
     }`
     }

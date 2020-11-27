@@ -78,7 +78,7 @@ const Steps: StepsProps = (props) => {
                 {
                     React.Children.map((children as React.ReactNode), (item, index) => {
                         if (!React.isValidElement(item)) { return item }
-                        if (item?.props === undefined) { return item }
+                        if (item.props === undefined) { return item }
                         const stepNumber = init + index;
                         const childProps: BasicStepProps = {
                             stepNumber: `${stepNumber }`,
@@ -88,7 +88,7 @@ const Steps: StepsProps = (props) => {
                             wrapperStyle: props.style,
                             progressDot,
                             onStepClick: props.onChange && onStepClick,
-                            ...item?.props,
+                            ...item.props,
                         };
                         if (!item.props.status) {
                             if (stepNumber === cur) {
