@@ -260,7 +260,7 @@ const Slider: React.FC<GenericSliderProps> = (props) => {
 
 
     const onMouseUp = () => {
-       
+       onEnd(true)
         sliderRef?.current?.removeEventListener('mousemove', onMouseMove);
     };
 
