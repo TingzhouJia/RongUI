@@ -6,7 +6,7 @@ import {  SpaceItemBase } from './wrapper';
 
 const spaceSize = {
     small: 8,
-    middle: 16,
+    default: 16,
     large: 24,
   };
   
@@ -33,7 +33,7 @@ const spaceSize = {
       ? {}
       : {
           [direction === 'vertical' ? 'marginBottom' : marginDirection]:
-            ((typeof size === 'string' ? spaceSize[size as 'small'|'middle'|'large'] : size) ?? 0) / (split ? 2 : 1),
+            ((typeof size === 'string' ? spaceSize[size as 'small'|'default'|'large'] : size) ?? 0) / (split ? 2 : 1),
         };
 
         return (
