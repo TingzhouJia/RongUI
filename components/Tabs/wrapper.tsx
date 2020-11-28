@@ -18,7 +18,7 @@ export const TabHeader = styled.header<{ bordered?: boolean }>`
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            border-bottom: ${props => props.bordered ? "none" : "1px solid rgba(0,0,0,0.45)"} ;
+            border-bottom: ${props => props.bordered ? "none" : "1px solid "+props.theme.colors.borderColor} ;
 
 `
 
@@ -31,12 +31,17 @@ export const TabItem = styled.div<{ disabled?: boolean, active?: boolean }>`
             text-transform: capitalize;
             font-size: 1rem;
             margin: 0 5px;
-            color: ${props => props.disabled ? "rgba(0,0,0,0.25)" :props.theme.colors.fontColor};
-            user-select: none;
+                 user-select: none;
             display: flex;
             align-items: center;
             line-height: 1.25rem;
+            color: ${props => props.disabled ? props.theme.colors.disabledColor:props.active?props.theme.colors.primary:props.theme.colors.fontColor};
+      
             position: relative;
+            &:hover {
+                color: ${props => props.disabled ? props.theme.colors.disabledColor:props.theme.colors.primary};
+      
+            }
             &::after {
               
                 ${props=>props.active?css`

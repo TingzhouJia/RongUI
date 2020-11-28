@@ -16,15 +16,13 @@ background-color: ${props=>props.checked?props.theme.colors.primary:"transparent
    
 `
 
-export const CloseIcon=styled.div`
-margin-left: 3px;
-    color: rgba(0,0,0,0.65);
+export const CloseIcon=styled.div<{status?:any}>`
+display:inline-block;
+    margin-left: 3px;
+    color: ${props=>props.status?"white":"rgba(0,0,0,0.65)"};
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
 
-    &:hover {
-      color: rgba(0,0,0,0.85);
-    }
 
 `
 
@@ -37,9 +35,8 @@ display: inline-block;
   font-size: 12px;
   line-height: 20px;
   white-space: nowrap;
-  background: ${props=>!props.status?props.color:'white'};
-  border: 1px solid ${props=>props.color||props.theme.colors.borderColor};
-  color:${props=>props.status?props.color:props.theme.colors.fontColor};
+  background: ${props=>props.color};
+  color:${props=>props.status?'white':props.theme.colors.fontColor};
   border-radius: 2px;
   cursor: default;
   opacity: 1;
