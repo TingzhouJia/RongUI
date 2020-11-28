@@ -8,7 +8,7 @@ import { ThemeContext } from 'styled-components';
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
     className?: string;
     color?: string;
-    status?: 'success'|'error'|'default'|'warning'
+    status?: 'success'|'error'|'info'|'warning'
     closable?: boolean;
     closeIcon?: React.ReactNode;
     visible?: boolean;
@@ -25,7 +25,7 @@ export interface TagType
 const InnerTag: React.ForwardRefRenderFunction<unknown, TagProps> = ({ 
     children,
     icon,
-    color='rgba(0,0,0,0.85)',
+    color,
     onClose,
     closeIcon,
     closable = false,
@@ -54,13 +54,10 @@ const InnerTag: React.ForwardRefRenderFunction<unknown, TagProps> = ({
     };
     const renderCloseIcon = () => {
         if (closable||onClose) {
-          return closeIcon ? (
-            <CloseIcon id="close-btn" onClick={handleCloseClick}>
-              {closeIcon}
-            </CloseIcon>
-          ) : (
-            <CloseOutlined id="close-btn"  onClick={handleCloseClick} />
-          );
+          return  ( <CloseIcon id="close-btn" onClick={handleCloseClick} status={status||color}>
+              {closeIcon|| <CloseOutlined id="close-btn"  onClick={handleCloseClick} />}
+            </CloseIcon>)
+         
         }
         return null;
       };
@@ -74,7 +71,7 @@ const InnerTag: React.ForwardRefRenderFunction<unknown, TagProps> = ({
       children
     );
     const tagNode = (
-        <TagBase status={status} id="rong-tag" color={status?getColor(status,theme):color} visble={visible} {...props} ref={ref as React.MutableRefObject<any>} >
+        <TagBase status={status||color} id="rong-tag" color={status?getColor(status,theme):color?color:"#f0f0f0"} visble={visible} {...props} ref={ref as React.MutableRefObject<any>} >
           {kids}
           {renderCloseIcon()}
         </TagBase>
