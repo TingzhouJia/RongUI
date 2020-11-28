@@ -6,7 +6,7 @@ import { useTimelineContext } from "./context";
 import { ThemeContext } from "styled-components";
 export interface TimeLineItemProps {
     className?: string;
-    status?: 'success'|'error'|'default'|'disabled';
+    status?: 'success'|'error'|'info'|'disabled'|'warning';
     color?:string
     dot?: React.ReactNode;
     pending?: boolean;
@@ -21,7 +21,7 @@ export interface TimeLineItemProps {
     const {
      
       className,
-      status="default",
+      status,
       children,
       last,
       pending=false,
@@ -45,7 +45,7 @@ export interface TimeLineItemProps {
           position={mode}
           pending={pending}
           labels={label?true:false}
-          color={color||getColor(status,theme)}
+          color={color?color:status?getColor(status,theme):theme.colors.primary}
         >
           {dot}
         </ItemHead>

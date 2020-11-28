@@ -54,7 +54,7 @@ ${props => props.pending ? css` display: none;` : null}
  css`left: 5px;`
 :css`left: calc(100% - 4px);`};
       height: calc(100% - 10px);
-      border-left: 2px solid rgba(0,0,0,0.25);
+      border-left: 2px solid #f0f0f0 ;
       &:last-child {
         display: none;
       }
