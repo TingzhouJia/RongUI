@@ -18,14 +18,12 @@ interface Props {
     leaveDelay?: number
     offset?: number
     className?: string
-    portalClassName?: string
-    portalStyle?:React.CSSProperties
+    style?:React.CSSProperties
     onVisibleChange?: TooltipOnVisibleChange
 }
 
 
-type NativeAttrs = Omit<React.HTMLAttributes<any>, keyof Props>
-export type TooltipProps = Props & NativeAttrs
+export type TooltipProps = Props
 
 
 const Tooltip: React.FC<TooltipProps> = ({
@@ -39,8 +37,8 @@ const Tooltip: React.FC<TooltipProps> = ({
     leaveDelay=20,
     trigger='hover',
     onVisibleChange,
-    portalClassName,
-    portalStyle,
+    className,
+    style,
     hideArrow=false,
     visible: customVisible,
     ...props
@@ -56,8 +54,8 @@ const Tooltip: React.FC<TooltipProps> = ({
         placement,
         hideArrow,
         parent: ref,
-      portalClassName,
-      portalStyle
+      portalClassName:className,
+      portalStyle:style
     }
     const changeVisible = (nextState: boolean) => {
         const clear = () => {
