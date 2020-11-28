@@ -16,6 +16,9 @@ export const getColor = (type: StatusTypes|ResultType | string,theme:ThemeTy) =>
     if (type === "info") {
         return theme.palette.info
     }
+    if(type === "disabled"){
+        return theme.palette.disabledColor
+    }
     return theme.palette.primary
 }
 
