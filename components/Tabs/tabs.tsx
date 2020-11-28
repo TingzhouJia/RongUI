@@ -5,6 +5,7 @@ import TabPane from './tabPane'
 interface Props {
     initialValue?: string
     value?: string
+
     hideDivider?: boolean
     onChange?: (val: string) => void
     className?: string
@@ -20,7 +21,7 @@ const Tabs: TabsProps = ({
     hideDivider,
     children,
     onChange,
-    className,
+
     ...props
 }) => {
     const setInitial=(items:React.ReactNode):string|undefined=>{
@@ -76,7 +77,7 @@ const Tabs: TabsProps = ({
 
     return (
         <TabsContext.Provider value={initialValue}>
-            <TabHeader>
+            <TabHeader className={props.className} style={props.style}>
                 {tabs.map(item => (
                     <TabItem
                         id={`tab-header-${item.value}`}
