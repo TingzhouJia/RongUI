@@ -53,7 +53,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
             if (!disabled) {
                 mergedChecked = newChecked;
                 setInnerChecked(mergedChecked);
-                onChange?.(mergedChecked, event);
+                onChange&&onChange(mergedChecked, event);
             }
 
             return mergedChecked;
@@ -65,13 +65,13 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
             } else if (e.which === KeyCode.RIGHT) {
                 triggerChange(true, e);
             }
-            onKeyDown?.(e);
+            onKeyDown&&onKeyDown(e);
         }
 
         function onInternalClick(e: React.MouseEvent<HTMLButtonElement>) {
             const ret = triggerChange(!innerChecked, e);
             // [Legacy] trigger onClick with value
-            onClick?.(ret as boolean, e);
+           onClick&&onClick(ret as boolean, e);
         }
 
 
