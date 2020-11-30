@@ -10,7 +10,13 @@
 
 # Quick Start
 
-1.  Install: `yarn add styled-components rong-react @ant-design/icons` or `npm i styled-components rong-react @ant-design/icons`
+1.  Install: 
+```bash
+yarn add styled-components rong-react @ant-design/icons
+```
+```bash
+npm i styled-components rong-react @ant-design/icons
+```
 
 2.  Import :
 
